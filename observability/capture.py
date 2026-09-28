@@ -1602,6 +1602,241 @@ class StateCapture:
 
         return frame
 
+    def capture_phase12_step(
+        self,
+        step: int,
+        input_vec: np.ndarray,
+        model: Any,
+        y_val: Union[float, List[float], np.ndarray],
+        target_val: float,
+        mask_val: float,
+        reward: float = 0.0,
+        context_id: Optional[int] = None,
+        metrics: Optional[Dict[str, Any]] = None,
+        interface_telemetry: Optional[Dict[str, Any]] = None,
+        phase_label: str = "PHASE12",
+    ) -> TelemetryFrame:
+        """Capture a Phase 12 context-to-action interface and local action plasticity step."""
+        time_ms = step * self.dt_ms
+        obs = model.observable_state() if hasattr(model, "observable_state") else {}
+        tele = interface_telemetry or {}
+
+        # 1. Inputs & Hidden Activations
+        in_acts = [float(x) for x in input_vec]
+        if "activations" in obs:
+            h_acts = [float(a) for a in obs["activations"]]
+        elif "activation" in obs:
+            h_acts = [float(a) for a in obs["activation"][0]]
+        else:
+            h_acts = [0.0] * self.topology.hidden_count
+
+        out_nodes = [n for n in self.topology.nodes if n.type == "OUTPUT"]
+        num_out = len(out_nodes) if len(out_nodes) > 0 else 2
+        if isinstance(y_val, (list, tuple, np.ndarray)):
+            out_acts = [float(v) for v in y_val]
+        else:
+            out_acts = [float(y_val)]
+        if len(out_acts) < num_out:
+            out_acts = out_acts + [0.0] * (num_out - len(out_acts))
+        elif len(out_acts) > num_out:
+            out_acts = out_acts[:num_out]
+
+        all_acts = in_acts + h_acts + out_acts
+
+        v_soma = obs.get("v_soma", h_acts)
+        in_states = [float(x) for x in input_vec]
+        h_states = [float(v) for v in v_soma]
+        all_states = in_states + h_states + out_acts
+
+        err = abs(float(out_acts[0]) - float(target_val)) if mask_val > 0 else 0.0
+
+        # Signals actively in-transit along axons
+        signals: List[TelemetrySignal] = []
+        offset = len(in_acts)
+
+        if hasattr(model, "queue") and model.queue is not None:
+            if hasattr(model.queue, "active_spikes") and len(model.queue.active_spikes) > 0:
+                for spk in model.queue.active_spikes:
+                    s_id = offset + spk.source
+                    d_id = offset + spk.target
+                    prog = spk.progress(step)
+                    signals.append(
+                        TelemetrySignal(
+                            src=s_id,
+                            dst=d_id,
+                            progress=prog,
+                            magnitude=spk.weight,
+                            distance=spk.distance,
+                            delay=spk.delay,
+                        )
+                    )
+        signals = signals[: self.max_active_signals]
+
+        # Phase 12 Computational Events
+        step_events: List[ComputationalEvent] = []
+
+        if step == 0:
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.TRIAL_STARTED,
+                    step=step,
+                    time_ms=time_ms,
+                    payload={"context_id": context_id if context_id is not None else 0},
+                )
+            )
+
+        # Context Readout Event
+        ctx_norm = float(tele.get("context_norm", 0.0))
+        ctx_source = str(tele.get("context_source", "ATTRACTOR"))
+        step_events.append(
+            ComputationalEvent(
+                event_type=EventType.CONTEXT_READOUT,
+                step=step,
+                time_ms=time_ms,
+                magnitude=ctx_norm,
+                payload={
+                    "source": ctx_source,
+                    "context_id": context_id if context_id is not None else 0,
+                    "context_dim": int(tele.get("context_dim", 0)),
+                },
+            )
+        )
+
+        # Action Evidence Accumulated Event
+        act_vals = tele.get("action_evidence", out_acts)
+        step_events.append(
+            ComputationalEvent(
+                event_type=EventType.ACTION_EVIDENCE_ACCUMULATED,
+                step=step,
+                time_ms=time_ms,
+                payload={"action_evidence": [round(float(v), 4) for v in act_vals]},
+            )
+        )
+
+        # Action Selected Event
+        sel_act = int(tele.get("selected_action", np.argmax(out_acts) if out_acts else 0))
+        margin = float(tele.get("winner_margin", 0.0))
+        probs = tele.get("action_probs", [])
+        step_events.append(
+            ComputationalEvent(
+                event_type=EventType.ACTION_SELECTED,
+                step=step,
+                time_ms=time_ms,
+                node_id=sel_act,
+                magnitude=margin,
+                payload={
+                    "selected_action": sel_act,
+                    "winner_margin": round(margin, 4),
+                    "action_probs": [round(float(p), 4) for p in probs] if probs else [],
+                    "action_entropy": round(float(tele.get("action_entropy", 0.0)), 4),
+                },
+            )
+        )
+
+        # Action Error Event (if target present)
+        if mask_val > 0.0 or tele.get("error_computed", False):
+            err_norm = float(tele.get("error_norm", err))
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.ACTION_ERROR_COMPUTED,
+                    step=step,
+                    time_ms=time_ms,
+                    magnitude=err_norm,
+                    payload={"target": float(target_val), "error_norm": round(err_norm, 4)},
+                )
+            )
+
+        # Action Eligibility Updated Event
+        if tele.get("eligibility_updated", False):
+            e_norm = float(tele.get("eligibility_norm", 0.0))
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.ACTION_ELIGIBILITY_UPDATED,
+                    step=step,
+                    time_ms=time_ms,
+                    magnitude=e_norm,
+                    payload={"eligibility_norm": round(e_norm, 4)},
+                )
+            )
+
+        # Action Credit Assigned / Synapse Updated Events
+        if tele.get("credit_assigned", False) or abs(reward) > 1e-4:
+            dw_norm = float(tele.get("dw_norm", 0.0))
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.ACTION_CREDIT_ASSIGNED,
+                    step=step,
+                    time_ms=time_ms,
+                    magnitude=reward,
+                    payload={
+                        "reward": float(reward),
+                        "interface_credit": round(float(tele.get("interface_credit", 0.0)), 4),
+                        "collateral_credit": round(float(tele.get("collateral_credit", 0.0)), 4),
+                        "recurrent_leakage": round(float(tele.get("recurrent_leakage", 0.0)), 4),
+                    },
+                )
+            )
+            if dw_norm > 1e-6:
+                step_events.append(
+                    ComputationalEvent(
+                        event_type=EventType.ACTION_SYNAPSE_UPDATED,
+                        step=step,
+                        time_ms=time_ms,
+                        magnitude=dw_norm,
+                        payload={"dw_norm": round(dw_norm, 6)},
+                    )
+                )
+
+        # Dynamic Details for Observatory Console
+        dynamic_details = {
+            "v_soma": [round(float(v), 2) for v in obs.get("v_soma", [])],
+            "v_dend": [round(float(v), 2) for v in obs.get("v_dend", [])],
+            "g_nmda": [round(float(g), 3) for g in obs.get("g_nmda", [])],
+            "context_source": ctx_source,
+            "context_norm": round(ctx_norm, 4),
+            "action_evidence": [round(float(v), 3) for v in act_vals],
+            "selected_action": sel_act,
+            "winner_margin": round(margin, 4),
+            "action_entropy": round(float(tele.get("action_entropy", 0.0)), 4),
+            "action_probs": [round(float(p), 4) for p in probs] if probs else [],
+            "learning_rule": str(tele.get("learning_rule", "R3_THREE_FACTOR")),
+            "frozen_recurrent": True,
+            "csi": round(float(tele.get("csi", metrics.get("csi", 0.0) if metrics else 0.0)), 4),
+            "precision": round(float(tele.get("precision", metrics.get("precision", 0.0) if metrics else 0.0)), 4),
+            "leakage": round(float(tele.get("leakage", metrics.get("leakage", 0.0) if metrics else 0.0)), 4),
+            "recurrent_leakage": round(float(tele.get("recurrent_leakage", 0.0)), 4),
+            "interface_credit": round(float(tele.get("interface_credit", 0.0)), 4),
+            "collateral_credit": round(float(tele.get("collateral_credit", 0.0)), 4),
+        }
+
+        frame = TelemetryFrame(
+            step=step,
+            time_ms=time_ms,
+            inputs=in_acts,
+            activations=all_acts,
+            states=all_states,
+            output=float(out_acts[0]),
+            target=float(target_val),
+            error=float(err),
+            mask=float(mask_val),
+            signals=signals,
+            events=step_events,
+            dynamic_details=dynamic_details,
+        )
+
+        self.frames.append(frame)
+        self.all_events.extend(step_events)
+
+        if step % 10 == 0:
+            self.snapshots[step] = {
+                "step": step,
+                "states": all_states,
+                "activations": all_acts,
+                "weights_digest": len(self.topology.edges),
+            }
+
+        return frame
+
     def complete_trial(self, final_acc: float) -> None:
         """Mark trial completion and emit final event."""
         if len(self.frames) > 0:

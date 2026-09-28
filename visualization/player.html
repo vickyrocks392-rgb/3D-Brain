@@ -753,12 +753,17 @@
         🛡️ Gate: Off
       </button>
 
-      <button class="btn" id="action-routing-btn" title="Toggle Action Routing Visualization [R]">
+      <button class="btn" id="action-routing-btn" title="Toggle Action Routing Visualization [T]">
         🎯 Routing: Off
       </button>
 
+      <button class="btn" id="action-interface-btn" title="Toggle Action Interface Visualization [I]">
+        ⚡ Interface: Off
+      </button>
+
       <select id="model-select" class="select-model" title="Select .brainlog Trace">
-        <option value="/experiments/results/brainlogs/EXP011_predictive_gating_attractor.brainlog" selected>EXP011: Predictive Gating & Recurrent Attractor</option>
+        <option value="/experiments/results/brainlogs/EXP012_action_interface.brainlog" selected>EXP012: Learnable Action Interface</option>
+        <option value="/experiments/results/brainlogs/EXP011_predictive_gating_attractor.brainlog">EXP011: Predictive Gating & Recurrent Attractor</option>
         <option value="/experiments/results/brainlogs/EXP010_two_compartment_targeted_credit.brainlog">EXP010: Two-Compartment & Targeted Credit</option>
         <option value="/experiments/results/brainlogs/EXP009_three_factor_rpe_modular.brainlog">EXP009: Three-Factor RPE (Modular 3D)</option>
         <option value="/experiments/results/brainlogs/EXP009_three_factor_global_reward.brainlog">EXP009: Global Reward Modulation</option>
@@ -1246,6 +1251,45 @@
             </div>
           </div>
         </div>
+
+        <!-- Phase 12 Action Interface -->
+        <div class="section-box" id="phase12-interface-box">
+          <span class="section-header-label">Phase 12 Action Interface [I]</span>
+          <div class="metric-grid">
+            <div class="metric-cell">
+              <span class="metric-name">Substrate</span>
+              <span class="metric-val" id="m-substrate-status" style="color: #38bdf8;">FROZEN</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Recurrent Leak</span>
+              <span class="metric-val" id="m-rec-leak" style="color: #10b981;">0.0%</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Context Source</span>
+              <span class="metric-val" id="m-ctx-source">—</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Selected Action</span>
+              <span class="metric-val" id="m-selected-action">—</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Winner Margin</span>
+              <span class="metric-val" id="m-winner-margin">—</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Action Entropy</span>
+              <span class="metric-val" id="m-action-entropy">—</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Interface Credit</span>
+              <span class="metric-val" id="m-interface-credit">—</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Credit Specificity</span>
+              <span class="metric-val" id="m-interface-csi">—</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- TAB 2: EVENT FEED -->
@@ -1347,6 +1391,7 @@
         <div class="metric-cell"><span class="metric-name">O</span><span class="metric-val">Reset Camera</span></div>
         <div class="metric-cell"><span class="metric-name">Esc</span><span class="metric-val">Clear Selection</span></div>
         <div class="metric-cell"><span class="metric-name">1</span><span class="metric-val">Structural Connectivity</span></div>
+        <div class="metric-cell"><span class="metric-name">I</span><span class="metric-val">Toggle Action Interface Mode</span></div>
         <div class="metric-cell"><span class="metric-name">2</span><span class="metric-val">Functional Connectivity</span></div>
         <div class="metric-cell"><span class="metric-name">?</span><span class="metric-val">Toggle Shortcuts Help</span></div>
       </div>
@@ -1982,16 +2027,37 @@
           mat.emissiveIntensity = 3.0;
           mesh.scale.set(1.6, 1.6, 1.6);
         } else if (isOutput) {
-          const outCol = actionRoutingActive ? (idx % 2 === 0 ? 0x38bdf8 : 0xf43f5e) : 0xffd700;
-          mat.color.setHex(outCol);
-          mat.emissive.setHex(outCol);
-          mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 2.0 + 0.2, 0.2, 3.0);
-          mesh.scale.set(1.2, 1.2, 1.2);
+          if (actionInterfaceActive) {
+            const outBase = nodes.length - (topology.output_count || 2);
+            const actIdx = idx - outBase;
+            const isWinner = (dyn.selected_action !== undefined && actIdx === dyn.selected_action);
+            const outCol = isWinner ? 0x10b981 : (actIdx === 0 ? 0x38bdf8 : (actIdx === 1 ? 0xf43f5e : 0xfbbf24));
+            mat.color.setHex(outCol);
+            mat.emissive.setHex(outCol);
+            mat.emissiveIntensity = isWinner ? 3.2 : 0.9;
+            mesh.scale.set(isWinner ? 1.6 : 1.2, isWinner ? 1.6 : 1.2, isWinner ? 1.6 : 1.2);
+          } else {
+            const outCol = actionRoutingActive ? (idx % 2 === 0 ? 0x38bdf8 : 0xf43f5e) : 0xffd700;
+            mat.color.setHex(outCol);
+            mat.emissive.setHex(outCol);
+            mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 2.0 + 0.2, 0.2, 3.0);
+            mesh.scale.set(1.2, 1.2, 1.2);
+          }
         } else if (isInput) {
           mat.color.setHex(creditFlowActive ? 0xf59e0b : 0x94a3b8);
           mat.emissive.setHex(creditFlowActive ? 0xf59e0b : 0x94a3b8);
           mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.5, 0.08, 1.8);
           mesh.scale.set(0.9, 0.9, 0.9);
+        } else if (actionInterfaceActive && recIdx >= 0) {
+          // Action Interface Mode: Frozen recurrent substrate with highlighted context projections
+          const halfH = Math.floor((topology.hidden_count || 50) / 2);
+          const isPoolA = recIdx < halfH;
+          const baseCol = isPoolA ? 0x38bdf8 : 0x818cf8;
+          mat.color.setHex(baseCol);
+          mat.emissive.setHex(baseCol);
+          mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.8 + 0.1, 0.1, 2.5);
+          const s = 0.95 + THREE.MathUtils.clamp(absAct * 0.5, 0.0, 0.8);
+          mesh.scale.set(s, s, s);
         } else if (attractorModeActive && recIdx >= 0) {
           // Attractor Mode: color by attractor pool membership
           const isPoolA = recIdx < 32;
@@ -2167,6 +2233,17 @@
           csiEl.innerText = `CSI: ${val >= 0 ? '+' : ''}${val.toFixed(3)}`;
           csiEl.style.color = val > 0 ? 'var(--color-reward)' : 'var(--color-inhibitory)';
         }
+      }
+
+      // Phase 12 Action Interface Telemetry
+      if (document.getElementById('m-ctx-source')) {
+        document.getElementById('m-ctx-source').innerText = dyn.context_source || 'ATTRACTOR';
+        document.getElementById('m-selected-action').innerText = dyn.selected_action !== undefined ? `Action ${dyn.selected_action}` : '—';
+        document.getElementById('m-winner-margin').innerText = dyn.winner_margin !== undefined ? Number(dyn.winner_margin).toFixed(4) : '—';
+        document.getElementById('m-action-entropy').innerText = dyn.action_entropy !== undefined ? Number(dyn.action_entropy).toFixed(4) : '—';
+        document.getElementById('m-interface-credit').innerText = dyn.interface_credit !== undefined ? Number(dyn.interface_credit).toFixed(4) : '—';
+        document.getElementById('m-interface-csi').innerText = dyn.csi !== undefined ? Number(dyn.csi).toFixed(4) : '—';
+        document.getElementById('m-rec-leak').innerText = dyn.recurrent_leakage !== undefined ? `${(dyn.recurrent_leakage*100).toFixed(1)}%` : '0.0%';
       }
     }
 
@@ -2686,6 +2763,18 @@
       });
     }
 
+    // Action Interface Mode Toggle [I]
+    let actionInterfaceActive = false;
+    const actionInterfaceBtn = document.getElementById('action-interface-btn');
+    if (actionInterfaceBtn) {
+      actionInterfaceBtn.addEventListener('click', () => {
+        actionInterfaceActive = !actionInterfaceActive;
+        actionInterfaceBtn.innerText = `⚡ Interface: ${actionInterfaceActive ? 'On' : 'Off'}`;
+        actionInterfaceBtn.classList.toggle('active', actionInterfaceActive);
+        if (replay) renderFrame(replay.currentStep);
+      });
+    }
+
     // Model Selector
     document.getElementById('model-select').addEventListener('change', (e) => {
       fetchBrainlog(e.target.value);
@@ -2831,6 +2920,9 @@
         if (btn) btn.click();
       } else if (e.code === 'KeyT') {
         const btn = document.getElementById('action-routing-btn');
+        if (btn) btn.click();
+      } else if (e.code === 'KeyI') {
+        const btn = document.getElementById('action-interface-btn');
         if (btn) btn.click();
       } else if (e.code === 'KeyO') {
         camRadius = 24.0;

@@ -1,5 +1,5 @@
 {
-  "brainlog_version": "2.0",
+  "brainlog_version": "2.1",
   "metadata": {
     "experiment_id": "TEST_RUNNER",
     "model_id": "CAND-LI",
@@ -17,7 +17,7 @@
       "t_delay": 10.0
     },
     "test_accuracy": 0.4333,
-    "timestamp": "2026-09-28T12:22:02.884179+00:00"
+    "timestamp": "2026-09-28T12:55:04.599181+00:00"
   },
   "topology": {
     "topology_id": "CAND-LI_15units",

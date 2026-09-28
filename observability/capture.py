@@ -178,6 +178,16 @@ class StateCapture:
                     payload={"phase": "PROBE", "probe_flag": float(input_vec[1])},
                 )
             )
+        elif phase_label.startswith("ENV_SWITCH"):
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.ENVIRONMENT_CHANGE,
+                    step=step,
+                    time_ms=time_ms,
+                    magnitude=1.0,
+                    payload={"label": phase_label},
+                )
+            )
 
         if mask_val > 0:
             step_events.append(
@@ -213,8 +223,32 @@ class StateCapture:
             dynamic_details["gate_r"] = [round(float(v), 4) for v in obs["gate_r"][0]]
         if "candidate_state" in obs:
             dynamic_details["cand_h"] = [round(float(v), 4) for v in obs["candidate_state"][0]]
+        if "cand_h" in obs:
+            dynamic_details["cand_h"] = [round(float(v), 4) for v in obs["cand_h"][0]]
         if "previous_state" in obs:
             dynamic_details["prev_h"] = [round(float(v), 4) for v in obs["previous_state"][0]]
+        if "prev_h" in obs:
+            dynamic_details["prev_h"] = [round(float(v), 4) for v in obs["prev_h"][0]]
+        if "mean_abs_dw" in obs:
+            mean_abs_dw = float(obs["mean_abs_dw"][0])
+            dynamic_details["mean_abs_dw"] = round(mean_abs_dw, 6)
+            if "max_dw" in obs:
+                dynamic_details["max_dw"] = round(float(obs["max_dw"][0]), 6)
+            if "weight_norm" in obs:
+                dynamic_details["weight_norm"] = round(float(obs["weight_norm"][0]), 4)
+            if mean_abs_dw > 1e-5:
+                step_events.append(
+                    ComputationalEvent(
+                        event_type=EventType.PLASTICITY_UPDATE,
+                        step=step,
+                        time_ms=time_ms,
+                        magnitude=mean_abs_dw,
+                        payload={
+                            "max_dw": float(obs.get("max_dw", [0])[0]),
+                            "weight_norm": float(obs.get("weight_norm", [0])[0]),
+                        },
+                    )
+                )
 
         frame = TelemetryFrame(
             step=step,

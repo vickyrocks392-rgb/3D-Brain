@@ -266,6 +266,9 @@
     .pin-output { background: var(--magenta); }
     .pin-error { background: var(--amber); }
     .pin-trial { background: var(--gold); }
+    .pin-plasticity { background: #b388ff; color: #000; }
+    .pin-env { background: #ff5722; color: #fff; }
+
 
     .scrubber-container {
       display: flex;
@@ -356,13 +359,18 @@
     <div class="badge-group">
       <div class="badge">
         <h1>3D-Brain</h1>
-        <span class="tag gold" id="version-tag">OBSERVABILITY v2.0</span>
-        <span class="tag" id="model-tag">DISC-LRNN</span>
-        <span id="exp-info" style="font-size: 12px; color: var(--text-muted);">EXP002 Matrix Trace</span>
+        <span class="tag gold" id="version-tag">OBSERVABILITY v2.1 (PLASTICITY)</span>
+        <span class="tag" id="model-tag">PLASTIC_MODULATED</span>
+        <span id="exp-info" style="font-size: 12px; color: var(--text-muted);">EXP003 Continual Adaptation Trace</span>
       </div>
     </div>
     <div class="controls-top">
       <select id="model-select" class="select-model">
+        <option value="/experiments/results/brainlogs/EXP003_Modulated_rep.brainlog">EXP003: Modulated 3-Factor Plasticity (A-B-A)</option>
+        <option value="/experiments/results/brainlogs/EXP003_Homeostatic_rep.brainlog">EXP003: Homeostatic Plasticity (A-B-A)</option>
+        <option value="/experiments/results/brainlogs/EXP003_Oja_rep.brainlog">EXP003: Oja Normalized Plasticity (A-B-A)</option>
+        <option value="/experiments/results/brainlogs/EXP003_Hebbian_rep.brainlog">EXP003: Hebbian Plasticity (A-B-A)</option>
+        <option value="/experiments/results/brainlogs/EXP003_Frozen_rep.brainlog">EXP003: Frozen Control Baseline (A-B-A)</option>
         <option value="/experiments/results/brainlogs/EXP002_DISC-LRNN_rep.brainlog">EXP002: DISC-LRNN (Discrete Leaky)</option>
         <option value="/experiments/results/brainlogs/EXP002_CAND-LI_rep.brainlog">EXP002: CAND-LI (Forward Euler)</option>
         <option value="/experiments/results/brainlogs/EXP002_BASE-GRU-MemBias_rep.brainlog">EXP002: BASE-GRU-MemBias (Memory-Biased)</option>
@@ -409,7 +417,11 @@
       <div class="metric-row"><span class="label">Connection:</span><span class="val" id="edge-connection">-</span></div>
       <div class="metric-row"><span class="label">Source:</span><span class="val" id="edge-src">-</span></div>
       <div class="metric-row"><span class="label">Destination:</span><span class="val" id="edge-dst">-</span></div>
-      <div class="metric-row"><span class="label">Synaptic Weight:</span><span class="val" id="edge-weight">-</span></div>
+      <div class="metric-row"><span class="label">Initial Weight (W_0):</span><span class="val" id="edge-init-weight">-</span></div>
+      <div class="metric-row"><span class="label">Current Weight (W_t):</span><span class="val" id="edge-weight">-</span></div>
+      <div class="metric-row"><span class="label">Cumulative ΔW:</span><span class="val" id="edge-delta-weight">-</span></div>
+      <div class="metric-row"><span class="label">Recent |ΔW|:</span><span class="val" id="edge-recent-dw">-</span></div>
+      <div class="metric-row"><span class="label">Plasticity Rule:</span><span class="val" id="edge-plasticity-rule">-</span></div>
       <div class="metric-row"><span class="label">Live Signal:</span><span class="val" id="edge-signal">-</span></div>
       <div class="bar-container">
         <div class="bar-fill" id="edge-signal-bar" style="width: 0%;"></div>
@@ -674,7 +686,9 @@
       pause();
 
       document.getElementById('model-tag').innerText = data.metadata.model_id;
-      document.getElementById('exp-info').innerText = `${data.metadata.experiment_id} | Budget: ${data.metadata.budget} | Delay: ${data.metadata.delay} | Acc: ${(data.metadata.test_accuracy * 100).toFixed(1)}%`;
+      const accVal = data.metadata.test_accuracy !== undefined ? data.metadata.test_accuracy : (data.metadata.overall_accuracy !== undefined ? data.metadata.overall_accuracy : 1.0);
+      const delayVal = data.metadata.delay !== undefined ? data.metadata.delay : (data.metadata.condition || 'Adapt');
+      document.getElementById('exp-info').innerText = `${data.metadata.experiment_id} | Budget: ${data.metadata.budget} | Delay/Cond: ${delayVal} | Acc: ${(accVal * 100).toFixed(1)}%`;
       
       const maxSteps = data.frames.length - 1;
       const timeline = document.getElementById('timeline');
@@ -705,10 +719,14 @@
         else if (ev.type === 'OUTPUT_COMPUTED') { label = 'OUT'; cls = 'pin-output'; }
         else if (ev.type === 'PREDICTION_ERROR') { label = 'ERR'; cls = 'pin-error'; }
         else if (ev.type === 'TRIAL_COMPLETED') { label = '★'; cls = 'pin-trial'; }
+        else if (ev.type === 'PLASTICITY_UPDATE') { label = 'ΔW'; cls = 'pin-plasticity'; }
+        else if (ev.type === 'ENVIRONMENT_CHANGE' || ev.type === 'TASK_SWITCH') { label = 'ENV'; cls = 'pin-env'; }
+        else if (ev.type === 'WEIGHT_INCREASE') { label = 'W+'; cls = 'pin-plasticity'; }
+        else if (ev.type === 'WEIGHT_DECREASE') { label = 'W-'; cls = 'pin-plasticity'; }
 
         pin.classList.add(cls);
         pin.innerText = label;
-        pin.title = `[Step ${ev.step}] ${ev.type} ${ev.node_id !== undefined ? `(Node ${ev.node_id})` : ''} Mag: ${ev.magnitude || ''}`;
+        pin.title = `[Step ${ev.step}] ${ev.type} ${ev.node_id !== undefined ? `(Node ${ev.node_id})` : ''} Mag: ${ev.magnitude !== undefined ? ev.magnitude : ''}`;
 
         pin.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -1001,10 +1019,24 @@
       document.getElementById('edge-connection').innerText = `Node ${src} → Node ${dst}`;
       document.getElementById('edge-src').innerText = `${info.srcNode.label} (${info.srcNode.type})`;
       document.getElementById('edge-dst').innerText = `${info.dstNode.label} (${info.dstNode.type})`;
-      
+
+      const initW = (info.initial_weight !== undefined && info.initial_weight !== null) ? info.initial_weight : info.weight;
+      document.getElementById('edge-init-weight').innerText = (initW > 0 ? '+' : '') + initW.toFixed(4);
+
       const wEl = document.getElementById('edge-weight');
       wEl.innerText = (info.weight > 0 ? '+' : '') + info.weight.toFixed(4);
       wEl.style.color = info.weight >= 0 ? 'var(--cyan)' : 'var(--amber)';
+
+      const deltaEl = document.getElementById('edge-delta-weight');
+      const dw = (info.delta_weight !== undefined && info.delta_weight !== null) ? info.delta_weight : 0.0;
+      deltaEl.innerText = (dw > 0 ? '+' : '') + dw.toFixed(6);
+      deltaEl.style.color = dw > 0 ? 'var(--green)' : (dw < 0 ? 'var(--amber)' : 'var(--text-muted)');
+
+      const rdwEl = document.getElementById('edge-recent-dw');
+      const rdw = (info.recent_dw !== undefined && info.recent_dw !== null) ? info.recent_dw : 0.0;
+      rdwEl.innerText = rdw.toFixed(6);
+
+      document.getElementById('edge-plasticity-rule').innerText = (logData && logData.metadata && logData.metadata.rule) ? logData.metadata.rule : 'Static (Frozen)';
 
       const sEl = document.getElementById('edge-signal');
       sEl.innerText = info.signalMagnitude.toFixed(4);
@@ -1109,7 +1141,7 @@
     animate();
 
     // Auto-fetch default representative trace
-    fetchBrainlog('/experiments/results/brainlogs/EXP002_DISC-LRNN_rep.brainlog');
+    fetchBrainlog('/experiments/results/brainlogs/EXP003_Modulated_rep.brainlog');
   </script>
 </body>
 </html>

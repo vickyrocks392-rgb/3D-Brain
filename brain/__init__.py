@@ -3,6 +3,15 @@ from brain.rnn import BaseRNN
 from brain.gru import BaseGRU, BaseGRUMemBias
 from brain.liquid import CandLiquid
 from brain.discrete_leaky_rnn import DiscreteLeakyRNN
+from brain.plasticity import (
+    PlasticRNN,
+    PlasticityRule,
+    FrozenPlasticity,
+    HebbianPlasticity,
+    OjaPlasticity,
+    ModulatedPlasticity,
+    HomeostaticPlasticity,
+)
 
 __all__ = [
     "BrainModel",
@@ -12,4 +21,11 @@ __all__ = [
     "BaseGRUMemBias",
     "CandLiquid",
     "DiscreteLeakyRNN",
+    "PlasticRNN",
+    "PlasticityRule",
+    "FrozenPlasticity",
+    "HebbianPlasticity",
+    "OjaPlasticity",
+    "ModulatedPlasticity",
+    "HomeostaticPlasticity",
 ]

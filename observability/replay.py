@@ -36,6 +36,11 @@ class EdgeInspection:
     current_src_activation: float
     current_signal_magnitude: float
     is_active: bool
+    initial_weight: Optional[float] = None
+    current_weight: Optional[float] = None
+    delta_weight: Optional[float] = None
+    recent_dw: Optional[float] = None
+
 
 
 class ReplayEngine:
@@ -172,6 +177,20 @@ class ReplayEngine:
             dynamic_vars=dynamic_vars,
         )
 
+    def get_plasticity_events(self) -> List[dict]:
+        """Return all events related to synaptic plasticity and weight updates."""
+        all_events = self.get_all_events()
+        plasticity_types = {
+            "PLASTICITY_UPDATE",
+            "WEIGHT_INCREASE",
+            "WEIGHT_DECREASE",
+            "MODULATION_ON",
+            "MODULATION_OFF",
+            "ENVIRONMENT_CHANGE",
+            "TASK_SWITCH",
+        }
+        return [e for e in all_events if e.get("type") in plasticity_types]
+
     def inspect_edge(self, src: int, dst: int) -> Optional[EdgeInspection]:
         """Inspect a specific directed connection at current step."""
         if not self.data:
@@ -186,16 +205,30 @@ class ReplayEngine:
         e = match[0]
         frame = self.current_frame()
         src_act = frame["activations"][src]
-        signal_mag = src_act * e["weight"]
+        base_w = float(e["weight"])
+        
+        # Check dynamic weight details if present in frame
+        curr_w = base_w
+        dyn_details = frame.get("dynamic_details", {})
+        recent_dw = None
+        if "mean_abs_dw" in dyn_details:
+            recent_dw = float(dyn_details["mean_abs_dw"])
+
+        signal_mag = src_act * curr_w
         is_active = abs(signal_mag) >= 0.07
 
         return EdgeInspection(
             src=src,
             dst=dst,
-            weight=e["weight"],
+            weight=round(curr_w, 4),
             src_label=nodes[src]["label"],
             dst_label=nodes[dst]["label"],
             current_src_activation=src_act,
             current_signal_magnitude=round(float(signal_mag), 4),
             is_active=is_active,
+            initial_weight=round(base_w, 4),
+            current_weight=round(curr_w, 4),
+            delta_weight=round(curr_w - base_w, 6),
+            recent_dw=recent_dw,
         )
+

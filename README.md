@@ -50,12 +50,16 @@ The foundation of 3D-Brain is comprehensively documented in the following charte
 * **[Phase 1.1 Scientific Audit Report](file:///Users/kalachanddash/Documents/3D-Brain/docs/PHASE_1_1_SCIENTIFIC_AUDIT.md)**: Rigorous reproducibility audit, causal attribution analysis, confound identification, and claim classifications.
 * **[Experiment 002 Specification](file:///Users/kalachanddash/Documents/3D-Brain/experiments/EXPERIMENT_002_SPECIFICATION.md)**: Tightly controlled ablation isolating leaky dynamics from continuous-time ODEs and investigating GRU gate initialization.
 * **[Phase 2 Implementation Report](file:///Users/kalachanddash/Documents/3D-Brain/docs/PHASE_2_IMPLEMENTATION_REPORT.md)**: Observability Engine architecture, Experiment 002 matrix results across 96 conditions, and causal replay console documentation.
+* **[Online Plasticity Literature Review](file:///Users/kalachanddash/Documents/3D-Brain/research/ONLINE_PLASTICITY_REVIEW.md)**: Deep analysis of Hebbian, Oja, Homeostatic, Predictive Coding, and Three-Factor Neuromodulated plasticity.
+* **[Experiment 003 Specification](file:///Users/kalachanddash/Documents/3D-Brain/experiments/EXPERIMENT_003_SPECIFICATION.md)**: Benchmark design for Continual Delayed Association (CDA) across 5 non-stationary environmental regimes.
+* **[Experiment 003 Results Report](file:///Users/kalachanddash/Documents/3D-Brain/experiments/EXPERIMENT_003_RESULTS.md)**: Empirical evaluation of 95 experimental condition runs comparing Frozen, Hebbian, Oja, Modulated, and Homeostatic plasticity.
+* **[Phase 3 Implementation Report](file:///Users/kalachanddash/Documents/3D-Brain/docs/PHASE_3_IMPLEMENTATION_REPORT.md)**: Mathematical formulations, continual adaptation dynamics, catastrophic forgetting analysis, stability findings, and 3D visual observability of dynamic synaptic weights.
 
 ---
 
 ## 4. Running Benchmarks & 3D Visualization
 
-### Execute Automated Test Suite (38 Tests)
+### Execute Automated Test Suite (53 Tests)
 ```bash
 python3 -m pytest tests -v
 ```
@@ -68,6 +72,11 @@ python3 experiments/run_exp001.py
 ### Run Full Experiment 002 Matrix (96 Runs)
 ```bash
 python3 experiments/run_exp002.py
+```
+
+### Run Full Experiment 003 Continual Plasticity Matrix (95 Runs)
+```bash
+python3 experiments/run_exp003.py
 ```
 
 ### Launch Interactive 3D Observability & Replay Console
@@ -102,6 +111,6 @@ Model Refinement / Rejection
 
 ## 6. Next Steps
 
-With Phase 1 and Phase 2 successfully completed:
-1. **Phase 3: Online Plasticity & Continual Adaptation**: Implement local plasticity rules (Hebbian STDP, predictive coding error minimization) and evaluate sequential learning without catastrophic forgetting under non-stationary task distributions.
-2. Advance toward native desktop shell integrations and scalable spatial topologies.
+With Phase 1, Phase 2, and Phase 3 successfully completed:
+1. **Phase 4: Spatialized 3D Topology & Parameter Scaling**: Introduce physical metric space constraints (wiring length minimization, conduction delays), modular multi-area connectivity (sensory hub, recurrent working memory core, motor output), and scale parameters toward 50K-100K units.
+2. Advance toward native desktop shell integrations and closed-loop embodied interaction.

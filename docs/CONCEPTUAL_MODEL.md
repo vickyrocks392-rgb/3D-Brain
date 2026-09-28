@@ -74,3 +74,19 @@ Phase 8 introduces biological excitation/inhibition constraints:
      $$R_{\text{local}} \text{ (within neighborhood radius } r) \quad \text{vs} \quad R_{\text{global}} \text{ (whole brain)}$$
    - Operational Asynchronous-Irregular (AI) regime requires local functional coordination ($R_{\text{local}} > R_{\text{global}}$) alongside low pairwise spike-count correlation ($r_{\text{sc}} \approx 0.03$), preventing runaway global hypersynchrony and representational collapse.
 
+---
+
+## 6. Three-Factor Plasticity & Temporal Credit Assignment (Phase 9)
+
+Phase 9 integrates local eligibility traces with extrinsic teaching signals:
+1. **Local Synaptic Eligibility Traces ($e_{ij}$)**:
+   $$e_{ij}(t) = \lambda_e e_{ij}(t-1) + S_i(t) S_j(t)$$
+   Constrained to existing physical synapses $A_{ij} \in \{0, 1\}$.
+2. **Third Factor Teaching Signals ($M(t)$)**:
+   - Global Reward $R(t)$, Prediction Error $|y - \hat{y}|$, Signed RPE $R(t) - \bar{R}(t)$, or Local Module Feedback $R_c(t) - \bar{R}_c(t)$.
+3. **Weight Update Rule**:
+   $$\Delta w_{ij}(t) = \eta \cdot M(t) \cdot e_{ij}(t)$$
+   Strictly bounded within Dale bounds $[0, w_{\text{max}}^E]$ or $[-w_{\text{max}}^I, 0]$.
+4. **Credit Diffusion Constraint**:
+   Recurrent spike cascades over delays $\Delta t \ge 10$ steps diffuse eligibility across unrelated synapses, establishing an operational horizon for scalar three-factor reinforcement learning.
+

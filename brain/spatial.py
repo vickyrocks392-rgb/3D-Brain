@@ -149,7 +149,7 @@ class SpatialGeometry:
         positions = np.zeros((n, 3), dtype=np.float32)
         module_ids = np.zeros(n, dtype=np.int32)
 
-        units_per_cluster = n // num_clusters
+        units_per_cluster = max(1, n // num_clusters)
         for i in range(n):
             c_idx = min(i // units_per_cluster, num_clusters - 1)
             module_ids[i] = c_idx

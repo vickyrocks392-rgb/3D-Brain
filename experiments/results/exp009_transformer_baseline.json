@@ -1,0 +1,11 @@
+{
+  "architecture": "Causal_Transformer_Baseline",
+  "parameters": 10753,
+  "train_trials": 100,
+  "test_trials": 50,
+  "accuracy": 0.5,
+  "mean_test_loss": 0.46562202571074773,
+  "train_time_sec": 0.0307,
+  "inference_latency_per_step_ms": 0.009,
+  "memory_mb": 0.041
+}

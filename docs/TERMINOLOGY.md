@@ -62,3 +62,18 @@ The structured sequence of serialized state snapshots, delta changes, and cognit
 
 ### 12. Observability Layer
 The rendering and inspection subsystem (macOS/Metal/WebGPU application) that translates the telemetry stream into an interactive 3D spatial world, rendering real state without fabrication or synthetic filler animations.
+
+### 13. Eligibility Trace
+A decaying synapse-local memory flag $e_{ij}(t)$ that marks recent pre/post coincidences or STDP pairings as eligible for subsequent reinforcement. Bounded strictly by anatomical connectivity ($A_{ij} = 1$).
+
+### 14. Third-Factor Teaching Signal
+A diffuse scalar or community-partitioned teaching signal $M(t)$ (reward, prediction error, signed RPE) that modulates the magnitude and sign of weight updates across eligible synapses.
+
+### 15. Signed Reward Prediction Error (RPE)
+The difference between received extrinsic reward and an expected moving baseline: $\delta(t) = R(t) - \bar{R}(t)$. Produces bidirectional reinforcement (potentiation vs depression).
+
+### 16. Temporal Credit Horizon
+The maximum temporal interval $\Delta t$ between neural activity and reward delivery over which synaptic credit assignment remains effective before recurrent network spikes overwrite and diffuse eligibility traces.
+
+### 17. Functional Modularity ($Q_{\text{func}}$)
+The Newman modularity metric calculated directly from post-synaptic spike correlation matrices using Louvain community detection, quantifying the degree of functional segregation in active neural dynamics.

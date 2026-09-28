@@ -913,6 +913,233 @@ class StateCapture:
 
         return frame
 
+    def capture_three_factor_step(
+        self,
+        step: int,
+        input_vec: np.ndarray,
+        model: BrainModel,
+        y_val: float,
+        target_val: float,
+        mask_val: float,
+        reward: float = 0.0,
+        prediction_error: float = 0.0,
+        rpe: float = 0.0,
+        mean_eligibility: float = 0.0,
+        max_eligibility: float = 0.0,
+        three_factor_updates: Optional[List[Any]] = None,
+        spikes: Optional[np.ndarray] = None,
+        i_e: Optional[np.ndarray] = None,
+        i_i: Optional[np.ndarray] = None,
+        homeostatic_scale: Optional[float] = None,
+        phase_label: str = "THREE_FACTOR",
+    ) -> TelemetryFrame:
+        """Capture a Three-Factor credit assignment step with eligibility, neuromodulation, and RPE."""
+        time_ms = step * self.dt_ms
+        obs = model.observable_state()
+
+        h_vec = obs["state"][0]
+        a_vec = obs["activation"][0]
+
+        in_acts = [float(x) for x in input_vec]
+        h_acts = [float(a) for a in a_vec]
+
+        out_nodes = [n for n in self.topology.nodes if n.type == "OUTPUT"]
+        num_out = len(out_nodes) if len(out_nodes) > 0 else 1
+        if isinstance(y_val, (list, tuple, np.ndarray)):
+            out_acts = [float(v) for v in y_val]
+        else:
+            out_acts = [float(y_val)]
+        if len(out_acts) < num_out:
+            out_acts = out_acts + [0.0] * (num_out - len(out_acts))
+        elif len(out_acts) > num_out:
+            out_acts = out_acts[:num_out]
+
+        all_acts = in_acts + h_acts + out_acts
+        in_states = [float(x) for x in input_vec]
+        h_states = [float(h) for h in h_vec]
+        all_states = in_states + h_states + out_acts
+
+        err = abs(float(y_val) - float(target_val)) if mask_val > 0 else 0.0
+
+        # Signals actively in-transit along synaptic edges
+        signals: List[TelemetrySignal] = []
+        offset = len(in_acts)
+
+        if hasattr(model, "queue") and model.queue is not None:
+            if hasattr(model.queue, "active_spikes") and len(model.queue.active_spikes) > 0:
+                for spk in model.queue.active_spikes:
+                    s_id = offset + spk.source
+                    d_id = offset + spk.target
+                    prog = spk.progress(step)
+                    signals.append(
+                        TelemetrySignal(
+                            src=s_id,
+                            dst=d_id,
+                            progress=prog,
+                            magnitude=spk.weight,
+                            distance=spk.distance,
+                            delay=spk.delay,
+                        )
+                    )
+        signals = signals[: self.max_active_signals]
+
+        # Computational Events
+        step_events: List[ComputationalEvent] = []
+
+        if step == 0:
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.TRIAL_STARTED,
+                    step=step,
+                    time_ms=time_ms,
+                    payload={"stimulus": float(input_vec[0]) if len(input_vec) > 0 else 0.0},
+                )
+            )
+
+        # 1. Distinguish EXCITATORY vs INHIBITORY spikes
+        fired_mask = spikes if spikes is not None else np.array(obs.get("spikes", []), dtype=bool)
+        neuron_types = getattr(model, "neuron_types", np.array(obs.get("neuron_types", [])))
+
+        if len(fired_mask) > 0:
+            for j in np.where(fired_mask)[0]:
+                is_inh = (len(neuron_types) > j and neuron_types[j] == "INHIBITORY")
+                evt_type = EventType.INHIBITORY_SPIKE if is_inh else EventType.EXCITATORY_SPIKE
+                step_events.append(
+                    ComputationalEvent(
+                        event_type=evt_type,
+                        step=step,
+                        time_ms=time_ms,
+                        node_id=offset + int(j),
+                        magnitude=1.0,
+                        payload={"cell_type": "INHIBITORY" if is_inh else "EXCITATORY"},
+                    )
+                )
+
+        # 2. Eligibility Traces Updated
+        if mean_eligibility > 1e-5:
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.ELIGIBILITY_UPDATED,
+                    step=step,
+                    time_ms=time_ms,
+                    magnitude=float(mean_eligibility),
+                    payload={"max_eligibility": round(float(max_eligibility), 6)},
+                )
+            )
+
+        # 3. Reward Received
+        if abs(reward) > 1e-5:
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.REWARD_RECEIVED,
+                    step=step,
+                    time_ms=time_ms,
+                    magnitude=float(reward),
+                    payload={"reward": float(reward)},
+                )
+            )
+
+        # 4. RPE Computed
+        if abs(rpe) > 1e-5:
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.RPE_COMPUTED,
+                    step=step,
+                    time_ms=time_ms,
+                    magnitude=float(rpe),
+                    payload={"rpe": float(rpe), "raw_reward": float(reward)},
+                )
+            )
+
+        # 5. Neuromodulator Released
+        neuromod_val = rpe if abs(rpe) > 1e-5 else reward
+        if abs(neuromod_val) > 1e-5:
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.NEUROMODULATOR_RELEASED,
+                    step=step,
+                    time_ms=time_ms,
+                    magnitude=float(neuromod_val),
+                    payload={"value": float(neuromod_val)},
+                )
+            )
+
+        # 6. Plasticity Applied & Credit Assigned
+        updates_list = (
+            three_factor_updates
+            if three_factor_updates is not None
+            else getattr(model, "last_plastic_updates", [])
+        )
+        if updates_list:
+            total_dw = sum(abs(u.delta_w if hasattr(u, "delta_w") else u.get("dw", 0.0)) for u in updates_list)
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.PLASTICITY_APPLIED,
+                    step=step,
+                    time_ms=time_ms,
+                    magnitude=float(total_dw),
+                    payload={"num_updates": len(updates_list), "total_dw": round(float(total_dw), 6)},
+                )
+            )
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.CREDIT_ASSIGNED,
+                    step=step,
+                    time_ms=time_ms,
+                    magnitude=float(total_dw),
+                    payload={"updates": [u.to_dict() if hasattr(u, "to_dict") else u for u in updates_list[:5]]},
+                )
+            )
+
+        # 7. Homeostatic Update
+        if homeostatic_scale is not None and abs(homeostatic_scale - 1.0) > 0.005:
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.HOMEOSTATIC_UPDATE,
+                    step=step,
+                    time_ms=time_ms,
+                    magnitude=float(homeostatic_scale),
+                    payload={"scale_factor": round(float(homeostatic_scale), 4)},
+                )
+            )
+
+        dynamic_details = {
+            "mean_eligibility": round(float(mean_eligibility), 6),
+            "max_eligibility": round(float(max_eligibility), 6),
+            "reward": round(float(reward), 4),
+            "rpe": round(float(rpe), 4),
+            "num_plastic_updates": len(updates_list) if updates_list else 0,
+            "phase": phase_label,
+        }
+
+        frame = TelemetryFrame(
+            step=step,
+            time_ms=time_ms,
+            inputs=in_acts,
+            activations=all_acts,
+            states=all_states,
+            output=float(y_val),
+            target=float(target_val),
+            error=float(err),
+            mask=float(mask_val),
+            signals=signals,
+            events=step_events,
+            dynamic_details=dynamic_details,
+        )
+
+        self.frames.append(frame)
+        self.all_events.extend(step_events)
+
+        if step % 10 == 0:
+            self.snapshots[step] = {
+                "step": step,
+                "states": all_states,
+                "activations": all_acts,
+                "weights_digest": len(self.topology.edges),
+            }
+
+        return frame
+
     def complete_trial(self, final_acc: float) -> None:
         """Mark trial completion and emit final event."""
         if len(self.frames) > 0:
@@ -925,4 +1152,5 @@ class StateCapture:
             )
             last_frame.events.append(completion_event)
             self.all_events.append(completion_event)
+
 

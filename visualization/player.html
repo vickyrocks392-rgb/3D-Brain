@@ -278,6 +278,13 @@
     .pin-multistep { background: #ec4899; color: #fff; }
     .pin-context { background: #eab308; color: #000; }
     .pin-ablation { background: #ef4444; color: #fff; }
+    .pin-eligibility { background: #10b981; color: #fff; }
+    .pin-modulator { background: #ec4899; color: #fff; }
+    .pin-reward { background: #ffd700; color: #000; font-weight: bold; }
+    .pin-rpe { background: #f59e0b; color: #fff; }
+    .pin-credit { background: #8b5cf6; color: #fff; }
+    .pin-comm-pos { background: #06b6d4; color: #fff; }
+    .pin-comm-neg { background: #f43f5e; color: #fff; }
 
 
     .scrubber-container {
@@ -403,6 +410,9 @@
         <span class="tag" id="osc-tag" style="display: none; background: rgba(168, 85, 247, 0.15); color: #c084fc; border-color: #a855f7;">Osc: - Hz</span>
         <span class="tag" id="sync-tag" style="display: none; background: rgba(217, 70, 239, 0.15); color: #d946ef; border-color: #d946ef;">Sync R: -</span>
         <span class="tag" id="q-tag" style="display: none; background: rgba(0, 229, 255, 0.15); color: var(--cyan); border-color: var(--cyan);">Q_func: -</span>
+        <span class="tag" id="eligibility-tag" style="display: none; background: rgba(16, 185, 129, 0.15); color: #10b981; border-color: #059669;">Elig: -</span>
+        <span class="tag" id="neuromod-tag" style="display: none; background: rgba(236, 72, 153, 0.15); color: #ec4899; border-color: #db2777;">M(t): -</span>
+        <span class="tag" id="rpe-tag" style="display: none; background: rgba(245, 158, 11, 0.15); color: #f59e0b; border-color: #d97706;">RPE: -</span>
         <span class="tag" id="latent-tag" style="display: none; background: rgba(139, 92, 246, 0.15); color: #c4b5fd; border-color: #8b5cf6;">Latent ||z||: -</span>
         <span class="tag" id="context-tag" style="display: none; background: rgba(234, 179, 8, 0.15); color: #fde047; border-color: #eab308;">Context: -</span>
         <span class="tag" id="pred-tag" style="display: none; background: rgba(0, 229, 255, 0.15); color: var(--cyan); border-color: var(--cyan);">Pred MSE: -</span>
@@ -418,6 +428,10 @@
         🌐 View: Structural
       </button>
       <select id="model-select" class="select-model">
+        <option value="/experiments/results/brainlogs/EXP009_three_factor_rpe_modular.brainlog">EXP009: Three-Factor RPE Plasticity (Modular 3D)</option>
+        <option value="/experiments/results/brainlogs/EXP009_three_factor_delayed_reward.brainlog">EXP009: Delayed Reward Credit Assignment (Modular 3D)</option>
+        <option value="/experiments/results/brainlogs/EXP009_three_factor_global_reward.brainlog">EXP009: Three-Factor Global Reward Modulation</option>
+        <option value="/experiments/results/brainlogs/exp008_phase8_ei_full_system.brainlog">EXP008: E/I Balanced Dale + Homeostasis + STDP</option>
         <option value="/experiments/results/brainlogs/EXP007_SPIKING_STDP_MODULAR_s42.brainlog">EXP007: Spiking LIF + STDP (Modular 3D)</option>
         <option value="/experiments/results/brainlogs/EXP007_SPIKING_LATENT_HYBRID_s42.brainlog">EXP007: Spiking Latent Spatial Hybrid (s42)</option>
         <option value="/experiments/results/brainlogs/EXP006_PERSISTENT_LATENT_ACTIVE_s42.brainlog">EXP006: Persistent Latent Memory + Embodied World Model (s42)</option>
@@ -492,6 +506,16 @@
         <div class="metric-row"><span class="label">Homeostatic Scale:</span><span class="val" id="insp-homeo-scale">1.0000</span></div>
       </div>
 
+      <div id="three-factor-insp-section" style="display: none;">
+        <div class="section-title">Three-Factor Credit Assignment (Phase 9)</div>
+        <div class="metric-row"><span class="label">Mean Eligibility (&lt;|e_ij|&gt;):</span><span class="val" id="insp-eligibility" style="color:var(--green);">0.0000</span></div>
+        <div class="metric-row"><span class="label">Max Eligibility:</span><span class="val" id="insp-max-eligibility">0.0000</span></div>
+        <div class="metric-row"><span class="label">Neuromodulator M(t):</span><span class="val" id="insp-neuromodulator" style="color:var(--magenta);">0.0000</span></div>
+        <div class="metric-row"><span class="label">Reward Prediction Error:</span><span class="val" id="insp-rpe" style="color:var(--amber);">0.0000</span></div>
+        <div class="metric-row"><span class="label">Plastic Updates (ΔW):</span><span class="val" id="insp-plastic-updates">0</span></div>
+        <div class="metric-row"><span class="label">Credit Status:</span><span class="val" id="insp-credit-status" style="color:var(--cyan);">Active</span></div>
+      </div>
+
       <div class="section-title">Connected Synapses</div>
       <div class="connected-edges" id="insp-edges-list">
         <!-- Injected list of connected edges -->
@@ -536,6 +560,8 @@
       <div class="metric-row"><span class="label">Propagation Delay:</span><span class="val" id="edge-delay">-</span></div>
       <div class="metric-row"><span class="label">Initial Weight (W_0):</span><span class="val" id="edge-init-weight">-</span></div>
       <div class="metric-row"><span class="label">Current Weight (W_t):</span><span class="val" id="edge-weight">-</span></div>
+      <div class="metric-row"><span class="label">Synaptic Eligibility (e_ij):</span><span class="val" id="edge-eligibility" style="color:var(--green);">-</span></div>
+      <div class="metric-row"><span class="label">Three-Factor ΔW:</span><span class="val" id="edge-three-factor-dw">-</span></div>
       <div class="metric-row"><span class="label">Cumulative ΔW:</span><span class="val" id="edge-delta-weight">-</span></div>
       <div class="metric-row"><span class="label">Recent |ΔW|:</span><span class="val" id="edge-recent-dw">-</span></div>
       <div class="metric-row"><span class="label">Plasticity Rule:</span><span class="val" id="edge-plasticity-rule">-</span></div>
@@ -920,6 +946,14 @@
         else if (ev.type === 'MULTISTEP_PREDICTION') { label = 'MK'; cls = 'pin-multistep'; }
         else if (ev.type === 'CONTEXT_RETRIEVED') { label = 'CTX'; cls = 'pin-context'; }
         else if (ev.type === 'MEMORY_ABLATION') { label = 'ABL'; cls = 'pin-ablation'; }
+        else if (ev.type === 'ELIGIBILITY_UPDATED') { label = 'E'; cls = 'pin-eligibility'; }
+        else if (ev.type === 'NEUROMODULATOR_RELEASED') { label = 'M'; cls = 'pin-modulator'; }
+        else if (ev.type === 'REWARD_RECEIVED') { label = 'R'; cls = 'pin-reward'; }
+        else if (ev.type === 'RPE_COMPUTED') { label = 'δ'; cls = 'pin-rpe'; }
+        else if (ev.type === 'PLASTICITY_APPLIED') { label = 'ΔW'; cls = 'pin-plasticity'; }
+        else if (ev.type === 'CREDIT_ASSIGNED') { label = 'CR'; cls = 'pin-credit'; }
+        else if (ev.type === 'COMMUNITY_REINFORCED') { label = 'C+'; cls = 'pin-comm-pos'; }
+        else if (ev.type === 'COMMUNITY_SUPPRESSED') { label = 'C-'; cls = 'pin-comm-neg'; }
 
         pin.classList.add(cls);
         pin.innerText = label;
@@ -1344,6 +1378,38 @@
         qTag.innerText = `Q_func: ${Number(frame.dynamic_details.q_func).toFixed(3)}`;
       }
 
+      // Phase 9: Three-Factor Tags
+      const elTag = document.getElementById('eligibility-tag');
+      const modTag = document.getElementById('neuromod-tag');
+      const rpeTag = document.getElementById('rpe-tag');
+      if (frame.dynamic_details && frame.dynamic_details.mean_eligibility !== undefined) {
+        if (elTag) {
+          elTag.style.display = 'inline-block';
+          elTag.innerText = `Elig: ${Number(frame.dynamic_details.mean_eligibility).toFixed(4)}`;
+        }
+      } else if (elTag) {
+        elTag.style.display = 'none';
+      }
+
+      if (frame.dynamic_details && (frame.dynamic_details.neuromodulator !== undefined || frame.dynamic_details.reward !== undefined)) {
+        if (modTag) {
+          modTag.style.display = 'inline-block';
+          const mVal = frame.dynamic_details.neuromodulator !== undefined ? frame.dynamic_details.neuromodulator : frame.dynamic_details.reward;
+          modTag.innerText = `M(t): ${Number(mVal).toFixed(3)}`;
+        }
+      } else if (modTag) {
+        modTag.style.display = 'none';
+      }
+
+      if (frame.dynamic_details && frame.dynamic_details.rpe !== undefined) {
+        if (rpeTag) {
+          rpeTag.style.display = 'inline-block';
+          rpeTag.innerText = `RPE: ${Number(frame.dynamic_details.rpe).toFixed(3)}`;
+        }
+      } else if (rpeTag) {
+        rpeTag.style.display = 'none';
+      }
+
       // Draw Spike Raster if open
       drawSpikeRaster(stepIndex);
 
@@ -1524,11 +1590,39 @@
             if (inetEl) inetEl.innerText = Number(inet).toFixed(4);
             const hsEl = document.getElementById('insp-homeo-scale');
             if (hsEl) hsEl.innerText = Number(hScale).toFixed(4);
+
+            // Phase 9: Three-Factor Inspector section
+            const tfSec = document.getElementById('three-factor-insp-section');
+            if (tfSec) {
+              if (dynDetails.mean_eligibility !== undefined || dynDetails.rpe !== undefined || dynDetails.reward !== undefined) {
+                tfSec.style.display = 'block';
+                const elVal = dynDetails.mean_eligibility !== undefined ? dynDetails.mean_eligibility : 0.0;
+                const maxEl = dynDetails.max_eligibility !== undefined ? dynDetails.max_eligibility : 0.0;
+                const mVal = dynDetails.neuromodulator !== undefined ? dynDetails.neuromodulator : (dynDetails.reward || 0.0);
+                const rpeVal = dynDetails.rpe !== undefined ? dynDetails.rpe : 0.0;
+                const pUpdates = dynDetails.num_plastic_updates || 0;
+
+                const elEl = document.getElementById('insp-eligibility');
+                if (elEl) elEl.innerText = Number(elVal).toFixed(4);
+                const maxElEl = document.getElementById('insp-max-eligibility');
+                if (maxElEl) maxElEl.innerText = Number(maxEl).toFixed(4);
+                const modEl = document.getElementById('insp-neuromodulator');
+                if (modEl) modEl.innerText = Number(mVal).toFixed(4);
+                const rpeEl = document.getElementById('insp-rpe');
+                if (rpeEl) rpeEl.innerText = Number(rpeVal).toFixed(4);
+                const upEl = document.getElementById('insp-plastic-updates');
+                if (upEl) upEl.innerText = pUpdates;
+              } else {
+                tfSec.style.display = 'none';
+              }
+            }
           }
         } else {
           spkSec.style.display = 'none';
           const eiSec = document.getElementById('ei-insp-section');
           if (eiSec) eiSec.style.display = 'none';
+          const tfSec = document.getElementById('three-factor-insp-section');
+          if (tfSec) tfSec.style.display = 'none';
         }
       }
 
@@ -1600,7 +1694,19 @@
       const rdw = (info.recent_dw !== undefined && info.recent_dw !== null) ? info.recent_dw : 0.0;
       rdwEl.innerText = rdw.toFixed(6);
 
-      document.getElementById('edge-plasticity-rule').innerText = (logData && logData.metadata && logData.metadata.rule) ? logData.metadata.rule : 'Static (Frozen)';
+      // Phase 9: Synaptic eligibility and three-factor update
+      const curFrame = logData.frames[replay.currentStep];
+      const dynDetails = curFrame ? curFrame.dynamic_details || {} : {};
+      const elEdge = document.getElementById('edge-eligibility');
+      if (elEdge) {
+        elEdge.innerText = dynDetails.mean_eligibility !== undefined ? Number(dynDetails.mean_eligibility).toFixed(4) : '-';
+      }
+      const tfDwEdge = document.getElementById('edge-three-factor-dw');
+      if (tfDwEdge) {
+        tfDwEdge.innerText = dynDetails.total_weight_change !== undefined ? Number(dynDetails.total_weight_change).toFixed(4) : '-';
+      }
+
+      document.getElementById('edge-plasticity-rule').innerText = (logData && logData.metadata && logData.metadata.rule) ? logData.metadata.rule : 'Three-Factor Plasticity';
 
       const stdpEl = document.getElementById('edge-stdp-status');
       if (stdpEl) {

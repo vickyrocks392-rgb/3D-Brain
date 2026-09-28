@@ -507,5 +507,84 @@ class ReplayEngine:
             "dominant_freq_hz": dyn.get("dominant_freq_hz"),
         }
 
+    # Phase 9: Three-Factor Credit Assignment & Reward Timeline Inspection
+    def get_three_factor_updates(self, step: Optional[int] = None) -> List[dict]:
+        """Return Three-Factor plasticity events at the given step."""
+        if not self.data:
+            return []
+        s = self.current_step if step is None else step
+        frame = self.data["frames"][s]
+        return [
+            e for e in frame.get("events", [])
+            if e.get("type") in ["PLASTICITY_APPLIED", "CREDIT_ASSIGNED", "RPE_COMPUTED"]
+        ]
+
+    def inspect_reward_timeline(
+        self,
+        reward_step: int,
+        offsets: Optional[List[int]] = None,
+    ) -> Dict[int, Dict[str, Any]]:
+        """Reconstruct actual computational history at T-100, T-50, T-25, T-10, T-1, T, T+1 around reward.
+
+        At each point inspects:
+        - neural states & activations
+        - spikes
+        - eligibility trace metrics
+        - neuromodulator value
+        - raw reward & RPE
+        - community assignments / active edges
+        """
+        if not self.data:
+            return {}
+
+        if offsets is None:
+            offsets = [-100, -50, -25, -10, -1, 0, 1]
+
+        timeline_inspection: Dict[int, Dict[str, Any]] = {}
+        total = self.total_steps
+
+        for offset in offsets:
+            target_step = reward_step + offset
+            if 0 <= target_step < total:
+                frame = self.data["frames"][target_step]
+                dyn = frame.get("dynamic_details", {})
+                events = frame.get("events", [])
+
+                step_spikes = [
+                    e.get("node_id") for e in events
+                    if e.get("type") in ["SPIKE_EMITTED", "EXCITATORY_SPIKE", "INHIBITORY_SPIKE"]
+                ]
+
+                tf_events = [
+                    e for e in events
+                    if e.get("type") in [
+                        "ELIGIBILITY_UPDATED",
+                        "NEUROMODULATOR_RELEASED",
+                        "REWARD_RECEIVED",
+                        "RPE_COMPUTED",
+                        "PLASTICITY_APPLIED",
+                        "CREDIT_ASSIGNED",
+                    ]
+                ]
+
+                timeline_inspection[target_step] = {
+                    "offset": offset,
+                    "step": target_step,
+                    "time_ms": frame.get("time_ms", target_step * 1.0),
+                    "states": frame.get("states", []),
+                    "activations": frame.get("activations", []),
+                    "spikes": step_spikes,
+                    "mean_eligibility": dyn.get("mean_eligibility", 0.0),
+                    "max_eligibility": dyn.get("max_eligibility", 0.0),
+                    "neuromodulator": dyn.get("neuromodulator", dyn.get("reward", 0.0)),
+                    "reward": dyn.get("reward", 0.0),
+                    "rpe": dyn.get("rpe", 0.0),
+                    "num_plastic_updates": dyn.get("num_plastic_updates", 0),
+                    "phase": dyn.get("phase", "UNKNOWN"),
+                    "events": tf_events,
+                }
+
+        return timeline_inspection
+
 
 

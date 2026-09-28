@@ -1,0 +1,17 @@
+[
+  {
+    "condition": "A_FROZEN",
+    "mean_retention": 0.5,
+    "catastrophic_forgetting": 0.011111111111111108
+  },
+  {
+    "condition": "B_PAIR_STDP",
+    "mean_retention": 0.5111111111111111,
+    "catastrophic_forgetting": 0.0
+  },
+  {
+    "condition": "F_SIGNED_RPE",
+    "mean_retention": 0.5111111111111111,
+    "catastrophic_forgetting": 0.0
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "N": 100,
+    "synapses": 2286,
+    "steps_per_sec": 1447.16,
+    "spikes_per_sec": 3878.4,
+    "synaptic_events_per_sec": 88660.22,
+    "ram_mb": 0.08
+  },
+  {
+    "N": 1000,
+    "synapses": 228450,
+    "steps_per_sec": 29.81,
+    "spikes_per_sec": 723.88,
+    "synaptic_events_per_sec": 165369.74,
+    "ram_mb": 7.64
+  },
+  {
+    "N": 10000,
+    "synapses": 80000,
+    "steps_per_sec": 3023.32,
+    "spikes_per_sec": 1511662.42,
+    "synaptic_events_per_sec": 12093299.33,
+    "ram_mb": 1.37
+  },
+  {
+    "N": 50000,
+    "synapses": 400000,
+    "steps_per_sec": 635.61,
+    "spikes_per_sec": 1589016.72,
+    "synaptic_events_per_sec": 12712133.74,
+    "ram_mb": 6.87
+  },
+  {
+    "N": 100000,
+    "synapses": 800000,
+    "steps_per_sec": 310.98,
+    "spikes_per_sec": 1554903.65,
+    "synaptic_events_per_sec": 12439229.23,
+    "ram_mb": 13.73
+  }
+]

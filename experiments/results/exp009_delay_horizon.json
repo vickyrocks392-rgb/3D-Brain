@@ -1,0 +1,98 @@
+[
+  {
+    "condition": "F_SIGNED_RPE",
+    "ablation": "NONE",
+    "reward_delay": 0,
+    "accuracy": 0.5166666666666667,
+    "accuracy_std": 0.023570226039551608,
+    "mean_final_reward": 0.03333333333333333,
+    "mean_final_reward_std": 0.047140452079103175,
+    "mean_eligibility": 0.050123433836270125,
+    "total_weight_change": 7.303450307498376,
+    "sample_size": 3
+  },
+  {
+    "condition": "F_SIGNED_RPE",
+    "ablation": "NONE",
+    "reward_delay": 1,
+    "accuracy": 0.5333333333333333,
+    "accuracy_std": 0.023570226039551605,
+    "mean_final_reward": 0.06666666666666667,
+    "mean_final_reward_std": 0.047140452079103175,
+    "mean_eligibility": 0.05181382863161465,
+    "total_weight_change": 7.554129291325808,
+    "sample_size": 3
+  },
+  {
+    "condition": "F_SIGNED_RPE",
+    "ablation": "NONE",
+    "reward_delay": 5,
+    "accuracy": 0.55,
+    "accuracy_std": 0.08164965809277261,
+    "mean_final_reward": 0.10000000000000002,
+    "mean_final_reward_std": 0.1632993161855452,
+    "mean_eligibility": 0.05212319757090881,
+    "total_weight_change": 7.543315418064594,
+    "sample_size": 3
+  },
+  {
+    "condition": "F_SIGNED_RPE",
+    "ablation": "NONE",
+    "reward_delay": 10,
+    "accuracy": 0.48333333333333334,
+    "accuracy_std": 0.02357022603955158,
+    "mean_final_reward": -0.03333333333333333,
+    "mean_final_reward_std": 0.047140452079103175,
+    "mean_eligibility": 0.05446036810521037,
+    "total_weight_change": 7.813700257490079,
+    "sample_size": 3
+  },
+  {
+    "condition": "F_SIGNED_RPE",
+    "ablation": "NONE",
+    "reward_delay": 25,
+    "accuracy": 0.48333333333333334,
+    "accuracy_std": 0.02357022603955158,
+    "mean_final_reward": -0.03333333333333333,
+    "mean_final_reward_std": 0.047140452079103175,
+    "mean_eligibility": 0.05420114239056905,
+    "total_weight_change": 7.4884555625418825,
+    "sample_size": 3
+  },
+  {
+    "condition": "F_SIGNED_RPE",
+    "ablation": "NONE",
+    "reward_delay": 50,
+    "accuracy": 0.5,
+    "accuracy_std": 0.0,
+    "mean_final_reward": 0.0,
+    "mean_final_reward_std": 0.0,
+    "mean_eligibility": 0.05418003482123216,
+    "total_weight_change": 7.09997221082449,
+    "sample_size": 3
+  },
+  {
+    "condition": "F_SIGNED_RPE",
+    "ablation": "NONE",
+    "reward_delay": 100,
+    "accuracy": 0.5166666666666667,
+    "accuracy_std": 0.062360956446232345,
+    "mean_final_reward": 0.03333333333333333,
+    "mean_final_reward_std": 0.12472191289246473,
+    "mean_eligibility": 0.05308109988768895,
+    "total_weight_change": 6.189475766072671,
+    "sample_size": 3
+  },
+  {
+    "condition": "F_SIGNED_RPE",
+    "ablation": "NONE",
+    "reward_delay": 250,
+    "accuracy": 0.48333333333333334,
+    "accuracy_std": 0.02357022603955158,
+    "mean_final_reward": -0.03333333333333333,
+    "mean_final_reward_std": 0.047140452079103175,
+    "mean_eligibility": 0.05417482306559881,
+    "total_weight_change": 5.12216546262304,
+    "sample_size": 3
+  }
+]

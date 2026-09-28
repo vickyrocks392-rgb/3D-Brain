@@ -67,8 +67,8 @@ class BrainLogValidator:
             data = filepath_or_dict
 
         version = data.get("brainlog_version")
-        if version not in ["1.0", "2.0", "2.1", "2.2", "2.3", "2.4", "2.5", "2.6"]:
-            return False, f"Missing, incompatible or unsupported brainlog_version '{version}' (expected '1.0', '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', or '2.6')"
+        if version not in ["1.0", "2.0", "2.1", "2.2", "2.3", "2.4", "2.5", "2.6", "2.7"]:
+            return False, f"Missing, incompatible or unsupported brainlog_version '{version}' (expected '1.0', '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '2.6', or '2.7')"
 
         if "metadata" not in data or not isinstance(data["metadata"], dict):
             return False, "Missing or invalid 'metadata' object"
@@ -97,7 +97,7 @@ class BrainLogValidator:
                 f"Activation length mismatch: {len(f0['activations'])} vs {node_count} nodes in topology",
             )
 
-        if version in ["2.0", "2.1", "2.2", "2.3", "2.4", "2.5", "2.6"]:
+        if version in ["2.0", "2.1", "2.2", "2.3", "2.4", "2.5", "2.6", "2.7"]:
             if "events" not in data or not isinstance(data["events"], list):
                 return False, f"v{version} brainlog requires 'events' list"
 
@@ -115,7 +115,7 @@ class BrainLogSerializer:
         frames: List[TelemetryFrame],
         events: List[ComputationalEvent],
         snapshots: Dict[int, dict],
-        version: str = "2.6",
+        version: str = "2.7",
     ) -> Path:
         blog = BrainLog(
             metadata=metadata,

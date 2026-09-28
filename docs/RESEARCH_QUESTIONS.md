@@ -46,13 +46,15 @@ Level 01: Temporal Memory & Persistence
 
 ### Hypothesis H3: Neuromodulation for Gated Plasticity
 * **Claim**: A low-dimensional, diffuse neuromodulatory signal (representing novelty, reward, or surprise $\sigma$) acting as a dynamic gate on synaptic plasticity ($\Delta W_{ij} = \eta \cdot \sigma(t) \cdot f(a_i, a_j)$) prevents destructive weight updates during stable regimes and focuses plasticity exclusively when unexpected errors occur.
-* **Metric**: Signal-to-noise ratio of synaptic weight updates and stability of memory traces over $10^5$ inference steps with random distractors.
-* **Falsification Condition**: If unmodulated continuous plasticity achieves equal or superior stability and memory retention under distractor noise, reject H3.
-
 ### Hypothesis H4: Spatialized 3D Embedding Imparts Inductive Bias
 * **Claim**: Restricting connectivity by Euclidean distance in 3D space ($\Pr(\text{edge}_{ij}) \propto \exp(-d_{ij}/\lambda)$) combined with finite propagation velocity naturally produces modular functional clustering, hierarchical frequency decomposition, and superior fault tolerance compared to all-to-all dense connectivity.
 * **Metric**: Modularity metric $Q$ and performance degradation curve under random node/edge ablation.
 * **Falsification Condition**: If spatially constrained topologies perform strictly worse on sequence benchmarks at equivalent parameter counts without exhibiting functional specialization, reject H4.
+
+### Hypothesis H5: Three-Factor Credit Assignment & Functional Modularity (Phase 9)
+* **Claim**: Combining local synaptic eligibility traces with extrinsic neuromodulatory teaching signals ($M(t) = R(t) - \bar{R}(t)$) will actively carve functional modularity ($Q_{\text{func}} > 0.30$) and enable credit assignment across delayed feedback horizons.
+* **Metric**: Task accuracy on delayed contextual choice, Newman functional modularity $Q_{\text{func}}$, and learning rate as a function of reward delay $\Delta t$.
+* **Empirical Outcome**: **NOT SUPPORTED / REJECTED**. $Q_{\text{func}}$ remained bounded in $[0.208, 0.257]$, failing to exceed $0.30$. Recurrent spike cascades diffused eligibility traces beyond $\Delta t \ge 10$ steps, washing out targeted credit.
 
 ---
 

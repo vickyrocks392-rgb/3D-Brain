@@ -133,3 +133,14 @@ We do not write thousands of lines of speculative code in hopes that intelligenc
 3. **Homeostatic Autonomy**:
    * Homeostatic scaling operates purely on local activity feedback to regulate target metabolic rates. It must never inspect objective loss or external task supervision.
 
+---
+
+## 8. Three-Factor Credit Assignment Invariants (Phase 9)
+
+1. **Strict Synaptic Adjacency of Eligibility**:
+   * Eligibility traces $e_{ij}(t)$ must strictly exist only where a physical anatomical connection $A_{ij} = 1$ exists. Non-local phantom credit assignment is strictly prohibited.
+2. **Third-Factor Decoupling**:
+   * The neuromodulatory teaching signal $M(t)$ (whether scalar reward, prediction error, or signed RPE) provides gating and magnitude scaling; it does not replace local pre-post synaptic state tracking.
+3. **Honest Reporting of Plasticity Efficacy**:
+   * If three-factor plasticity fails to break modularity or context disambiguation ceilings, report failure directly. Never retrofit hyperparameters to simulate artificial success.
+

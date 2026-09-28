@@ -21,7 +21,11 @@ Phase 6: Persistent Latent Memory & Predictive State (COMPLETE - PASS WITH CAVEA
    ↓
 Phase 7: Spiking Neural Dynamics, STDP & Emergent Synchronization (COMPLETE - PASS WITH CAVEATS)
    ↓
-Phase 8: Balanced Excitation/Inhibition & Asynchronous-Irregular Regimes (PLANNED)
+Phase 8: Balanced Excitation/Inhibition & Asynchronous-Irregular Regimes (COMPLETE - PASS WITH CAVEATS)
+   ↓
+Phase 9: Three-Factor Credit Assignment & Active Functional Reorganization (COMPLETE - AUDITED NEGATIVE RESULTS)
+   ↓
+Phase 10: Dendritic Compartmentalization, Slow NMDA Conductances & Spatial Feedback Alignment (RECOMMENDED)
 ```
 
 ---
@@ -205,7 +209,31 @@ Phase 8: Balanced Excitation/Inhibition & Asynchronous-Irregular Regimes (PLANNE
 
 ---
 
-## Phase 9: Three-Factor Plasticity & Dendritic Compartments (Pending Authorization)
-* **Status**: **PENDING AUTHORIZATION** (Awaiting authorization before Phase 9 commencement).
+## Phase 9: Three-Factor Credit Assignment & Active Functional Reorganization
+* **Status**: **COMPLETE (AUDITED NEGATIVE RESULTS)**
+* **Goal**: Investigate whether three-factor synaptic plasticity with local eligibility traces and global/local neuromodulatory teaching signals can solve temporal credit assignment, break through the modularity ceiling ($Q_{\text{func}} > 0.30$), and restore context disambiguation accuracy under strict Dale E/I balance.
+* **Key Deliverables**:
+  * [x] Three-Factor Plasticity Engine (`brain/three_factor.py`): Coincidence and STDP eligibility traces ($e_{ij}$), four teaching signal modes (Global Reward, Prediction Error, Signed RPE, Local Community), and strict Dale bounding.
+  * [x] Three-Factor Spatial Network (`ThreeFactorSpatialNetwork`) integrating 3D coordinates, E/I Dale populations, circular conduction queue, homeostatic scaling, and directional readout learning (`brain/three_factor_spatial.py`).
+  * [x] Delayed Contextual Choice Benchmark Task (`benchmarks/delayed_contextual_choice.py`) testing credit assignment across post-decision delays $\Delta t \in \{0, 1, 5, 10, 25, 50, 100, 250\}$.
+  * [x] Pure NumPy Small Causal Transformer baseline (`SmallCausalTransformer`) providing rigorous parameter- and compute-matched comparison (`benchmarks/transformer_baseline.py`).
+  * [x] `.brainlog` v2.7 schema evolution with real computational events: `ELIGIBILITY_UPDATED`, `NEUROMODULATOR_RELEASED`, `REWARD_RECEIVED`, `RPE_COMPUTED`, `PLASTICITY_APPLIED`, `CREDIT_ASSIGNED`, `COMMUNITY_REINFORCED`, `COMMUNITY_SUPPRESSED` (`observability/brainlog.py`, `observability/events.py`, `observability/capture.py`).
+  * [x] 3D Observability Console v2.7 (`visualization/player.html`) with eligibility HUD badge, neuromodulator releases, RPE telemetry, and timeline inspection at $T-100, \dots, T+1$ (`observability/replay.py`).
+  * [x] Full Experiment 009 execution across 9 matrix conditions, 8 delay horizons, 14 causal ablations, 4 topologies, continual learning, and scaling to $N=100{,}000$ (`experiments/run_experiment_009.py`, `experiments/analyze_experiment_009.py`).
+  * [x] Research Specification ([EXPERIMENT_009_SPECIFICATION.md](file:///Users/kalachanddash/Documents/3D-Brain/experiments/EXPERIMENT_009_SPECIFICATION.md)), Three-Factor Plasticity Formulation ([THREE_FACTOR_PLASTICITY.md](file:///Users/kalachanddash/Documents/3D-Brain/research/THREE_FACTOR_PLASTICITY.md)), Credit Assignment Analysis ([CREDIT_ASSIGNMENT_ANALYSIS.md](file:///Users/kalachanddash/Documents/3D-Brain/research/CREDIT_ASSIGNMENT_ANALYSIS.md)), and Final Results Report ([PHASE_9_RESULTS.md](file:///Users/kalachanddash/Documents/3D-Brain/research/PHASE_9_RESULTS.md)).
+* **Exit Gate Evaluation**:
+  * Eligibility Credit Assignment (H1): **NOT SUPPORTED** (Marginal reinforcement at short delays $\le 5$ steps, but task accuracy remained near chance $50.0\%$).
+  * Task-Relevant Plasticity (H2): **PARTIALLY SUPPORTED** (Weight modifications occurred selectively, but produced no significant functional advantage over frozen or STDP controls; $p = 0.65$).
+  * Modularity Ceiling Breakthrough (H3): **NOT SUPPORTED (NEGATIVE RESULT)** ($Q_{\text{func}}$ remained trapped in $[0.208, 0.257]$, failing to reach target $> 0.30$).
+  * Context Disambiguation (H4): **NOT SUPPORTED (NEGATIVE RESULT)** (Accuracy remained at chance $50.0\%$ over 8-step delay).
+  * Temporal Horizon (H5): **PARTIALLY SUPPORTED** (Observed clear horizon where credit assignment decays beyond $\Delta t \ge 10$ steps due to recurrent spike diffusion).
+  * Scaling Ladder ($N=100{,}000$): **PASSED** ($311.0$ steps/s, $1.55\text{M}$ spikes/s, $13.7\text{ MB}$ RAM; confirmed Phase 8 1K slowdown was an unvectorized implementation artifact).
+  * Overall Phase 9 Verdict: **COMPLETE (AUDITED NEGATIVE RESULTS)**.
+
+---
+
+## Phase 10: Dendritic Compartmentalization, Slow NMDA Conductances & Spatial Feedback Alignment
+* **Status**: **RECOMMENDED (PENDING AUTHORIZATION)**
+* **Objective**: Decouple feedforward sensory drive from top-down teaching signals using two-compartment (somatic + dendritic) neurons, introduce slow NMDA-like conductances to maintain working memory attractors across long delays, and replace scalar global RPE with targeted spatial feedback alignment.
 
 

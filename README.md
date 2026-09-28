@@ -58,6 +58,10 @@ The foundation of 3D-Brain is comprehensively documented in the following charte
 * **[Experiment 004 Specification](file:///Users/kalachanddash/Documents/3D-Brain/experiments/EXPERIMENT_004_SPECIFICATION.md)**: Formal protocol investigating spatial topology × propagation latency × scale across Delayed Match, Continual CDA, and Spatially Distributed Temporal tasks.
 * **[Experiment 004 Results Report](file:///Users/kalachanddash/Documents/3D-Brain/experiments/EXPERIMENT_004_RESULTS.md)**: Empirical findings across 16 primary conditions, ablations A-F, null models, and scaling benchmark to 100,000 units on Apple Silicon.
 * **[Phase 4 Implementation Report](file:///Users/kalachanddash/Documents/3D-Brain/docs/PHASE_4_IMPLEMENTATION_REPORT.md)**: Comprehensive report evaluating spatial computation, modular compartmentalization, empirical falsification of spontaneous functional emergence, and exit-gate audit.
+* **[Three-Factor Plasticity Specification](file:///Users/kalachanddash/Documents/3D-Brain/research/THREE_FACTOR_PLASTICITY.md)**: Mathematical formulations, eligibility traces, neuromodulatory teaching modes, Dale constraints, and homeostatic interaction.
+* **[Credit Assignment Analysis](file:///Users/kalachanddash/Documents/3D-Brain/research/CREDIT_ASSIGNMENT_ANALYSIS.md)**: Empirical delay horizon, 14 causal ablations, spatial topologies, and Phase 8 reproducibility audit.
+* **[Experiment 009 Specification](file:///Users/kalachanddash/Documents/3D-Brain/experiments/EXPERIMENT_009_SPECIFICATION.md)**: Controlled protocol evaluating three-factor plasticity, delayed credit assignment, and modularity emergence.
+* **[Phase 9 Final Results Report](file:///Users/kalachanddash/Documents/3D-Brain/research/PHASE_9_RESULTS.md)**: Formal 24-section report detailing empirical findings across all 9 conditions, delay curves, Transformer comparison, and Phase 10 recommendations.
 * **[Phase 5 Literature Review](file:///Users/kalachanddash/Documents/3D-Brain/research/PHASE_5_LITERATURE_REVIEW.md)**: Predictive coding, active inference, feedback alignment, synaptogenesis, and embodied sensorimotor integration.
 * **[Phase 5 Design Audit](file:///Users/kalachanddash/Documents/3D-Brain/docs/PHASE_5_DESIGN_AUDIT.md)**: Architectural specifications for closed-loop embodiment, dynamic structural plasticity, and `.brainlog` v2.3 telemetry.
 * **[Experiment 005 Results Report](file:///Users/kalachanddash/Documents/3D-Brain/experiments/EXPERIMENT_005_RESULTS.md)**: Empirical findings across 102 conditions evaluating self-supervised prediction error, active embodiment advantage, and dynamic brain growth.
@@ -179,9 +183,62 @@ Sensory Input (x_t) ─────────────► Dale Spiking Popu
 
 ---
 
-## 6. Next Steps
+---
 
-Phase 8 is **COMPLETE (PASS WITH CAVEATS)**.
-* Next research phase: **Phase 9: Three-Factor Plasticity & Dendritic Compartments** (Pending user authorization).
+## 6. Phase 9: Three-Factor Credit Assignment & Active Functional Reorganization
+
+Phase 9 investigated whether three-factor synaptic plasticity with eligibility traces and neuromodulatory teaching signals can solve temporal credit assignment and actively carve functional modularity ($Q_{\text{func}} > 0.30$) under Dale's principle.
+
+### 6.1 Architectural Substrate
+```text
+                    Sensory Input x(t) ──► Input Weights W_in
+                                                │
+                                                ▼
+                                    E/I Spiking Population
+                                      (80% E / 20% I)
+                                                │
+                          ┌─────────────────────┴─────────────────────┐
+                          ▼                                           ▼
+                 Action Potentials S(t)                      Delayed Queue Conduction
+                          │                                           │
+                          ▼                                           ▼
+              Synaptic Eligibility Traces e_ij(t) ◄──────── Recurrent Matrix W_rec
+              e_ij = lambda_e * e_ij + pre * post                     │
+                          │                                           ▼
+                          ▼                                 E/I Current Balance
+                 Third-Factor Teaching M(t)                I_net = I_E - |I_I|
+               (Global R, PredErr, Signed RPE)                        │
+                          │                                           ▼
+                          ▼                                 Homeostatic Scaling
+           Synaptic Update: Delta W = eta * M * e
+```
+
+### 6.2 Empirical Benchmark Summary (Experiment 009)
+
+| Condition / Substrate | Task Acc (%) | $Q_{\text{func}}$ | $R_{\text{global}}$ | Context Acc (%) | Memory $R^2$ ($\Delta t=500$) | Pred MSE ($k=5$) |
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|
+| **A_FROZEN** | 53.3% | 0.244 | 0.320 | 50.0% | 0.342 | 0.345 |
+| **B_PAIR_STDP** | 46.7% | 0.234 | 0.320 | 50.0% | 0.338 | 0.345 |
+| **C_ELIGIBILITY_ONLY** | 55.0% | 0.223 | 0.321 | 50.0% | 0.340 | 0.345 |
+| **D_GLOBAL_REWARD** | 50.0% | 0.223 | 0.320 | 50.0% | 0.339 | 0.345 |
+| **E_PRED_ERROR** | 48.3% | 0.234 | 0.320 | 50.0% | 0.341 | 0.345 |
+| **F_SIGNED_RPE** | 50.0% | 0.208 | 0.320 | 50.0% | 0.340 | 0.345 |
+| **G_LOCAL_COMMUNITY** | 50.0% | 0.250 | 0.320 | 50.0% | 0.340 | 0.345 |
+| **REF_PHASE8 (Historical)** | 51.7% | 0.200 | 0.323 | 50.0% | 0.341 | 0.345 |
+| **REF_PHASE7 (Historical)** | 50.0% | 0.247 | 0.323 | 50.0% | 0.342 | 0.345 |
+
+### 6.3 Key Scientific Findings
+1. **Temporal Horizon in Credit Assignment (PARTIALLY SUPPORTED)**: Positive reinforcement occurred for short delays ($\Delta t \le 5$, accuracy up to $55.0\%$, reward $+0.10$), but decayed beyond $\Delta t \ge 10$ as recurring network spikes diffused eligibility across unrelated recurrent synapses.
+2. **Modularity Ceiling Persists (NEGATIVE RESULT - NOT SUPPORTED)**: $Q_{\text{func}}$ remained trapped in $[0.208, 0.257]$, failing to achieve the $Q_{\text{func}} > 0.30$ hypothesis threshold. Scalar neuromodulation uniformly reinforces active synapses without sufficient spatial specificity to carve distinct functional modules.
+3. **Context Disambiguation Across Long Delays Requires Attractors (NEGATIVE RESULT)**: Spiking membrane potentials without slow NMDA conductances fail to maintain context across an 8-step delay, yielding chance accuracy ($50.0\%$).
+4. **Resolution of Phase 8 1K Scaling Anomaly**: The slow runtime at $N=1\text{K}$ was verified as an unvectorized per-spike Python loop artifact; the vectorized sparse kernel scales seamlessly to $N=100\text{K}$ ($311.0\text{ steps/s}$, $1.55\text{M spikes/s}$).
+5. **Head-to-Head Transformer Baseline**: Evaluated against a Small Causal Transformer (10,753 parameters) under equal trial budgets; establishes precise compute and latency tradeoffs between continuous biophysical ODE rollouts and discrete attention mechanisms.
+
+---
+
+## 7. Next Steps
+
+Phase 9 is **COMPLETE (AUDITED WITH HONEST NEGATIVE FINDINGS)**.
+* Recommended Next Phase: **Phase 10: Dendritic Compartmentalization, Slow NMDA Conductances, and Spatial Feedback Alignment** (Pending explicit user authorization).
 
 

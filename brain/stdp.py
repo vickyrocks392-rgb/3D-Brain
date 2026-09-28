@@ -60,10 +60,12 @@ class STDPEngine:
         tau_minus: float = 25.0,       # Post-synaptic trace decay time constant (ms)
         w_min: float = 0.0,            # Minimum synaptic weight
         w_max: float = 2.0,            # Maximum synaptic weight
+        w_max_i: float = 5.0,          # Maximum inhibitory synaptic weight magnitude
         target_rate: float = 0.05,     # Target spikes/step for homeostatic regulation
         tau_homeo: float = 200.0,      # Moving average window for firing rate estimation
         eta_homeo: float = 0.001,      # Rate of homeostatic weight adjustment
         max_sum_weight: float = 10.0,  # Max sum of incoming weights per post-synaptic neuron
+        is_inhibitory: Optional[np.ndarray] = None,
         track_updates: bool = True,
     ):
         self.num_neurons = num_neurons
@@ -74,10 +76,12 @@ class STDPEngine:
         self.tau_minus = max(1.0, float(tau_minus))
         self.w_min = float(w_min)
         self.w_max = float(w_max)
+        self.w_max_i = float(w_max_i)
         self.target_rate = float(target_rate)
         self.tau_homeo = max(10.0, float(tau_homeo))
         self.eta_homeo = float(eta_homeo)
         self.max_sum_weight = float(max_sum_weight)
+        self.is_inhibitory = np.asarray(is_inhibitory, dtype=bool) if is_inhibitory is not None else None
         self.track_updates = track_updates
 
         # Synaptic traces [N]
@@ -143,10 +147,17 @@ class STDPEngine:
             if len(post_targets) > 0:
                 y_vals = self.y_post[post_targets]
                 # Soft-bounded multiplicative LTD: delta_w = -A_- * y * (W - w_min)
-                dw = -self.a_minus * y_vals * (new_weights[pre, post_targets] - self.w_min) * mod_factor
-                new_weights[pre, post_targets] = np.clip(
-                    new_weights[pre, post_targets] + dw, self.w_min, self.w_max
-                )
+                dw = -self.a_minus * y_vals * (np.abs(new_weights[pre, post_targets]) - self.w_min) * mod_factor
+                if self.is_inhibitory is not None and self.is_inhibitory[pre]:
+                    # Inhibitory pre-synaptic unit: weights are negative in [-w_max_i, 0]
+                    # Depression reduces inhibition magnitude (moves toward 0)
+                    new_weights[pre, post_targets] = np.clip(
+                        new_weights[pre, post_targets] - dw, -self.w_max_i, 0.0
+                    )
+                else:
+                    new_weights[pre, post_targets] = np.clip(
+                        new_weights[pre, post_targets] + dw, self.w_min, self.w_max
+                    )
                 if self.track_updates:
                     for idx, post in enumerate(post_targets):
                         if abs(dw[idx]) > 1e-4:
@@ -166,23 +177,28 @@ class STDPEngine:
             pre_sources = np.where(adjacency_mask[:, post])[0]
             if len(pre_sources) > 0:
                 x_vals = self.x_pre[pre_sources]
-                # Soft-bounded multiplicative LTP: delta_w = +A_+ * x * (w_max - W)
-                dw = self.a_plus * x_vals * (self.w_max - new_weights[pre_sources, post]) * mod_factor
-                new_weights[pre_sources, post] = np.clip(
-                    new_weights[pre_sources, post] + dw, self.w_min, self.w_max
-                )
-                if self.track_updates:
-                    for idx, pre in enumerate(pre_sources):
-                        if abs(dw[idx]) > 1e-4:
-                            rec = STDPUpdateRecord(
-                                step=step,
-                                source=int(pre),
-                                target=int(post),
-                                delta_w=float(dw[idx]),
-                                new_weight=float(new_weights[pre, post]),
-                                rule="LTP",
-                            )
-                            current_records.append(rec)
+                # Soft-bounded multiplicative LTP
+                dw = self.a_plus * x_vals * (self.w_max - np.abs(new_weights[pre_sources, post])) * mod_factor
+                for idx, pre in enumerate(pre_sources):
+                    if self.is_inhibitory is not None and self.is_inhibitory[pre]:
+                        # Inhibitory potentiation strengthens inhibition (moves away from 0 toward -w_max_i)
+                        new_weights[pre, post] = float(np.clip(
+                            new_weights[pre, post] - dw[idx], -self.w_max_i, 0.0
+                        ))
+                    else:
+                        new_weights[pre, post] = float(np.clip(
+                            new_weights[pre, post] + dw[idx], self.w_min, self.w_max
+                        ))
+                    if self.track_updates and abs(dw[idx]) > 1e-4:
+                        rec = STDPUpdateRecord(
+                            step=step,
+                            source=int(pre),
+                            target=int(post),
+                            delta_w=float(dw[idx]),
+                            new_weight=float(new_weights[pre, post]),
+                            rule="LTP",
+                        )
+                        current_records.append(rec)
 
         # 5. Increment traces on spike
         self.x_pre[fired_indices] += 1.0

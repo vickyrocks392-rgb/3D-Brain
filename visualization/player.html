@@ -397,6 +397,9 @@
         <span class="tag" id="model-tag">SPIKING_STDP_ACTIVE</span>
         <span id="exp-info" style="font-size: 12px; color: var(--text-muted);">EXP007 Spiking Neural Dynamics & STDP</span>
         <span class="tag" id="spikes-tag" style="display: none; background: rgba(239, 68, 68, 0.15); color: #f87171; border-color: #ef4444;">Spikes: -</span>
+        <span class="tag" id="ei-tag" style="display: none; background: rgba(245, 158, 11, 0.15); color: #fbbf24; border-color: #f59e0b;">E/I Ratio: -</span>
+        <span class="tag" id="ai-tag" style="display: none; background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: #10b981;">AI Status: -</span>
+        <span class="tag" id="multisync-tag" style="display: none; background: rgba(59, 130, 246, 0.15); color: #60a5fa; border-color: #3b82f6;">Sync (Loc/Glob): -</span>
         <span class="tag" id="osc-tag" style="display: none; background: rgba(168, 85, 247, 0.15); color: #c084fc; border-color: #a855f7;">Osc: - Hz</span>
         <span class="tag" id="sync-tag" style="display: none; background: rgba(217, 70, 239, 0.15); color: #d946ef; border-color: #d946ef;">Sync R: -</span>
         <span class="tag" id="q-tag" style="display: none; background: rgba(0, 229, 255, 0.15); color: var(--cyan); border-color: var(--cyan);">Q_func: -</span>
@@ -480,6 +483,15 @@
         <div class="metric-row"><span class="label">Fired This Step:</span><span class="val" id="insp-fired-now">No</span></div>
       </div>
 
+      <div id="ei-insp-section" style="display: none;">
+        <div class="section-title">E/I Balance & Homeostasis (Phase 8)</div>
+        <div class="metric-row"><span class="label">Dale Cell Type:</span><span class="val" id="insp-cell-type">EXCITATORY</span></div>
+        <div class="metric-row"><span class="label">Excitatory Current (I_E):</span><span class="val" id="insp-i-e" style="color:var(--cyan);">0.0000</span></div>
+        <div class="metric-row"><span class="label">Inhibitory Current (I_I):</span><span class="val" id="insp-i-i" style="color:var(--amber);">0.0000</span></div>
+        <div class="metric-row"><span class="label">Net Drive (I_net):</span><span class="val" id="insp-i-net">0.0000</span></div>
+        <div class="metric-row"><span class="label">Homeostatic Scale:</span><span class="val" id="insp-homeo-scale">1.0000</span></div>
+      </div>
+
       <div class="section-title">Connected Synapses</div>
       <div class="connected-edges" id="insp-edges-list">
         <!-- Injected list of connected edges -->
@@ -516,6 +528,8 @@
     <div id="edge-insp-fields" style="display: none;">
       <div class="section-title">Synaptic Edge Properties</div>
       <div class="metric-row"><span class="label">Connection:</span><span class="val" id="edge-connection">-</span></div>
+      <div class="metric-row"><span class="label">Synapse Class:</span><span class="val" id="edge-synapse-class" style="color:var(--cyan);">E → E</span></div>
+      <div class="metric-row"><span class="label">Dale Sign Constraint:</span><span class="val" id="edge-dale-sign">Excitatory (+)</span></div>
       <div class="metric-row"><span class="label">Source:</span><span class="val" id="edge-src">-</span></div>
       <div class="metric-row"><span class="label">Destination:</span><span class="val" id="edge-dst">-</span></div>
       <div class="metric-row"><span class="label">Physical Distance:</span><span class="val" id="edge-dist">-</span></div>
@@ -1019,18 +1033,31 @@
         const mat = mesh.material;
         const didFire = firedNodes.has(idx);
 
+        const nodeInfo = mesh.userData.nodeInfo || {};
+        const nodeMeta = nodeInfo.metadata || {};
+        const isInhibitory = nodeMeta.neuron_type === 'INHIBITORY' || (nodeInfo.label && nodeInfo.label.includes('[I]'));
+
         if (didFire) {
           mat.color.setHex(0xffffff);
-          mat.emissive.setHex(0x00e5ff);
+          mat.emissive.setHex(isInhibitory ? 0xf43f5e : 0x00e5ff);
           mat.emissiveIntensity = 4.0;
           mesh.scale.set(2.4, 2.4, 2.4);
+        } else if (isInhibitory) {
+          // Inhibitory fast-spiking interneurons: Rose / Crimson
+          mat.color.setHex(0xf43f5e);
+          mat.emissive.setHex(0xf43f5e);
+          mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.6 + 0.15, 0.15, 2.5);
+          const s = 1.0 + THREE.MathUtils.clamp(absAct * 0.6, 0.0, 1.0);
+          mesh.scale.set(s, s, s);
         } else if (act >= 0) {
+          // Excitatory pyramidal: Cyan
           mat.color.setHex(0x00e5ff);
           mat.emissive.setHex(0x00e5ff);
           mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.6, 0.05, 2.5);
           const s = 1.0 + THREE.MathUtils.clamp(absAct * 0.6, 0.0, 1.0);
           mesh.scale.set(s, s, s);
         } else {
+          // Negative subthreshold or unconstrained: Amber
           mat.color.setHex(0xff9100);
           mat.emissive.setHex(0xff9100);
           mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.6, 0.05, 2.5);
@@ -1256,12 +1283,47 @@
       const spkTag = document.getElementById('spikes-tag');
       const oscTag = document.getElementById('osc-tag');
       const syncTag = document.getElementById('sync-tag');
+      const eiTag = document.getElementById('ei-tag');
+      const aiTag = document.getElementById('ai-tag');
+      const multiSyncTag = document.getElementById('multisync-tag');
 
       if (frame.dynamic_details && frame.dynamic_details.spikes_active !== undefined) {
         spkTag.style.display = 'inline-block';
         spkTag.innerText = `Spikes: ${frame.dynamic_details.spikes_active}`;
       } else {
         spkTag.style.display = 'none';
+      }
+
+      // Phase 8: E/I Ratio Tag
+      if (frame.dynamic_details && (frame.dynamic_details.mean_i_e !== undefined || frame.dynamic_details.mean_ei_ratio !== undefined)) {
+        eiTag.style.display = 'inline-block';
+        const ie = frame.dynamic_details.mean_i_e || 0.0;
+        const ii = Math.abs(frame.dynamic_details.mean_i_i || 0.0);
+        const ratio = ii > 1e-4 ? (ie / ii).toFixed(2) : (ie > 0 ? '∞' : '1.0');
+        eiTag.innerText = `E/I: ${ratio} (I_E:${Number(ie).toFixed(2)} | I_I:${Number(ii).toFixed(2)})`;
+      } else {
+        eiTag.style.display = 'none';
+      }
+
+      // Phase 8: AI Regime Tag
+      if (frame.dynamic_details && frame.dynamic_details.ai_score !== undefined) {
+        aiTag.style.display = 'inline-block';
+        const isAI = frame.dynamic_details.is_ai_regime;
+        aiTag.innerText = `AI: ${frame.dynamic_details.regime_status || (isAI ? 'AI_REGIME' : 'NON_AI')} (${Number(frame.dynamic_details.ai_score * 100).toFixed(0)}%)`;
+        aiTag.style.borderColor = isAI ? '#10b981' : '#f59e0b';
+        aiTag.style.color = isAI ? '#34d399' : '#fbbf24';
+      } else {
+        aiTag.style.display = 'none';
+      }
+
+      // Phase 8: Multi-Scale Synchrony Tag
+      if (frame.dynamic_details && (frame.dynamic_details.r_local !== undefined || frame.dynamic_details.r_global !== undefined)) {
+        multiSyncTag.style.display = 'inline-block';
+        const rLoc = frame.dynamic_details.r_local !== undefined ? Number(frame.dynamic_details.r_local).toFixed(3) : '-';
+        const rGlob = frame.dynamic_details.r_global !== undefined ? Number(frame.dynamic_details.r_global).toFixed(3) : (frame.dynamic_details.kuramoto_r !== undefined ? Number(frame.dynamic_details.kuramoto_r).toFixed(3) : '-');
+        multiSyncTag.innerText = `R_loc: ${rLoc} | R_glob: ${rGlob}`;
+      } else {
+        multiSyncTag.style.display = 'none';
       }
 
       if (frame.dynamic_details && frame.dynamic_details.dominant_freq_hz !== undefined) {
@@ -1432,8 +1494,41 @@
             firedEl.innerText = hasSpike ? '⚡ YES (Active Action Potential)' : 'No';
             firedEl.style.color = hasSpike ? '#f87171' : 'var(--text-muted)';
           }
+
+          // Phase 8: E/I Balance & Homeostasis section
+          const eiSec = document.getElementById('ei-insp-section');
+          if (eiSec) {
+            eiSec.style.display = 'block';
+            const nodeMeta = info.node.metadata || {};
+            const isRec = info.node.type === 'RECURRENT';
+            const cellType = nodeMeta.neuron_type || (info.node.label.includes('[I]') ? 'INHIBITORY' : 'EXCITATORY');
+            const cellTypeEl = document.getElementById('insp-cell-type');
+            if (cellTypeEl) {
+              cellTypeEl.innerText = cellType === 'INHIBITORY' ? 'INHIBITORY (Fast-Spiking Interneuron)' : 'EXCITATORY (Regular Spiking Pyramidal)';
+              cellTypeEl.style.color = cellType === 'INHIBITORY' ? '#f43f5e' : '#00e5ff';
+            }
+
+            const dynDetails = curFrame ? curFrame.dynamic_details || {} : {};
+            const uIdx = info.node.unit_index;
+
+            const ie = (dynDetails.i_e && uIdx !== undefined && dynDetails.i_e[uIdx] !== undefined) ? dynDetails.i_e[uIdx] : (dynDetails.mean_i_e || 0.0);
+            const ii = (dynDetails.i_i && uIdx !== undefined && dynDetails.i_i[uIdx] !== undefined) ? dynDetails.i_i[uIdx] : (dynDetails.mean_i_i || 0.0);
+            const inet = (dynDetails.i_net && uIdx !== undefined && dynDetails.i_net[uIdx] !== undefined) ? dynDetails.i_net[uIdx] : (dynDetails.mean_i_net || 0.0);
+            const hScale = dynDetails.homeostatic_scale || 1.0;
+
+            const ieEl = document.getElementById('insp-i-e');
+            if (ieEl) ieEl.innerText = Number(ie).toFixed(4);
+            const iiEl = document.getElementById('insp-i-i');
+            if (iiEl) iiEl.innerText = Number(ii).toFixed(4);
+            const inetEl = document.getElementById('insp-i-net');
+            if (inetEl) inetEl.innerText = Number(inet).toFixed(4);
+            const hsEl = document.getElementById('insp-homeo-scale');
+            if (hsEl) hsEl.innerText = Number(hScale).toFixed(4);
+          }
         } else {
           spkSec.style.display = 'none';
+          const eiSec = document.getElementById('ei-insp-section');
+          if (eiSec) eiSec.style.display = 'none';
         }
       }
 
@@ -1467,6 +1562,21 @@
       document.getElementById('edge-connection').innerText = `Node ${src} → Node ${dst}`;
       document.getElementById('edge-src').innerText = `${info.srcNode.label} (${info.srcNode.type})`;
       document.getElementById('edge-dst').innerText = `${info.dstNode.label} (${info.dstNode.type})`;
+
+      // Phase 8: Synapse Class & Dale Sign
+      const sType = (info.srcNode.metadata && info.srcNode.metadata.neuron_type) || (info.srcNode.label.includes('[I]') ? 'INHIBITORY' : 'EXCITATORY');
+      const dType = (info.dstNode.metadata && info.dstNode.metadata.neuron_type) || (info.dstNode.label.includes('[I]') ? 'INHIBITORY' : 'EXCITATORY');
+      const synClass = `${sType.slice(0,1)} → ${dType.slice(0,1)}`;
+      const classEl = document.getElementById('edge-synapse-class');
+      if (classEl) {
+        classEl.innerText = synClass;
+        classEl.style.color = sType === 'INHIBITORY' ? '#f43f5e' : '#00e5ff';
+      }
+      const daleEl = document.getElementById('edge-dale-sign');
+      if (daleEl) {
+        daleEl.innerText = sType === 'INHIBITORY' ? 'Inhibitory (-)' : 'Excitatory (+)';
+        daleEl.style.color = sType === 'INHIBITORY' ? '#f43f5e' : '#00e5ff';
+      }
 
       const distEl = document.getElementById('edge-dist');
       if (distEl) distEl.innerText = info.distance !== null ? `${info.distance.toFixed(2)} units` : 'Metric-Free';

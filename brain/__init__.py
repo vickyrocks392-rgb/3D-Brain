@@ -68,6 +68,13 @@ __all__ = [
     "STDPUpdateRecord",
     "SpikingSpatialNetwork",
     "SpikingLatentSpatialNetwork",
+    "NeuronType",
+    "EILIFPopulation",
+    "EIIzhikevichPopulation",
+    "EISpikePropagationQueue",
+    "HomeostaticSynapticScaling",
+    "EIBalancedSpatialNetwork",
+    "EIBalancedLatentSpatialNetwork",
 ]
 
 from brain.spiking import (
@@ -85,6 +92,17 @@ from brain.stdp import (
 from brain.spiking_spatial import (
     SpikingSpatialNetwork,
     SpikingLatentSpatialNetwork,
+)
+from brain.ei_dynamics import (
+    NeuronType,
+    EILIFPopulation,
+    EIIzhikevichPopulation,
+    EISpikePropagationQueue,
+)
+from brain.homeostasis import HomeostaticSynapticScaling
+from brain.ei_spatial import (
+    EIBalancedSpatialNetwork,
+    EIBalancedLatentSpatialNetwork,
 )
 
 

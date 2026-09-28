@@ -136,6 +136,10 @@ class TopologyExtractor:
         # Extract static parameters per unit if available (e.g. tau or alpha)
         weights = model.get_weights()
         unit_meta = [{} for _ in range(H)]
+        neuron_types = getattr(model, "neuron_types", None)
+        if neuron_types is not None:
+            for i in range(min(H, len(neuron_types))):
+                unit_meta[i]["neuron_type"] = str(neuron_types[i])
         if "rho" in weights:
             from brain.liquid import sigmoid
             alphas = sigmoid(weights["rho"])
@@ -145,11 +149,12 @@ class TopologyExtractor:
 
         for i in range(H):
             mod_id = int(module_ids[i]) if module_ids is not None else 0
+            n_type_label = f"[{unit_meta[i].get('neuron_type', 'E')[:1]}] " if "neuron_type" in unit_meta[i] else ""
             nodes.append(
                 TopologyNode(
                     id=recurrent_id_offset + i,
                     type="RECURRENT",
-                    label=f"Unit_{i:02d}",
+                    label=f"{n_type_label}Unit_{i:02d}",
                     pos=positions[i],
                     unit_index=i,
                     module_id=mod_id,
@@ -202,6 +207,8 @@ class TopologyExtractor:
         if W_hy is None and "W_pred" in weights:
             # Predictive head: weights from hidden to output
             W_hy = weights["W_pred"][:H, :]
+        elif W_hy is None and "W_out" in weights:
+            W_hy = weights["W_out"]
 
         dist_mat = getattr(model, "distance_matrix", None)
         delay_mat = getattr(model, "delay_matrix", None)
@@ -211,7 +218,12 @@ class TopologyExtractor:
             for in_j in range(model.input_dim):
                 p_in = np.array(nodes[in_j].pos, dtype=np.float32)
                 for h_i in range(H):
-                    w = float(W_xh[in_j, h_i])
+                    if W_xh.shape == (model.input_dim, H):
+                        w = float(W_xh[in_j, h_i])
+                    elif W_xh.shape == (H, model.input_dim):
+                        w = float(W_xh[h_i, in_j])
+                    else:
+                        continue
                     if abs(w) >= self.edge_weight_threshold:
                         p_h = np.array(nodes[recurrent_id_offset + h_i].pos, dtype=np.float32)
                         d = float(np.linalg.norm(p_in - p_h))
@@ -257,7 +269,14 @@ class TopologyExtractor:
                 out_node_id = output_start_id + out_k
                 p_out = np.array(nodes[out_node_id].pos, dtype=np.float32)
                 for h_i in range(H):
-                    w = float(W_hy[h_i, out_k if W_hy.ndim > 1 else 0])
+                    if W_hy.shape == (H, out_dim):
+                        w = float(W_hy[h_i, out_k])
+                    elif W_hy.shape == (out_dim, H):
+                        w = float(W_hy[out_k, h_i])
+                    elif W_hy.ndim == 1 and out_k == 0:
+                        w = float(W_hy[h_i])
+                    else:
+                        continue
                     if abs(w) >= self.edge_weight_threshold:
                         p_h = np.array(nodes[recurrent_id_offset + h_i].pos, dtype=np.float32)
                         d = float(np.linalg.norm(p_h - p_out))

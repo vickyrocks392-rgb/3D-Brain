@@ -121,3 +121,15 @@ We do not write thousands of lines of speculative code in hopes that intelligenc
 3. **Test-Driven Rigor**:
    * Unit tests for each mathematical update rule (activation functions, ODE integrators, plasticity updates, normalization).
    * Property-based tests verifying bounded activations, numerical stability, and energy/loss conservation.
+
+---
+
+## 7. Dale's Constraint & Homeostatic Invariants (Phase 8)
+
+1. **Sign Preservation**:
+   * Synaptic polarity must be an invariant property of the presynaptic neuron ($w_{ij} \ge 0$ for Excitatory, $w_{ij} \le 0$ for Inhibitory). Plasticity updates (STDP, scaling) must preserve this invariant.
+2. **Current Mass Balance**:
+   * Inhibitory and excitatory currents must be accounted for and integrated independently to avoid numerical cancellation artifacts.
+3. **Homeostatic Autonomy**:
+   * Homeostatic scaling operates purely on local activity feedback to regulate target metabolic rates. It must never inspect objective loss or external task supervision.
+

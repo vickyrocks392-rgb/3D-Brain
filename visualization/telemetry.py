@@ -59,12 +59,16 @@ def build_topology(
         hidden_positions = generate_fibonacci_ellipsoid(H, rx=3.5, ry=2.5, rz=2.5)
         module_ids = None
 
+    neuron_types = getattr(model, "neuron_types", None)
     for i in range(H):
+        n_type = str(neuron_types[i]) if (neuron_types is not None and i < len(neuron_types)) else "EXCITATORY"
+        n_label = f"[{n_type[:1]}] Unit_{i:02d}" if neuron_types is not None else f"Unit_{i:02d}"
         node_d = {
             "id": 2 + i,
             "type": "RECURRENT",
-            "label": f"Unit_{i:02d}",
+            "label": n_label,
             "pos": hidden_positions[i],
+            "metadata": {"neuron_type": n_type},
         }
         if module_ids is not None:
             node_d["module_id"] = int(module_ids[i])

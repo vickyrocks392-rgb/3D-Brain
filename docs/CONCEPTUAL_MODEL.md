@@ -57,3 +57,20 @@ The computational engine produces two synchronized streams:
    * Attractor basin transitions / Decision commits.
 
 This separation guarantees that headless benchmarks run at maximum native compute speed without rendering bottlenecks, while the visualizer receives exactly the information needed to render a living world.
+
+---
+
+## 5. Dale's Principle, E/I Balance & Multi-Scale Synchrony (Phase 8)
+
+Phase 8 introduces biological excitation/inhibition constraints:
+1. **Dale's Principle**:
+   - Each neuron is typed as either **Excitatory (E)** or **Fast-Spiking Inhibitory (I)** ($\sim 80\% \text{ E} / 20\% \text{ I}$).
+   - Excitatory neurons emit strictly positive weights ($w_{ij} > 0$); inhibitory neurons emit strictly negative weights ($w_{ij} < 0$).
+2. **Current Accounting**:
+   - Excitatory current $I_E(t) \ge 0$ and inhibitory current $I_I(t) \le 0$ are separately integrated in ring buffers.
+   - Net somatic current $I_{\text{net}}(t) = I_E(t) - |I_I(t)|$.
+3. **Multi-Scale Synchrony**:
+   - Kuramoto order parameter $R$ and Phase Locking Value ($PLV$) are evaluated across spatial radii:
+     $$R_{\text{local}} \text{ (within neighborhood radius } r) \quad \text{vs} \quad R_{\text{global}} \text{ (whole brain)}$$
+   - Operational Asynchronous-Irregular (AI) regime requires local functional coordination ($R_{\text{local}} > R_{\text{global}}$) alongside low pairwise spike-count correlation ($r_{\text{sc}} \approx 0.03$), preventing runaway global hypersynchrony and representational collapse.
+

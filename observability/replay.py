@@ -25,6 +25,7 @@ class NodeInspection:
     outgoing_connections: List[dict]
     dynamic_vars: Dict[str, Any]
     module_id: int = 0
+    neuron_type: str = "EXCITATORY"
 
 
 @dataclass
@@ -44,6 +45,9 @@ class EdgeInspection:
     distance: Optional[float] = None
     propagation_delay: Optional[int] = None
     signal_progress: Optional[float] = None
+    source_type: str = "EXCITATORY"
+    target_type: str = "EXCITATORY"
+    sign: int = 1
 
 
 
@@ -168,6 +172,9 @@ class ReplayEngine:
                 if isinstance(var_list, list) and unit_idx < len(var_list):
                     dynamic_vars[var_name] = var_list[unit_idx]
 
+        node_meta = node_info.get("metadata", {})
+        n_type = node_meta.get("neuron_type", "INHIBITORY" if "INH" in node_info["label"].upper() else "EXCITATORY")
+
         return NodeInspection(
             node_id=node_id,
             label=node_info["label"],
@@ -180,6 +187,7 @@ class ReplayEngine:
             outgoing_connections=out_edges,
             dynamic_vars=dynamic_vars,
             module_id=node_info.get("module_id", 0),
+            neuron_type=n_type,
         )
 
     def get_plasticity_events(self) -> List[dict]:
@@ -230,6 +238,12 @@ class ReplayEngine:
                 signal_mag = s.get("mag", signal_mag)
                 break
 
+        src_meta = nodes[src].get("metadata", {})
+        dst_meta = nodes[dst].get("metadata", {})
+        s_type = src_meta.get("neuron_type", "INHIBITORY" if "INH" in nodes[src]["label"].upper() else "EXCITATORY")
+        d_type = dst_meta.get("neuron_type", "INHIBITORY" if "INH" in nodes[dst]["label"].upper() else "EXCITATORY")
+        syn_sign = -1 if (curr_w < 0 or s_type == "INHIBITORY") else 1
+
         return EdgeInspection(
             src=src,
             dst=dst,
@@ -246,6 +260,9 @@ class ReplayEngine:
             distance=e.get("distance"),
             propagation_delay=e.get("propagation_delay", e.get("latency_steps", 1)),
             signal_progress=sig_progress,
+            source_type=s_type,
+            target_type=d_type,
+            sign=syn_sign,
         )
 
     def get_signals_in_transit(self, step: Optional[int] = None) -> List[dict]:

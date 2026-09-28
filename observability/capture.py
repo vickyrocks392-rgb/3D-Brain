@@ -696,6 +696,223 @@ class StateCapture:
 
         return frame
 
+    def capture_ei_step(
+        self,
+        step: int,
+        input_vec: np.ndarray,
+        model: BrainModel,
+        y_val: float,
+        target_val: float,
+        mask_val: float,
+        spikes: Optional[np.ndarray] = None,
+        i_e: Optional[np.ndarray] = None,
+        i_i: Optional[np.ndarray] = None,
+        homeostatic_scale: Optional[float] = None,
+        ai_metrics: Optional[Dict[str, Any]] = None,
+        multiscale_sync: Optional[Dict[str, Any]] = None,
+        stdp_updates: Optional[List[Any]] = None,
+        phase_label: str = "RUNNING",
+    ) -> TelemetryFrame:
+        """Capture an E/I balanced spiking step with E/I currents, Dale cell typing, and AI regime metrics."""
+        time_ms = step * self.dt_ms
+        obs = model.observable_state()
+
+        h_vec = obs["state"][0]
+        a_vec = obs["activation"][0]
+
+        in_acts = [float(x) for x in input_vec]
+        h_acts = [float(a) for a in a_vec]
+
+        out_nodes = [n for n in self.topology.nodes if n.type == "OUTPUT"]
+        num_out = len(out_nodes) if len(out_nodes) > 0 else 1
+        if isinstance(y_val, (list, tuple, np.ndarray)):
+            out_acts = [float(v) for v in y_val]
+        else:
+            out_acts = [float(y_val)]
+        if len(out_acts) < num_out:
+            out_acts = out_acts + [0.0] * (num_out - len(out_acts))
+        elif len(out_acts) > num_out:
+            out_acts = out_acts[:num_out]
+
+        all_acts = in_acts + h_acts + out_acts
+
+        in_states = [float(x) for x in input_vec]
+        h_states = [float(h) for h in h_vec]
+        all_states = in_states + h_states + out_acts
+
+        err = abs(float(y_val) - float(target_val)) if mask_val > 0 else 0.0
+
+        # Signals actively in-transit along synaptic edges
+        signals: List[TelemetrySignal] = []
+        offset = len(in_acts)
+
+        if hasattr(model, "queue") and model.queue is not None:
+            if hasattr(model.queue, "active_spikes") and len(model.queue.active_spikes) > 0:
+                for spk in model.queue.active_spikes:
+                    s_id = offset + spk.source
+                    d_id = offset + spk.target
+                    prog = spk.progress(step)
+                    signals.append(
+                        TelemetrySignal(
+                            src=s_id,
+                            dst=d_id,
+                            progress=prog,
+                            magnitude=spk.weight,
+                            distance=spk.distance,
+                            delay=spk.delay,
+                        )
+                    )
+        signals = signals[: self.max_active_signals]
+
+        # Computational Events
+        step_events: List[ComputationalEvent] = []
+
+        if step == 0:
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.TRIAL_STARTED,
+                    step=step,
+                    time_ms=time_ms,
+                    payload={"stimulus": float(input_vec[0]) if len(input_vec) > 0 else 0.0},
+                )
+            )
+
+        # 1. Distinguish EXCITATORY vs INHIBITORY spikes
+        fired_mask = spikes if spikes is not None else np.array(obs.get("spikes", []), dtype=bool)
+        neuron_types = getattr(model, "neuron_types", np.array(obs.get("neuron_types", [])))
+
+        if len(fired_mask) > 0:
+            for j in np.where(fired_mask)[0]:
+                is_inh = (len(neuron_types) > j and neuron_types[j] == "INHIBITORY")
+                evt_type = EventType.INHIBITORY_SPIKE if is_inh else EventType.EXCITATORY_SPIKE
+                step_events.append(
+                    ComputationalEvent(
+                        event_type=evt_type,
+                        step=step,
+                        time_ms=time_ms,
+                        node_id=offset + int(j),
+                        magnitude=1.0,
+                        payload={"cell_type": "INHIBITORY" if is_inh else "EXCITATORY"},
+                    )
+                )
+
+        # 2. Homeostatic Update Event
+        if homeostatic_scale is not None and abs(homeostatic_scale - 1.0) > 0.005:
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.HOMEOSTATIC_UPDATE,
+                    step=step,
+                    time_ms=time_ms,
+                    magnitude=float(homeostatic_scale),
+                    payload={"scale_factor": round(float(homeostatic_scale), 4)},
+                )
+            )
+
+        # 3. AI Regime Diagnostics Events
+        if ai_metrics is not None:
+            if ai_metrics.get("is_ai_regime", False):
+                step_events.append(
+                    ComputationalEvent(
+                        event_type=EventType.AI_REGIME_ENTERED,
+                        step=step,
+                        time_ms=time_ms,
+                        magnitude=float(ai_metrics.get("ai_score", 1.0)),
+                        payload=ai_metrics,
+                    )
+                )
+
+        # 4. Multi-Scale Synchrony Transition
+        if multiscale_sync is not None:
+            r_loc = multiscale_sync.get("r_local", 0.0)
+            r_glob = multiscale_sync.get("r_global", 0.0)
+            if r_loc > r_glob + 0.15:
+                step_events.append(
+                    ComputationalEvent(
+                        event_type=EventType.SYNCHRONY_TRANSITION,
+                        step=step,
+                        time_ms=time_ms,
+                        magnitude=float(r_loc - r_glob),
+                        payload={
+                            "r_local": round(float(r_loc), 4),
+                            "r_global": round(float(r_glob), 4),
+                            "gradient": round(float(r_loc - r_glob), 4),
+                        },
+                    )
+                )
+
+        # 5. STDP Updates
+        updates_list = stdp_updates if stdp_updates is not None else getattr(model, "last_plastic_updates", [])
+        if updates_list:
+            for upd in updates_list[:10]:
+                upd_dict = upd.to_dict() if hasattr(upd, "to_dict") else upd
+                step_events.append(
+                    ComputationalEvent(
+                        event_type=EventType.STDP_UPDATE,
+                        step=step,
+                        time_ms=time_ms,
+                        source_node=offset + upd_dict["src"],
+                        target_node=offset + upd_dict["dst"],
+                        magnitude=abs(upd_dict["dw"]),
+                        payload=upd_dict,
+                    )
+                )
+
+        # Construct Dynamic Details
+        dynamic_details: Dict[str, Any] = {
+            "spikes_active": int(np.sum(fired_mask)),
+            "v_mem_mean": round(float(np.mean(h_vec)), 2),
+            "v_mem_std": round(float(np.std(h_vec)), 2),
+            "mean_i_e": round(float(np.mean(i_e)), 4) if i_e is not None else float(obs.get("mean_i_e", 0.0)),
+            "mean_i_i": round(float(np.mean(i_i)), 4) if i_i is not None else float(obs.get("mean_i_i", 0.0)),
+            "mean_i_net": round(float(np.mean(i_e + i_i)), 4) if (i_e is not None and i_i is not None) else float(obs.get("mean_i_net", 0.0)),
+        }
+        if homeostatic_scale is not None:
+            dynamic_details["homeostatic_scale"] = round(float(homeostatic_scale), 4)
+        if ai_metrics is not None:
+            dynamic_details["ai_score"] = ai_metrics.get("ai_score", 0.0)
+            dynamic_details["is_ai_regime"] = ai_metrics.get("is_ai_regime", False)
+            dynamic_details["regime_status"] = ai_metrics.get("regime_status", "UNKNOWN")
+            dynamic_details["cv_isi"] = ai_metrics.get("cv_isi_mean", 0.0)
+            dynamic_details["fano_factor"] = ai_metrics.get("fano_factor", 1.0)
+            dynamic_details["pairwise_corr"] = ai_metrics.get("pairwise_correlation_r_sc", 0.0)
+        if multiscale_sync is not None:
+            dynamic_details["r_global"] = multiscale_sync.get("r_global", 0.0)
+            dynamic_details["r_local"] = multiscale_sync.get("r_local", 0.0)
+            dynamic_details["r_community"] = multiscale_sync.get("r_community", 0.0)
+            dynamic_details["plv_global"] = multiscale_sync.get("plv_global", 0.0)
+            dynamic_details["plv_local"] = multiscale_sync.get("plv_local", 0.0)
+        if "latent_z" in obs:
+            dynamic_details["latent_z"] = obs["latent_z"]
+            dynamic_details["latent_norm"] = obs.get("latent_norm", 0.0)
+
+        frame = TelemetryFrame(
+            step=step,
+            time_ms=time_ms,
+            inputs=in_acts,
+            activations=all_acts,
+            states=all_states,
+            output=float(y_val),
+            target=float(target_val),
+            error=float(err),
+            mask=float(mask_val),
+            signals=signals,
+            events=step_events,
+            dynamic_details=dynamic_details,
+        )
+
+        self.frames.append(frame)
+        self.all_events.extend(step_events)
+
+        if step % 10 == 0:
+            self.snapshots[step] = {
+                "step": step,
+                "states": all_states,
+                "activations": all_acts,
+                "weights_digest": len(self.topology.edges),
+            }
+
+        return frame
+
     def complete_trial(self, final_acc: float) -> None:
         """Mark trial completion and emit final event."""
         if len(self.frames) > 0:

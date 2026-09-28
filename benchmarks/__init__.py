@@ -13,6 +13,12 @@ from benchmarks.embodied_environment import (
     Landmark,
     EnvState,
 )
+from benchmarks.temporal_memory import (
+    DelayedCueRecallTask,
+    SequenceReconstructionTask,
+    TemporalContextDisambiguationTask,
+    MultiStepPredictionEvaluator,
+)
 
 __all__ = [
     "DelayedMatchTask",
@@ -24,6 +30,10 @@ __all__ = [
     "Action",
     "Landmark",
     "EnvState",
+    "DelayedCueRecallTask",
+    "SequenceReconstructionTask",
+    "TemporalContextDisambiguationTask",
+    "MultiStepPredictionEvaluator",
 ]
 
 

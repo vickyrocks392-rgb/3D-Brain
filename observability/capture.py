@@ -457,6 +457,30 @@ class StateCapture:
             dynamic_details["structural_events"] = [
                 se.to_dict() if hasattr(se, "to_dict") else se for se in structural_events
             ]
+        if hasattr(model, "latent") and getattr(model, "latent_enabled", True) and model.latent is not None:
+            z_arr = model.latent.z
+            z_norm = float(np.linalg.norm(z_arr))
+            dynamic_details["latent_z"] = [round(float(v), 4) for v in z_arr]
+            dynamic_details["latent_norm"] = round(z_norm, 4)
+            if hasattr(model.latent, "last_predictions") and model.latent.last_predictions:
+                dynamic_details["multistep_preds"] = {
+                    str(k): [round(float(v), 4) for v in p]
+                    for k, p in model.latent.last_predictions.items()
+                }
+            if hasattr(model.latent, "last_errors") and model.latent.last_errors:
+                dynamic_details["multistep_mse"] = {
+                    str(k): round(float(v), 6) for k, v in model.latent.last_errors.items()
+                }
+            if step % 5 == 0:
+                step_events.append(
+                    ComputationalEvent(
+                        event_type=EventType.LATENT_STATE_UPDATED,
+                        step=step,
+                        time_ms=time_ms,
+                        magnitude=z_norm,
+                        payload={"latent_norm": round(z_norm, 4)},
+                    )
+                )
 
         frame = TelemetryFrame(
             step=step,

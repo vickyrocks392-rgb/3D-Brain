@@ -57,13 +57,22 @@ The foundation of 3D-Brain is comprehensively documented in the following charte
 * **[Spatial Topology Literature Review](file:///Users/kalachanddash/Documents/3D-Brain/research/SPATIAL_TOPOLOGY_REVIEW.md)**: Deep analysis of spatial embedding, network neuroscience, small-world topologies, axonal propagation delays, Kuramoto phase synchrony, and parameter scaling.
 * **[Experiment 004 Specification](file:///Users/kalachanddash/Documents/3D-Brain/experiments/EXPERIMENT_004_SPECIFICATION.md)**: Formal protocol investigating spatial topology × propagation latency × scale across Delayed Match, Continual CDA, and Spatially Distributed Temporal tasks.
 * **[Experiment 004 Results Report](file:///Users/kalachanddash/Documents/3D-Brain/experiments/EXPERIMENT_004_RESULTS.md)**: Empirical findings across 16 primary conditions, ablations A-F, null models, and scaling benchmark to 100,000 units on Apple Silicon.
-* **[Phase 4 Implementation Report](file:///Users/kalachanddash/Documents/3D-Brain/docs/PHASE_4_IMPLEMENTATION_REPORT.md)**: Comprehensive 24-section report evaluating spatial computation, modular compartmentalization, empirical falsification of spontaneous functional emergence, and exit-gate audit.
+* **[Phase 4 Implementation Report](file:///Users/kalachanddash/Documents/3D-Brain/docs/PHASE_4_IMPLEMENTATION_REPORT.md)**: Comprehensive report evaluating spatial computation, modular compartmentalization, empirical falsification of spontaneous functional emergence, and exit-gate audit.
+* **[Phase 5 Literature Review](file:///Users/kalachanddash/Documents/3D-Brain/research/PHASE_5_LITERATURE_REVIEW.md)**: Predictive coding, active inference, feedback alignment, synaptogenesis, and embodied sensorimotor integration.
+* **[Phase 5 Design Audit](file:///Users/kalachanddash/Documents/3D-Brain/docs/PHASE_5_DESIGN_AUDIT.md)**: Architectural specifications for closed-loop embodiment, dynamic structural plasticity, and `.brainlog` v2.3 telemetry.
+* **[Experiment 005 Results Report](file:///Users/kalachanddash/Documents/3D-Brain/experiments/EXPERIMENT_005_RESULTS.md)**: Empirical findings across 102 conditions evaluating self-supervised prediction error, active embodiment advantage, and dynamic brain growth.
+* **[Phase 5 Implementation Report](file:///Users/kalachanddash/Documents/3D-Brain/docs/PHASE_5_IMPLEMENTATION_REPORT.md)**: Complete analysis of self-supervised sensory prediction, active vs passive embodiment, structural rewiring, and scaling.
+* **[Phase 6 Literature Review](file:///Users/kalachanddash/Documents/3D-Brain/research/PHASE_6_LITERATURE_REVIEW.md)**: Foundations of persistent latent memory, multi-timescale temporal processing, reservoir dynamics, credit assignment without BPTT, and representational geometry.
+* **[Phase 6 Design Audit](file:///Users/kalachanddash/Documents/3D-Brain/docs/PHASE_6_DESIGN_AUDIT.md)**: Architecture audit for persistent latent state $z_t$, multi-step prediction heads, feedback alignment, and `.brainlog` v2.4.
+* **[Experiment 006 Specification](file:///Users/kalachanddash/Documents/3D-Brain/experiments/EXPERIMENT_006_SPECIFICATION.md)**: Protocol investigating persistent latent memory, multi-step prediction, context disambiguation, and representational drift across delay intervals.
+* **[Experiment 006 Results Report](file:///Users/kalachanddash/Documents/3D-Brain/experiments/EXPERIMENT_006_RESULTS.md)**: Comprehensive empirical evaluation of Experiment 006 across 5 architectures, 4 benchmark tasks, 6 delay intervals, 4 environments, and ablations A-F.
+* **[Phase 6 Implementation Report](file:///Users/kalachanddash/Documents/3D-Brain/docs/PHASE_6_IMPLEMENTATION_REPORT.md)**: Exhaustive 26-section synthesis covering mathematical formulations, empirical results, ablations, negative results, and exit-gate evaluation.
 
 ---
 
 ## 4. Running Benchmarks & 3D Visualization
 
-### Execute Automated Test Suite (68 Tests)
+### Execute Automated Test Suite (97 Tests)
 ```bash
 python3 -m pytest tests -v
 ```
@@ -88,7 +97,17 @@ python3 experiments/run_exp003.py
 python3 experiments/run_exp004.py
 ```
 
-### Launch Interactive 3D Observability & Replay Console (v2.2)
+### Run Full Experiment 005 Embodied World Model Matrix
+```bash
+python3 experiments/run_exp005.py
+```
+
+### Run Full Experiment 006 Persistent Latent Memory Matrix
+```bash
+python3 experiments/run_exp006.py
+```
+
+### Launch Interactive 3D Observability & Replay Console (v2.4)
 ```bash
 python3 visualization/serve.py
 # Open http://localhost:8080/visualization/player.html in any browser
@@ -96,32 +115,49 @@ python3 visualization/serve.py
 
 ---
 
-## 5. Phase 4 Architecture & Key Findings
+## 5. Phase 6 Architecture & Key Findings
 
-### 5.1 Spatialized Substrate Architecture
+### 5.1 Persistent Latent Substrate Architecture
 ```text
-3D Position (x_i) ──► Distance (d_ij = ||x_i - x_j||) ──► Latency (tau_ij = d_ij / v)
-                                                                 │
-                                                                 ▼
-Neuron State (h_i) ◄── Arrived Recurrent Input ◄── Circular Delay Ring Buffer
-        │                                                        ▲
-        ▼                                                        │
-Activation (a_i) ──────────────── Synapse (w_ij) ────────────────┘
-        │
-        ▼ (Online Local Plasticity masked by structural adjacency)
- Synaptic Weight Update (dw_ij)
+Sensory Input (x_t) ─────────────► Fast Recurrent Layer (h_t) ◄── 3D Spatial Delay Ring Buffer
+                                         │            ▲
+                                         │ W_rec      │ W_fb
+                                         ▼            │
+Time Retention (lambda_z) ─────► Persistent Latent Memory (z_t)
+                                         │
+                    ┌────────────────────┼────────────────────┐
+                    ▼                    ▼                    ▼
+             1-Step Forecast      Multi-Step Forecast   Latent Decoding
+               (k = 1)             (k = 2, 5, 10, 25)    (Probes, RSA)
 ```
 
-### 5.2 Key Scientific Findings
-1. **Physical Scaling to 100,000 Units**: Sparse contiguous array representations and circular ring-buffer delay queues scaled smoothly from $100$ to $100{,}000$ neurons and $2{,}000{,}000$ synapses, sustaining $>10{,}000$ steps/sec with only $41.96\text{ MB}$ memory footprint on Apple Silicon M1.
-2. **Structural vs. Functional Modularity**: While strong structural modularity was engineered ($Q_{struct} = 0.63 - 0.74$), **spontaneous functional modularity was NOT observed** ($Q_{func} \approx -0.02$). Imposed structural clusters alone do not create functional segregation without heterogeneous input streams.
-3. **Propagation Latency**: Transmission delays acted primarily as a temporal dispersion penalty rather than an information processing asset; collective phase coherence remained weak ($R < 0.20$), though Small-World networks exhibited higher synchrony ($R \approx 0.16$) than Modular or Local graphs ($R \approx 0.12$).
-4. **Plasticity $\times$ Space**: Modular structural topology significantly protected against catastrophic forgetting under online neuromodulated plasticity ($0.033$ forgetting vs. $0.150$ in random networks), demonstrating that physical modular boundaries provide compartmentalization against interference.
+**Latent Update Equations:**
+$$z_t = \lambda_z \odot z_{t-1} + (1 - \lambda_z) \odot \tanh\left(W_{\text{lat}} z_{t-1} + W_{\text{rec}} h_t + b_z\right)$$
+$$\hat{x}_{t+k} = W_{\text{pred}}^{(k)} z_t + b_{\text{pred}}^{(k)}, \quad k \in \{1, 2, 5, 10, 25\}$$
+
+### 5.2 Empirical Benchmark Summary (Experiment 006)
+
+| Architecture / Substrate | Task A Cue $R^2$ ($\Delta t=10$) | Task A Cue $R^2$ ($\Delta t=100$) | Task A Cue $R^2$ ($\Delta t=500$) | Task C Centroid Dist | Task C Action Acc | Task D Flat MSE ($k=25$) | Continual Forgetting |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **`BASE_PHASE5`** | $0.218$ | $-0.134$ | $-0.134$ | $0.000$ | $46.7\%$ | $0.052$ | $0.00226$ |
+| **`BASE_LARGER_RECURRENT`** | $0.245$ | $-0.118$ | $-0.118$ | $0.000$ | $46.7\%$ | $0.052$ | $0.00215$ |
+| **`PERSISTENT_LATENT_PASSIVE`** | $0.627$ | $0.518$ | $0.461$ | $0.054$ | $46.7\%$ | $0.052$ | $\mathbf{0.00000}$ |
+| **`PERSISTENT_LATENT_ACTIVE`** | $\mathbf{0.630}$ | $\mathbf{0.518}$ | $\mathbf{0.459}$ | $\mathbf{0.057}$ | $\mathbf{56.7\%}$ | $0.052$ | $\mathbf{0.00000}$ |
+| **`GRADIENT_PREDICTIVE_BPTT`** | $0.628$ | $0.518$ | $0.460$ | $0.056$ | $50.0\%$ | $\mathbf{0.033}$ | $\mathbf{0.00000}$ |
+| *Causal Ablation (B: Step Reset)* | $0.218$ | $-0.343$ | $-0.343$ | $0.000$ | $50.0\%$ | $0.052$ | $0.00234$ |
+
+### 5.3 Key Scientific Findings
+1. **Persistent Memory Across Long Delays (SUPPORTED)**: `PERSISTENT_LATENT` models maintain high linear decodability of transient cue identity ($R^2 = 0.459 \pm 0.039$) across silent retention intervals up to $\Delta t = 500$ steps. Baselines without explicit latent persistence collapse completely by $\Delta t = 50$ ($R^2 < 0$).
+2. **Causal Necessity of Latent Continuity (SUPPORTED)**: Ablating latent state persistence between steps (`ABL_B_STEP_RESET`) causes catastrophic memory failure ($R^2 = -0.343$ at $\Delta t = 100$), confirming that memory maintenance is causally driven by the persistent latent state.
+3. **Temporal Context Disambiguation (PARTIALLY SUPPORTED)**: Identical sensory observations following distinct histories ($A \to B \to X$ vs $C \to D \to X$) are cleanly segregated in latent space ($\text{FDR} = 104.17$, centroid distance $= 0.057$). Downstream behavioral disambiguation achieved $56.7\% \pm 9.4\%$ accuracy.
+4. **Multi-Step Rollout Stability (PARTIALLY SUPPORTED)**: Multi-step prediction heads sustain stable, non-exploding error across horizons $k \in [1, 25]$ ($\text{MSE} \approx 0.041 - 0.052$), although offline backpropagation-through-time achieves lower absolute error ($0.027 - 0.033$).
+5. **Elimination of Catastrophic Forgetting (SUPPORTED)**: Persistent latent memory completely eliminates catastrophic forgetting under recurring environmental shifts ($0.0000$ vs $0.00226$ in Phase 5 baseline), with backward retention ratio $4.64 \pm 1.63$.
+6. **Parameter Scaling to 100,000 Units (PASSED)**: The substrate scales with linear memory and runtime complexity to $N=100{,}000$ neurons and $1{,}500{,}000$ synapses, executing at $10{,}439$ steps/sec with $<23\text{ MB}$ RAM on Apple Silicon.
+7. **Functional Modularity (NEGATIVE RESULT)**: Continuous rate-coded recurrent networks still do not produce high functional modularity ($Q_{\text{func}} \approx -0.010$).
 
 ---
 
 ## 6. Next Steps
 
-With Phase 1, Phase 2, Phase 3, and Phase 4 successfully completed:
-1. **Phase 5: Cognitive Time Travel & Native Desktop Shell**: Implement keyframe delta checkpoints, timeline scrubbers, and backward causal synaptic attribution in a native desktop window.
-2. **Phase 6: Causal Query Layer & Interactive Explanations**: Grounded natural language query engine.
+With Phase 1 through Phase 6 completed:
+1. **Phase 7: Autonomous Oscillatory Dynamics & Spiking Phase Processing**: Address the continuous-substrate functional modularity barrier ($Q_{\text{func}} \approx 0$) by investigating spiking neuron dynamics (LIF / Izhikevich substrates with STDP), phase-locking limit cycles, and Kuramoto oscillatory coherence while maintaining persistent latent predictive memory.

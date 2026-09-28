@@ -22,6 +22,13 @@ from brain.predictive_plasticity import (
 )
 from brain.structural_plasticity import StructuralPlasticity, StructuralEvent
 from brain.predictive_spatial import PredictiveSpatialRNN
+from brain.latent_memory import PersistentLatentModule
+from brain.latent_spatial import PersistentLatentSpatialRNN
+from brain.representation_analysis import (
+    LinearDecodingProbe,
+    RepresentationalSimilarityAnalysis,
+    StateDynamicsAnalyzer,
+)
 
 __all__ = [
     "BrainModel",
@@ -46,5 +53,10 @@ __all__ = [
     "GradientPredictiveBaseline",
     "StructuralPlasticity",
     "StructuralEvent",
+    "PersistentLatentModule",
+    "PersistentLatentSpatialRNN",
+    "LinearDecodingProbe",
+    "RepresentationalSimilarityAnalysis",
+    "StateDynamicsAnalyzer",
 ]
 

@@ -110,6 +110,9 @@ class MinimalEmbodiedEnvironment:
             self.env_id = env_id
             self._init_landmarks()
 
+    # Alias for reconfigure
+    reconfigure = set_environment
+
     def reset(self, seed: Optional[int] = None, initial_pos: Optional[np.ndarray] = None) -> np.ndarray:
         """Reset environment to initial state."""
         if seed is not None:

@@ -269,11 +269,15 @@
     .pin-plasticity { background: #b388ff; color: #000; }
     .pin-env { background: #ff5722; color: #fff; }
     .pin-action { background: #38bdf8; color: #000; }
-    .pin-prediction { background: #06b6d4; color: #000; }
     .pin-syn-form { background: #10b981; color: #000; }
     .pin-syn-prune { background: #f43f5e; color: #fff; }
     .pin-neu-born { background: #a855f7; color: #fff; }
     .pin-neu-prune { background: #f59e0b; color: #000; }
+    .pin-latent { background: #8b5cf6; color: #fff; }
+    .pin-decay { background: #64748b; color: #fff; }
+    .pin-multistep { background: #ec4899; color: #fff; }
+    .pin-context { background: #eab308; color: #000; }
+    .pin-ablation { background: #ef4444; color: #fff; }
 
 
     .scrubber-container {
@@ -371,6 +375,8 @@
         <span class="tag" id="pred-tag" style="display: none; background: rgba(0, 229, 255, 0.15); color: var(--cyan); border-color: var(--cyan);">Pred MSE: -</span>
         <span class="tag" id="action-tag" style="display: none; background: rgba(56, 189, 248, 0.15); color: #38bdf8; border-color: #38bdf8;">Act: -</span>
         <span class="tag" id="env-tag" style="display: none; background: rgba(255, 87, 34, 0.15); color: #ff5722; border-color: #ff5722;">Env: -</span>
+        <span class="tag" id="latent-tag" style="display: none; background: rgba(139, 92, 246, 0.15); color: #c4b5fd; border-color: #8b5cf6;">Latent ||z||: -</span>
+        <span class="tag" id="context-tag" style="display: none; background: rgba(234, 179, 8, 0.15); color: #fde047; border-color: #eab308;">Context: -</span>
         <span class="tag" id="q-tag" style="display: none; background: rgba(0, 229, 255, 0.15); color: var(--cyan); border-color: var(--cyan);">Q_func: -</span>
         <span class="tag" id="sync-tag" style="display: none; background: rgba(217, 70, 239, 0.15); color: #d946ef; border-color: #d946ef;">Sync R: -</span>
       </div>
@@ -380,6 +386,8 @@
         🌐 View: Structural
       </button>
       <select id="model-select" class="select-model">
+        <option value="/experiments/results/brainlogs/EXP006_PERSISTENT_LATENT_ACTIVE_s42.brainlog">EXP006: Persistent Latent Memory + Embodied World Model (s42)</option>
+        <option value="/experiments/results/brainlogs/EXP006_CONTEXT_DISAMBIGUATION_s42.brainlog">EXP006: Temporal Context Disambiguation (s42)</option>
         <option value="/experiments/results/brainlogs/EXP005_LOCAL_PRED_DYNAMIC_SYNAPSES_ACTIVE_s42.brainlog">EXP005: Local Pred + Dynamic Synapses (Active Embodied)</option>
         <option value="/experiments/results/brainlogs/EXP005_NEURO_PRED_DYNAMIC_SYNAPSES_ACTIVE_s42.brainlog">EXP005: Neuromodulated Pred + Dynamic Synapses (Active Embodied)</option>
         <option value="/experiments/results/brainlogs/EXP005_NEURO_PRED_DYNAMIC_GROWTH_ACTIVE_s42.brainlog">EXP005: Neuromodulated Pred + Dynamic Growth (Active Embodied)</option>
@@ -441,9 +449,25 @@
         <div class="metric-row"><span class="label">Agent Position:</span><span class="val" id="insp-agent-pos">-</span></div>
         <div class="metric-row"><span class="label">Agent Heading:</span><span class="val" id="insp-agent-heading">-</span></div>
         <div class="metric-row"><span class="label">Chosen Action:</span><span class="val" id="insp-action-name">-</span></div>
-        <div class="metric-row"><span class="label">Prediction MSE:</span><span class="val" id="insp-pred-mse">-</span></div>
         <div class="section-title">Sensory State vs Prediction</div>
         <div id="sensory-bars-container" style="display: flex; flex-direction: column; gap: 4px; margin-top: 6px;"></div>
+      </div>
+
+      <div id="latent-insp-section" style="display: none;">
+        <div class="section-title">Persistent Latent Memory & Predictive State</div>
+        <div class="metric-row"><span class="label">Latent Norm ||z_t||:</span><span class="val" id="insp-latent-norm">-</span></div>
+        <div class="metric-row"><span class="label">Context ID:</span><span class="val" id="insp-context-id">-</span></div>
+        <div class="section-title">Latent State Vector (z_t)</div>
+        <div id="latent-bars-container" style="display: flex; flex-wrap: wrap; gap: 3px; margin-top: 6px;"></div>
+        <div class="section-title">Multi-Step Future Predictions</div>
+        <div id="multistep-container" style="display: flex; flex-direction: column; gap: 4px; margin-top: 6px;"></div>
+        <div class="section-title">History Disambiguation Tool</div>
+        <div style="display: flex; gap: 6px; align-items: center; margin-top: 6px;">
+          <input type="number" id="hist-step-a" placeholder="Step A" style="width: 55px; background: rgba(0,0,0,0.4); border: 1px solid var(--border); color: #fff; padding: 4px; border-radius: 4px; font-size: 11px;">
+          <input type="number" id="hist-step-b" placeholder="Step B" style="width: 55px; background: rgba(0,0,0,0.4); border: 1px solid var(--border); color: #fff; padding: 4px; border-radius: 4px; font-size: 11px;">
+          <button class="btn" id="compare-hist-btn" style="padding: 4px 8px; font-size: 11px;">Compare</button>
+        </div>
+        <div id="hist-compare-result" style="font-size: 10px; margin-top: 6px; color: var(--text-muted); line-height: 1.4;"></div>
       </div>
     </div>
 
@@ -824,6 +848,12 @@
         else if (ev.type === 'SYNAPSE_PRUNED') { label = 'S-'; cls = 'pin-syn-prune'; }
         else if (ev.type === 'NEURON_BORN') { label = 'N+'; cls = 'pin-neu-born'; }
         else if (ev.type === 'NEURON_PRUNED') { label = 'N-'; cls = 'pin-neu-prune'; }
+        else if (ev.type === 'LATENT_STATE_UPDATED') { label = 'Z'; cls = 'pin-latent'; }
+        else if (ev.type === 'MEMORY_RETAINED') { label = 'M'; cls = 'pin-memory'; }
+        else if (ev.type === 'MEMORY_DECAYED') { label = 'M-'; cls = 'pin-decay'; }
+        else if (ev.type === 'MULTISTEP_PREDICTION') { label = 'MK'; cls = 'pin-multistep'; }
+        else if (ev.type === 'CONTEXT_RETRIEVED') { label = 'CTX'; cls = 'pin-context'; }
+        else if (ev.type === 'MEMORY_ABLATION') { label = 'ABL'; cls = 'pin-ablation'; }
 
         pin.classList.add(cls);
         pin.innerText = label;
@@ -1079,6 +1109,76 @@
         actionTag.style.display = 'none';
         envTag.style.display = 'none';
         if (embodiedSec) embodiedSec.style.display = 'none';
+      }
+
+      // Phase 6 Persistent Latent State Updates
+      const latentTag = document.getElementById('latent-tag');
+      const contextTag = document.getElementById('context-tag');
+      const latentSec = document.getElementById('latent-insp-section');
+
+      if (frame.dynamic_details && frame.dynamic_details.latent_z) {
+        const lz = frame.dynamic_details.latent_z;
+        const lNorm = frame.dynamic_details.latent_norm !== undefined ? Number(frame.dynamic_details.latent_norm) : 0.0;
+        latentTag.style.display = 'inline-block';
+        latentTag.innerText = `Latent ||z||: ${lNorm.toFixed(3)}`;
+
+        if (frame.dynamic_details.context_id !== undefined) {
+          contextTag.style.display = 'inline-block';
+          contextTag.innerText = `Context: ${frame.dynamic_details.context_id}`;
+        } else {
+          contextTag.style.display = 'none';
+        }
+
+        if (latentSec) {
+          latentSec.style.display = 'block';
+          document.getElementById('insp-latent-norm').innerText = lNorm.toFixed(4);
+          document.getElementById('insp-context-id').innerText = frame.dynamic_details.context_id || 'N/A';
+
+          // Render latent bars
+          const latentCont = document.getElementById('latent-bars-container');
+          latentCont.innerHTML = '';
+          lz.forEach((val, idx) => {
+            const bar = document.createElement('div');
+            bar.style.width = '14px';
+            bar.style.height = '24px';
+            bar.style.background = 'rgba(255,255,255,0.08)';
+            bar.style.borderRadius = '2px';
+            bar.style.position = 'relative';
+            bar.style.overflow = 'hidden';
+            bar.title = `z[${idx}]: ${Number(val).toFixed(3)}`;
+            const fill = document.createElement('div');
+            fill.style.position = 'absolute';
+            fill.style.bottom = '0';
+            fill.style.width = '100%';
+            const hPct = Math.min(Math.abs(val) * 100, 100);
+            fill.style.height = `${hPct}%`;
+            fill.style.background = val >= 0 ? '#8b5cf6' : '#ec4899';
+            bar.appendChild(fill);
+            latentCont.appendChild(bar);
+          });
+
+          // Render multi-step predictions
+          const multiCont = document.getElementById('multistep-container');
+          multiCont.innerHTML = '';
+          const msPreds = frame.dynamic_details.multistep_preds || {};
+          const msMse = frame.dynamic_details.multistep_mse || {};
+          Object.keys(msPreds).sort((a,b) => Number(a) - Number(b)).forEach(k => {
+            const row = document.createElement('div');
+            row.style.fontSize = '10px';
+            row.style.display = 'flex';
+            row.style.justifyContent = 'space-between';
+            row.style.background = 'rgba(255,255,255,0.04)';
+            row.style.padding = '2px 6px';
+            row.style.borderRadius = '3px';
+            const mseVal = msMse[k] !== undefined ? `MSE: ${Number(msMse[k]).toFixed(4)}` : '';
+            row.innerHTML = `<span><b>k=${k}</b></span> <span>${mseVal}</span>`;
+            multiCont.appendChild(row);
+          });
+        }
+      } else {
+        latentTag.style.display = 'none';
+        contextTag.style.display = 'none';
+        if (latentSec) latentSec.style.display = 'none';
       }
 
       // Update UI Elements
@@ -1367,6 +1467,32 @@
       pause();
       replay.seek(parseInt(e.target.value));
       renderFrame(replay.currentStep);
+    });
+
+    // History comparison tool click handler
+    document.getElementById('compare-hist-btn')?.addEventListener('click', () => {
+      if (!replay) return;
+      const sA = parseInt(document.getElementById('hist-step-a').value);
+      const sB = parseInt(document.getElementById('hist-step-b').value);
+      const resDiv = document.getElementById('hist-compare-result');
+      if (isNaN(sA) || isNaN(sB)) {
+        resDiv.innerText = 'Enter valid step indices.';
+        return;
+      }
+      try {
+        const comp = replay.compareHistories(sA, sB);
+        resDiv.innerHTML = `
+          <div>Input Dist: <b>${comp.input_distance.toFixed(4)}</b> (${comp.inputs_identical ? 'Identical' : 'Different'})</div>
+          <div>Recurrent Dist: <b>${comp.recurrent_activation_distance.toFixed(4)}</b></div>
+          <div>Latent State Dist: <b>${comp.latent_state_distance.toFixed(4)}</b></div>
+          <div>Latent Cosine Sim: <b>${comp.latent_cosine_similarity.toFixed(4)}</b></div>
+          <div style="color:${comp.context_disambiguated ? '#10b981' : '#f59e0b'};">
+            <b>${comp.context_disambiguated ? '✓ Context Disambiguated in Latent Space' : 'Context Not Disambiguated'}</b>
+          </div>
+        `;
+      } catch (err) {
+        resDiv.innerText = 'Comparison error: ' + err.message;
+      }
     });
 
     // Render Loop

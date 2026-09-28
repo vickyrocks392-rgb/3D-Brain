@@ -358,4 +358,88 @@ class ReplayEngine:
             "edges": list(edges.values()),
         }
 
+    def get_latent_state(self, step: Optional[int] = None) -> Optional[dict]:
+        """Return latent state vector z_t, norm, and persistence metrics at step."""
+        if not self.data:
+            return None
+        s = self.current_step if step is None else step
+        frame = self.data["frames"][s]
+        dyn = frame.get("dynamic_details", {})
+        if "latent_z" in dyn:
+            return {
+                "step": s,
+                "latent_z": dyn["latent_z"],
+                "latent_norm": dyn.get("latent_norm", 0.0),
+                "context_id": dyn.get("context_id"),
+            }
+        return None
+
+    def get_multistep_predictions(self, step: Optional[int] = None) -> Optional[dict]:
+        """Return multi-step predictive forecasts and errors at step."""
+        if not self.data:
+            return None
+        s = self.current_step if step is None else step
+        frame = self.data["frames"][s]
+        dyn = frame.get("dynamic_details", {})
+        return {
+            "step": s,
+            "multistep_preds": dyn.get("multistep_preds", {}),
+            "multistep_mse": dyn.get("multistep_mse", {}),
+        }
+
+    def compare_histories(self, step_a: int, step_b: int) -> dict:
+        """Compare internal states at two timesteps producing identical or similar current observations.
+
+        Demonstrates whether the internal latent state encodes historical context
+        that is unavailable from the instantaneous sensory input alone.
+        """
+        if not self.data:
+            raise RuntimeError("No .brainlog loaded in ReplayEngine")
+        if step_a >= self.total_steps or step_b >= self.total_steps:
+            raise IndexError("Step index out of bounds")
+
+        import numpy as np
+
+        frame_a = self.data["frames"][step_a]
+        frame_b = self.data["frames"][step_b]
+
+        in_a = np.array(frame_a["inputs"], dtype=np.float32)
+        in_b = np.array(frame_b["inputs"], dtype=np.float32)
+        act_a = np.array(frame_a["activations"], dtype=np.float32)
+        act_b = np.array(frame_b["activations"], dtype=np.float32)
+
+        dyn_a = frame_a.get("dynamic_details", {})
+        dyn_b = frame_b.get("dynamic_details", {})
+
+        z_a = np.array(dyn_a.get("latent_z", []), dtype=np.float32)
+        z_b = np.array(dyn_b.get("latent_z", []), dtype=np.float32)
+
+        input_diff = float(np.linalg.norm(in_a - in_b))
+        act_diff = float(np.linalg.norm(act_a - act_b))
+        latent_diff = float(np.linalg.norm(z_a - z_b)) if len(z_a) > 0 and len(z_b) > 0 else 0.0
+
+        # Cosine similarity between latent vectors
+        cos_sim = 1.0
+        if len(z_a) > 0 and len(z_b) > 0:
+            denom = float(np.linalg.norm(z_a) * np.linalg.norm(z_b))
+            if denom > 1e-6:
+                cos_sim = float(np.dot(z_a, z_b) / denom)
+
+        return {
+            "step_a": step_a,
+            "step_b": step_b,
+            "input_distance": input_diff,
+            "inputs_identical": bool(input_diff < 1e-4),
+            "recurrent_activation_distance": act_diff,
+            "latent_state_distance": latent_diff,
+            "latent_cosine_similarity": cos_sim,
+            "context_disambiguated": bool(input_diff < 1e-3 and latent_diff > 0.05),
+            "pred_a": dyn_a.get("pred_s"),
+            "pred_b": dyn_b.get("pred_s"),
+        }
+
+    # Alias for camelCase callers
+    compareHistories = compare_histories
+
+
 

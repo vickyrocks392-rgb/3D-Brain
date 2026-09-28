@@ -15,14 +15,21 @@ class TelemetrySignal:
     dst: int
     progress: float
     magnitude: float
+    distance: Optional[float] = None
+    delay: Optional[int] = None
 
     def to_dict(self) -> dict:
-        return {
+        d = {
             "src": self.src,
             "dst": self.dst,
             "progress": round(float(self.progress), 2),
             "mag": round(float(self.magnitude), 4),
         }
+        if self.distance is not None:
+            d["distance"] = round(float(self.distance), 2)
+        if self.delay is not None:
+            d["delay"] = int(self.delay)
+        return d
 
 
 @dataclass
@@ -117,21 +124,40 @@ class StateCapture:
 
         # Calculate actual signal pulses across connection edges
         signals: List[TelemetrySignal] = []
-        for edge in self.topology.edges:
-            src = edge.src
-            dst = edge.dst
-            w = edge.weight
-            src_act = all_acts[src]
-            signal_mag = src_act * w
-            if abs(signal_mag) >= 0.07:
+        if hasattr(model, "queue") and model.queue is not None and len(model.queue.active_signals) > 0:
+            offset = 3 if model.input_dim == 3 else 2
+            for sig in model.queue.active_signals:
+                s_id = offset + sig.source
+                d_id = offset + sig.target
+                prog = sig.progress(step)
                 signals.append(
                     TelemetrySignal(
-                        src=src,
-                        dst=dst,
-                        progress=1.0,
-                        magnitude=signal_mag,
+                        src=s_id,
+                        dst=d_id,
+                        progress=prog,
+                        magnitude=sig.magnitude,
+                        distance=sig.distance,
+                        delay=sig.delay,
                     )
                 )
+        else:
+            for edge in self.topology.edges:
+                src = edge.src
+                dst = edge.dst
+                w = edge.weight
+                src_act = all_acts[src]
+                signal_mag = src_act * w
+                if abs(signal_mag) >= 0.07:
+                    signals.append(
+                        TelemetrySignal(
+                            src=src,
+                            dst=dst,
+                            progress=1.0,
+                            magnitude=signal_mag,
+                            distance=edge.distance,
+                            delay=edge.propagation_delay or edge.latency_steps,
+                        )
+                    )
 
         # Cap active signals for serialization performance
         signals = signals[: self.max_active_signals]

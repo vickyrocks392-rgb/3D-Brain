@@ -24,6 +24,7 @@ class NodeInspection:
     incoming_connections: List[dict]
     outgoing_connections: List[dict]
     dynamic_vars: Dict[str, Any]
+    module_id: int = 0
 
 
 @dataclass
@@ -40,6 +41,9 @@ class EdgeInspection:
     current_weight: Optional[float] = None
     delta_weight: Optional[float] = None
     recent_dw: Optional[float] = None
+    distance: Optional[float] = None
+    propagation_delay: Optional[int] = None
+    signal_progress: Optional[float] = None
 
 
 
@@ -175,6 +179,7 @@ class ReplayEngine:
             incoming_connections=in_edges,
             outgoing_connections=out_edges,
             dynamic_vars=dynamic_vars,
+            module_id=node_info.get("module_id", 0),
         )
 
     def get_plasticity_events(self) -> List[dict]:
@@ -217,6 +222,14 @@ class ReplayEngine:
         signal_mag = src_act * curr_w
         is_active = abs(signal_mag) >= 0.07
 
+        # Check in-transit signal on this edge
+        sig_progress = None
+        for s in frame.get("signals", []):
+            if s.get("src") == src and s.get("dst") == dst:
+                sig_progress = s.get("progress", 1.0)
+                signal_mag = s.get("mag", signal_mag)
+                break
+
         return EdgeInspection(
             src=src,
             dst=dst,
@@ -230,5 +243,24 @@ class ReplayEngine:
             current_weight=round(curr_w, 4),
             delta_weight=round(curr_w - base_w, 6),
             recent_dw=recent_dw,
+            distance=e.get("distance"),
+            propagation_delay=e.get("propagation_delay", e.get("latency_steps", 1)),
+            signal_progress=sig_progress,
         )
+
+    def get_signals_in_transit(self, step: Optional[int] = None) -> List[dict]:
+        """Return all signals actively propagating along connections at step."""
+        if not self.data:
+            return []
+        s = self.current_step if step is None else step
+        frame = self.data["frames"][s]
+        return frame.get("signals", [])
+
+    def get_spatial_metrics(self, step: Optional[int] = None) -> dict:
+        """Return spatial dynamic metrics at given step (modularity, synchrony, etc)."""
+        if not self.data:
+            return {}
+        s = self.current_step if step is None else step
+        frame = self.data["frames"][s]
+        return frame.get("dynamic_details", {})
 

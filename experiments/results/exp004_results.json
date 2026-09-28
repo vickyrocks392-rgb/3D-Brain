@@ -1,0 +1,355 @@
+{
+  "experiment_id": "EXP004",
+  "phase": "Phase 4",
+  "timestamp_start": "2026-09-28T13:20:51.377727+00:00",
+  "timestamp_end": "2026-09-28T13:21:03.645608+00:00",
+  "hardware": {
+    "platform": "darwin",
+    "python_version": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+    "architecture": "Apple Silicon (M1 / arm64)",
+    "memory_gb": 8
+  },
+  "primary_topology_matrix": [
+    {
+      "topology": "RANDOM",
+      "speed_condition": "ZERO_DELAY",
+      "speed_val": 0.0,
+      "task_a_acc_mean": 0.4933,
+      "task_a_acc_std": 0.0189,
+      "task_c_acc_mean": 0.6267,
+      "task_c_acc_std": 0.0754,
+      "structural_modularity_Q": -0.0,
+      "functional_modularity_Q": 0.0,
+      "phase_synchronization_R": 0.1282
+    },
+    {
+      "topology": "RANDOM",
+      "speed_condition": "HIGH_SPEED",
+      "speed_val": 15.0,
+      "task_a_acc_mean": 0.4933,
+      "task_a_acc_std": 0.0189,
+      "task_c_acc_mean": 0.6267,
+      "task_c_acc_std": 0.0754,
+      "structural_modularity_Q": -0.0,
+      "functional_modularity_Q": 0.0,
+      "phase_synchronization_R": 0.1282
+    },
+    {
+      "topology": "RANDOM",
+      "speed_condition": "MED_SPEED",
+      "speed_val": 5.0,
+      "task_a_acc_mean": 0.4933,
+      "task_a_acc_std": 0.0189,
+      "task_c_acc_mean": 0.6267,
+      "task_c_acc_std": 0.0754,
+      "structural_modularity_Q": -0.0,
+      "functional_modularity_Q": 0.0,
+      "phase_synchronization_R": 0.127
+    },
+    {
+      "topology": "RANDOM",
+      "speed_condition": "LOW_SPEED",
+      "speed_val": 2.0,
+      "task_a_acc_mean": 0.4933,
+      "task_a_acc_std": 0.0189,
+      "task_c_acc_mean": 0.6267,
+      "task_c_acc_std": 0.0754,
+      "structural_modularity_Q": -0.0,
+      "functional_modularity_Q": 0.0,
+      "phase_synchronization_R": 0.1194
+    },
+    {
+      "topology": "LOCAL",
+      "speed_condition": "ZERO_DELAY",
+      "speed_val": 0.0,
+      "task_a_acc_mean": 0.4933,
+      "task_a_acc_std": 0.0189,
+      "task_c_acc_mean": 0.64,
+      "task_c_acc_std": 0.0566,
+      "structural_modularity_Q": 0.7444,
+      "functional_modularity_Q": -0.0201,
+      "phase_synchronization_R": 0.119
+    },
+    {
+      "topology": "LOCAL",
+      "speed_condition": "HIGH_SPEED",
+      "speed_val": 15.0,
+      "task_a_acc_mean": 0.4933,
+      "task_a_acc_std": 0.0189,
+      "task_c_acc_mean": 0.64,
+      "task_c_acc_std": 0.0566,
+      "structural_modularity_Q": 0.7444,
+      "functional_modularity_Q": -0.0201,
+      "phase_synchronization_R": 0.119
+    },
+    {
+      "topology": "LOCAL",
+      "speed_condition": "MED_SPEED",
+      "speed_val": 5.0,
+      "task_a_acc_mean": 0.4933,
+      "task_a_acc_std": 0.0189,
+      "task_c_acc_mean": 0.64,
+      "task_c_acc_std": 0.0566,
+      "structural_modularity_Q": 0.7444,
+      "functional_modularity_Q": -0.0202,
+      "phase_synchronization_R": 0.1184
+    },
+    {
+      "topology": "LOCAL",
+      "speed_condition": "LOW_SPEED",
+      "speed_val": 2.0,
+      "task_a_acc_mean": 0.4933,
+      "task_a_acc_std": 0.0189,
+      "task_c_acc_mean": 0.6267,
+      "task_c_acc_std": 0.0754,
+      "structural_modularity_Q": 0.7444,
+      "functional_modularity_Q": -0.0204,
+      "phase_synchronization_R": 0.1198
+    },
+    {
+      "topology": "MODULAR",
+      "speed_condition": "ZERO_DELAY",
+      "speed_val": 0.0,
+      "task_a_acc_mean": 0.4933,
+      "task_a_acc_std": 0.0189,
+      "task_c_acc_mean": 0.6267,
+      "task_c_acc_std": 0.0754,
+      "structural_modularity_Q": 0.6276,
+      "functional_modularity_Q": -0.0271,
+      "phase_synchronization_R": 0.1214
+    },
+    {
+      "topology": "MODULAR",
+      "speed_condition": "HIGH_SPEED",
+      "speed_val": 15.0,
+      "task_a_acc_mean": 0.4933,
+      "task_a_acc_std": 0.0189,
+      "task_c_acc_mean": 0.6267,
+      "task_c_acc_std": 0.0754,
+      "structural_modularity_Q": 0.6276,
+      "functional_modularity_Q": -0.0275,
+      "phase_synchronization_R": 0.1197
+    },
+    {
+      "topology": "MODULAR",
+      "speed_condition": "MED_SPEED",
+      "speed_val": 5.0,
+      "task_a_acc_mean": 0.4933,
+      "task_a_acc_std": 0.0189,
+      "task_c_acc_mean": 0.6267,
+      "task_c_acc_std": 0.0754,
+      "structural_modularity_Q": 0.6276,
+      "functional_modularity_Q": -0.0268,
+      "phase_synchronization_R": 0.119
+    },
+    {
+      "topology": "MODULAR",
+      "speed_condition": "LOW_SPEED",
+      "speed_val": 2.0,
+      "task_a_acc_mean": 0.4933,
+      "task_a_acc_std": 0.0189,
+      "task_c_acc_mean": 0.6267,
+      "task_c_acc_std": 0.0754,
+      "structural_modularity_Q": 0.6276,
+      "functional_modularity_Q": -0.0266,
+      "phase_synchronization_R": 0.1156
+    },
+    {
+      "topology": "SMALL_WORLD",
+      "speed_condition": "ZERO_DELAY",
+      "speed_val": 0.0,
+      "task_a_acc_mean": 0.4933,
+      "task_a_acc_std": 0.0189,
+      "task_c_acc_mean": 0.6267,
+      "task_c_acc_std": 0.0754,
+      "structural_modularity_Q": 0.6561,
+      "functional_modularity_Q": -0.0047,
+      "phase_synchronization_R": 0.1563
+    },
+    {
+      "topology": "SMALL_WORLD",
+      "speed_condition": "HIGH_SPEED",
+      "speed_val": 15.0,
+      "task_a_acc_mean": 0.4933,
+      "task_a_acc_std": 0.0189,
+      "task_c_acc_mean": 0.6267,
+      "task_c_acc_std": 0.0754,
+      "structural_modularity_Q": 0.6561,
+      "functional_modularity_Q": -0.0045,
+      "phase_synchronization_R": 0.1555
+    },
+    {
+      "topology": "SMALL_WORLD",
+      "speed_condition": "MED_SPEED",
+      "speed_val": 5.0,
+      "task_a_acc_mean": 0.4933,
+      "task_a_acc_std": 0.0189,
+      "task_c_acc_mean": 0.6267,
+      "task_c_acc_std": 0.0754,
+      "structural_modularity_Q": 0.6561,
+      "functional_modularity_Q": -0.0052,
+      "phase_synchronization_R": 0.1614
+    },
+    {
+      "topology": "SMALL_WORLD",
+      "speed_condition": "LOW_SPEED",
+      "speed_val": 2.0,
+      "task_a_acc_mean": 0.4933,
+      "task_a_acc_std": 0.0189,
+      "task_c_acc_mean": 0.6267,
+      "task_c_acc_std": 0.0754,
+      "structural_modularity_Q": 0.6561,
+      "functional_modularity_Q": -0.0041,
+      "phase_synchronization_R": 0.168
+    }
+  ],
+  "plasticity_interaction_matrix": [
+    {
+      "topology": "LOCAL",
+      "plasticity": "Frozen",
+      "acc_a1_mean": 0.6833,
+      "acc_b_mean": 0.4417,
+      "forgetting_mean": 0.0583,
+      "forgetting_std": 0.0236
+    },
+    {
+      "topology": "LOCAL",
+      "plasticity": "Modulated",
+      "acc_a1_mean": 0.6917,
+      "acc_b_mean": 0.475,
+      "forgetting_mean": 0.1917,
+      "forgetting_std": 0.092
+    },
+    {
+      "topology": "MODULAR",
+      "plasticity": "Frozen",
+      "acc_a1_mean": 0.5917,
+      "acc_b_mean": 0.5083,
+      "forgetting_mean": 0.0583,
+      "forgetting_std": 0.0236
+    },
+    {
+      "topology": "MODULAR",
+      "plasticity": "Modulated",
+      "acc_a1_mean": 0.5917,
+      "acc_b_mean": 0.5083,
+      "forgetting_mean": 0.0333,
+      "forgetting_std": 0.0312
+    },
+    {
+      "topology": "RANDOM",
+      "plasticity": "Frozen",
+      "acc_a1_mean": 0.6,
+      "acc_b_mean": 0.4833,
+      "forgetting_mean": 0.0667,
+      "forgetting_std": 0.0312
+    },
+    {
+      "topology": "RANDOM",
+      "plasticity": "Modulated",
+      "acc_a1_mean": 0.5833,
+      "acc_b_mean": 0.6333,
+      "forgetting_mean": 0.15,
+      "forgetting_std": 0.1225
+    }
+  ],
+  "ablations": {
+    "Baseline_SmallWorld": 0.6,
+    "Ablation_A_DistanceFree": 0.6,
+    "Ablation_B_ZeroDelay": 0.6,
+    "Ablation_C_ShuffledPositions": 0.6,
+    "Ablation_D_RewiredConnectivity": 0.6,
+    "Ablation_E_NoShortcuts": 0.6
+  },
+  "null_models": {
+    "Coordinate_Shuffled_Null": {
+      "modularity_Q": -0.0454,
+      "mean_phase_sync": 0.1406
+    },
+    "Degree_Preserving_Rewired_Null": {
+      "structural_modularity": -0.0309
+    }
+  },
+  "scale_benchmarks": [
+    {
+      "units_N": 100,
+      "synapses_E": 2000,
+      "status": "MEASURED",
+      "approx_memory_mb": 0.04,
+      "init_time_s": 0.0002,
+      "sim_steps": 50,
+      "sim_time_s": 0.0008,
+      "steps_per_sec": 64092.3
+    },
+    {
+      "units_N": 300,
+      "synapses_E": 6000,
+      "status": "MEASURED",
+      "approx_memory_mb": 0.13,
+      "init_time_s": 0.0004,
+      "sim_steps": 50,
+      "sim_time_s": 0.0003,
+      "steps_per_sec": 144648.3
+    },
+    {
+      "units_N": 1000,
+      "synapses_E": 20000,
+      "status": "MEASURED",
+      "approx_memory_mb": 0.42,
+      "init_time_s": 0.0013,
+      "sim_steps": 50,
+      "sim_time_s": 0.0008,
+      "steps_per_sec": 63005.3
+    },
+    {
+      "units_N": 3000,
+      "synapses_E": 60000,
+      "status": "MEASURED",
+      "approx_memory_mb": 1.26,
+      "init_time_s": 0.0039,
+      "sim_steps": 50,
+      "sim_time_s": 0.0009,
+      "steps_per_sec": 55447.7
+    },
+    {
+      "units_N": 10000,
+      "synapses_E": 200000,
+      "status": "MEASURED",
+      "approx_memory_mb": 4.2,
+      "init_time_s": 0.0127,
+      "sim_steps": 50,
+      "sim_time_s": 0.0012,
+      "steps_per_sec": 42492.9
+    },
+    {
+      "units_N": 25000,
+      "synapses_E": 500000,
+      "status": "MEASURED",
+      "approx_memory_mb": 10.49,
+      "init_time_s": 0.0314,
+      "sim_steps": 10,
+      "sim_time_s": 0.0006,
+      "steps_per_sec": 16625.1
+    },
+    {
+      "units_N": 50000,
+      "synapses_E": 1000000,
+      "status": "MEASURED",
+      "approx_memory_mb": 20.98,
+      "init_time_s": 0.0631,
+      "sim_steps": 10,
+      "sim_time_s": 0.0007,
+      "steps_per_sec": 14226.4
+    },
+    {
+      "units_N": 100000,
+      "synapses_E": 2000000,
+      "status": "MEASURED",
+      "approx_memory_mb": 41.96,
+      "init_time_s": 0.1262,
+      "sim_steps": 10,
+      "sim_time_s": 0.001,
+      "steps_per_sec": 10217.6
+    }
+  ]
+}

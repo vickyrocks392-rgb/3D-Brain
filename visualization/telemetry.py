@@ -52,14 +52,23 @@ def build_topology(
 
     # 2. Recurrent Memory Nodes (Z in [-2.5, 2.5])
     H = model.hidden_dim
-    hidden_positions = generate_fibonacci_ellipsoid(H, rx=3.5, ry=2.5, rz=2.5)
+    if hasattr(model, "positions") and model.positions is not None:
+        hidden_positions = [[round(float(p), 3) for p in pos] for pos in model.positions]
+        module_ids = getattr(model, "module_ids", None)
+    else:
+        hidden_positions = generate_fibonacci_ellipsoid(H, rx=3.5, ry=2.5, rz=2.5)
+        module_ids = None
+
     for i in range(H):
-        nodes.append({
+        node_d = {
             "id": 2 + i,
             "type": "RECURRENT",
             "label": f"Unit_{i:02d}",
             "pos": hidden_positions[i],
-        })
+        }
+        if module_ids is not None:
+            node_d["module_id"] = int(module_ids[i])
+        nodes.append(node_d)
 
     # 3. Decision Readout Node (Z = +8.0)
     output_idx = 2 + H
@@ -82,18 +91,22 @@ def build_topology(
 
     W_hy = weights.get("W_hy")
 
+    dist_mat = getattr(model, "distance_matrix", None)
+    delay_mat = getattr(model, "delay_matrix", None)
+
     # Add input -> hidden edges
     if W_xh is not None:
         for in_j in range(model.input_dim):
             for h_i in range(H):
                 w = float(W_xh[in_j, h_i])
                 if abs(w) >= edge_weight_threshold:
-                    edges.append({
+                    edge_d = {
                         "src": in_j,
                         "dst": 2 + h_i,
                         "weight": round(w, 4),
                         "latency_steps": 1,
-                    })
+                    }
+                    edges.append(edge_d)
 
     # Add recurrent hidden -> hidden edges
     if W_hh is not None:
@@ -101,12 +114,17 @@ def build_topology(
             for dst_i in range(H):
                 w = float(W_hh[src_k, dst_i])
                 if abs(w) >= edge_weight_threshold:
-                    edges.append({
+                    edge_d = {
                         "src": 2 + src_k,
                         "dst": 2 + dst_i,
                         "weight": round(w, 4),
                         "latency_steps": 1,
-                    })
+                    }
+                    if dist_mat is not None and delay_mat is not None:
+                        edge_d["distance"] = round(float(dist_mat[src_k, dst_i]), 3)
+                        edge_d["propagation_delay"] = int(delay_mat[src_k, dst_i])
+                        edge_d["latency_steps"] = int(delay_mat[src_k, dst_i])
+                    edges.append(edge_d)
 
     # Add hidden -> output edges
     if W_hy is not None:

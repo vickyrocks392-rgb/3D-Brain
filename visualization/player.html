@@ -359,13 +359,22 @@
     <div class="badge-group">
       <div class="badge">
         <h1>3D-Brain</h1>
-        <span class="tag gold" id="version-tag">OBSERVABILITY v2.1 (PLASTICITY)</span>
-        <span class="tag" id="model-tag">PLASTIC_MODULATED</span>
-        <span id="exp-info" style="font-size: 12px; color: var(--text-muted);">EXP003 Continual Adaptation Trace</span>
+        <span class="tag gold" id="version-tag">OBSERVABILITY v2.2 (SPATIAL)</span>
+        <span class="tag" id="model-tag">SPATIAL_PLASTIC</span>
+        <span id="exp-info" style="font-size: 12px; color: var(--text-muted);">EXP004 Spatialized Topology</span>
+        <span class="tag" id="q-tag" style="display: none; background: rgba(0, 229, 255, 0.15); color: var(--cyan); border-color: var(--cyan);">Q_func: -</span>
+        <span class="tag" id="sync-tag" style="display: none; background: rgba(217, 70, 239, 0.15); color: #d946ef; border-color: #d946ef;">Sync R: -</span>
       </div>
     </div>
     <div class="controls-top">
+      <button class="btn" id="view-mode-btn" style="border-color: var(--cyan); color: var(--cyan);" title="Toggle between Structural and Functional Connectivity">
+        🌐 View: Structural
+      </button>
       <select id="model-select" class="select-model">
+        <option value="/experiments/results/brainlogs/EXP004_SmallWorld_rep.brainlog">EXP004: Small-World Spatial Topology (3D)</option>
+        <option value="/experiments/results/brainlogs/EXP004_Modular_rep.brainlog">EXP004: Modular Spatial Clustering (3D)</option>
+        <option value="/experiments/results/brainlogs/EXP004_Local_rep.brainlog">EXP004: Local Metric Receptive Fields (3D)</option>
+        <option value="/experiments/results/brainlogs/EXP004_Random_rep.brainlog">EXP004: Random Metric-Free Control (3D)</option>
         <option value="/experiments/results/brainlogs/EXP003_Modulated_rep.brainlog">EXP003: Modulated 3-Factor Plasticity (A-B-A)</option>
         <option value="/experiments/results/brainlogs/EXP003_Homeostatic_rep.brainlog">EXP003: Homeostatic Plasticity (A-B-A)</option>
         <option value="/experiments/results/brainlogs/EXP003_Oja_rep.brainlog">EXP003: Oja Normalized Plasticity (A-B-A)</option>
@@ -399,6 +408,7 @@
       <div class="metric-row"><span class="label">Coordinates:</span><span class="val" id="insp-pos">-</span></div>
       <div class="metric-row"><span class="label">Activation:</span><span class="val" id="insp-act">-</span></div>
       <div class="metric-row"><span class="label">State Variable:</span><span class="val" id="insp-state">-</span></div>
+      <div class="metric-row"><span class="label">Module Cluster:</span><span class="val" id="insp-module">-</span></div>
       <div class="metric-row"><span class="label">In / Out Degree:</span><span class="val" id="insp-degrees">-</span></div>
 
       <div class="section-title" id="dyn-sec-title">Dynamic Unit Variables</div>
@@ -417,12 +427,14 @@
       <div class="metric-row"><span class="label">Connection:</span><span class="val" id="edge-connection">-</span></div>
       <div class="metric-row"><span class="label">Source:</span><span class="val" id="edge-src">-</span></div>
       <div class="metric-row"><span class="label">Destination:</span><span class="val" id="edge-dst">-</span></div>
+      <div class="metric-row"><span class="label">Physical Distance:</span><span class="val" id="edge-dist">-</span></div>
+      <div class="metric-row"><span class="label">Propagation Delay:</span><span class="val" id="edge-delay">-</span></div>
       <div class="metric-row"><span class="label">Initial Weight (W_0):</span><span class="val" id="edge-init-weight">-</span></div>
       <div class="metric-row"><span class="label">Current Weight (W_t):</span><span class="val" id="edge-weight">-</span></div>
       <div class="metric-row"><span class="label">Cumulative ΔW:</span><span class="val" id="edge-delta-weight">-</span></div>
       <div class="metric-row"><span class="label">Recent |ΔW|:</span><span class="val" id="edge-recent-dw">-</span></div>
       <div class="metric-row"><span class="label">Plasticity Rule:</span><span class="val" id="edge-plasticity-rule">-</span></div>
-      <div class="metric-row"><span class="label">Live Signal:</span><span class="val" id="edge-signal">-</span></div>
+      <div class="metric-row"><span class="label">Live Signal / Transit:</span><span class="val" id="edge-signal">-</span></div>
       <div class="bar-container">
         <div class="bar-fill" id="edge-signal-bar" style="width: 0%;"></div>
       </div>
@@ -518,6 +530,7 @@
           node,
           activation: frame.activations ? frame.activations[nodeId] : 0.0,
           state: frame.states ? frame.states[nodeId] : 0.0,
+          module_id: node.module_id !== undefined ? node.module_id : 0,
           inEdges,
           outEdges,
           dynamicState: dyn
@@ -534,6 +547,8 @@
           srcNode: this.log.topology.nodes[src],
           dstNode: this.log.topology.nodes[dst],
           weight: edge.weight,
+          distance: edge.distance !== undefined ? edge.distance : null,
+          delay: edge.propagation_delay !== undefined ? edge.propagation_delay : (edge.latency_steps || 1),
           signalMagnitude: signal ? signal.mag : 0.0,
           signalProgress: signal ? signal.progress : 0.0
         };
@@ -548,6 +563,7 @@
     let playInterval = null;
     let selectedNodeId = null;
     let selectedEdge = null; // {src, dst}
+    let viewMode = 'STRUCTURAL'; // 'STRUCTURAL' or 'FUNCTIONAL'
 
     // Three.js Scene Setup
     const container = document.getElementById('viewport');
@@ -869,6 +885,35 @@
         });
       }
 
+      // Update Edges based on Structural vs Functional view mode
+      edgeLines.forEach(line => {
+        const e = line.userData.edgeInfo;
+        const isTransiting = (frame.signals || []).some(s => s.src === e.src && s.dst === e.dst);
+        if (viewMode === 'FUNCTIONAL') {
+          line.material.opacity = isTransiting ? 0.95 : 0.04;
+          line.material.color.setHex(isTransiting ? 0xd946ef : (e.weight >= 0 ? 0x00e5ff : 0xff9100));
+        } else {
+          line.material.opacity = Math.min(0.12 + Math.abs(e.weight) * 0.3, 0.7);
+          line.material.color.setHex(e.weight >= 0 ? 0x00e5ff : 0xff9100);
+        }
+      });
+
+      // Update Phase 4 Metric Badges
+      const qTag = document.getElementById('q-tag');
+      const syncTag = document.getElementById('sync-tag');
+      if (frame.dynamic_details && frame.dynamic_details.q_func !== undefined) {
+        qTag.style.display = 'inline-block';
+        qTag.innerText = `Q_func: ${Number(frame.dynamic_details.q_func).toFixed(3)}`;
+      } else {
+        qTag.style.display = 'none';
+      }
+      if (frame.dynamic_details && frame.dynamic_details.phase_sync_r !== undefined) {
+        syncTag.style.display = 'inline-block';
+        syncTag.innerText = `Sync R: ${Number(frame.dynamic_details.phase_sync_r).toFixed(3)}`;
+      } else {
+        syncTag.style.display = 'none';
+      }
+
       // Update UI Elements
       document.getElementById('timeline').value = stepIndex;
       document.getElementById('step-display').innerText = `Step: ${stepIndex} / ${logData.frames.length - 1}`;
@@ -923,6 +968,8 @@
       document.getElementById('insp-pos').innerText = `[${info.node.pos.map(x=>x.toFixed(2)).join(', ')}]`;
       document.getElementById('insp-act').innerText = info.activation.toFixed(4);
       document.getElementById('insp-state').innerText = info.state.toFixed(4);
+      const modEl = document.getElementById('insp-module');
+      if (modEl) modEl.innerText = info.node.module_id !== undefined ? `Module ${info.node.module_id}` : 'Global (0)';
       document.getElementById('insp-degrees').innerText = `${info.inEdges.length} in / ${info.outEdges.length} out`;
 
       // Render Dynamic Unit Variables
@@ -1020,6 +1067,12 @@
       document.getElementById('edge-src').innerText = `${info.srcNode.label} (${info.srcNode.type})`;
       document.getElementById('edge-dst').innerText = `${info.dstNode.label} (${info.dstNode.type})`;
 
+      const distEl = document.getElementById('edge-dist');
+      if (distEl) distEl.innerText = info.distance !== null ? `${info.distance.toFixed(2)} units` : 'Metric-Free';
+
+      const delayEl = document.getElementById('edge-delay');
+      if (delayEl) delayEl.innerText = `${info.delay} step(s)`;
+
       const initW = (info.initial_weight !== undefined && info.initial_weight !== null) ? info.initial_weight : info.weight;
       document.getElementById('edge-init-weight').innerText = (initW > 0 ? '+' : '') + initW.toFixed(4);
 
@@ -1039,7 +1092,11 @@
       document.getElementById('edge-plasticity-rule').innerText = (logData && logData.metadata && logData.metadata.rule) ? logData.metadata.rule : 'Static (Frozen)';
 
       const sEl = document.getElementById('edge-signal');
-      sEl.innerText = info.signalMagnitude.toFixed(4);
+      if (info.signalProgress !== undefined && info.signalProgress > 0) {
+        sEl.innerText = `${info.signalMagnitude.toFixed(4)} (${(info.signalProgress * 100).toFixed(0)}% in transit)`;
+      } else {
+        sEl.innerText = info.signalMagnitude.toFixed(4);
+      }
 
       const bar = document.getElementById('edge-signal-bar');
       const pct = Math.min(Math.abs(info.signalMagnitude) * 100, 100);
@@ -1073,6 +1130,18 @@
         }
       }
     });
+
+    // View Mode Toggle (Structural vs Functional)
+    const viewModeBtn = document.getElementById('view-mode-btn');
+    if (viewModeBtn) {
+      viewModeBtn.addEventListener('click', () => {
+        viewMode = viewMode === 'STRUCTURAL' ? 'FUNCTIONAL' : 'STRUCTURAL';
+        viewModeBtn.innerText = viewMode === 'STRUCTURAL' ? '🌐 View: Structural' : '⚡ View: Functional';
+        viewModeBtn.style.color = viewMode === 'STRUCTURAL' ? 'var(--cyan)' : '#d946ef';
+        viewModeBtn.style.borderColor = viewMode === 'STRUCTURAL' ? 'var(--cyan)' : '#d946ef';
+        if (replay) renderFrame(replay.currentStep);
+      });
+    }
 
     // Playback Controls
     const playBtn = document.getElementById('play-btn');

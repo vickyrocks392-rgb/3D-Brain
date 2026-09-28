@@ -54,12 +54,16 @@ The foundation of 3D-Brain is comprehensively documented in the following charte
 * **[Experiment 003 Specification](file:///Users/kalachanddash/Documents/3D-Brain/experiments/EXPERIMENT_003_SPECIFICATION.md)**: Benchmark design for Continual Delayed Association (CDA) across 5 non-stationary environmental regimes.
 * **[Experiment 003 Results Report](file:///Users/kalachanddash/Documents/3D-Brain/experiments/EXPERIMENT_003_RESULTS.md)**: Empirical evaluation of 95 experimental condition runs comparing Frozen, Hebbian, Oja, Modulated, and Homeostatic plasticity.
 * **[Phase 3 Implementation Report](file:///Users/kalachanddash/Documents/3D-Brain/docs/PHASE_3_IMPLEMENTATION_REPORT.md)**: Mathematical formulations, continual adaptation dynamics, catastrophic forgetting analysis, stability findings, and 3D visual observability of dynamic synaptic weights.
+* **[Spatial Topology Literature Review](file:///Users/kalachanddash/Documents/3D-Brain/research/SPATIAL_TOPOLOGY_REVIEW.md)**: Deep analysis of spatial embedding, network neuroscience, small-world topologies, axonal propagation delays, Kuramoto phase synchrony, and parameter scaling.
+* **[Experiment 004 Specification](file:///Users/kalachanddash/Documents/3D-Brain/experiments/EXPERIMENT_004_SPECIFICATION.md)**: Formal protocol investigating spatial topology × propagation latency × scale across Delayed Match, Continual CDA, and Spatially Distributed Temporal tasks.
+* **[Experiment 004 Results Report](file:///Users/kalachanddash/Documents/3D-Brain/experiments/EXPERIMENT_004_RESULTS.md)**: Empirical findings across 16 primary conditions, ablations A-F, null models, and scaling benchmark to 100,000 units on Apple Silicon.
+* **[Phase 4 Implementation Report](file:///Users/kalachanddash/Documents/3D-Brain/docs/PHASE_4_IMPLEMENTATION_REPORT.md)**: Comprehensive 24-section report evaluating spatial computation, modular compartmentalization, empirical falsification of spontaneous functional emergence, and exit-gate audit.
 
 ---
 
 ## 4. Running Benchmarks & 3D Visualization
 
-### Execute Automated Test Suite (53 Tests)
+### Execute Automated Test Suite (68 Tests)
 ```bash
 python3 -m pytest tests -v
 ```
@@ -79,7 +83,12 @@ python3 experiments/run_exp002.py
 python3 experiments/run_exp003.py
 ```
 
-### Launch Interactive 3D Observability & Replay Console
+### Run Full Experiment 004 Spatial Topology & Scaling Matrix
+```bash
+python3 experiments/run_exp004.py
+```
+
+### Launch Interactive 3D Observability & Replay Console (v2.2)
 ```bash
 python3 visualization/serve.py
 # Open http://localhost:8080/visualization/player.html in any browser
@@ -87,30 +96,32 @@ python3 visualization/serve.py
 
 ---
 
-## 5. Development Loop
+## 5. Phase 4 Architecture & Key Findings
 
-Every engineering cycle follows a closed scientific loop:
-
+### 5.1 Spatialized Substrate Architecture
 ```text
-Hypothesis Formulation
-       ↓
-Minimal Substrate Implementation
-       ↓
-Controlled Baseline Comparison
-       ↓
-Quantitative Metric Logging
-       ↓
-Telemetry Stream Generation & 3D Visual Inspection
-       ↓
-Ablation & Failure Analysis
-       ↓
-Model Refinement / Rejection
+3D Position (x_i) ──► Distance (d_ij = ||x_i - x_j||) ──► Latency (tau_ij = d_ij / v)
+                                                                 │
+                                                                 ▼
+Neuron State (h_i) ◄── Arrived Recurrent Input ◄── Circular Delay Ring Buffer
+        │                                                        ▲
+        ▼                                                        │
+Activation (a_i) ──────────────── Synapse (w_ij) ────────────────┘
+        │
+        ▼ (Online Local Plasticity masked by structural adjacency)
+ Synaptic Weight Update (dw_ij)
 ```
+
+### 5.2 Key Scientific Findings
+1. **Physical Scaling to 100,000 Units**: Sparse contiguous array representations and circular ring-buffer delay queues scaled smoothly from $100$ to $100{,}000$ neurons and $2{,}000{,}000$ synapses, sustaining $>10{,}000$ steps/sec with only $41.96\text{ MB}$ memory footprint on Apple Silicon M1.
+2. **Structural vs. Functional Modularity**: While strong structural modularity was engineered ($Q_{struct} = 0.63 - 0.74$), **spontaneous functional modularity was NOT observed** ($Q_{func} \approx -0.02$). Imposed structural clusters alone do not create functional segregation without heterogeneous input streams.
+3. **Propagation Latency**: Transmission delays acted primarily as a temporal dispersion penalty rather than an information processing asset; collective phase coherence remained weak ($R < 0.20$), though Small-World networks exhibited higher synchrony ($R \approx 0.16$) than Modular or Local graphs ($R \approx 0.12$).
+4. **Plasticity $\times$ Space**: Modular structural topology significantly protected against catastrophic forgetting under online neuromodulated plasticity ($0.033$ forgetting vs. $0.150$ in random networks), demonstrating that physical modular boundaries provide compartmentalization against interference.
 
 ---
 
 ## 6. Next Steps
 
-With Phase 1, Phase 2, and Phase 3 successfully completed:
-1. **Phase 4: Spatialized 3D Topology & Parameter Scaling**: Introduce physical metric space constraints (wiring length minimization, conduction delays), modular multi-area connectivity (sensory hub, recurrent working memory core, motor output), and scale parameters toward 50K-100K units.
-2. Advance toward native desktop shell integrations and closed-loop embodied interaction.
+With Phase 1, Phase 2, Phase 3, and Phase 4 successfully completed:
+1. **Phase 5: Cognitive Time Travel & Native Desktop Shell**: Implement keyframe delta checkpoints, timeline scrubbers, and backward causal synaptic attribution in a native desktop window.
+2. **Phase 6: Causal Query Layer & Interactive Explanations**: Grounded natural language query engine.

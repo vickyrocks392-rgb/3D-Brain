@@ -727,7 +727,11 @@
       </div>
       <div class="regime-item" title="Current Active Plasticity / Learning Model">
         <span class="regime-label">Plasticity</span>
-        <span class="regime-val" id="regime-plast" style="color: var(--color-plasticity);">Three-Factor RPE</span>
+        <span class="regime-val" id="regime-plast" style="color: var(--color-plasticity);">Targeted Two-Comp</span>
+      </div>
+      <div class="regime-item" title="Credit Specificity Index (CSI)">
+        <span class="regime-label">Credit Specificity</span>
+        <span class="regime-val" id="regime-csi" style="color: var(--color-reward);">CSI: +0.42</span>
       </div>
     </div>
 
@@ -737,8 +741,13 @@
         🌐 Mode: Structural
       </button>
 
+      <button class="btn" id="credit-flow-btn" title="Toggle Credit Flow Visualization [C]">
+        🌊 Credit Flow: Off
+      </button>
+
       <select id="model-select" class="select-model" title="Select .brainlog Trace">
-        <option value="/experiments/results/brainlogs/EXP009_three_factor_rpe_modular.brainlog" selected>EXP009: Three-Factor RPE (Modular 3D)</option>
+        <option value="/experiments/results/brainlogs/EXP010_two_compartment_targeted_credit.brainlog" selected>EXP010: Two-Compartment & Targeted Credit</option>
+        <option value="/experiments/results/brainlogs/EXP009_three_factor_rpe_modular.brainlog">EXP009: Three-Factor RPE (Modular 3D)</option>
         <option value="/experiments/results/brainlogs/EXP009_three_factor_global_reward.brainlog">EXP009: Global Reward Modulation</option>
         <option value="/experiments/results/brainlogs/exp008_phase8_ei_full_system.brainlog">EXP008: E/I Balanced Dale + STDP</option>
         <option value="/experiments/results/brainlogs/exp008_phase8_ei_no_homeo.brainlog">EXP008: E/I without Homeostasis</option>
@@ -865,6 +874,37 @@
           </div>
         </div>
 
+        <!-- Two-Compartment Biophysics (Phase 10) -->
+        <div class="section-box" id="n-twocomp-box">
+          <span class="section-header-label">Two-Compartment Biophysics</span>
+          <div class="metric-grid">
+            <div class="metric-cell">
+              <span class="metric-name">Soma (V_soma)</span>
+              <span class="metric-val" id="n-vsoma">- mV</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Dendrite (V_dend)</span>
+              <span class="metric-val" id="n-vdend" style="color: #a78bfa;">- mV</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Slow NMDA (g_nmda)</span>
+              <span class="metric-val" id="n-gnmda" style="color: #60a5fa;">-</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Coupling (I_c)</span>
+              <span class="metric-val" id="n-icoupling">- nA</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Dendritic Plateau</span>
+              <span class="metric-val" id="n-plateau">Resting</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Targeted Mod M_j(t)</span>
+              <span class="metric-val" id="n-targeted-mod" style="color: #f472b6;">-</span>
+            </div>
+          </div>
+        </div>
+
         <!-- Three-Factor Learning Variables -->
         <div class="section-box" id="n-three-factor-box">
           <span class="section-header-label">Three-Factor Credit State</span>
@@ -941,7 +981,15 @@
             </div>
             <div class="metric-cell">
               <span class="metric-name">Plasticity Rule</span>
-              <span class="metric-val" id="syn-rule">Three-Factor</span>
+              <span class="metric-val" id="syn-rule">Targeted Dendritic</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Causal Relevance</span>
+              <span class="metric-val" id="syn-relevance" style="color: var(--color-reward);">Relevant</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Target Dendrite M_j</span>
+              <span class="metric-val" id="syn-target-m" style="color: #f472b6;">-</span>
             </div>
           </div>
         </div>
@@ -1866,6 +1914,11 @@
         });
       }
 
+      const dyn = frame.dynamic_details || {};
+      const vDends = dyn.v_dend || [];
+      const gNmdas = dyn.g_nmda || [];
+      const plateaus = dyn.plateau_active || [];
+
       // 1. Update 3D Neurons
       nodeMeshes.forEach((mesh, idx) => {
         const act = acts[idx] || 0.0;
@@ -1873,20 +1926,28 @@
         const mat = mesh.material;
         const didFire = firedNodes.has(idx);
         const { isInhibitory, isInput, isOutput } = mesh.userData;
+        const recIdx = idx - 2;
+        const isPlateau = (recIdx >= 0 && plateaus[recIdx]) || false;
+        const gNmda = (recIdx >= 0 && gNmdas[recIdx] !== undefined) ? gNmdas[recIdx] : 0.0;
 
         if (didFire) {
           mat.color.setHex(0xffffff);
-          mat.emissive.setHex(isInhibitory ? 0x00e5ff : 0xff6b4a);
+          mat.emissive.setHex(creditFlowActive ? 0x10b981 : (isInhibitory ? 0x00e5ff : 0xff6b4a));
           mat.emissiveIntensity = 3.5;
           mesh.scale.set(2.0, 2.0, 2.0);
+        } else if (isPlateau) {
+          mat.color.setHex(0xf472b6);
+          mat.emissive.setHex(0xf472b6);
+          mat.emissiveIntensity = 3.0;
+          mesh.scale.set(1.6, 1.6, 1.6);
         } else if (isOutput) {
           mat.color.setHex(0xffd700);
           mat.emissive.setHex(0xffd700);
           mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.5, 0.1, 2.0);
           mesh.scale.set(1.1, 1.1, 1.1);
         } else if (isInput) {
-          mat.color.setHex(0x94a3b8);
-          mat.emissive.setHex(0x94a3b8);
+          mat.color.setHex(creditFlowActive ? 0xf59e0b : 0x94a3b8);
+          mat.emissive.setHex(creditFlowActive ? 0xf59e0b : 0x94a3b8);
           mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.5, 0.08, 1.8);
           mesh.scale.set(0.9, 0.9, 0.9);
         } else if (isInhibitory) {
@@ -1897,10 +1958,11 @@
           mesh.scale.set(s, s, s);
         } else {
           // Excitatory
-          mat.color.setHex(0xff6b4a);
-          mat.emissive.setHex(0xff6b4a);
-          mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.5 + 0.1, 0.1, 2.2);
-          const s = 1.0 + THREE.MathUtils.clamp(absAct * 0.5, 0.0, 0.8);
+          const baseCol = (creditFlowActive && gNmda > 0.05) ? 0xa78bfa : 0xff6b4a;
+          mat.color.setHex(baseCol);
+          mat.emissive.setHex(baseCol);
+          mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.5 + 0.1 + gNmda * 0.5, 0.1, 2.5);
+          const s = 1.0 + THREE.MathUtils.clamp(absAct * 0.5 + gNmda * 0.4, 0.0, 1.2);
           mesh.scale.set(s, s, s);
         }
       });
@@ -1937,11 +1999,23 @@
         });
       }
 
-      // 4. Update Synaptic Edges (Structural vs Functional)
+      // 4. Update Synaptic Edges (Structural vs Functional vs Credit Flow)
       edgeLines.forEach(line => {
         const e = line.userData.edgeInfo;
         const isTransiting = (frame.signals || []).some(s => s.src === e.src && s.dst === e.dst);
-        if (viewMode === 'FUNCTIONAL') {
+        if (creditFlowActive) {
+          const isUpdated = (frame.events || []).some(ev => ev.type === 'CREDIT_ASSIGNED' && ev.payload && ev.payload.updates && ev.payload.updates.some(u => u.src === e.src && u.dst === e.dst));
+          if (isUpdated) {
+            line.material.opacity = 1.0;
+            line.material.color.setHex(0x22c55e); // Green plasticity pulse
+          } else if (isTransiting) {
+            line.material.opacity = 0.9;
+            line.material.color.setHex(0xa78bfa); // Dendritic signal
+          } else {
+            line.material.opacity = 0.05;
+            line.material.color.setHex(0x475569);
+          }
+        } else if (viewMode === 'FUNCTIONAL') {
           line.material.opacity = isTransiting ? 0.95 : 0.03;
           line.material.color.setHex(isTransiting ? 0xa855f7 : (e.weight >= 0 ? 0xff6b4a : 0x00e5ff));
         } else {
@@ -2025,6 +2099,14 @@
       document.getElementById('regime-sync').innerText = `R = ${Number(rGlob).toFixed(2)}`;
       if (dyn.is_ai_regime !== undefined) {
         document.getElementById('regime-ai').innerText = dyn.regime_status || (dyn.is_ai_regime ? 'AI_REGIME' : 'NON_AI');
+      }
+      if (dyn.metrics && dyn.metrics.csi !== undefined) {
+        const csiEl = document.getElementById('regime-csi');
+        if (csiEl) {
+          const val = Number(dyn.metrics.csi);
+          csiEl.innerText = `CSI: ${val >= 0 ? '+' : ''}${val.toFixed(3)}`;
+          csiEl.style.color = val > 0 ? 'var(--color-reward)' : 'var(--color-inhibitory)';
+        }
       }
     }
 
@@ -2135,11 +2217,32 @@
         document.getElementById('n-membrane-box').style.display = 'none';
       }
 
-      document.getElementById('n-spikes-total').innerText = totalSpikes;
+      // Two-compartment biophysics values
+      const recurrentIdx = nodeId - 2;
+      if (node.type === 'RECURRENT' && recurrentIdx >= 0) {
+        const tcBox = document.getElementById('n-twocomp-box');
+        if (tcBox) tcBox.style.display = 'flex';
+        const vSoma = (dyn.v_soma && dyn.v_soma[recurrentIdx] !== undefined) ? dyn.v_soma[recurrentIdx] : state;
+        const vDend = (dyn.v_dend && dyn.v_dend[recurrentIdx] !== undefined) ? dyn.v_dend[recurrentIdx] : state;
+        const gNmda = (dyn.g_nmda && dyn.g_nmda[recurrentIdx] !== undefined) ? dyn.g_nmda[recurrentIdx] : 0.0;
+        const iCoup = (dyn.i_coupling && dyn.i_coupling[recurrentIdx] !== undefined) ? dyn.i_coupling[recurrentIdx] : 0.0;
+        const isPlateau = (dyn.plateau_active && dyn.plateau_active[recurrentIdx]) || false;
+        const targMod = (dyn.m_vector && dyn.m_vector[recurrentIdx] !== undefined) ? dyn.m_vector[recurrentIdx] : (dyn.rpe || 0.0);
+
+        document.getElementById('n-vsoma').innerText = `${Number(vSoma).toFixed(2)} mV`;
+        document.getElementById('n-vdend').innerText = `${Number(vDend).toFixed(2)} mV`;
+        document.getElementById('n-gnmda').innerText = Number(gNmda).toFixed(4);
+        document.getElementById('n-icoupling').innerText = `${Number(iCoup).toFixed(3)} nA`;
+        const platEl = document.getElementById('n-plateau');
+        platEl.innerText = isPlateau ? '⚡ CALCIUM PLATEAU' : 'Resting';
+        platEl.style.color = isPlateau ? '#f472b6' : 'var(--text-muted)';
+        document.getElementById('n-targeted-mod').innerText = Number(targMod).toFixed(4);
+      } else {
+        const tcBox = document.getElementById('n-twocomp-box');
+        if (tcBox) tcBox.style.display = 'none';
+      }
 
       // Three-factor values
-      const curFrame = logData.frames[replay.currentStep];
-      const dyn = curFrame ? curFrame.dynamic_details || {} : {};
       document.getElementById('n-eligibility').innerText = dyn.mean_eligibility !== undefined ? Number(dyn.mean_eligibility).toFixed(4) : '0.0000';
       document.getElementById('n-max-eligibility').innerText = dyn.max_eligibility !== undefined ? Number(dyn.max_eligibility).toFixed(4) : '0.0000';
       document.getElementById('n-neuromod').innerText = dyn.neuromodulator !== undefined ? Number(dyn.neuromodulator).toFixed(4) : (dyn.rpe || dyn.reward || 0.0).toFixed(4);
@@ -2214,6 +2317,18 @@
       const dyn = curFrame ? curFrame.dynamic_details || {} : {};
       document.getElementById('syn-elig').innerText = dyn.mean_eligibility !== undefined ? Number(dyn.mean_eligibility).toFixed(4) : '0.0000';
 
+      const dstRecIdx = dst - 2;
+      const targetMod = (dyn.m_vector && dstRecIdx >= 0 && dyn.m_vector[dstRecIdx] !== undefined) ? dyn.m_vector[dstRecIdx] : (dyn.rpe || 0.0);
+      const targMEl = document.getElementById('syn-target-m');
+      if (targMEl) targMEl.innerText = Number(targetMod).toFixed(4);
+
+      let isRelevant = true;
+      if (srcNode.module_id !== undefined && dstNode.module_id !== undefined) {
+        isRelevant = (srcNode.module_id === dstNode.module_id);
+      }
+      const relEl = document.getElementById('syn-relevance');
+      if (relEl) {
+        relEl.innerText = isRelevant ? 'Causally Relevant' : 'Irrelevant Distractor';
       const creditEvt = curFrame && curFrame.events && curFrame.events.find(e => e.type === 'CREDIT_ASSIGNED');
       if (creditEvt && creditEvt.payload && creditEvt.payload.updates) {
         const u = creditEvt.payload.updates.find(up => up.src === src && up.dst === dst);
@@ -2440,6 +2555,18 @@
       if (replay) renderFrame(replay.currentStep);
     });
 
+    // Credit Flow Toggle
+    let creditFlowActive = false;
+    const creditFlowBtn = document.getElementById('credit-flow-btn');
+    if (creditFlowBtn) {
+      creditFlowBtn.addEventListener('click', () => {
+        creditFlowActive = !creditFlowActive;
+        creditFlowBtn.innerText = `🌊 Credit Flow: ${creditFlowActive ? 'On' : 'Off'}`;
+        creditFlowBtn.classList.toggle('active', creditFlowActive);
+        if (replay) renderFrame(replay.currentStep);
+      });
+    }
+
     // Model Selector
     document.getElementById('model-select').addEventListener('change', (e) => {
       fetchBrainlog(e.target.value);
@@ -2575,6 +2702,8 @@
         if (replay) { pause(); replay.seek(0); play(); }
       } else if (e.code === 'KeyF') {
         if (selectedNodeId !== null) focusCameraOnNode(selectedNodeId);
+      } else if (e.code === 'KeyC') {
+        if (creditFlowBtn) creditFlowBtn.click();
       } else if (e.code === 'KeyO') {
         camRadius = 24.0;
         camTheta = 0.0;

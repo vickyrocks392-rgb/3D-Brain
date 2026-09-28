@@ -1140,6 +1140,232 @@ class StateCapture:
 
         return frame
 
+    def capture_two_compartment_step(
+        self,
+        step: int,
+        input_vec: np.ndarray,
+        model: BrainModel,
+        y_val: float,
+        target_val: float,
+        mask_val: float,
+        reward: float = 0.0,
+        m_vector: Optional[np.ndarray] = None,
+        targeted_updates: Optional[List[Any]] = None,
+        metrics: Optional[Dict[str, float]] = None,
+        context_id: Optional[int] = None,
+        phase_label: str = "TWO_COMPARTMENT",
+    ) -> TelemetryFrame:
+        """Capture a Two-Compartment biophysical and targeted credit assignment step."""
+        time_ms = step * self.dt_ms
+        obs = model.observable_state()
+
+        h_vec = obs["state"][0]
+        a_vec = obs["activation"][0]
+
+        in_acts = [float(x) for x in input_vec]
+        h_acts = [float(a) for a in a_vec]
+
+        out_nodes = [n for n in self.topology.nodes if n.type == "OUTPUT"]
+        num_out = len(out_nodes) if len(out_nodes) > 0 else 1
+        if isinstance(y_val, (list, tuple, np.ndarray)):
+            out_acts = [float(v) for v in y_val]
+        else:
+            out_acts = [float(y_val)]
+        if len(out_acts) < num_out:
+            out_acts = out_acts + [0.0] * (num_out - len(out_acts))
+        elif len(out_acts) > num_out:
+            out_acts = out_acts[:num_out]
+
+        all_acts = in_acts + h_acts + out_acts
+        in_states = [float(x) for x in input_vec]
+        h_states = [float(h) for h in h_vec]
+        all_states = in_states + h_states + out_acts
+
+        err = abs(float(y_val) - float(target_val)) if mask_val > 0 else 0.0
+
+        # Signals actively in-transit along axons
+        signals: List[TelemetrySignal] = []
+        offset = len(in_acts)
+
+        if hasattr(model, "queue") and model.queue is not None:
+            if hasattr(model.queue, "active_spikes") and len(model.queue.active_spikes) > 0:
+                for spk in model.queue.active_spikes:
+                    s_id = offset + spk.source
+                    d_id = offset + spk.target
+                    prog = spk.progress(step)
+                    signals.append(
+                        TelemetrySignal(
+                            src=s_id,
+                            dst=d_id,
+                            progress=prog,
+                            magnitude=spk.weight,
+                            distance=spk.distance,
+                            delay=spk.delay,
+                        )
+                    )
+        signals = signals[: self.max_active_signals]
+
+        # Computational Events
+        step_events: List[ComputationalEvent] = []
+
+        if step == 0:
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.TRIAL_STARTED,
+                    step=step,
+                    time_ms=time_ms,
+                    payload={"context_id": context_id if context_id is not None else 0},
+                )
+            )
+
+        # 1. Action potentials (Excitatory vs Inhibitory)
+        fired_mask = np.array(obs.get("spikes", []), dtype=bool)
+        neuron_types = getattr(model, "neuron_types", np.array(obs.get("neuron_types", [])))
+
+        if len(fired_mask) > 0:
+            for j in np.where(fired_mask)[0]:
+                is_inh = (len(neuron_types) > j and neuron_types[j] == "INHIBITORY")
+                evt_type = EventType.INHIBITORY_SPIKE if is_inh else EventType.EXCITATORY_SPIKE
+                step_events.append(
+                    ComputationalEvent(
+                        event_type=evt_type,
+                        step=step,
+                        time_ms=time_ms,
+                        node_id=offset + int(j),
+                        magnitude=1.0,
+                        payload={"cell_type": "INHIBITORY" if is_inh else "EXCITATORY"},
+                    )
+                )
+
+        # 2. Dendritic Plateaus (active calcium events)
+        plateau_mask = np.array(obs.get("plateau_active", []), dtype=bool)
+        if np.any(plateau_mask):
+            for j in np.where(plateau_mask)[0]:
+                step_events.append(
+                    ComputationalEvent(
+                        event_type=EventType.DENDRITIC_PLATEAU,
+                        step=step,
+                        time_ms=time_ms,
+                        node_id=offset + int(j),
+                        magnitude=float(obs.get("v_dend", [0.0]*len(plateau_mask))[j]),
+                        payload={"event": "CALCIUM_PLATEAU"},
+                    )
+                )
+
+        # 3. Slow NMDA Conductances
+        g_nmda = np.array(obs.get("g_nmda", []), dtype=np.float32)
+        if len(g_nmda) > 0 and np.max(g_nmda) > 0.01:
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.SLOW_CONDUCTANCE_UPDATED,
+                    step=step,
+                    time_ms=time_ms,
+                    magnitude=float(np.mean(g_nmda)),
+                    payload={"max_nmda": round(float(np.max(g_nmda)), 4)},
+                )
+            )
+
+        # 4. Inter-compartment coupling
+        i_c = np.array(obs.get("i_coupling", []), dtype=np.float32)
+        if len(i_c) > 0 and np.mean(np.abs(i_c)) > 0.1:
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.COMPARTMENT_COUPLED,
+                    step=step,
+                    time_ms=time_ms,
+                    magnitude=float(np.mean(np.abs(i_c))),
+                    payload={"mean_coupling_current": round(float(np.mean(np.abs(i_c))), 4)},
+                )
+            )
+
+        # 5. Targeted Feedback Received
+        m_vec = m_vector if m_vector is not None else np.array(obs.get("m_vector", []), dtype=np.float32)
+        if len(m_vec) > 0 and np.max(np.abs(m_vec)) > 1e-4:
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.TARGETED_FEEDBACK_RECEIVED,
+                    step=step,
+                    time_ms=time_ms,
+                    magnitude=float(np.mean(np.abs(m_vec))),
+                    payload={
+                        "max_modulator": round(float(np.max(np.abs(m_vec))), 5),
+                        "reward": float(reward),
+                    },
+                )
+            )
+
+        # 6. Plasticity and Credit Specificity
+        updates_list = (
+            targeted_updates
+            if targeted_updates is not None
+            else getattr(model, "last_plastic_updates", [])
+        )
+        if updates_list:
+            total_dw = sum(abs(u.delta_w if hasattr(u, "delta_w") else u.get("dw", 0.0)) for u in updates_list)
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.CREDIT_ASSIGNED,
+                    step=step,
+                    time_ms=time_ms,
+                    magnitude=float(total_dw),
+                    payload={
+                        "count": len(updates_list),
+                        "csi": metrics.get("csi", 0.0) if metrics else 0.0,
+                    },
+                )
+            )
+            if metrics and metrics.get("leakage", 0.0) > 0.5:
+                step_events.append(
+                    ComputationalEvent(
+                        event_type=EventType.CREDIT_LEAKAGE_DETECTED,
+                        step=step,
+                        time_ms=time_ms,
+                        magnitude=float(metrics["leakage"]),
+                        payload={"credit_leakage": round(float(metrics["leakage"]), 4)},
+                    )
+                )
+
+        # Dynamic Details
+        dynamic_details = {
+            "v_soma": [round(float(v), 2) for v in obs.get("v_soma", [])],
+            "v_dend": [round(float(v), 2) for v in obs.get("v_dend", [])],
+            "g_nmda": [round(float(g), 4) for g in obs.get("g_nmda", [])],
+            "i_coupling": [round(float(c), 3) for c in obs.get("i_coupling", [])],
+            "m_vector": [round(float(m), 4) for m in obs.get("m_vector", [])],
+            "plateau_active": obs.get("plateau_active", []),
+            "phase": phase_label,
+            "reward": float(reward),
+            "metrics": metrics if metrics is not None else obs.get("metrics", {}),
+        }
+
+        frame = TelemetryFrame(
+            step=step,
+            time_ms=time_ms,
+            inputs=in_acts,
+            activations=all_acts,
+            states=all_states,
+            output=float(y_val),
+            target=float(target_val),
+            error=float(err),
+            mask=float(mask_val),
+            signals=signals,
+            events=step_events,
+            dynamic_details=dynamic_details,
+        )
+
+        self.frames.append(frame)
+        self.all_events.extend(step_events)
+
+        if step % 10 == 0:
+            self.snapshots[step] = {
+                "step": step,
+                "states": all_states,
+                "activations": all_acts,
+                "weights_digest": len(self.topology.edges),
+            }
+
+        return frame
+
     def complete_trial(self, final_acc: float) -> None:
         """Mark trial completion and emit final event."""
         if len(self.frames) > 0:

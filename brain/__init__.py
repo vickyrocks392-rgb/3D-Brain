@@ -75,6 +75,15 @@ __all__ = [
     "HomeostaticSynapticScaling",
     "EIBalancedSpatialNetwork",
     "EIBalancedLatentSpatialNetwork",
+    "EligibilityTraceMode",
+    "NeuromodulatorMode",
+    "ThreeFactorPlasticityEngine",
+    "ThreeFactorSpatialNetwork",
+    "TwoCompartmentPopulation",
+    "FeedbackMode",
+    "DendriticEligibilityMode",
+    "TargetedSpatialFeedbackEngine",
+    "TwoCompartmentSpatialNetwork",
 ]
 
 from brain.spiking import (
@@ -104,5 +113,18 @@ from brain.ei_spatial import (
     EIBalancedSpatialNetwork,
     EIBalancedLatentSpatialNetwork,
 )
+from brain.three_factor import (
+    EligibilityTraceMode,
+    NeuromodulatorMode,
+    ThreeFactorPlasticityEngine,
+)
+from brain.three_factor_spatial import ThreeFactorSpatialNetwork
+from brain.two_compartment import TwoCompartmentPopulation
+from brain.targeted_feedback import (
+    FeedbackMode,
+    DendriticEligibilityMode,
+    TargetedSpatialFeedbackEngine,
+)
+from brain.two_compartment_spatial import TwoCompartmentSpatialNetwork
 
 

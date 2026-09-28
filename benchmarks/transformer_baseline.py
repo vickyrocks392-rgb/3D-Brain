@@ -389,3 +389,66 @@ def benchmark_transformer_on_task(
         "inference_latency_per_step_ms": round(latency_per_step_ms, 3),
         "memory_mb": round((model.parameter_count() * 4) / (1024 * 1024), 4),
     }
+
+
+def benchmark_transformer_on_credit_task(
+    num_train_trials: int = 50,
+    num_test_trials: int = 20,
+    delay_steps: int = 25,
+    seed: int = 42,
+) -> Dict[str, Any]:
+    """Evaluate Small Causal Transformer on Experiment 010 Long-Delay Credit Task."""
+    from benchmarks.delayed_credit_assignment import LongDelayContextualCreditTask
+
+    task = LongDelayContextualCreditTask(obs_dim=8, t_ctx=5, t_delay=delay_steps, seed=seed)
+    model = SmallCausalTransformer(input_dim=8, d_model=32, num_heads=2, d_ff=64, seed=seed)
+
+    t0 = time.perf_counter()
+    train_losses = []
+    for tr in range(num_train_trials):
+        ctx_id = 1 if (tr % 2 == 0) else 2
+        trial_steps = task.generate_trial(context_id=ctx_id, delay_steps=delay_steps, reward_delay=0, trial_seed=seed + tr)
+        x_seq = np.array([s.sensory_input for s in trial_steps], dtype=np.float32)
+        choice_steps = [idx for idx, s in enumerate(trial_steps) if s.is_choice_step]
+        choice_step = choice_steps[-1] if choice_steps else len(trial_steps) - 1
+        target = trial_steps[choice_step].target_action
+
+        loss = model.train_step(x_seq, target_action=target, action_step_idx=choice_step, lr=0.02)
+        train_losses.append(loss)
+    train_time = time.perf_counter() - t0
+
+    t_eval0 = time.perf_counter()
+    correct = 0
+    test_losses = []
+    for tr in range(num_test_trials):
+        ctx_id = 1 if (tr % 2 == 0) else 2
+        trial_steps = task.generate_trial(context_id=ctx_id, delay_steps=delay_steps, reward_delay=0, trial_seed=seed + 1000 + tr)
+        x_seq = np.array([s.sensory_input for s in trial_steps], dtype=np.float32)
+        choice_steps = [idx for idx, s in enumerate(trial_steps) if s.is_choice_step]
+        choice_step = choice_steps[-1] if choice_steps else len(trial_steps) - 1
+        target = trial_steps[choice_step].target_action
+
+        y_seq = model.forward(x_seq)
+        pred_action = float(y_seq[choice_step, 0])
+        pred_sign = 1.0 if pred_action >= 0.0 else -1.0
+        if pred_sign == target:
+            correct += 1
+        test_losses.append(0.5 * (pred_action - target) ** 2)
+    eval_time = time.perf_counter() - t_eval0
+
+    accuracy = float(correct) / float(num_test_trials)
+    total_steps = num_test_trials * len(trial_steps)
+    latency_per_step_ms = (eval_time / max(1, total_steps)) * 1000.0
+
+    return {
+        "architecture": "Causal_Transformer_Baseline",
+        "parameters": model.parameter_count(),
+        "train_trials": num_train_trials,
+        "test_trials": num_test_trials,
+        "delay_steps": delay_steps,
+        "accuracy": accuracy,
+        "mean_test_loss": float(np.mean(test_losses)),
+        "train_time_sec": round(train_time, 4),
+        "inference_latency_per_step_ms": round(latency_per_step_ms, 3),
+        "memory_mb": round((model.parameter_count() * 4) / (1024 * 1024), 4),
+    }

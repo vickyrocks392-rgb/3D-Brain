@@ -20,6 +20,12 @@ from benchmarks.temporal_memory import (
     MultiStepPredictionEvaluator,
 )
 
+from benchmarks.delayed_contextual_choice import DelayedContextualChoiceTask
+from benchmarks.delayed_credit_assignment import (
+    LongDelayContextualCreditTask,
+    ContinualRegime,
+)
+
 __all__ = [
     "DelayedMatchTask",
     "TaskConfig",
@@ -34,6 +40,9 @@ __all__ = [
     "SequenceReconstructionTask",
     "TemporalContextDisambiguationTask",
     "MultiStepPredictionEvaluator",
+    "DelayedContextualChoiceTask",
+    "LongDelayContextualCreditTask",
+    "ContinualRegime",
 ]
 
 

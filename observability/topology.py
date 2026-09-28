@@ -298,3 +298,13 @@ class TopologyExtractor:
             nodes=nodes,
             edges=edges,
         )
+
+    @classmethod
+    def from_network(
+        cls,
+        model: BrainModel,
+        model_id: str = "network",
+        edge_weight_threshold: float = 0.04,
+    ) -> BrainTopology:
+        """Classmethod convenience to extract topology from any BrainModel."""
+        return cls(edge_weight_threshold=edge_weight_threshold).extract(model, model_id)

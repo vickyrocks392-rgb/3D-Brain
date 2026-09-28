@@ -358,6 +358,30 @@
       z-index: 100;
       display: none;
     }
+
+    /* Spike Raster Panel */
+    #raster-panel {
+      position: absolute;
+      bottom: 125px;
+      left: 20px;
+      right: 20px;
+      height: 140px;
+      background: var(--panel-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      z-index: 9;
+      display: none;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+    #raster-canvas {
+      width: 100%;
+      height: 95px;
+      background: rgba(0,0,0,0.4);
+      border-radius: 4px;
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -369,23 +393,30 @@
     <div class="badge-group">
       <div class="badge">
         <h1>3D-Brain</h1>
-        <span class="tag gold" id="version-tag">OBSERVABILITY v2.3 (EMBODIED)</span>
-        <span class="tag" id="model-tag">LOCAL_PRED_ACTIVE</span>
-        <span id="exp-info" style="font-size: 12px; color: var(--text-muted);">EXP005 Embodied World Model</span>
+        <span class="tag gold" id="version-tag">OBSERVABILITY v2.5 (SPIKING & STDP)</span>
+        <span class="tag" id="model-tag">SPIKING_STDP_ACTIVE</span>
+        <span id="exp-info" style="font-size: 12px; color: var(--text-muted);">EXP007 Spiking Neural Dynamics & STDP</span>
+        <span class="tag" id="spikes-tag" style="display: none; background: rgba(239, 68, 68, 0.15); color: #f87171; border-color: #ef4444;">Spikes: -</span>
+        <span class="tag" id="osc-tag" style="display: none; background: rgba(168, 85, 247, 0.15); color: #c084fc; border-color: #a855f7;">Osc: - Hz</span>
+        <span class="tag" id="sync-tag" style="display: none; background: rgba(217, 70, 239, 0.15); color: #d946ef; border-color: #d946ef;">Sync R: -</span>
+        <span class="tag" id="q-tag" style="display: none; background: rgba(0, 229, 255, 0.15); color: var(--cyan); border-color: var(--cyan);">Q_func: -</span>
+        <span class="tag" id="latent-tag" style="display: none; background: rgba(139, 92, 246, 0.15); color: #c4b5fd; border-color: #8b5cf6;">Latent ||z||: -</span>
+        <span class="tag" id="context-tag" style="display: none; background: rgba(234, 179, 8, 0.15); color: #fde047; border-color: #eab308;">Context: -</span>
         <span class="tag" id="pred-tag" style="display: none; background: rgba(0, 229, 255, 0.15); color: var(--cyan); border-color: var(--cyan);">Pred MSE: -</span>
         <span class="tag" id="action-tag" style="display: none; background: rgba(56, 189, 248, 0.15); color: #38bdf8; border-color: #38bdf8;">Act: -</span>
         <span class="tag" id="env-tag" style="display: none; background: rgba(255, 87, 34, 0.15); color: #ff5722; border-color: #ff5722;">Env: -</span>
-        <span class="tag" id="latent-tag" style="display: none; background: rgba(139, 92, 246, 0.15); color: #c4b5fd; border-color: #8b5cf6;">Latent ||z||: -</span>
-        <span class="tag" id="context-tag" style="display: none; background: rgba(234, 179, 8, 0.15); color: #fde047; border-color: #eab308;">Context: -</span>
-        <span class="tag" id="q-tag" style="display: none; background: rgba(0, 229, 255, 0.15); color: var(--cyan); border-color: var(--cyan);">Q_func: -</span>
-        <span class="tag" id="sync-tag" style="display: none; background: rgba(217, 70, 239, 0.15); color: #d946ef; border-color: #d946ef;">Sync R: -</span>
       </div>
     </div>
     <div class="controls-top">
+      <button class="btn" id="raster-toggle-btn" style="border-color: #f87171; color: #f87171;" title="Toggle Spike Raster View">
+        ⚡ Raster
+      </button>
       <button class="btn" id="view-mode-btn" style="border-color: var(--cyan); color: var(--cyan);" title="Toggle between Structural and Functional Connectivity">
         🌐 View: Structural
       </button>
       <select id="model-select" class="select-model">
+        <option value="/experiments/results/brainlogs/EXP007_SPIKING_STDP_MODULAR_s42.brainlog">EXP007: Spiking LIF + STDP (Modular 3D)</option>
+        <option value="/experiments/results/brainlogs/EXP007_SPIKING_LATENT_HYBRID_s42.brainlog">EXP007: Spiking Latent Spatial Hybrid (s42)</option>
         <option value="/experiments/results/brainlogs/EXP006_PERSISTENT_LATENT_ACTIVE_s42.brainlog">EXP006: Persistent Latent Memory + Embodied World Model (s42)</option>
         <option value="/experiments/results/brainlogs/EXP006_CONTEXT_DISAMBIGUATION_s42.brainlog">EXP006: Temporal Context Disambiguation (s42)</option>
         <option value="/experiments/results/brainlogs/EXP005_LOCAL_PRED_DYNAMIC_SYNAPSES_ACTIVE_s42.brainlog">EXP005: Local Pred + Dynamic Synapses (Active Embodied)</option>
@@ -438,6 +469,17 @@
         <!-- Injected dynamically based on model type -->
       </div>
 
+      <div id="spiking-insp-section" style="display: none;">
+        <div class="section-title">Spiking & Membrane Dynamics</div>
+        <div class="metric-row"><span class="label">Membrane Potential (V_m):</span><span class="val" id="insp-v-mem">- mV</span></div>
+        <div style="height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; margin: 4px 0 8px 0; overflow: hidden; position: relative;">
+          <div id="insp-v-mem-bar" style="height: 100%; width: 0%; background: #00e5ff; border-radius: 3px; transition: width 0.1s;"></div>
+        </div>
+        <div class="metric-row"><span class="label">Spike Threshold (V_th):</span><span class="val" id="insp-v-thresh">-50.0 mV</span></div>
+        <div class="metric-row"><span class="label">Refractory State:</span><span class="val" id="insp-refractory">Resting</span></div>
+        <div class="metric-row"><span class="label">Fired This Step:</span><span class="val" id="insp-fired-now">No</span></div>
+      </div>
+
       <div class="section-title">Connected Synapses</div>
       <div class="connected-edges" id="insp-edges-list">
         <!-- Injected list of connected edges -->
@@ -483,11 +525,21 @@
       <div class="metric-row"><span class="label">Cumulative ΔW:</span><span class="val" id="edge-delta-weight">-</span></div>
       <div class="metric-row"><span class="label">Recent |ΔW|:</span><span class="val" id="edge-recent-dw">-</span></div>
       <div class="metric-row"><span class="label">Plasticity Rule:</span><span class="val" id="edge-plasticity-rule">-</span></div>
+      <div class="metric-row"><span class="label">STDP Modification:</span><span class="val" id="edge-stdp-status">None</span></div>
       <div class="metric-row"><span class="label">Live Signal / Transit:</span><span class="val" id="edge-signal">-</span></div>
       <div class="bar-container">
         <div class="bar-fill" id="edge-signal-bar" style="width: 0%;"></div>
       </div>
     </div>
+  </div>
+
+  <!-- Spike Raster Panel -->
+  <div id="raster-panel">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+      <span style="font-size: 11px; font-weight: 700; color: #f87171; letter-spacing: 0.8px;">⚡ POPULATION SPIKE RASTER</span>
+      <span id="raster-stats" style="font-size: 11px; color: var(--text-muted);">Active: 0 spikes</span>
+    </div>
+    <canvas id="raster-canvas"></canvas>
   </div>
 
   <!-- Footer Controls -->
@@ -950,22 +1002,41 @@
       const acts = frame.activations;
       const states = frame.states;
 
+      // Spike detection for discrete visual flash
+      const firedNodes = new Set();
+      if (frame.events) {
+        frame.events.forEach(e => {
+          if (e.type === 'SPIKE_EMITTED' && e.node_id !== undefined) {
+            firedNodes.add(e.node_id);
+          }
+        });
+      }
+
       // Update Node Visuals
       nodeMeshes.forEach((mesh, idx) => {
         const act = acts[idx] || 0.0;
         const absAct = Math.abs(act);
         const mat = mesh.material;
+        const didFire = firedNodes.has(idx);
 
-        if (act >= 0) {
+        if (didFire) {
+          mat.color.setHex(0xffffff);
+          mat.emissive.setHex(0x00e5ff);
+          mat.emissiveIntensity = 4.0;
+          mesh.scale.set(2.4, 2.4, 2.4);
+        } else if (act >= 0) {
           mat.color.setHex(0x00e5ff);
           mat.emissive.setHex(0x00e5ff);
+          mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.6, 0.05, 2.5);
+          const s = 1.0 + THREE.MathUtils.clamp(absAct * 0.6, 0.0, 1.0);
+          mesh.scale.set(s, s, s);
         } else {
           mat.color.setHex(0xff9100);
           mat.emissive.setHex(0xff9100);
+          mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.6, 0.05, 2.5);
+          const s = 1.0 + THREE.MathUtils.clamp(absAct * 0.6, 0.0, 1.0);
+          mesh.scale.set(s, s, s);
         }
-        mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.6, 0.05, 2.5);
-        const s = 1.0 + THREE.MathUtils.clamp(absAct * 0.6, 0.0, 1.0);
-        mesh.scale.set(s, s, s);
       });
 
       // Update Selection Halo
@@ -1181,6 +1252,39 @@
         if (latentSec) latentSec.style.display = 'none';
       }
 
+      // Phase 7 Spiking & Oscillation Telemetry
+      const spkTag = document.getElementById('spikes-tag');
+      const oscTag = document.getElementById('osc-tag');
+      const syncTag = document.getElementById('sync-tag');
+
+      if (frame.dynamic_details && frame.dynamic_details.spikes_active !== undefined) {
+        spkTag.style.display = 'inline-block';
+        spkTag.innerText = `Spikes: ${frame.dynamic_details.spikes_active}`;
+      } else {
+        spkTag.style.display = 'none';
+      }
+
+      if (frame.dynamic_details && frame.dynamic_details.dominant_freq_hz !== undefined) {
+        oscTag.style.display = 'inline-block';
+        oscTag.innerText = `Osc: ${frame.dynamic_details.dominant_freq_hz} Hz`;
+      } else {
+        oscTag.style.display = 'none';
+      }
+
+      if (frame.dynamic_details && frame.dynamic_details.kuramoto_r !== undefined) {
+        syncTag.style.display = 'inline-block';
+        syncTag.innerText = `Sync R: ${Number(frame.dynamic_details.kuramoto_r).toFixed(3)}`;
+      }
+
+      if (frame.dynamic_details && frame.dynamic_details.q_func !== undefined) {
+        const qTag = document.getElementById('q-tag');
+        qTag.style.display = 'inline-block';
+        qTag.innerText = `Q_func: ${Number(frame.dynamic_details.q_func).toFixed(3)}`;
+      }
+
+      // Draw Spike Raster if open
+      drawSpikeRaster(stepIndex);
+
       // Update UI Elements
       document.getElementById('timeline').value = stepIndex;
       document.getElementById('step-display').innerText = `Step: ${stepIndex} / ${logData.frames.length - 1}`;
@@ -1306,6 +1410,33 @@
         dynContainer.innerHTML = '<div style="font-size:11px; color:var(--text-muted); font-style:italic;">No internal gating variables (standard linear unit)</div>';
       }
 
+      // Spiking & Membrane Dynamics
+      const spkSec = document.getElementById('spiking-insp-section');
+      if (spkSec) {
+        if (info.node.type === 'RECURRENT') {
+          spkSec.style.display = 'block';
+          const vVal = info.state;
+          document.getElementById('insp-v-mem').innerText = `${vVal.toFixed(2)} mV`;
+          const pct = Math.max(0, Math.min(100, ((vVal - (-75)) / ((-50) - (-75))) * 100));
+          const bar = document.getElementById('insp-v-mem-bar');
+          if (bar) {
+            bar.style.width = `${pct}%`;
+            bar.style.background = vVal >= -50.0 ? '#f87171' : '#00e5ff';
+          }
+          document.getElementById('insp-v-thresh').innerText = '-50.0 mV';
+          document.getElementById('insp-refractory').innerText = (vVal <= -74.9 && info.activation === 0) ? 'Refractory Clamped' : 'Resting / Integrating';
+          const curFrame = logData.frames[replay.currentStep];
+          const hasSpike = curFrame && curFrame.events && curFrame.events.some(e => e.type === 'SPIKE_EMITTED' && e.node_id === nodeId);
+          const firedEl = document.getElementById('insp-fired-now');
+          if (firedEl) {
+            firedEl.innerText = hasSpike ? '⚡ YES (Active Action Potential)' : 'No';
+            firedEl.style.color = hasSpike ? '#f87171' : 'var(--text-muted)';
+          }
+        } else {
+          spkSec.style.display = 'none';
+        }
+      }
+
       // Render connected synapses list
       const edgesList = document.getElementById('insp-edges-list');
       edgesList.innerHTML = '';
@@ -1360,6 +1491,20 @@
       rdwEl.innerText = rdw.toFixed(6);
 
       document.getElementById('edge-plasticity-rule').innerText = (logData && logData.metadata && logData.metadata.rule) ? logData.metadata.rule : 'Static (Frozen)';
+
+      const stdpEl = document.getElementById('edge-stdp-status');
+      if (stdpEl) {
+        const curFrame = logData.frames[replay.currentStep];
+        const stdpEvt = curFrame && curFrame.events && curFrame.events.find(e => e.type === 'STDP_UPDATE' && e.source_node === src && e.target_node === dst);
+        if (stdpEvt) {
+          const rule = (stdpEvt.payload && stdpEvt.payload.rule) || 'STDP';
+          stdpEl.innerText = `${rule} (ΔW = ${stdpEvt.magnitude >= 0 ? '+' : ''}${Number(stdpEvt.magnitude).toFixed(5)})`;
+          stdpEl.style.color = rule === 'LTP' ? 'var(--green)' : 'var(--amber)';
+        } else {
+          stdpEl.innerText = 'None';
+          stdpEl.style.color = 'var(--text-muted)';
+        }
+      }
 
       const sEl = document.getElementById('edge-signal');
       if (info.signalProgress !== undefined && info.signalProgress > 0) {
@@ -1468,6 +1613,104 @@
       replay.seek(parseInt(e.target.value));
       renderFrame(replay.currentStep);
     });
+
+    // Spike Raster View Logic
+    const rasterPanel = document.getElementById('raster-panel');
+    const rasterCanvas = document.getElementById('raster-canvas');
+    const rasterToggleBtn = document.getElementById('raster-toggle-btn');
+    const rasterStats = document.getElementById('raster-stats');
+
+    if (rasterToggleBtn && rasterPanel) {
+      rasterToggleBtn.addEventListener('click', () => {
+        if (rasterPanel.style.display === 'none' || rasterPanel.style.display === '') {
+          rasterPanel.style.display = 'flex';
+          rasterToggleBtn.style.background = 'rgba(248, 113, 113, 0.2)';
+          if (replay) drawSpikeRaster(replay.currentStep);
+        } else {
+          rasterPanel.style.display = 'none';
+          rasterToggleBtn.style.background = '';
+        }
+      });
+    }
+
+    function drawSpikeRaster(currentStep) {
+      if (!rasterPanel || rasterPanel.style.display === 'none' || !rasterCanvas || !logData) return;
+      const ctx = rasterCanvas.getContext('2d');
+      const width = rasterCanvas.width;
+      const height = rasterCanvas.height;
+      ctx.clearRect(0, 0, width, height);
+
+      const numNeurons = (logData.metadata && logData.metadata.hidden_dim) || (logData.topology && logData.topology.nodes ? logData.topology.nodes.length : 100);
+      const totalSteps = logData.frames.length;
+      
+      // Determine window: show +/- 30 steps around currentStep or full sequence if short
+      const windowSize = 60;
+      let startStep = Math.max(0, currentStep - 30);
+      let endStep = Math.min(totalSteps - 1, startStep + windowSize);
+      if (endStep - startStep < windowSize && startStep > 0) {
+        startStep = Math.max(0, endStep - windowSize);
+      }
+      const range = Math.max(1, endStep - startStep);
+
+      // Grid background lines
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+      ctx.lineWidth = 1;
+      for (let s = startStep; s <= endStep; s += 10) {
+        const x = ((s - startStep) / range) * width;
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, height);
+        ctx.stroke();
+      }
+
+      // Draw spikes in window
+      let windowSpikeCount = 0;
+      let curStepSpikeCount = 0;
+
+      for (let s = startStep; s <= endStep; s++) {
+        const f = logData.frames[s];
+        if (!f) continue;
+        const x = ((s - startStep) / range) * width;
+
+        // Check f.events for SPIKE_EMITTED
+        if (f.events) {
+          for (let ev of f.events) {
+            if (ev.event_type === 'SPIKE_EMITTED') {
+              const nid = ev.payload ? (ev.payload.neuron_id !== undefined ? ev.payload.neuron_id : ev.payload.source_neuron) : 0;
+              const y = height - (nid / numNeurons) * height;
+              ctx.fillStyle = (s === currentStep) ? '#f87171' : '#38bdf8';
+              ctx.fillRect(Math.floor(x), Math.floor(y) - 1, 2, 3);
+              windowSpikeCount++;
+              if (s === currentStep) curStepSpikeCount++;
+            }
+          }
+        }
+
+        // Also check f.dynamic_details.spikes if present
+        if (f.dynamic_details && Array.isArray(f.dynamic_details.spikes)) {
+          for (let nid of f.dynamic_details.spikes) {
+            const y = height - (nid / numNeurons) * height;
+            ctx.fillStyle = (s === currentStep) ? '#f87171' : '#38bdf8';
+            ctx.fillRect(Math.floor(x), Math.floor(y) - 1, 2, 3);
+            windowSpikeCount++;
+            if (s === currentStep) curStepSpikeCount++;
+          }
+        }
+      }
+
+      // Current step indicator line
+      const curX = ((currentStep - startStep) / range) * width;
+      ctx.strokeStyle = 'rgba(239, 68, 68, 0.8)';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(curX, 0);
+      ctx.lineTo(curX, height);
+      ctx.stroke();
+
+      if (rasterStats) {
+        rasterStats.innerText = `Step ${currentStep} | Active: ${curStepSpikeCount} | Window [${startStep}..${endStep}]: ${windowSpikeCount}`;
+      }
+    }
 
     // History comparison tool click handler
     document.getElementById('compare-hist-btn')?.addEventListener('click', () => {

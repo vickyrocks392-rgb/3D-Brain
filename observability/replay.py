@@ -441,5 +441,54 @@ class ReplayEngine:
     # Alias for camelCase callers
     compareHistories = compare_histories
 
+    # Phase 7: Spiking Neural Dynamics & STDP Inspection
+    def get_spike_events(self, step: Optional[int] = None) -> List[dict]:
+        """Return all spike emitted/arrived events at the given step."""
+        if not self.data:
+            return []
+        s = self.current_step if step is None else step
+        frame = self.data["frames"][s]
+        return [
+            e for e in frame.get("events", [])
+            if e.get("type") in ["SPIKE_EMITTED", "SPIKE_ARRIVED"]
+        ]
+
+    def get_membrane_states(self, step: Optional[int] = None) -> dict:
+        """Return membrane potential states and active spike counts at the given step."""
+        if not self.data:
+            return {}
+        s = self.current_step if step is None else step
+        frame = self.data["frames"][s]
+        dyn = frame.get("dynamic_details", {})
+        return {
+            "step": s,
+            "states": frame.get("states", []),
+            "activations": frame.get("activations", []),
+            "v_mem_mean": dyn.get("v_mem_mean"),
+            "v_mem_std": dyn.get("v_mem_std"),
+            "spikes_active": dyn.get("spikes_active", 0),
+        }
+
+    def get_stdp_updates(self, step: Optional[int] = None) -> List[dict]:
+        """Return synaptic plasticity STDP events at the given step."""
+        if not self.data:
+            return []
+        s = self.current_step if step is None else step
+        frame = self.data["frames"][s]
+        return [e for e in frame.get("events", []) if e.get("type") == "STDP_UPDATE"]
+
+    def get_phase_metrics(self, step: Optional[int] = None) -> dict:
+        """Return Kuramoto phase order parameter and oscillatory spectrum metrics."""
+        if not self.data:
+            return {}
+        s = self.current_step if step is None else step
+        frame = self.data["frames"][s]
+        dyn = frame.get("dynamic_details", {})
+        return {
+            "step": s,
+            "kuramoto_r": dyn.get("kuramoto_r"),
+            "dominant_freq_hz": dyn.get("dominant_freq_hz"),
+        }
+
 
 

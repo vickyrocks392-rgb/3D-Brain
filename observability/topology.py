@@ -187,11 +187,15 @@ class TopologyExtractor:
 
         # Extract connections
         W_xh = weights.get("W_xh")
-        if W_xh is None and "W_xz" in weights:
+        if W_xh is None and "W_in" in weights:
+            W_xh = weights["W_in"]
+        elif W_xh is None and "W_xz" in weights:
             W_xh = weights["W_xz"]
 
         W_hh = weights.get("W_hh")
-        if W_hh is None and "W_hz" in weights:
+        if W_hh is None and "weights" in weights:
+            W_hh = weights["weights"]
+        elif W_hh is None and "W_hz" in weights and getattr(weights["W_hz"], "shape", None) == (H, H):
             W_hh = weights["W_hz"]
 
         W_hy = weights.get("W_hy")

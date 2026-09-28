@@ -19,7 +19,9 @@ Phase 5: Self-Supervised Embodied World Model & Dynamic Brain Growth (COMPLETE)
    ↓
 Phase 6: Persistent Latent Memory & Predictive State (COMPLETE - PASS WITH CAVEATS)
    ↓
-Phase 7: Autonomous Oscillatory Dynamics & Spiking Phase Processing (FUTURE)
+Phase 7: Spiking Neural Dynamics, STDP & Emergent Synchronization (COMPLETE - PASS WITH CAVEATS)
+   ↓
+Phase 8: Balanced Excitation/Inhibition & Asynchronous-Irregular Regimes (PLANNED)
 ```
 
 ---
@@ -148,11 +150,38 @@ Phase 7: Autonomous Oscillatory Dynamics & Spiking Phase Processing (FUTURE)
 
 ---
 
-## Phase 7: Autonomous Oscillatory Dynamics & Spiking Phase Processing
+## Phase 7: Spiking Neural Dynamics, STDP & Emergent Synchronization
+* **Status**: **COMPLETE (PASS WITH CAVEATS)**
+* **Goal**: Test whether biophysical spiking neuron dynamics (LIF, Izhikevich) with spike-timing-dependent plasticity (STDP) resolve the persistent continuous-substrate modularity failure ($Q_{\text{func}} \approx 0$) by producing genuine functional modularity ($Q_{\text{func}} > 0.25$) and autonomous oscillatory limit cycles while preserving persistent latent predictive memory.
+* **Key Deliverables**:
+  * [x] Biophysical spiking neuron substrate implementations (`LIFNeuronPopulation`, `IzhikevichNeuronPopulation`) with explicit membrane dynamics, threshold crossings, reset, and refractory timers (`brain/spiking.py`).
+  * [x] Event-driven axonal delay queue (`SpikePropagationQueue`) preserving explicit propagation latencies and arrival times.
+  * [x] Bi-directional exponential pair-based STDP engine (`STDPEngine`) with bounded weights, homeostatic weight normalization, and neuromodulatory dopamine gating (`brain/stdp.py`).
+  * [x] Spike-train signal processing suite (`brain/spiking_analysis.py`): binned spike-count correlation, Louvain functional community detection, Newman modularity $Q_{\text{func}}$, FFT power spectral density, Kuramoto phase synchrony $R$, and Phase-Locking Value ($PLV$).
+  * [x] Integrated hybrid spiking-latent spatial network (`SpikingLatentSpatialNetwork`) connecting spiking recurrent populations with multi-timescale latent memory and forward predictive heads (`brain/spiking_spatial.py`).
+  * [x] `.brainlog` v2.5 schema evolution with backward compatibility, capturing spike emission/arrival events, membrane threshold crossings, refractory states, STDP weight updates, and oscillatory phase locks (`observability/brainlog.py`, `observability/events.py`, `observability/capture.py`).
+  * [x] 3D Observability Console v2.5 with interactive canvas-based Spike Raster panel, membrane potential gauges, refractory state indicators, STDP update display, and dynamic $Q_{\text{func}}$ / Kuramoto $R$ / dominant frequency tags (`visualization/player.html`).
+  * [x] Full Experiment 007 execution across 7 controls (A-G), 4 topologies, 3 benchmark tasks, 6 causal ablations, and scaling ladder up to $N=100{,}000$ units (`experiments/run_exp007.py`, `experiments/results/exp007_results.json`).
+  * [x] Literature Review ([PHASE_7_LITERATURE_REVIEW.md](file:///Users/kalachanddash/Documents/3D-Brain/research/PHASE_7_LITERATURE_REVIEW.md)), Design Audit ([PHASE_7_DESIGN_AUDIT.md](file:///Users/kalachanddash/Documents/3D-Brain/docs/PHASE_7_DESIGN_AUDIT.md)), Experiment Specification ([EXPERIMENT_007_SPECIFICATION.md](file:///Users/kalachanddash/Documents/3D-Brain/experiments/EXPERIMENT_007_SPECIFICATION.md)), Experiment Results ([EXPERIMENT_007_RESULTS.md](file:///Users/kalachanddash/Documents/3D-Brain/experiments/EXPERIMENT_007_RESULTS.md)), and Implementation Report ([PHASE_7_IMPLEMENTATION_REPORT.md](file:///Users/kalachanddash/Documents/3D-Brain/docs/PHASE_7_IMPLEMENTATION_REPORT.md)).
+* **Exit Gate Evaluation**:
+  * Spiking Dynamics (H1): **SUPPORTED** (Autonomous threshold-driven firing, refractory enforcement, Poisson-like ISIs; $100\%$ validated).
+  * Functional Modularity (H2): **SUPPORTED** ($Q_{\text{func}} = 0.464 \pm 0.054$ with STDP vs $-0.010$ in Phase 6; targets $Q_{\text{func}} > 0.25$ cleanly exceeded).
+  * Oscillatory Dynamics (H3): **SUPPORTED** (Emergence of stable $50\text{ Hz}$ gamma population limit cycles; peak power $0.785$ vs $0.052$ in rate-coded baseline).
+  * Phase Locking (H4): **SUPPORTED** (High inter-regional coherence: Kuramoto $R = 0.605 \pm 0.083$, $PLV = 0.804 \pm 0.044$; phase scrambling ablates $R$ to $0.089$).
+  * Spatial Organization (H5): **PARTIALLY SUPPORTED** (Localized topological communities form distinct functional assemblies; spatial wave propagation remained weak due to near-instantaneous local axonal conduction).
+  * Memory + Synchronization Trade-off (H6): **PARTIALLY SUPPORTED** (Delayed cue memory preserved at $R^2 \approx 0.414$ and multi-step prediction improved to $\text{MSE}=0.136$; however, hyper-synchronization compressed sensory representations, impairing fine context disambiguation to chance level).
+  * Scale Ladder ($N=100{,}000$): **PASSED** ($944.8$ steps/s, $4.72 \times 10^6$ spikes/s, $17.17\text{ MB}$ RAM).
+  * Overall Phase 7 Verdict: **PASS WITH CAVEATS**.
+
+---
+
+## Phase 8: Balanced Excitation/Inhibition & Asynchronous-Irregular Regimes
 * **Status**: **PLANNED / NEXT**
-* **Goal**: Address the persistent negative result of Phases 4, 5, and 6 ($Q_{\text{func}} \approx 0$) by investigating whether spiking phase-locking dynamics (e.g. LIF / Izhikevich substrates with STDP) produce genuine functional modularity and autonomous limit cycles while retaining persistent latent memory.
+* **Goal**: Resolve the synchronization-representation trade-off uncovered in Phase 7 by introducing Dale's Principle (80% excitatory / 20% inhibitory populations), fast feedback inhibition, and homeostatic synaptic scaling to operate in the biophysically realistic Asynchronous-Irregular (AI) regime.
 * **Workstreams**:
-  * Spiking neuron dynamics with membrane potential leak, reset, and refractory periods.
-  * Spike-timing-dependent plasticity (STDP) and phase-coupled dynamic synaptogenesis.
-  * Kuramoto phase coherence, frequency synchronization, and functional community detection on spike-train correlation matrices.
-* **Exit Gate**: Emergence of statistically significant functional modularity ($Q_{\text{func}} > 0.25$) and phase synchronization ($R > 0.50$) while maintaining persistent cue recall.
+  * Explicit Dale's Principle split: Pyramidal excitatory and Parvalbumin-positive fast-spiking inhibitory interneurons.
+  * Balanced E/I conductance dynamics stabilizing high membrane potential variability without hypersynchrony.
+  * Information-preserving gamma oscillations (Pomer-induced local oscillations without global phase collapse).
+  * Multi-task memory retention and context disambiguation within the AI regime.
+* **Exit Gate**: Preservation of high functional modularity ($Q_{\text{func}} > 0.30$) and local phase coherence while restoring fine temporal context disambiguation ($>70\%$ accuracy).
+

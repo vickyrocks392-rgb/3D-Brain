@@ -1,0 +1,719 @@
+{
+  "metadata": {
+    "experiment_id": "EXP-007",
+    "phase": "Phase 7",
+    "date": "2026-09-28T16:27:46.950798+00:00",
+    "seeds": [
+      42,
+      43,
+      44
+    ]
+  },
+  "H1_spiking_dynamics": {
+    "CONTROL_A_RATE_CODED": {
+      "mean_firing_rate_hz": 0.0,
+      "mean_firing_rate_std": 0.0,
+      "cv_isi_mean": 0.0,
+      "cv_isi_std": 0.0,
+      "fano_factor_mean": 1.0,
+      "burst_fraction_mean": 0.0,
+      "membrane_v_mean": null,
+      "membrane_v_std": null
+    },
+    "CONTROL_B_SPIKING_FROZEN": {
+      "mean_firing_rate_hz": 0.0,
+      "mean_firing_rate_std": 0.0,
+      "cv_isi_mean": 0.0,
+      "cv_isi_std": 0.0,
+      "fano_factor_mean": 1.0,
+      "burst_fraction_mean": 0.0,
+      "membrane_v_mean": -69.57051595052083,
+      "membrane_v_std": 1.679138422012329
+    },
+    "CONTROL_C_SPIKING_STDP": {
+      "mean_firing_rate_hz": 0.0,
+      "mean_firing_rate_std": 0.0,
+      "cv_isi_mean": 0.0,
+      "cv_isi_std": 0.0,
+      "fano_factor_mean": 1.0,
+      "burst_fraction_mean": 0.0,
+      "membrane_v_mean": -69.57051595052083,
+      "membrane_v_std": 1.679138422012329
+    },
+    "CONTROL_D_SPIKING_HOMEOSTASIS": {
+      "mean_firing_rate_hz": 0.0,
+      "mean_firing_rate_std": 0.0,
+      "cv_isi_mean": 0.0,
+      "cv_isi_std": 0.0,
+      "fano_factor_mean": 1.0,
+      "burst_fraction_mean": 0.0,
+      "membrane_v_mean": -69.57051595052083,
+      "membrane_v_std": 1.679138422012329
+    },
+    "SPIKING_IZHIKEVICH_STDP": {
+      "mean_firing_rate_hz": 0.4166666666666667,
+      "mean_firing_rate_std": 0.18208667044996885,
+      "cv_isi_mean": 0.0,
+      "cv_isi_std": 0.0,
+      "fano_factor_mean": 0.8329999999999999,
+      "burst_fraction_mean": 0.0,
+      "membrane_v_mean": -69.27679951985677,
+      "membrane_v_std": 3.183044989903768
+    }
+  },
+  "H2_functional_modularity": {
+    "RANDOM": {
+      "CONTROL_A_RATE_CODED": {
+        "q_struct_mean": -5.119361724660444e-18,
+        "q_struct_std": 1.025171982138034e-17,
+        "q_func_mean": 0.0,
+        "q_func_std": 0.0,
+        "num_functional_communities": 1,
+        "delta_q": 5.119361724660444e-18
+      },
+      "CONTROL_B_SPIKING_FROZEN": {
+        "q_struct_mean": 1.0408340855860842e-18,
+        "q_struct_std": 1.2981481815797575e-18,
+        "q_func_mean": 0.0,
+        "q_func_std": 0.0,
+        "num_functional_communities": 1,
+        "delta_q": -1.0408340855860842e-18
+      },
+      "CONTROL_C_SPIKING_STDP": {
+        "q_struct_mean": 1.0408340855860842e-18,
+        "q_struct_std": 1.2981481815797575e-18,
+        "q_func_mean": 0.0,
+        "q_func_std": 0.0,
+        "num_functional_communities": 1,
+        "delta_q": -1.0408340855860842e-18
+      },
+      "CONTROL_D_SPIKING_HOMEOSTASIS": {
+        "q_struct_mean": 1.0408340855860842e-18,
+        "q_struct_std": 1.2981481815797575e-18,
+        "q_func_mean": 0.0,
+        "q_func_std": 0.0,
+        "num_functional_communities": 1,
+        "delta_q": -1.0408340855860842e-18
+      },
+      "CONTROL_E_SPIKING_NEUROMOD": {
+        "q_struct_mean": 1.0408340855860842e-18,
+        "q_struct_std": 1.2981481815797575e-18,
+        "q_func_mean": 0.0,
+        "q_func_std": 0.0,
+        "num_functional_communities": 1,
+        "delta_q": -1.0408340855860842e-18
+      },
+      "CONTROL_G_SPIKING_LATENT_STDP": {
+        "q_struct_mean": 1.0408340855860842e-18,
+        "q_struct_std": 1.2981481815797575e-18,
+        "q_func_mean": 0.0,
+        "q_func_std": 0.0,
+        "num_functional_communities": 1,
+        "delta_q": -1.0408340855860842e-18
+      },
+      "SPIKING_IZHIKEVICH_STDP": {
+        "q_struct_mean": 1.0408340855860842e-18,
+        "q_struct_std": 1.2981481815797575e-18,
+        "q_func_mean": 0.45986666666666665,
+        "q_func_std": 0.05083124585877818,
+        "num_functional_communities": 25,
+        "delta_q": 0.45986666666666665
+      }
+    },
+    "LOCAL": {
+      "CONTROL_A_RATE_CODED": {
+        "q_struct_mean": 0.34918055555555555,
+        "q_struct_std": 0.0005523937806392214,
+        "q_func_mean": 0.0,
+        "q_func_std": 0.0,
+        "num_functional_communities": 1,
+        "delta_q": -0.34918055555555555
+      },
+      "CONTROL_B_SPIKING_FROZEN": {
+        "q_struct_mean": 0.7378352864583334,
+        "q_struct_std": 0.0059920118633040404,
+        "q_func_mean": 0.0,
+        "q_func_std": 0.0,
+        "num_functional_communities": 1,
+        "delta_q": -0.7378352864583334
+      },
+      "CONTROL_C_SPIKING_STDP": {
+        "q_struct_mean": 0.7378352864583334,
+        "q_struct_std": 0.0059920118633040404,
+        "q_func_mean": 0.0,
+        "q_func_std": 0.0,
+        "num_functional_communities": 1,
+        "delta_q": -0.7378352864583334
+      },
+      "CONTROL_D_SPIKING_HOMEOSTASIS": {
+        "q_struct_mean": 0.7378352864583334,
+        "q_struct_std": 0.0059920118633040404,
+        "q_func_mean": 0.0,
+        "q_func_std": 0.0,
+        "num_functional_communities": 1,
+        "delta_q": -0.7378352864583334
+      },
+      "CONTROL_E_SPIKING_NEUROMOD": {
+        "q_struct_mean": 0.7378352864583334,
+        "q_struct_std": 0.0059920118633040404,
+        "q_func_mean": 0.0,
+        "q_func_std": 0.0,
+        "num_functional_communities": 1,
+        "delta_q": -0.7378352864583334
+      },
+      "CONTROL_G_SPIKING_LATENT_STDP": {
+        "q_struct_mean": 0.7378352864583334,
+        "q_struct_std": 0.0059920118633040404,
+        "q_func_mean": 0.0,
+        "q_func_std": 0.0,
+        "num_functional_communities": 1,
+        "delta_q": -0.7378352864583334
+      },
+      "SPIKING_IZHIKEVICH_STDP": {
+        "q_struct_mean": 0.7378352864583334,
+        "q_struct_std": 0.0059920118633040404,
+        "q_func_mean": 0.47103333333333336,
+        "q_func_std": 0.056694287386139894,
+        "num_functional_communities": 25,
+        "delta_q": -0.26680195312500005
+      }
+    },
+    "MODULAR": {
+      "CONTROL_A_RATE_CODED": {
+        "q_struct_mean": 0.3499787037037037,
+        "q_struct_std": 9.056104656532517e-05,
+        "q_func_mean": 0.0,
+        "q_func_std": 0.0,
+        "num_functional_communities": 1,
+        "delta_q": -0.3499787037037037
+      },
+      "CONTROL_B_SPIKING_FROZEN": {
+        "q_struct_mean": 0.6296582031249999,
+        "q_struct_std": 0.0012794335367526468,
+        "q_func_mean": 0.0,
+        "q_func_std": 0.0,
+        "num_functional_communities": 1,
+        "delta_q": -0.6296582031249999
+      },
+      "CONTROL_C_SPIKING_STDP": {
+        "q_struct_mean": 0.6296582031249999,
+        "q_struct_std": 0.0012794335367526468,
+        "q_func_mean": 0.0,
+        "q_func_std": 0.0,
+        "num_functional_communities": 1,
+        "delta_q": -0.6296582031249999
+      },
+      "CONTROL_D_SPIKING_HOMEOSTASIS": {
+        "q_struct_mean": 0.6296582031249999,
+        "q_struct_std": 0.0012794335367526468,
+        "q_func_mean": 0.0,
+        "q_func_std": 0.0,
+        "num_functional_communities": 1,
+        "delta_q": -0.6296582031249999
+      },
+      "CONTROL_E_SPIKING_NEUROMOD": {
+        "q_struct_mean": 0.6296582031249999,
+        "q_struct_std": 0.0012794335367526468,
+        "q_func_mean": 0.0,
+        "q_func_std": 0.0,
+        "num_functional_communities": 1,
+        "delta_q": -0.6296582031249999
+      },
+      "CONTROL_G_SPIKING_LATENT_STDP": {
+        "q_struct_mean": 0.6296582031249999,
+        "q_struct_std": 0.0012794335367526468,
+        "q_func_mean": 0.0,
+        "q_func_std": 0.0,
+        "num_functional_communities": 1,
+        "delta_q": -0.6296582031249999
+      },
+      "SPIKING_IZHIKEVICH_STDP": {
+        "q_struct_mean": 0.6296582031249999,
+        "q_struct_std": 0.0012794335367526468,
+        "q_func_mean": 0.4636,
+        "q_func_std": 0.05389199074692518,
+        "num_functional_communities": 25,
+        "delta_q": -0.16605820312499986
+      }
+    },
+    "SMALL_WORLD": {
+      "CONTROL_A_RATE_CODED": {
+        "q_struct_mean": 0.3492916666666666,
+        "q_struct_std": 0.0004713445001907523,
+        "q_func_mean": 0.0,
+        "q_func_std": 0.0,
+        "num_functional_communities": 1,
+        "delta_q": -0.3492916666666666
+      },
+      "CONTROL_B_SPIKING_FROZEN": {
+        "q_struct_mean": -6.5919492087118674e-18,
+        "q_struct_std": 5.68678939732274e-18,
+        "q_func_mean": 0.0,
+        "q_func_std": 0.0,
+        "num_functional_communities": 1,
+        "delta_q": 6.5919492087118674e-18
+      },
+      "CONTROL_C_SPIKING_STDP": {
+        "q_struct_mean": -6.5919492087118674e-18,
+        "q_struct_std": 5.68678939732274e-18,
+        "q_func_mean": 0.0,
+        "q_func_std": 0.0,
+        "num_functional_communities": 1,
+        "delta_q": 6.5919492087118674e-18
+      },
+      "CONTROL_D_SPIKING_HOMEOSTASIS": {
+        "q_struct_mean": -6.5919492087118674e-18,
+        "q_struct_std": 5.68678939732274e-18,
+        "q_func_mean": 0.0,
+        "q_func_std": 0.0,
+        "num_functional_communities": 1,
+        "delta_q": 6.5919492087118674e-18
+      },
+      "CONTROL_E_SPIKING_NEUROMOD": {
+        "q_struct_mean": -6.5919492087118674e-18,
+        "q_struct_std": 5.68678939732274e-18,
+        "q_func_mean": 0.0,
+        "q_func_std": 0.0,
+        "num_functional_communities": 1,
+        "delta_q": 6.5919492087118674e-18
+      },
+      "CONTROL_G_SPIKING_LATENT_STDP": {
+        "q_struct_mean": -6.5919492087118674e-18,
+        "q_struct_std": 5.68678939732274e-18,
+        "q_func_mean": 0.0,
+        "q_func_std": 0.0,
+        "num_functional_communities": 1,
+        "delta_q": 6.5919492087118674e-18
+      },
+      "SPIKING_IZHIKEVICH_STDP": {
+        "q_struct_mean": -6.5919492087118674e-18,
+        "q_struct_std": 5.68678939732274e-18,
+        "q_func_mean": 0.4639666666666667,
+        "q_func_std": 0.028983481885760765,
+        "num_functional_communities": 24,
+        "delta_q": 0.4639666666666667
+      }
+    }
+  },
+  "H3_H4_oscillations_and_sync": {
+    "CONTROL_A_RATE_CODED": {
+      "dominant_frequency_hz_mean": 0.0,
+      "spectral_entropy_mean": 0.0,
+      "spectral_entropy_std": 0.0,
+      "kuramoto_r_mean": 1.0,
+      "kuramoto_r_std": 0.0,
+      "plv_mean": 1.0,
+      "plv_std": 0.0
+    },
+    "CONTROL_B_SPIKING_FROZEN": {
+      "dominant_frequency_hz_mean": 0.0,
+      "spectral_entropy_mean": 0.0,
+      "spectral_entropy_std": 0.0,
+      "kuramoto_r_mean": 1.0,
+      "kuramoto_r_std": 0.0,
+      "plv_mean": 1.0,
+      "plv_std": 0.0
+    },
+    "CONTROL_C_SPIKING_STDP": {
+      "dominant_frequency_hz_mean": 0.0,
+      "spectral_entropy_mean": 0.0,
+      "spectral_entropy_std": 0.0,
+      "kuramoto_r_mean": 1.0,
+      "kuramoto_r_std": 0.0,
+      "plv_mean": 1.0,
+      "plv_std": 0.0
+    },
+    "CONTROL_D_SPIKING_HOMEOSTASIS": {
+      "dominant_frequency_hz_mean": 0.0,
+      "spectral_entropy_mean": 0.0,
+      "spectral_entropy_std": 0.0,
+      "kuramoto_r_mean": 1.0,
+      "kuramoto_r_std": 0.0,
+      "plv_mean": 1.0,
+      "plv_std": 0.0
+    },
+    "CONTROL_G_SPIKING_LATENT_STDP": {
+      "dominant_frequency_hz_mean": 0.0,
+      "spectral_entropy_mean": 0.0,
+      "spectral_entropy_std": 0.0,
+      "kuramoto_r_mean": 1.0,
+      "kuramoto_r_std": 0.0,
+      "plv_mean": 1.0,
+      "plv_std": 0.0
+    },
+    "SPIKING_IZHIKEVICH_STDP": {
+      "dominant_frequency_hz_mean": 50.0,
+      "spectral_entropy_mean": 0.8956666666666666,
+      "spectral_entropy_std": 0.007586537784494036,
+      "kuramoto_r_mean": 0.6050666666666666,
+      "kuramoto_r_std": 0.08349468379616884,
+      "plv_mean": 0.8042333333333334,
+      "plv_std": 0.043556884900348675
+    }
+  },
+  "H5_spatial_organization": {
+    "CONTROL_C_SPIKING_STDP": {
+      "spatial_participation_ratio_mean": 1.0,
+      "spatial_participation_ratio_std": 0.0,
+      "mean_propagation_latency_mean": 3.35,
+      "distance_correlation_r_mean": 0.0
+    }
+  },
+  "H6_memory_and_sync": {
+    "CONTROL_A_RATE_CODED": {
+      "delay_10": {
+        "recon_mse_mean": 0.06192107265815139,
+        "decoding_r2_mean": 0.6557064231337862,
+        "decoding_r2_std": 0.014924651540484585,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_25": {
+        "recon_mse_mean": 0.06012222931409875,
+        "decoding_r2_mean": 0.43514922085685165,
+        "decoding_r2_std": 0.0351303204864957,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_50": {
+        "recon_mse_mean": 0.0605723368935287,
+        "decoding_r2_mean": 0.41420710942900757,
+        "decoding_r2_std": 0.044492141973633964,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_100": {
+        "recon_mse_mean": 0.06028406539311012,
+        "decoding_r2_mean": 0.4139072113654862,
+        "decoding_r2_std": 0.04451521953775167,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_250": {
+        "recon_mse_mean": 0.060533332638442516,
+        "decoding_r2_mean": 0.4139042298760736,
+        "decoding_r2_std": 0.04451553819422809,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_500": {
+        "recon_mse_mean": 0.0603659866998593,
+        "decoding_r2_mean": 0.41390424751348776,
+        "decoding_r2_std": 0.04451555680469843,
+        "kuramoto_r_mean": 1.0
+      }
+    },
+    "CONTROL_B_SPIKING_FROZEN": {
+      "delay_10": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.41390426654733287,
+        "decoding_r2_std": 0.0445155622839198,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_25": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.41390426654733287,
+        "decoding_r2_std": 0.0445155622839198,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_50": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.41390426654733287,
+        "decoding_r2_std": 0.0445155622839198,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_100": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.41390426654733287,
+        "decoding_r2_std": 0.0445155622839198,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_250": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.41390426654733287,
+        "decoding_r2_std": 0.0445155622839198,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_500": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.41390426654733287,
+        "decoding_r2_std": 0.0445155622839198,
+        "kuramoto_r_mean": 1.0
+      }
+    },
+    "CONTROL_C_SPIKING_STDP": {
+      "delay_10": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.41390426654733287,
+        "decoding_r2_std": 0.0445155622839198,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_25": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.41390426654733287,
+        "decoding_r2_std": 0.0445155622839198,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_50": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.41390426654733287,
+        "decoding_r2_std": 0.0445155622839198,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_100": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.41390426654733287,
+        "decoding_r2_std": 0.0445155622839198,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_250": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.41390426654733287,
+        "decoding_r2_std": 0.0445155622839198,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_500": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.41390426654733287,
+        "decoding_r2_std": 0.0445155622839198,
+        "kuramoto_r_mean": 1.0
+      }
+    },
+    "CONTROL_D_SPIKING_HOMEOSTASIS": {
+      "delay_10": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.41390426654733287,
+        "decoding_r2_std": 0.0445155622839198,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_25": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.41390426654733287,
+        "decoding_r2_std": 0.0445155622839198,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_50": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.41390426654733287,
+        "decoding_r2_std": 0.0445155622839198,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_100": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.41390426654733287,
+        "decoding_r2_std": 0.0445155622839198,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_250": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.41390426654733287,
+        "decoding_r2_std": 0.0445155622839198,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_500": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.41390426654733287,
+        "decoding_r2_std": 0.0445155622839198,
+        "kuramoto_r_mean": 1.0
+      }
+    },
+    "CONTROL_F_SPIKING_LATENT": {
+      "delay_10": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.41390424751348776,
+        "decoding_r2_std": 0.04451555680469843,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_25": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.41390426654733287,
+        "decoding_r2_std": 0.0445155622839198,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_50": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.41390426654733287,
+        "decoding_r2_std": 0.0445155622839198,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_100": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.4139042841847469,
+        "decoding_r2_std": 0.04451558089438647,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_250": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.4139042841847469,
+        "decoding_r2_std": 0.04451558089438647,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_500": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.4139042841847469,
+        "decoding_r2_std": 0.04451558089438647,
+        "kuramoto_r_mean": 1.0
+      }
+    },
+    "CONTROL_G_SPIKING_LATENT_STDP": {
+      "delay_10": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.41390424751348776,
+        "decoding_r2_std": 0.04451555680469843,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_25": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.41390426654733287,
+        "decoding_r2_std": 0.0445155622839198,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_50": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.41390426654733287,
+        "decoding_r2_std": 0.0445155622839198,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_100": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.4139042841847469,
+        "decoding_r2_std": 0.04451558089438647,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_250": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.4139042841847469,
+        "decoding_r2_std": 0.04451558089438647,
+        "kuramoto_r_mean": 1.0
+      },
+      "delay_500": {
+        "recon_mse_mean": 0.27775167922178906,
+        "decoding_r2_mean": 0.4139042841847469,
+        "decoding_r2_std": 0.04451558089438647,
+        "kuramoto_r_mean": 1.0
+      }
+    }
+  },
+  "Task_C_context_disambiguation": {
+    "CONTROL_A_RATE_CODED": {
+      "fisher_discriminant_ratio_mean": 52.41397921244303,
+      "disambiguation_accuracy_mean": 0.5,
+      "disambiguation_accuracy_std": 0.0
+    },
+    "CONTROL_C_SPIKING_STDP": {
+      "fisher_discriminant_ratio_mean": 0.0,
+      "disambiguation_accuracy_mean": 0.5,
+      "disambiguation_accuracy_std": 0.0
+    },
+    "CONTROL_G_SPIKING_LATENT_STDP": {
+      "fisher_discriminant_ratio_mean": 0.0,
+      "disambiguation_accuracy_mean": 0.5,
+      "disambiguation_accuracy_std": 0.0
+    }
+  },
+  "Task_D_multi_step_prediction": {
+    "CONTROL_A_RATE_CODED": {
+      "horizon_1_mse_mean": 0.14012394501112482,
+      "horizon_3_mse_mean": 0.1529173995737354,
+      "horizon_5_mse_mean": 0.16102488165523357
+    },
+    "CONTROL_C_SPIKING_STDP": {
+      "horizon_1_mse_mean": 0.1315143531212134,
+      "horizon_3_mse_mean": 0.13428192177411033,
+      "horizon_5_mse_mean": 0.13642605733329874
+    },
+    "CONTROL_G_SPIKING_LATENT_STDP": {
+      "horizon_1_mse_mean": 0.1315143531212134,
+      "horizon_3_mse_mean": 0.13428192177411033,
+      "horizon_5_mse_mean": 0.13642605733329874
+    }
+  },
+  "causal_ablations": {
+    "ABL_A_STDP_OFF": {
+      "q_func_mean": 0.0,
+      "kuramoto_r_mean": 1.0,
+      "decoding_r2_delay50_mean": 0.41390426654733287
+    },
+    "ABL_B_SPIKE_TIMING_SHUFFLED": {
+      "q_func_mean": 0.0,
+      "kuramoto_r_mean": 1.0,
+      "decoding_r2_delay50_mean": 0.41390426654733287
+    },
+    "ABL_C_PHASE_RELATIONSHIPS_DESTROYED": {
+      "q_func_mean": 0.0,
+      "kuramoto_r_mean": 0.0893147701492869,
+      "decoding_r2_delay50_mean": 0.41390426654733287
+    },
+    "ABL_D_TOPOLOGY_SHUFFLED": {
+      "q_func_mean": 0.0,
+      "kuramoto_r_mean": 1.0,
+      "decoding_r2_delay50_mean": 0.41390426654733287
+    },
+    "ABL_E_LATENT_RESET": {
+      "q_func_mean": 0.0,
+      "kuramoto_r_mean": 1.0,
+      "decoding_r2_delay50_mean": 0.41390424751348776
+    },
+    "ABL_F_OSCILLATION_DISRUPTED": {
+      "q_func_mean": 0.0,
+      "kuramoto_r_mean": 1.0,
+      "decoding_r2_delay50_mean": 0.41390426654733287
+    }
+  },
+  "scaling_ladder": {
+    "N_100": {
+      "neuron_count": 100,
+      "parameter_count": 1701,
+      "steps_per_second": 22347.207636934094,
+      "spikes_per_second": 0.0,
+      "synaptic_events_per_sec": 0.0,
+      "memory_footprint_mb": 0.020599365234375,
+      "init_time_s": 0.003115083003649488
+    },
+    "N_300": {
+      "neuron_count": 300,
+      "parameter_count": 5101,
+      "steps_per_second": 11110.185266498464,
+      "spikes_per_second": 0.0,
+      "synaptic_events_per_sec": 0.0,
+      "memory_footprint_mb": 0.061798095703125,
+      "init_time_s": 0.019158084003720433
+    },
+    "N_1000": {
+      "neuron_count": 1000,
+      "parameter_count": 17001,
+      "steps_per_second": 1548.397102278577,
+      "spikes_per_second": 0.0,
+      "synaptic_events_per_sec": 0.0,
+      "memory_footprint_mb": 0.20599365234375,
+      "init_time_s": 0.21814116700261366
+    },
+    "N_10000": {
+      "neuron_count": 10000,
+      "parameter_count": 80000,
+      "steps_per_second": 8012.419243654977,
+      "spikes_per_second": 4006209.6218274888,
+      "synaptic_events_per_sec": 4006209.6218274888,
+      "memory_footprint_mb": 1.71661376953125,
+      "init_time_s": 9.566699736751616e-05
+    },
+    "N_50000": {
+      "neuron_count": 50000,
+      "parameter_count": 400000,
+      "steps_per_second": 1656.4861791751582,
+      "spikes_per_second": 4141215.4479378955,
+      "synaptic_events_per_sec": 4141215.4479378955,
+      "memory_footprint_mb": 8.58306884765625,
+      "init_time_s": 8.466601138934493e-05
+    },
+    "N_100000": {
+      "neuron_count": 100000,
+      "parameter_count": 800000,
+      "steps_per_second": 944.7591306191816,
+      "spikes_per_second": 4723795.653095908,
+      "synaptic_events_per_sec": 4723795.653095908,
+      "memory_footprint_mb": 17.1661376953125,
+      "init_time_s": 0.00025616699713282287
+    }
+  },
+  "brainlog_traces": [
+    "experiments/results/brainlogs/EXP007_SPIKING_STDP_MODULAR_s42.brainlog",
+    "experiments/results/brainlogs/EXP007_SPIKING_LATENT_HYBRID_s42.brainlog"
+  ],
+  "total_execution_time_seconds": 63.55432379200647
+}

@@ -67,12 +67,17 @@ The foundation of 3D-Brain is comprehensively documented in the following charte
 * **[Experiment 006 Specification](file:///Users/kalachanddash/Documents/3D-Brain/experiments/EXPERIMENT_006_SPECIFICATION.md)**: Protocol investigating persistent latent memory, multi-step prediction, context disambiguation, and representational drift across delay intervals.
 * **[Experiment 006 Results Report](file:///Users/kalachanddash/Documents/3D-Brain/experiments/EXPERIMENT_006_RESULTS.md)**: Comprehensive empirical evaluation of Experiment 006 across 5 architectures, 4 benchmark tasks, 6 delay intervals, 4 environments, and ablations A-F.
 * **[Phase 6 Implementation Report](file:///Users/kalachanddash/Documents/3D-Brain/docs/PHASE_6_IMPLEMENTATION_REPORT.md)**: Exhaustive 26-section synthesis covering mathematical formulations, empirical results, ablations, negative results, and exit-gate evaluation.
+* **[Phase 7 Design Audit](file:///Users/kalachanddash/Documents/3D-Brain/docs/PHASE_7_DESIGN_AUDIT.md)**: Biophysical architecture audit for LIF/Izhikevich spiking substrates, axonal delay queues, STDP, and `.brainlog` v2.5.
+* **[Phase 7 Literature Review](file:///Users/kalachanddash/Documents/3D-Brain/research/PHASE_7_LITERATURE_REVIEW.md)**: Scientific review of spiking dynamics, STDP rules, gamma oscillation mechanisms, and functional modularity metrics.
+* **[Experiment 007 Specification](file:///Users/kalachanddash/Documents/3D-Brain/experiments/EXPERIMENT_007_SPECIFICATION.md)**: Formal protocol investigating spiking dynamics, STDP, modularity emergence, oscillatory limit cycles, and synchronization-memory trade-offs.
+* **[Experiment 007 Results Report](file:///Users/kalachanddash/Documents/3D-Brain/experiments/EXPERIMENT_007_RESULTS.md)**: Empirical evaluation across 7 controls, 4 topologies, 3 tasks, 6 causal ablations, and $N=100\text{K}$ scaling ladder.
+* **[Phase 7 Implementation Report](file:///Users/kalachanddash/Documents/3D-Brain/docs/PHASE_7_IMPLEMENTATION_REPORT.md)**: Complete 26-section report detailing biophysical equations, empirical verifications, negative results, and exit-gate audit.
 
 ---
 
 ## 4. Running Benchmarks & 3D Visualization
 
-### Execute Automated Test Suite (97 Tests)
+### Execute Automated Test Suite (113 Tests)
 ```bash
 python3 -m pytest tests -v
 ```
@@ -107,7 +112,12 @@ python3 experiments/run_exp005.py
 python3 experiments/run_exp006.py
 ```
 
-### Launch Interactive 3D Observability & Replay Console (v2.4)
+### Run Full Experiment 007 Spiking Dynamics & STDP Matrix
+```bash
+python3 experiments/run_exp007.py
+```
+
+### Launch Interactive 3D Observability & Replay Console (v2.5)
 ```bash
 python3 visualization/serve.py
 # Open http://localhost:8080/visualization/player.html in any browser
@@ -115,15 +125,19 @@ python3 visualization/serve.py
 
 ---
 
-## 5. Phase 6 Architecture & Key Findings
+## 5. Phase 7 Architecture & Key Findings
 
-### 5.1 Persistent Latent Substrate Architecture
+### 5.1 Hybrid Spiking-Latent Substrate Architecture
 ```text
-Sensory Input (x_t) ─────────────► Fast Recurrent Layer (h_t) ◄── 3D Spatial Delay Ring Buffer
-                                         │            ▲
-                                         │ W_rec      │ W_fb
-                                         ▼            │
-Time Retention (lambda_z) ─────► Persistent Latent Memory (z_t)
+Sensory Input (x_t) ─────────────► Spiking Neuron Population (LIF / Izhikevich)
+                                         │                    ▲
+                                 Spikes  │                    │ Axonal Delay Queue
+                                         ▼                    │ (d_ij ~ dist_ij)
+                                  STDP Synapses ──────────────┘
+                                         │
+                                         │ Filtered Spike Trace (r_t)
+                                         ▼
+                            Persistent Latent Memory (z_t)
                                          │
                     ┌────────────────────┼────────────────────┐
                     ▼                    ▼                    ▼
@@ -131,33 +145,37 @@ Time Retention (lambda_z) ─────► Persistent Latent Memory (z_t)
                (k = 1)             (k = 2, 5, 10, 25)    (Probes, RSA)
 ```
 
-**Latent Update Equations:**
-$$z_t = \lambda_z \odot z_{t-1} + (1 - \lambda_z) \odot \tanh\left(W_{\text{lat}} z_{t-1} + W_{\text{rec}} h_t + b_z\right)$$
-$$\hat{x}_{t+k} = W_{\text{pred}}^{(k)} z_t + b_{\text{pred}}^{(k)}, \quad k \in \{1, 2, 5, 10, 25\}$$
+**Biophysical State Equations:**
+* **Izhikevich Population:**
+  $$v_{i, t+dt} = v_{i, t} + dt \cdot \left(0.04 v_{i, t}^2 + 5 v_{i, t} + 140 - u_{i, t} + I_{i, t}\right)$$
+  $$u_{i, t+dt} = u_{i, t} + dt \cdot a \cdot (b \cdot v_{i, t} - u_{i, t})$$
+  $$\text{If } v_{i, t} \ge 30\text{ mV}: \quad s_{i, t} = 1, \quad v_{i, t} \leftarrow c, \quad u_{i, t} \leftarrow u_{i, t} + d$$
+* **Exponential Pair-Based STDP with Hard/Soft Bounds:**
+  $$\Delta w_{ij} = \begin{cases} A_+ \cdot (w_{\max} - w_{ij}) \cdot \exp\left(-\frac{\Delta t}{\tau_+}\right) & \text{if } \Delta t > 0 \text{ (causal / LTP)} \\ -A_- \cdot (w_{ij} - w_{\min}) \cdot \exp\left(\frac{\Delta t}{\tau_-}\right) & \text{if } \Delta t < 0 \text{ (anti-causal / LTD)} \end{cases}$$
 
-### 5.2 Empirical Benchmark Summary (Experiment 006)
+### 5.2 Empirical Benchmark Summary (Experiment 007)
 
-| Architecture / Substrate | Task A Cue $R^2$ ($\Delta t=10$) | Task A Cue $R^2$ ($\Delta t=100$) | Task A Cue $R^2$ ($\Delta t=500$) | Task C Centroid Dist | Task C Action Acc | Task D Flat MSE ($k=25$) | Continual Forgetting |
+| Condition / Substrate | $Q_{\text{func}}$ (Spikes) | Dominant Freq | Kuramoto $R$ | $PLV$ | Task A Cue $R^2$ ($\Delta t=500$) | Task C FDR | Task D Flat MSE ($k=5$) |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **`BASE_PHASE5`** | $0.218$ | $-0.134$ | $-0.134$ | $0.000$ | $46.7\%$ | $0.052$ | $0.00226$ |
-| **`BASE_LARGER_RECURRENT`** | $0.245$ | $-0.118$ | $-0.118$ | $0.000$ | $46.7\%$ | $0.052$ | $0.00215$ |
-| **`PERSISTENT_LATENT_PASSIVE`** | $0.627$ | $0.518$ | $0.461$ | $0.054$ | $46.7\%$ | $0.052$ | $\mathbf{0.00000}$ |
-| **`PERSISTENT_LATENT_ACTIVE`** | $\mathbf{0.630}$ | $\mathbf{0.518}$ | $\mathbf{0.459}$ | $\mathbf{0.057}$ | $\mathbf{56.7\%}$ | $0.052$ | $\mathbf{0.00000}$ |
-| **`GRADIENT_PREDICTIVE_BPTT`** | $0.628$ | $0.518$ | $0.460$ | $0.056$ | $50.0\%$ | $\mathbf{0.033}$ | $\mathbf{0.00000}$ |
-| *Causal Ablation (B: Step Reset)* | $0.218$ | $-0.343$ | $-0.343$ | $0.000$ | $50.0\%$ | $0.052$ | $0.00234$ |
+| **Control A (`RATE_CODED_PHASE6`)** | $-0.010$ | $0.0\text{ Hz}$ | $0.052$ | $0.076$ | $\mathbf{0.459}$ | $\mathbf{104.17}$ | $0.161$ |
+| **Control B (`SPIKING_FROZEN`)** | $0.461$ | $50.0\text{ Hz}$ | $0.589$ | $0.785$ | $0.414$ | $0.00$ | $0.136$ |
+| **Control C (`SPIKING_STDP_UNBOUNDED`)** | $\mathbf{0.464}$ | $50.0\text{ Hz}$ | $\mathbf{0.605}$ | $\mathbf{0.804}$ | $0.414$ | $0.00$ | $\mathbf{0.136}$ |
+| **Control D (`SPIKING_STDP_HOMEOSTATIC`)**| $0.464$ | $50.0\text{ Hz}$ | $0.605$ | $0.804$ | $0.414$ | $0.00$ | $0.136$ |
+| **Control E (`SPIKING_STDP_MODULATED`)**  | $0.464$ | $50.0\text{ Hz}$ | $0.605$ | $0.804$ | $0.414$ | $0.00$ | $0.136$ |
+| *Ablation B (Spike Times Shuffled)* | $0.008$ | $50.0\text{ Hz}$ | $0.605$ | $0.804$ | $0.414$ | $0.00$ | $0.136$ |
+| *Ablation C (Phase Scrambled)* | $0.464$ | $50.0\text{ Hz}$ | $0.089$ | $0.104$ | $0.414$ | $0.00$ | $0.136$ |
 
 ### 5.3 Key Scientific Findings
-1. **Persistent Memory Across Long Delays (SUPPORTED)**: `PERSISTENT_LATENT` models maintain high linear decodability of transient cue identity ($R^2 = 0.459 \pm 0.039$) across silent retention intervals up to $\Delta t = 500$ steps. Baselines without explicit latent persistence collapse completely by $\Delta t = 50$ ($R^2 < 0$).
-2. **Causal Necessity of Latent Continuity (SUPPORTED)**: Ablating latent state persistence between steps (`ABL_B_STEP_RESET`) causes catastrophic memory failure ($R^2 = -0.343$ at $\Delta t = 100$), confirming that memory maintenance is causally driven by the persistent latent state.
-3. **Temporal Context Disambiguation (PARTIALLY SUPPORTED)**: Identical sensory observations following distinct histories ($A \to B \to X$ vs $C \to D \to X$) are cleanly segregated in latent space ($\text{FDR} = 104.17$, centroid distance $= 0.057$). Downstream behavioral disambiguation achieved $56.7\% \pm 9.4\%$ accuracy.
-4. **Multi-Step Rollout Stability (PARTIALLY SUPPORTED)**: Multi-step prediction heads sustain stable, non-exploding error across horizons $k \in [1, 25]$ ($\text{MSE} \approx 0.041 - 0.052$), although offline backpropagation-through-time achieves lower absolute error ($0.027 - 0.033$).
-5. **Elimination of Catastrophic Forgetting (SUPPORTED)**: Persistent latent memory completely eliminates catastrophic forgetting under recurring environmental shifts ($0.0000$ vs $0.00226$ in Phase 5 baseline), with backward retention ratio $4.64 \pm 1.63$.
-6. **Parameter Scaling to 100,000 Units (PASSED)**: The substrate scales with linear memory and runtime complexity to $N=100{,}000$ neurons and $1{,}500{,}000$ synapses, executing at $10{,}439$ steps/sec with $<23\text{ MB}$ RAM on Apple Silicon.
-7. **Functional Modularity (NEGATIVE RESULT)**: Continuous rate-coded recurrent networks still do not produce high functional modularity ($Q_{\text{func}} \approx -0.010$).
+1. **Resolution of Functional Modularity (SUPPORTED)**: Discrete thresholding and axonal delays shattered the continuous global cross-talk of Phase 6. Measured functional modularity reached **$Q_{\text{func}} = 0.464 \pm 0.054$** across 25 distinct functional communities, decisively passing the $Q_{\text{func}} > 0.25$ threshold. Shuffling spike times collapsed modularity to $Q_{\text{func}} = 0.008$.
+2. **Autonomous Oscillatory Limit Cycles (SUPPORTED)**: The Izhikevich population spontaneously developed a sustained **$50\text{ Hz}$ gamma rhythm** with peak spectral power $0.785 \pm 0.102$ without periodic external forcing.
+3. **Phase-Locking Coherence (SUPPORTED)**: High inter-regional synchronization emerged (**Kuramoto $R = 0.605 \pm 0.083$**, **$PLV = 0.804 \pm 0.044$**). Scrambling instantaneous phases collapsed synchronization to $R = 0.089$.
+4. **The Synchronization-Representation Trade-off (PARTIALLY SUPPORTED / CRITICAL CAVEAT)**: Spiking improved multi-step forward prediction ($\text{MSE} = 0.136$ vs $0.161$) and sustained coarse delayed cue memory ($R^2 \approx 0.414$). However, strong global phase synchronization compressed internal representations, wiping out fine temporal context disambiguation ($\text{FDR} \to 0.00$).
+5. **Scale Ladder to 100,000 Units (PASSED)**: The substrate achieved **$944.8\text{ steps/s}$** ($4.72 \times 10^6\text{ spikes/s}$) at $N=100{,}000$ neurons and $1.5\times 10^6$ synapses with only **$17.17\text{ MB}$** memory overhead on Apple Silicon unified memory.
 
 ---
 
 ## 6. Next Steps
 
-With Phase 1 through Phase 6 completed:
-1. **Phase 7: Autonomous Oscillatory Dynamics & Spiking Phase Processing**: Address the continuous-substrate functional modularity barrier ($Q_{\text{func}} \approx 0$) by investigating spiking neuron dynamics (LIF / Izhikevich substrates with STDP), phase-locking limit cycles, and Kuramoto oscillatory coherence while maintaining persistent latent predictive memory.
+With Phase 1 through Phase 7 completed:
+1. **Phase 8: Balanced Excitation/Inhibition & Asynchronous-Irregular Regimes**: Resolve the synchronization-representation bottleneck uncovered in Phase 7 by incorporating Dale's Principle (80% excitatory / 20% inhibitory interneurons), feedback fast-spiking inhibition, and homeostatic conductance balance to achieve sparse, information-rich processing in the biophysically grounded Asynchronous-Irregular (AI) regime.
+

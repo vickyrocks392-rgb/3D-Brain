@@ -58,5 +58,33 @@ __all__ = [
     "LinearDecodingProbe",
     "RepresentationalSimilarityAnalysis",
     "StateDynamicsAnalyzer",
+    "SpikingNeuronModel",
+    "SpikeEvent",
+    "LIFNeuronPopulation",
+    "IzhikevichNeuronPopulation",
+    "SpikePropagationQueue",
+    "PlasticityMode",
+    "STDPEngine",
+    "STDPUpdateRecord",
+    "SpikingSpatialNetwork",
+    "SpikingLatentSpatialNetwork",
 ]
+
+from brain.spiking import (
+    SpikingNeuronModel,
+    SpikeEvent,
+    LIFNeuronPopulation,
+    IzhikevichNeuronPopulation,
+    SpikePropagationQueue,
+)
+from brain.stdp import (
+    PlasticityMode,
+    STDPEngine,
+    STDPUpdateRecord,
+)
+from brain.spiking_spatial import (
+    SpikingSpatialNetwork,
+    SpikingLatentSpatialNetwork,
+)
+
 

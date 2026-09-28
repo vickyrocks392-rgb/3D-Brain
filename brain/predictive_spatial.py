@@ -135,6 +135,14 @@ class PredictiveSpatialRNN(BrainModel):
     def alpha(self) -> np.ndarray:
         return sigmoid(self.rho)
 
+    @property
+    def W_rec(self) -> np.ndarray:
+        return self.W_hh
+
+    @W_rec.setter
+    def W_rec(self, val: np.ndarray) -> None:
+        self.W_hh = val.astype(np.float32)
+
     def reset(self, batch_size: int = 1) -> None:
         self.h = np.zeros((batch_size, self.hidden_dim), dtype=np.float32)
         self.a = np.zeros((batch_size, self.hidden_dim), dtype=np.float32)

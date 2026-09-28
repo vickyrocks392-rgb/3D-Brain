@@ -124,22 +124,38 @@ class StateCapture:
 
         # Calculate actual signal pulses across connection edges
         signals: List[TelemetrySignal] = []
-        if hasattr(model, "queue") and model.queue is not None and len(model.queue.active_signals) > 0:
-            offset = 3 if model.input_dim == 3 else 2
-            for sig in model.queue.active_signals:
-                s_id = offset + sig.source
-                d_id = offset + sig.target
-                prog = sig.progress(step)
-                signals.append(
-                    TelemetrySignal(
-                        src=s_id,
-                        dst=d_id,
-                        progress=prog,
-                        magnitude=sig.magnitude,
-                        distance=sig.distance,
-                        delay=sig.delay,
+        if hasattr(model, "queue") and model.queue is not None:
+            offset = model.input_dim if hasattr(model, "input_dim") else 2
+            if hasattr(model.queue, "active_spikes") and len(model.queue.active_spikes) > 0:
+                for spk in model.queue.active_spikes:
+                    s_id = offset + spk.source
+                    d_id = offset + spk.target
+                    prog = spk.progress(step)
+                    signals.append(
+                        TelemetrySignal(
+                            src=s_id,
+                            dst=d_id,
+                            progress=prog,
+                            magnitude=spk.weight,
+                            distance=spk.distance,
+                            delay=spk.delay,
+                        )
                     )
-                )
+            elif hasattr(model.queue, "active_signals") and len(model.queue.active_signals) > 0:
+                for sig in model.queue.active_signals:
+                    s_id = offset + sig.source
+                    d_id = offset + sig.target
+                    prog = sig.progress(step)
+                    signals.append(
+                        TelemetrySignal(
+                            src=s_id,
+                            dst=d_id,
+                            progress=prog,
+                            magnitude=sig.magnitude,
+                            distance=sig.distance,
+                            delay=sig.delay,
+                        )
+                    )
         else:
             for edge in self.topology.edges:
                 src = edge.src
@@ -492,6 +508,176 @@ class StateCapture:
             target=float(obs_next[0]),
             error=float(pred_error),
             mask=1.0,
+            signals=signals,
+            events=step_events,
+            dynamic_details=dynamic_details,
+        )
+
+        self.frames.append(frame)
+        self.all_events.extend(step_events)
+
+        if step % 10 == 0:
+            self.snapshots[step] = {
+                "step": step,
+                "states": all_states,
+                "activations": all_acts,
+                "weights_digest": len(self.topology.edges),
+            }
+
+        return frame
+
+    def capture_spiking_step(
+        self,
+        step: int,
+        input_vec: np.ndarray,
+        model: BrainModel,
+        y_val: float,
+        target_val: float,
+        mask_val: float,
+        spikes: Optional[np.ndarray] = None,
+        stdp_updates: Optional[List[Any]] = None,
+        kuramoto_r: Optional[float] = None,
+        dom_freq_hz: Optional[float] = None,
+        phase_label: str = "RUNNING",
+    ) -> TelemetryFrame:
+        """Capture a single spiking simulation step with discrete spikes, STDP updates, and membrane states."""
+        time_ms = step * self.dt_ms
+        obs = model.observable_state()
+
+        h_vec = obs["state"][0]
+        a_vec = obs["activation"][0]
+
+        in_acts = [float(x) for x in input_vec]
+        h_acts = [float(a) for a in a_vec]
+        out_act = [float(y_val)]
+        all_acts = in_acts + h_acts + out_act
+
+        in_states = [float(x) for x in input_vec]
+        h_states = [float(h) for h in h_vec]
+        all_states = in_states + h_states + out_act
+
+        err = abs(float(y_val) - float(target_val)) if mask_val > 0 else 0.0
+
+        # Calculate actual signal pulses across connection edges
+        signals: List[TelemetrySignal] = []
+        offset = len(in_acts)
+
+        if hasattr(model, "queue") and model.queue is not None:
+            if hasattr(model.queue, "active_spikes") and len(model.queue.active_spikes) > 0:
+                for spk in model.queue.active_spikes:
+                    s_id = offset + spk.source
+                    d_id = offset + spk.target
+                    prog = spk.progress(step)
+                    signals.append(
+                        TelemetrySignal(
+                            src=s_id,
+                            dst=d_id,
+                            progress=prog,
+                            magnitude=spk.weight,
+                            distance=spk.distance,
+                            delay=spk.delay,
+                        )
+                    )
+            elif hasattr(model.queue, "active_signals") and len(model.queue.active_signals) > 0:
+                for sig in model.queue.active_signals:
+                    s_id = offset + sig.source
+                    d_id = offset + sig.target
+                    prog = sig.progress(step)
+                    signals.append(
+                        TelemetrySignal(
+                            src=s_id,
+                            dst=d_id,
+                            progress=prog,
+                            magnitude=sig.magnitude,
+                            distance=sig.distance,
+                            delay=sig.delay,
+                        )
+                    )
+        signals = signals[: self.max_active_signals]
+
+        # Computational Events
+        step_events: List[ComputationalEvent] = []
+
+        # 1. Trial / Phase Events
+        if step == 0:
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.TRIAL_STARTED,
+                    step=step,
+                    time_ms=time_ms,
+                    payload={"stimulus": float(input_vec[0]) if len(input_vec) > 0 else 0.0},
+                )
+            )
+
+        # 2. Discrete Spike Emission Events
+        fired_mask = spikes if spikes is not None else np.array(obs.get("spikes", []), dtype=bool)
+        if len(fired_mask) > 0:
+            for j in np.where(fired_mask)[0]:
+                step_events.append(
+                    ComputationalEvent(
+                        event_type=EventType.SPIKE_EMITTED,
+                        step=step,
+                        time_ms=time_ms,
+                        node_id=offset + int(j),
+                        magnitude=1.0,
+                    )
+                )
+
+        # 3. STDP Plasticity Events
+        updates_list = stdp_updates if stdp_updates is not None else getattr(model, "last_plastic_updates", [])
+        if updates_list:
+            for upd in updates_list[:10]:  # Cap event log per step to top 10
+                upd_dict = upd.to_dict() if hasattr(upd, "to_dict") else upd
+                step_events.append(
+                    ComputationalEvent(
+                        event_type=EventType.STDP_UPDATE,
+                        step=step,
+                        time_ms=time_ms,
+                        source_node=offset + upd_dict["src"],
+                        target_node=offset + upd_dict["dst"],
+                        magnitude=abs(upd_dict["dw"]),
+                        payload=upd_dict,
+                    )
+                )
+
+        # 4. Phase synchronization event
+        if kuramoto_r is not None and kuramoto_r >= 0.5:
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.PHASE_LOCK_ESTABLISHED,
+                    step=step,
+                    time_ms=time_ms,
+                    magnitude=float(kuramoto_r),
+                    payload={"kuramoto_r": round(float(kuramoto_r), 4)},
+                )
+            )
+
+        # Dynamic Details
+        dynamic_details: Dict[str, Any] = {
+            "spikes_active": int(np.sum(fired_mask)),
+            "v_mem_mean": round(float(np.mean(h_vec)), 2),
+            "v_mem_std": round(float(np.std(h_vec)), 2),
+        }
+        if kuramoto_r is not None:
+            dynamic_details["kuramoto_r"] = round(float(kuramoto_r), 4)
+        if dom_freq_hz is not None:
+            dynamic_details["dominant_freq_hz"] = round(float(dom_freq_hz), 2)
+        if "latent_z" in obs:
+            dynamic_details["latent_z"] = obs["latent_z"]
+            dynamic_details["latent_norm"] = obs.get("latent_norm", 0.0)
+        if "multistep_predictions" in obs:
+            dynamic_details["multistep_preds"] = obs["multistep_predictions"]
+
+        frame = TelemetryFrame(
+            step=step,
+            time_ms=time_ms,
+            inputs=in_acts,
+            activations=all_acts,
+            states=all_states,
+            output=float(y_val),
+            target=float(target_val),
+            error=float(err),
+            mask=float(mask_val),
             signals=signals,
             events=step_events,
             dynamic_details=dynamic_details,

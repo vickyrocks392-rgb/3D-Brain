@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D-Brain Observability Console</title>
+  <style>
+    :root {
+      --bg: #090b10;
+      --panel-bg: rgba(15, 20, 30, 0.85);
+      --border: rgba(255, 255, 255, 0.12);
+      --text: #e2e8f0;
+      --text-muted: #8492a6;
+      --cyan: #00e5ff;
+      --amber: #ff9100;
+      --magenta: #e040fb;
+      --green: #00e676;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      user-select: none;
+    }
+    #viewport {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+    /* Top Bar HUD */
+    .header {
+      position: absolute;
+      top: 16px;
+      left: 20px;
+      right: 20px;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+    }
+    .badge {
+      background: var(--panel-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 18px;
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .badge h1 {
+      font-size: 15px;
+      letter-spacing: 0.5px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(0, 229, 255, 0.15);
+      color: var(--cyan);
+      font-weight: 600;
+    }
+    .controls-top {
+      display: flex;
+      gap: 10px;
+      pointer-events: auto;
+    }
+    .btn {
+      background: var(--panel-bg);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+    .btn.primary {
+      background: rgba(0, 229, 255, 0.2);
+      border-color: var(--cyan);
+      color: #fff;
+    }
+
+    /* Inspector Drawer */
+    #inspector {
+      position: absolute;
+      top: 80px;
+      right: 20px;
+      width: 320px;
+      background: var(--panel-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+      z-index: 10;
+      display: none;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    #inspector h2 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      color: var(--cyan);
+    }
+    .metric-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .metric-row span.label { color: var(--text-muted); }
+    .metric-row span.val { font-family: monospace; font-weight: 600; }
+
+    /* Bottom Scrubber & Playback Controls */
+    .footer {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      z-index: 10;
+      background: var(--panel-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .scrubber-container {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .timeline-slider {
+      flex: 1;
+      -webkit-appearance: none;
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.15);
+      outline: none;
+      cursor: pointer;
+    }
+    .timeline-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--cyan);
+      cursor: pointer;
+      box-shadow: 0 0 10px var(--cyan);
+    }
+    .time-label {
+      font-family: monospace;
+      font-size: 13px;
+      color: var(--text);
+      min-width: 90px;
+      text-align: right;
+    }
+    .playback-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .btn-group {
+      display: flex;
+      gap: 8px;
+    }
+    .phase-badge {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.08);
+    }
+    .phase-cue { color: var(--cyan); border: 1px solid rgba(0, 229, 255, 0.3); }
+    .phase-delay { color: var(--amber); border: 1px solid rgba(255, 145, 0, 0.3); }
+    .phase-probe { color: var(--magenta); border: 1px solid rgba(224, 64, 251, 0.3); }
+
+    /* Legend */
+    .legend {
+      display: flex;
+      gap: 16px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    .legend-item { display: flex; align-items: center; gap: 5px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .dot-cyan { background: var(--cyan); box-shadow: 0 0 6px var(--cyan); }
+    .dot-amber { background: var(--amber); box-shadow: 0 0 6px var(--amber); }
+    .dot-edge { background: rgba(255,255,255,0.4); }
+  </style>
+</head>
+<body>
+  <div id="viewport"></div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="badge">
+      <h1>3D-Brain</h1>
+      <span class="tag" id="model-tag">BASE-RNN</span>
+      <span id="exp-info" style="font-size: 12px; color: var(--text-muted);">Exp 001: Delayed Comparison</span>
+    </div>
+    <div class="controls-top">
+      <input type="file" id="file-input" accept=".brainlog,.json" style="display: none;">
+      <button class="btn" onclick="document.getElementById('file-input').click()">
+        📁 Open .brainlog
+      </button>
+      <button class="btn" id="reset-cam-btn">🎯 Reset View</button>
+    </div>
+  </div>
+
+  <!-- Inspector HUD -->
+  <div id="inspector">
+    <h2>
+      <span id="insp-name">Neuron Inspection</span>
+      <button onclick="document.getElementById('inspector').style.display='none'" style="background:none; border:none; color:var(--text-muted); cursor:pointer;">✕</button>
+    </h2>
+    <div class="metric-row"><span class="label">Node ID:</span><span class="val" id="insp-id">-</span></div>
+    <div class="metric-row"><span class="label">Type:</span><span class="val" id="insp-type">-</span></div>
+    <div class="metric-row"><span class="label">Coordinates:</span><span class="val" id="insp-pos">-</span></div>
+    <div class="metric-row"><span class="label">Activation:</span><span class="val" id="insp-act">-</span></div>
+    <div class="metric-row"><span class="label">State Variable:</span><span class="val" id="insp-state">-</span></div>
+    <div class="metric-row"><span class="label">In Connections:</span><span class="val" id="insp-in-deg">-</span></div>
+    <div class="metric-row"><span class="label">Out Connections:</span><span class="val" id="insp-out-deg">-</span></div>
+  </div>
+
+  <!-- Footer Controls -->
+  <div class="footer">
+    <div class="scrubber-container">
+      <input type="range" id="timeline" class="timeline-slider" min="0" max="0" value="0">
+      <div class="time-label" id="step-display">Step: 0 / 0</div>
+    </div>
+    <div class="playback-bar">
+      <div class="btn-group">
+        <button class="btn primary" id="play-btn">▶ Play</button>
+        <button class="btn" id="prev-btn">⏮ Step</button>
+        <button class="btn" id="next-btn">⏭ Step</button>
+        <button class="btn" id="speed-btn">1.0x</button>
+      </div>
+
+      <div id="phase-badge" class="phase-badge phase-cue">CUE PHASE</div>
+
+      <div class="legend">
+        <div class="legend-item"><div class="dot dot-cyan"></div> Excitatory (+1.0)</div>
+        <div class="legend-item"><div class="dot dot-amber"></div> Inhibitory (-1.0)</div>
+        <div class="legend-item"><div class="dot dot-edge"></div> Synaptic Edge</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Three.js from CDN -->
+  <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+
+  <script>
+    // State management
+    let logData = null;
+    let currentStep = 0;
+    let isPlaying = false;
+    let playbackSpeed = 1.0;
+    let playInterval = null;
+    let selectedNodeId = null;
+
+    // Three.js Scene Setup
+    const container = document.getElementById('viewport');
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x090b10, 0.025);
+
+    const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+
+    // Orbit Camera State
+    let camRadius = 22.0;
+    let camTheta = 0.0;
+    let camPhi = Math.PI / 3.0;
+    const camTarget = new THREE.Vector3(0, 0, 0);
+
+    function updateCameraPosition() {
+      camera.position.x = camTarget.x + camRadius * Math.sin(camPhi) * Math.sin(camTheta);
+      camera.position.y = camTarget.y + camRadius * Math.cos(camPhi);
+      camera.position.z = camTarget.z + camRadius * Math.sin(camPhi) * Math.cos(camTheta);
+      camera.lookAt(camTarget);
+    }
+    updateCameraPosition();
+
+    // Mouse Interaction for Orbit & Zoom
+    let isDragging = false;
+    let prevMouseX = 0;
+    let prevMouseY = 0;
+
+    window.addEventListener('mousedown', (e) => {
+      if (e.target.closest('.header') || e.target.closest('.footer') || e.target.closest('#inspector')) return;
+      isDragging = true;
+      prevMouseX = e.clientX;
+      prevMouseY = e.clientY;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const deltaX = e.clientX - prevMouseX;
+      const deltaY = e.clientY - prevMouseY;
+      prevMouseX = e.clientX;
+      prevMouseY = e.clientY;
+
+      camTheta -= deltaX * 0.008;
+      camPhi -= deltaY * 0.008;
+      camPhi = Math.max(0.1, Math.min(Math.PI - 0.1, camPhi));
+      updateCameraPosition();
+    });
+
+    window.addEventListener('mouseup', () => { isDragging = false; });
+
+    window.addEventListener('wheel', (e) => {
+      camRadius += e.deltaY * 0.02;
+      camRadius = Math.max(6.0, Math.min(45.0, camRadius));
+      updateCameraPosition();
+    });
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0x090b10, 1.0);
+    container.appendChild(renderer.domElement);
+
+    // Ambient and Directional Lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+    scene.add(ambientLight);
+    const dirLight = new THREE.DirectionalLight(0x00e5ff, 1.2);
+    dirLight.position.set(10, 15, 10);
+    scene.add(dirLight);
+
+    // Visual Objects References
+    let nodeMeshes = [];
+    let edgeLines = [];
+    let signalSprites = [];
+
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    document.getElementById('reset-cam-btn').addEventListener('click', () => {
+      camRadius = 22.0;
+      camTheta = 0.0;
+      camPhi = Math.PI / 3.0;
+      camTarget.set(0, 0, 0);
+      updateCameraPosition();
+    });
+
+    // File Input Loader
+    document.getElementById('file-input').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (evt) => {
+        try {
+          const data = JSON.parse(evt.target.result);
+          loadBrainlog(data);
+        } catch (err) {
+          alert('Failed to parse .brainlog JSON: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+    });
+
+    function loadBrainlog(data) {
+      logData = data;
+      currentStep = 0;
+      pause();
+
+      document.getElementById('model-tag').innerText = data.metadata.model_id;
+      document.getElementById('exp-info').innerText = `${data.metadata.experiment_id} | Budget: ${data.metadata.budget} | Delay: ${data.metadata.delay}`;
+      
+      const maxSteps = data.frames.length - 1;
+      const timeline = document.getElementById('timeline');
+      timeline.max = maxSteps;
+      timeline.value = 0;
+
+      buildSceneFromTopology(data.topology);
+      renderFrame(0);
+    }
+
+    function buildSceneFromTopology(topology) {
+      // Clear existing meshes
+      nodeMeshes.forEach(m => scene.remove(m));
+      edgeLines.forEach(l => scene.remove(l));
+      signalSprites.forEach(s => scene.remove(s));
+      nodeMeshes = [];
+      edgeLines = [];
+      signalSprites = [];
+
+      const sphereGeo = new THREE.SphereGeometry(0.35, 24, 24);
+
+      // Create Nodes
+      topology.nodes.forEach(n => {
+        const mat = new THREE.MeshStandardMaterial({
+          color: 0x475569,
+          roughness: 0.3,
+          metalness: 0.8,
+          emissive: 0x000000,
+          emissiveIntensity: 0.0
+        });
+        const mesh = new THREE.Mesh(sphereGeo, mat);
+        mesh.position.set(n.pos[0], n.pos[1], n.pos[2]);
+        mesh.userData = { nodeInfo: n };
+        scene.add(mesh);
+        nodeMeshes.push(mesh);
+      });
+
+      // Create Edges
+      topology.edges.forEach(e => {
+        const srcNode = topology.nodes[e.src];
+        const dstNode = topology.nodes[e.dst];
+        if (!srcNode || !dstNode) return;
+
+        const points = [
+          new THREE.Vector3(...srcNode.pos),
+          new THREE.Vector3(...dstNode.pos)
+        ];
+        const geometry = new THREE.BufferGeometry().setFromPoints(points);
+        const isExcitatory = e.weight >= 0;
+        const color = isExcitatory ? 0x00e5ff : 0xff9100;
+
+        const mat = new THREE.LineBasicMaterial({
+          color: color,
+          transparent: true,
+          opacity: Math.min(0.12 + Math.abs(e.weight) * 0.3, 0.7),
+          linewidth: 1
+        });
+        const line = new THREE.Line(geometry, mat);
+        scene.add(line);
+        edgeLines.push(line);
+      });
+
+      // Signal Sprite Pool (up to 30 active pulses)
+      const spriteMat = new THREE.SpriteMaterial({
+        color: 0xffffff,
+        transparent: true,
+        opacity: 0.9
+      });
+      for (let i = 0; i < 30; i++) {
+        const s = new THREE.Sprite(spriteMat);
+        s.scale.set(0.2, 0.2, 0.2);
+        s.visible = false;
+        scene.add(s);
+        signalSprites.push(s);
+      }
+    }
+
+    function renderFrame(stepIndex) {
+      if (!logData || !logData.frames[stepIndex]) return;
+      const frame = logData.frames[stepIndex];
+      const acts = frame.activations;
+      const states = frame.states;
+
+      // Update Node Visuals
+      nodeMeshes.forEach((mesh, idx) => {
+        const act = acts[idx] || 0.0;
+        const absAct = Math.abs(act);
+        const mat = mesh.material;
+
+        if (act >= 0) {
+          mat.color.setHex(0x00e5ff);
+          mat.emissive.setHex(0x00e5ff);
+        } else {
+          mat.color.setHex(0xff9100);
+          mat.emissive.setHex(0xff9100);
+        }
+        mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.5, 0.05, 2.5);
+        const s = 1.0 + THREE.MathUtils.clamp(absAct * 0.6, 0.0, 1.0);
+        mesh.scale.set(s, s, s);
+      });
+
+      // Update Signal Pulses
+      signalSprites.forEach(s => s.visible = false);
+      if (frame.signals) {
+        frame.signals.forEach((sig, sIdx) => {
+          if (sIdx >= signalSprites.length) return;
+          const srcNode = logData.topology.nodes[sig.src];
+          const dstNode = logData.topology.nodes[sig.dst];
+          if (!srcNode || !dstNode) return;
+
+          const pSrc = new THREE.Vector3(...srcNode.pos);
+          const pDst = new THREE.Vector3(...dstNode.pos);
+          const pCurrent = pSrc.clone().lerp(pDst, sig.progress);
+
+          const sprite = signalSprites[sIdx];
+          sprite.position.copy(pCurrent);
+          sprite.visible = true;
+          const mag = Math.abs(sig.mag);
+          sprite.scale.set(0.25 + mag * 0.2, 0.25 + mag * 0.2, 0.25 + mag * 0.2);
+          sprite.material.color.setHex(sig.mag >= 0 ? 0x00e5ff : 0xff9100);
+        });
+      }
+
+      // Update UI Elements
+      document.getElementById('timeline').value = stepIndex;
+      document.getElementById('step-display').innerText = `Step: ${stepIndex} / ${logData.frames.length - 1}`;
+
+      const t_cue = 5;
+      const t_delay = logData.metadata.delay;
+      const phaseBadge = document.getElementById('phase-badge');
+
+      if (stepIndex < t_cue) {
+        phaseBadge.innerText = 'CUE PHASE';
+        phaseBadge.className = 'phase-badge phase-cue';
+      } else if (stepIndex < t_cue + t_delay) {
+        phaseBadge.innerText = 'DELAY PHASE';
+        phaseBadge.className = 'phase-badge phase-delay';
+      } else {
+        phaseBadge.innerText = 'PROBE & DECISION';
+        phaseBadge.className = 'phase-badge phase-probe';
+      }
+
+      // Update Inspector if open
+      if (selectedNodeId !== null) {
+        updateInspectorHUD(selectedNodeId);
+      }
+    }
+
+    function updateInspectorHUD(nodeId) {
+      if (!logData || !logData.topology.nodes[nodeId]) return;
+      const node = logData.topology.nodes[nodeId];
+      const frame = logData.frames[currentStep];
+
+      document.getElementById('inspector').style.display = 'block';
+      document.getElementById('insp-name').innerText = node.label;
+      document.getElementById('insp-id').innerText = node.id;
+      document.getElementById('insp-type').innerText = node.type;
+      document.getElementById('insp-pos').innerText = `[${node.pos.join(', ')}]`;
+      document.getElementById('insp-act').innerText = (frame.activations[nodeId] || 0.0).toFixed(4);
+      document.getElementById('insp-state').innerText = (frame.states[nodeId] || 0.0).toFixed(4);
+
+      // In/Out Degree
+      const inEdges = logData.topology.edges.filter(e => e.dst === nodeId).length;
+      const outEdges = logData.topology.edges.filter(e => e.src === nodeId).length;
+      document.getElementById('insp-in-deg').innerText = inEdges;
+      document.getElementById('insp-out-deg').innerText = outEdges;
+    }
+
+    // Click Detection
+    window.addEventListener('pointerdown', (e) => {
+      // Ignore if clicking on UI panels
+      if (e.target.closest('.header') || e.target.closest('.footer') || e.target.closest('#inspector')) return;
+
+      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+      raycaster.setFromCamera(mouse, camera);
+
+      const intersects = raycaster.intersectObjects(nodeMeshes);
+      if (intersects.length > 0) {
+        const hit = intersects[0].object;
+        selectedNodeId = hit.userData.nodeInfo.id;
+        updateInspectorHUD(selectedNodeId);
+      }
+    });
+
+    // Playback Controls
+    const playBtn = document.getElementById('play-btn');
+    playBtn.addEventListener('click', togglePlay);
+
+    function togglePlay() {
+      if (isPlaying) pause(); else play();
+    }
+    function play() {
+      if (!logData) return;
+      isPlaying = true;
+      playBtn.innerText = '⏸ Pause';
+      playInterval = setInterval(() => {
+        if (currentStep >= logData.frames.length - 1) {
+          currentStep = 0;
+        } else {
+          currentStep++;
+        }
+        renderFrame(currentStep);
+      }, (logData.metadata.dt_ms || 40) / playbackSpeed);
+    }
+    function pause() {
+      isPlaying = false;
+      playBtn.innerText = '▶ Play';
+      if (playInterval) clearInterval(playInterval);
+      playInterval = null;
+    }
+
+    document.getElementById('next-btn').addEventListener('click', () => {
+      if (!logData) return;
+      pause();
+      if (currentStep < logData.frames.length - 1) {
+        currentStep++;
+        renderFrame(currentStep);
+      }
+    });
+
+    document.getElementById('prev-btn').addEventListener('click', () => {
+      if (!logData) return;
+      pause();
+      if (currentStep > 0) {
+        currentStep--;
+        renderFrame(currentStep);
+      }
+    });
+
+    document.getElementById('speed-btn').addEventListener('click', () => {
+      if (playbackSpeed === 1.0) playbackSpeed = 2.0;
+      else if (playbackSpeed === 2.0) playbackSpeed = 0.5;
+      else playbackSpeed = 1.0;
+      document.getElementById('speed-btn').innerText = playbackSpeed.toFixed(1) + 'x';
+      if (isPlaying) { pause(); play(); }
+    });
+
+    document.getElementById('timeline').addEventListener('input', (e) => {
+      pause();
+      currentStep = parseInt(e.target.value);
+      renderFrame(currentStep);
+    });
+
+    // Render Loop
+    function animate() {
+      requestAnimationFrame(animate);
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // Auto-fetch default brainlog if hosted
+    fetch('/experiments/results/brainlogs/EXP001_default.brainlog')
+      .then(res => res.json())
+      .then(data => loadBrainlog(data))
+      .catch(() => {
+        console.log("Awaiting manual .brainlog load");
+      });
+  </script>
+</body>
+</html>

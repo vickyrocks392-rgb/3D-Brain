@@ -1,0 +1,6796 @@
+{
+  "brainlog_version": "1.0",
+  "metadata": {
+    "experiment_id": "EXP001",
+    "model_id": "BASE-GRU",
+    "budget": 1000,
+    "parameter_count": 929,
+    "seed": 256,
+    "delay": 25,
+    "total_steps": 35,
+    "dt_ms": 40.0,
+    "trial_metadata": {
+      "s_cue": 1.0,
+      "s_probe": 1.0,
+      "is_match": 1.0,
+      "target": 1.0,
+      "t_delay": 25.0
+    },
+    "test_accuracy": 0.49,
+    "timestamp": "2026-09-28T10:33:26.739046+00:00"
+  },
+  "topology": {
+    "topology_id": "BASE-GRU_16units",
+    "model_id": "BASE-GRU",
+    "node_count": 19,
+    "edge_count": 264,
+    "nodes": [
+      {
+        "id": 0,
+        "type": "INPUT",
+        "label": "Stimulus_Input",
+        "pos": [
+          -2.5,
+          0.0,
+          -8.0
+        ]
+      },
+      {
+        "id": 1,
+        "type": "INPUT",
+        "label": "Phase_Gate",
+        "pos": [
+          2.5,
+          0.0,
+          -8.0
+        ]
+      },
+      {
+        "id": 2,
+        "type": "RECURRENT",
+        "label": "Unit_00",
+        "pos": [
+          1.218,
+          0.0,
+          -2.344
+        ]
+      },
+      {
+        "id": 3,
+        "type": "RECURRENT",
+        "label": "Unit_01",
+        "pos": [
+          -1.505,
+          -0.984,
+          -2.031
+        ]
+      },
+      {
+        "id": 4,
+        "type": "RECURRENT",
+        "label": "Unit_02",
+        "pos": [
+          0.222,
+          1.809,
+          -1.719
+        ]
+      },
+      {
+        "id": 5,
+        "type": "RECURRENT",
+        "label": "Unit_03",
+        "pos": [
+          1.761,
+          -1.64,
+          -1.406
+        ]
+      },
+      {
+        "id": 6,
+        "type": "RECURRENT",
+        "label": "Unit_04",
+        "pos": [
+          -3.099,
+          0.392,
+          -1.094
+        ]
+      },
+      {
+        "id": 7,
+        "type": "RECURRENT",
+        "label": "Unit_05",
+        "pos": [
+          2.805,
+          1.275,
+          -0.781
+        ]
+      },
+      {
+        "id": 8,
+        "type": "RECURRENT",
+        "label": "Unit_06",
+        "pos": [
+          -0.893,
+          -2.371,
+          -0.469
+        ]
+      },
+      {
+        "id": 9,
+        "type": "RECURRENT",
+        "label": "Unit_07",
+        "pos": [
+          -1.61,
+          2.214,
+          -0.156
+        ]
+      },
+      {
+        "id": 10,
+        "type": "RECURRENT",
+        "label": "Unit_08",
+        "pos": [
+          3.281,
+          -0.856,
+          0.156
+        ]
+      },
+      {
+        "id": 11,
+        "type": "RECURRENT",
+        "label": "Unit_09",
+        "pos": [
+          -3.178,
+          -0.937,
+          0.469
+        ]
+      },
+      {
+        "id": 12,
+        "type": "RECURRENT",
+        "label": "Unit_10",
+        "pos": [
+          1.409,
+          2.151,
+          0.781
+        ]
+      },
+      {
+        "id": 13,
+        "type": "RECURRENT",
+        "label": "Unit_11",
+        "pos": [
+          0.942,
+          -2.145,
+          1.094
+        ]
+      },
+      {
+        "id": 14,
+        "type": "RECURRENT",
+        "label": "Unit_12",
+        "pos": [
+          -2.504,
+          1.036,
+          1.406
+        ]
+      },
+      {
+        "id": 15,
+        "type": "RECURRENT",
+        "label": "Unit_13",
+        "pos": [
+          2.482,
+          0.39,
+          1.719
+        ]
+      },
+      {
+        "id": 16,
+        "type": "RECURRENT",
+        "label": "Unit_14",
+        "pos": [
+          -1.173,
+          -1.192,
+          2.031
+        ]
+      },
+      {
+        "id": 17,
+        "type": "RECURRENT",
+        "label": "Unit_15",
+        "pos": [
+          -0.157,
+          0.863,
+          2.344
+        ]
+      },
+      {
+        "id": 18,
+        "type": "OUTPUT",
+        "label": "Decision_Readout",
+        "pos": [
+          0.0,
+          0.0,
+          8.0
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "src": 0,
+        "dst": 2,
+        "weight": 0.142,
+        "latency_steps": 1
+      },
+      {
+        "src": 0,
+        "dst": 3,
+        "weight": 0.1345,
+        "latency_steps": 1
+      },
+      {
+        "src": 0,
+        "dst": 4,
+        "weight": -0.2012,
+        "latency_steps": 1
+      },
+      {
+        "src": 0,
+        "dst": 5,
+        "weight": 0.8766,
+        "latency_steps": 1
+      },
+      {
+        "src": 0,
+        "dst": 6,
+        "weight": 0.1154,
+        "latency_steps": 1
+      },
+      {
+        "src": 0,
+        "dst": 7,
+        "weight": -0.1602,
+        "latency_steps": 1
+      },
+      {
+        "src": 0,
+        "dst": 8,
+        "weight": 0.4088,
+        "latency_steps": 1
+      },
+      {
+        "src": 0,
+        "dst": 9,
+        "weight": -0.3982,
+        "latency_steps": 1
+      },
+      {
+        "src": 0,
+        "dst": 10,
+        "weight": -0.2006,
+        "latency_steps": 1
+      },
+      {
+        "src": 0,
+        "dst": 11,
+        "weight": -0.2721,
+        "latency_steps": 1
+      },
+      {
+        "src": 0,
+        "dst": 12,
+        "weight": -0.0724,
+        "latency_steps": 1
+      },
+      {
+        "src": 0,
+        "dst": 13,
+        "weight": -0.0872,
+        "latency_steps": 1
+      },
+      {
+        "src": 0,
+        "dst": 15,
+        "weight": -0.0903,
+        "latency_steps": 1
+      },
+      {
+        "src": 0,
+        "dst": 16,
+        "weight": -0.4695,
+        "latency_steps": 1
+      },
+      {
+        "src": 1,
+        "dst": 2,
+        "weight": -0.0758,
+        "latency_steps": 1
+      },
+      {
+        "src": 1,
+        "dst": 3,
+        "weight": 0.2086,
+        "latency_steps": 1
+      },
+      {
+        "src": 1,
+        "dst": 4,
+        "weight": 0.0906,
+        "latency_steps": 1
+      },
+      {
+        "src": 1,
+        "dst": 5,
+        "weight": 0.2076,
+        "latency_steps": 1
+      },
+      {
+        "src": 1,
+        "dst": 6,
+        "weight": -0.6593,
+        "latency_steps": 1
+      },
+      {
+        "src": 1,
+        "dst": 8,
+        "weight": -0.1804,
+        "latency_steps": 1
+      },
+      {
+        "src": 1,
+        "dst": 9,
+        "weight": -0.3085,
+        "latency_steps": 1
+      },
+      {
+        "src": 1,
+        "dst": 10,
+        "weight": -0.2706,
+        "latency_steps": 1
+      },
+      {
+        "src": 1,
+        "dst": 11,
+        "weight": 0.2663,
+        "latency_steps": 1
+      },
+      {
+        "src": 1,
+        "dst": 14,
+        "weight": 0.0962,
+        "latency_steps": 1
+      },
+      {
+        "src": 1,
+        "dst": 15,
+        "weight": 0.1381,
+        "latency_steps": 1
+      },
+      {
+        "src": 1,
+        "dst": 16,
+        "weight": 0.2931,
+        "latency_steps": 1
+      },
+      {
+        "src": 1,
+        "dst": 17,
+        "weight": -0.5974,
+        "latency_steps": 1
+      },
+      {
+        "src": 2,
+        "dst": 2,
+        "weight": -0.4918,
+        "latency_steps": 1
+      },
+      {
+        "src": 2,
+        "dst": 3,
+        "weight": 0.3156,
+        "latency_steps": 1
+      },
+      {
+        "src": 2,
+        "dst": 5,
+        "weight": 0.0604,
+        "latency_steps": 1
+      },
+      {
+        "src": 2,
+        "dst": 6,
+        "weight": -0.064,
+        "latency_steps": 1
+      },
+      {
+        "src": 2,
+        "dst": 8,
+        "weight": 0.2295,
+        "latency_steps": 1
+      },
+      {
+        "src": 2,
+        "dst": 9,
+        "weight": 0.1002,
+        "latency_steps": 1
+      },
+      {
+        "src": 2,
+        "dst": 10,
+        "weight": 0.3062,
+        "latency_steps": 1
+      },
+      {
+        "src": 2,
+        "dst": 11,
+        "weight": -0.3499,
+        "latency_steps": 1
+      },
+      {
+        "src": 2,
+        "dst": 12,
+        "weight": 0.2566,
+        "latency_steps": 1
+      },
+      {
+        "src": 2,
+        "dst": 13,
+        "weight": 0.2103,
+        "latency_steps": 1
+      },
+      {
+        "src": 2,
+        "dst": 14,
+        "weight": 0.2742,
+        "latency_steps": 1
+      },
+      {
+        "src": 2,
+        "dst": 15,
+        "weight": -0.0926,
+        "latency_steps": 1
+      },
+      {
+        "src": 2,
+        "dst": 16,
+        "weight": -0.1839,
+        "latency_steps": 1
+      },
+      {
+        "src": 2,
+        "dst": 17,
+        "weight": -0.1454,
+        "latency_steps": 1
+      },
+      {
+        "src": 3,
+        "dst": 2,
+        "weight": -0.0678,
+        "latency_steps": 1
+      },
+      {
+        "src": 3,
+        "dst": 3,
+        "weight": -0.0512,
+        "latency_steps": 1
+      },
+      {
+        "src": 3,
+        "dst": 5,
+        "weight": -0.0836,
+        "latency_steps": 1
+      },
+      {
+        "src": 3,
+        "dst": 8,
+        "weight": -0.1164,
+        "latency_steps": 1
+      },
+      {
+        "src": 3,
+        "dst": 9,
+        "weight": -0.1912,
+        "latency_steps": 1
+      },
+      {
+        "src": 3,
+        "dst": 10,
+        "weight": 0.294,
+        "latency_steps": 1
+      },
+      {
+        "src": 3,
+        "dst": 11,
+        "weight": -0.2978,
+        "latency_steps": 1
+      },
+      {
+        "src": 3,
+        "dst": 12,
+        "weight": -0.2763,
+        "latency_steps": 1
+      },
+      {
+        "src": 3,
+        "dst": 15,
+        "weight": 0.3948,
+        "latency_steps": 1
+      },
+      {
+        "src": 3,
+        "dst": 16,
+        "weight": -0.1434,
+        "latency_steps": 1
+      },
+      {
+        "src": 3,
+        "dst": 17,
+        "weight": 0.2996,
+        "latency_steps": 1
+      },
+      {
+        "src": 4,
+        "dst": 2,
+        "weight": 0.0882,
+        "latency_steps": 1
+      },
+      {
+        "src": 4,
+        "dst": 5,
+        "weight": 0.1768,
+        "latency_steps": 1
+      },
+      {
+        "src": 4,
+        "dst": 6,
+        "weight": 0.1492,
+        "latency_steps": 1
+      },
+      {
+        "src": 4,
+        "dst": 7,
+        "weight": 0.0697,
+        "latency_steps": 1
+      },
+      {
+        "src": 4,
+        "dst": 9,
+        "weight": -0.0753,
+        "latency_steps": 1
+      },
+      {
+        "src": 4,
+        "dst": 10,
+        "weight": -0.3035,
+        "latency_steps": 1
+      },
+      {
+        "src": 4,
+        "dst": 11,
+        "weight": -0.4045,
+        "latency_steps": 1
+      },
+      {
+        "src": 4,
+        "dst": 12,
+        "weight": 0.07,
+        "latency_steps": 1
+      },
+      {
+        "src": 4,
+        "dst": 13,
+        "weight": 0.376,
+        "latency_steps": 1
+      },
+      {
+        "src": 4,
+        "dst": 14,
+        "weight": -0.385,
+        "latency_steps": 1
+      },
+      {
+        "src": 4,
+        "dst": 15,
+        "weight": 0.3105,
+        "latency_steps": 1
+      },
+      {
+        "src": 4,
+        "dst": 17,
+        "weight": -0.2305,
+        "latency_steps": 1
+      },
+      {
+        "src": 5,
+        "dst": 2,
+        "weight": -0.6478,
+        "latency_steps": 1
+      },
+      {
+        "src": 5,
+        "dst": 3,
+        "weight": 0.1261,
+        "latency_steps": 1
+      },
+      {
+        "src": 5,
+        "dst": 4,
+        "weight": 0.1352,
+        "latency_steps": 1
+      },
+      {
+        "src": 5,
+        "dst": 5,
+        "weight": -0.2617,
+        "latency_steps": 1
+      },
+      {
+        "src": 5,
+        "dst": 6,
+        "weight": -0.5314,
+        "latency_steps": 1
+      },
+      {
+        "src": 5,
+        "dst": 7,
+        "weight": 0.2977,
+        "latency_steps": 1
+      },
+      {
+        "src": 5,
+        "dst": 8,
+        "weight": -0.3514,
+        "latency_steps": 1
+      },
+      {
+        "src": 5,
+        "dst": 9,
+        "weight": -0.2185,
+        "latency_steps": 1
+      },
+      {
+        "src": 5,
+        "dst": 10,
+        "weight": -0.0784,
+        "latency_steps": 1
+      },
+      {
+        "src": 5,
+        "dst": 11,
+        "weight": 0.413,
+        "latency_steps": 1
+      },
+      {
+        "src": 5,
+        "dst": 13,
+        "weight": -0.0651,
+        "latency_steps": 1
+      },
+      {
+        "src": 5,
+        "dst": 14,
+        "weight": -0.0934,
+        "latency_steps": 1
+      },
+      {
+        "src": 5,
+        "dst": 16,
+        "weight": 0.1392,
+        "latency_steps": 1
+      },
+      {
+        "src": 5,
+        "dst": 17,
+        "weight": 0.7024,
+        "latency_steps": 1
+      },
+      {
+        "src": 6,
+        "dst": 2,
+        "weight": -0.3344,
+        "latency_steps": 1
+      },
+      {
+        "src": 6,
+        "dst": 3,
+        "weight": 0.26,
+        "latency_steps": 1
+      },
+      {
+        "src": 6,
+        "dst": 4,
+        "weight": -0.1289,
+        "latency_steps": 1
+      },
+      {
+        "src": 6,
+        "dst": 5,
+        "weight": -0.0826,
+        "latency_steps": 1
+      },
+      {
+        "src": 6,
+        "dst": 6,
+        "weight": -0.3847,
+        "latency_steps": 1
+      },
+      {
+        "src": 6,
+        "dst": 7,
+        "weight": -0.0962,
+        "latency_steps": 1
+      },
+      {
+        "src": 6,
+        "dst": 8,
+        "weight": 0.058,
+        "latency_steps": 1
+      },
+      {
+        "src": 6,
+        "dst": 9,
+        "weight": 0.5309,
+        "latency_steps": 1
+      },
+      {
+        "src": 6,
+        "dst": 10,
+        "weight": -0.0689,
+        "latency_steps": 1
+      },
+      {
+        "src": 6,
+        "dst": 11,
+        "weight": -0.1564,
+        "latency_steps": 1
+      },
+      {
+        "src": 6,
+        "dst": 12,
+        "weight": -0.0954,
+        "latency_steps": 1
+      },
+      {
+        "src": 6,
+        "dst": 13,
+        "weight": 0.5044,
+        "latency_steps": 1
+      },
+      {
+        "src": 6,
+        "dst": 14,
+        "weight": 0.0833,
+        "latency_steps": 1
+      },
+      {
+        "src": 6,
+        "dst": 15,
+        "weight": 0.1626,
+        "latency_steps": 1
+      },
+      {
+        "src": 6,
+        "dst": 16,
+        "weight": -0.0596,
+        "latency_steps": 1
+      },
+      {
+        "src": 6,
+        "dst": 17,
+        "weight": -0.2177,
+        "latency_steps": 1
+      },
+      {
+        "src": 7,
+        "dst": 2,
+        "weight": 0.2238,
+        "latency_steps": 1
+      },
+      {
+        "src": 7,
+        "dst": 3,
+        "weight": -0.1556,
+        "latency_steps": 1
+      },
+      {
+        "src": 7,
+        "dst": 4,
+        "weight": 0.4915,
+        "latency_steps": 1
+      },
+      {
+        "src": 7,
+        "dst": 5,
+        "weight": 0.121,
+        "latency_steps": 1
+      },
+      {
+        "src": 7,
+        "dst": 6,
+        "weight": 0.314,
+        "latency_steps": 1
+      },
+      {
+        "src": 7,
+        "dst": 7,
+        "weight": -0.1943,
+        "latency_steps": 1
+      },
+      {
+        "src": 7,
+        "dst": 8,
+        "weight": -0.0678,
+        "latency_steps": 1
+      },
+      {
+        "src": 7,
+        "dst": 9,
+        "weight": 0.071,
+        "latency_steps": 1
+      },
+      {
+        "src": 7,
+        "dst": 10,
+        "weight": -0.2707,
+        "latency_steps": 1
+      },
+      {
+        "src": 7,
+        "dst": 12,
+        "weight": 0.2146,
+        "latency_steps": 1
+      },
+      {
+        "src": 7,
+        "dst": 13,
+        "weight": -0.4134,
+        "latency_steps": 1
+      },
+      {
+        "src": 7,
+        "dst": 14,
+        "weight": -0.1528,
+        "latency_steps": 1
+      },
+      {
+        "src": 7,
+        "dst": 15,
+        "weight": -0.4507,
+        "latency_steps": 1
+      },
+      {
+        "src": 7,
+        "dst": 16,
+        "weight": 0.1748,
+        "latency_steps": 1
+      },
+      {
+        "src": 7,
+        "dst": 17,
+        "weight": 0.1572,
+        "latency_steps": 1
+      },
+      {
+        "src": 8,
+        "dst": 2,
+        "weight": -0.2487,
+        "latency_steps": 1
+      },
+      {
+        "src": 8,
+        "dst": 3,
+        "weight": -0.317,
+        "latency_steps": 1
+      },
+      {
+        "src": 8,
+        "dst": 4,
+        "weight": 0.2459,
+        "latency_steps": 1
+      },
+      {
+        "src": 8,
+        "dst": 5,
+        "weight": -0.0678,
+        "latency_steps": 1
+      },
+      {
+        "src": 8,
+        "dst": 6,
+        "weight": 0.5039,
+        "latency_steps": 1
+      },
+      {
+        "src": 8,
+        "dst": 7,
+        "weight": -0.631,
+        "latency_steps": 1
+      },
+      {
+        "src": 8,
+        "dst": 10,
+        "weight": 0.4216,
+        "latency_steps": 1
+      },
+      {
+        "src": 8,
+        "dst": 11,
+        "weight": -0.0615,
+        "latency_steps": 1
+      },
+      {
+        "src": 8,
+        "dst": 15,
+        "weight": -0.1829,
+        "latency_steps": 1
+      },
+      {
+        "src": 8,
+        "dst": 16,
+        "weight": -0.1147,
+        "latency_steps": 1
+      },
+      {
+        "src": 8,
+        "dst": 17,
+        "weight": 0.1258,
+        "latency_steps": 1
+      },
+      {
+        "src": 9,
+        "dst": 2,
+        "weight": -0.0679,
+        "latency_steps": 1
+      },
+      {
+        "src": 9,
+        "dst": 3,
+        "weight": -0.0907,
+        "latency_steps": 1
+      },
+      {
+        "src": 9,
+        "dst": 4,
+        "weight": -0.234,
+        "latency_steps": 1
+      },
+      {
+        "src": 9,
+        "dst": 5,
+        "weight": -0.4758,
+        "latency_steps": 1
+      },
+      {
+        "src": 9,
+        "dst": 6,
+        "weight": 0.314,
+        "latency_steps": 1
+      },
+      {
+        "src": 9,
+        "dst": 7,
+        "weight": -0.5418,
+        "latency_steps": 1
+      },
+      {
+        "src": 9,
+        "dst": 8,
+        "weight": -0.1182,
+        "latency_steps": 1
+      },
+      {
+        "src": 9,
+        "dst": 9,
+        "weight": -0.2328,
+        "latency_steps": 1
+      },
+      {
+        "src": 9,
+        "dst": 10,
+        "weight": 0.2086,
+        "latency_steps": 1
+      },
+      {
+        "src": 9,
+        "dst": 11,
+        "weight": -0.6907,
+        "latency_steps": 1
+      },
+      {
+        "src": 9,
+        "dst": 12,
+        "weight": -0.2622,
+        "latency_steps": 1
+      },
+      {
+        "src": 9,
+        "dst": 13,
+        "weight": 0.1064,
+        "latency_steps": 1
+      },
+      {
+        "src": 9,
+        "dst": 14,
+        "weight": 0.2226,
+        "latency_steps": 1
+      },
+      {
+        "src": 9,
+        "dst": 15,
+        "weight": 0.5337,
+        "latency_steps": 1
+      },
+      {
+        "src": 9,
+        "dst": 16,
+        "weight": -0.2485,
+        "latency_steps": 1
+      },
+      {
+        "src": 9,
+        "dst": 17,
+        "weight": 0.0793,
+        "latency_steps": 1
+      },
+      {
+        "src": 10,
+        "dst": 2,
+        "weight": -0.3726,
+        "latency_steps": 1
+      },
+      {
+        "src": 10,
+        "dst": 3,
+        "weight": 0.3187,
+        "latency_steps": 1
+      },
+      {
+        "src": 10,
+        "dst": 4,
+        "weight": 0.0909,
+        "latency_steps": 1
+      },
+      {
+        "src": 10,
+        "dst": 5,
+        "weight": 0.4509,
+        "latency_steps": 1
+      },
+      {
+        "src": 10,
+        "dst": 6,
+        "weight": 0.0522,
+        "latency_steps": 1
+      },
+      {
+        "src": 10,
+        "dst": 7,
+        "weight": 0.2571,
+        "latency_steps": 1
+      },
+      {
+        "src": 10,
+        "dst": 8,
+        "weight": -0.3461,
+        "latency_steps": 1
+      },
+      {
+        "src": 10,
+        "dst": 9,
+        "weight": 0.2221,
+        "latency_steps": 1
+      },
+      {
+        "src": 10,
+        "dst": 10,
+        "weight": -0.3008,
+        "latency_steps": 1
+      },
+      {
+        "src": 10,
+        "dst": 11,
+        "weight": -0.5386,
+        "latency_steps": 1
+      },
+      {
+        "src": 10,
+        "dst": 12,
+        "weight": 0.1321,
+        "latency_steps": 1
+      },
+      {
+        "src": 10,
+        "dst": 14,
+        "weight": 0.2474,
+        "latency_steps": 1
+      },
+      {
+        "src": 10,
+        "dst": 15,
+        "weight": -0.0641,
+        "latency_steps": 1
+      },
+      {
+        "src": 10,
+        "dst": 16,
+        "weight": 0.105,
+        "latency_steps": 1
+      },
+      {
+        "src": 10,
+        "dst": 17,
+        "weight": -0.0996,
+        "latency_steps": 1
+      },
+      {
+        "src": 11,
+        "dst": 2,
+        "weight": -0.1698,
+        "latency_steps": 1
+      },
+      {
+        "src": 11,
+        "dst": 3,
+        "weight": -0.2927,
+        "latency_steps": 1
+      },
+      {
+        "src": 11,
+        "dst": 4,
+        "weight": -0.3607,
+        "latency_steps": 1
+      },
+      {
+        "src": 11,
+        "dst": 6,
+        "weight": -0.2686,
+        "latency_steps": 1
+      },
+      {
+        "src": 11,
+        "dst": 8,
+        "weight": -0.0743,
+        "latency_steps": 1
+      },
+      {
+        "src": 11,
+        "dst": 9,
+        "weight": 0.1317,
+        "latency_steps": 1
+      },
+      {
+        "src": 11,
+        "dst": 10,
+        "weight": -0.357,
+        "latency_steps": 1
+      },
+      {
+        "src": 11,
+        "dst": 12,
+        "weight": -0.1392,
+        "latency_steps": 1
+      },
+      {
+        "src": 11,
+        "dst": 13,
+        "weight": -0.1571,
+        "latency_steps": 1
+      },
+      {
+        "src": 11,
+        "dst": 14,
+        "weight": -0.1683,
+        "latency_steps": 1
+      },
+      {
+        "src": 11,
+        "dst": 15,
+        "weight": -0.31,
+        "latency_steps": 1
+      },
+      {
+        "src": 11,
+        "dst": 16,
+        "weight": -0.2128,
+        "latency_steps": 1
+      },
+      {
+        "src": 12,
+        "dst": 2,
+        "weight": 0.3398,
+        "latency_steps": 1
+      },
+      {
+        "src": 12,
+        "dst": 3,
+        "weight": -0.296,
+        "latency_steps": 1
+      },
+      {
+        "src": 12,
+        "dst": 4,
+        "weight": -0.2004,
+        "latency_steps": 1
+      },
+      {
+        "src": 12,
+        "dst": 5,
+        "weight": 0.0859,
+        "latency_steps": 1
+      },
+      {
+        "src": 12,
+        "dst": 6,
+        "weight": -0.3115,
+        "latency_steps": 1
+      },
+      {
+        "src": 12,
+        "dst": 7,
+        "weight": 0.0966,
+        "latency_steps": 1
+      },
+      {
+        "src": 12,
+        "dst": 8,
+        "weight": -0.1673,
+        "latency_steps": 1
+      },
+      {
+        "src": 12,
+        "dst": 9,
+        "weight": -0.1497,
+        "latency_steps": 1
+      },
+      {
+        "src": 12,
+        "dst": 10,
+        "weight": -0.2501,
+        "latency_steps": 1
+      },
+      {
+        "src": 12,
+        "dst": 12,
+        "weight": 0.2088,
+        "latency_steps": 1
+      },
+      {
+        "src": 12,
+        "dst": 13,
+        "weight": 0.1774,
+        "latency_steps": 1
+      },
+      {
+        "src": 12,
+        "dst": 14,
+        "weight": -0.633,
+        "latency_steps": 1
+      },
+      {
+        "src": 12,
+        "dst": 15,
+        "weight": -0.7947,
+        "latency_steps": 1
+      },
+      {
+        "src": 12,
+        "dst": 16,
+        "weight": -0.2716,
+        "latency_steps": 1
+      },
+      {
+        "src": 12,
+        "dst": 17,
+        "weight": 0.6975,
+        "latency_steps": 1
+      },
+      {
+        "src": 13,
+        "dst": 3,
+        "weight": 0.3001,
+        "latency_steps": 1
+      },
+      {
+        "src": 13,
+        "dst": 4,
+        "weight": 0.4477,
+        "latency_steps": 1
+      },
+      {
+        "src": 13,
+        "dst": 6,
+        "weight": 0.1871,
+        "latency_steps": 1
+      },
+      {
+        "src": 13,
+        "dst": 8,
+        "weight": 0.2987,
+        "latency_steps": 1
+      },
+      {
+        "src": 13,
+        "dst": 9,
+        "weight": 0.5857,
+        "latency_steps": 1
+      },
+      {
+        "src": 13,
+        "dst": 10,
+        "weight": 0.0582,
+        "latency_steps": 1
+      },
+      {
+        "src": 13,
+        "dst": 11,
+        "weight": 0.4248,
+        "latency_steps": 1
+      },
+      {
+        "src": 13,
+        "dst": 13,
+        "weight": -0.2202,
+        "latency_steps": 1
+      },
+      {
+        "src": 13,
+        "dst": 14,
+        "weight": 0.2834,
+        "latency_steps": 1
+      },
+      {
+        "src": 13,
+        "dst": 15,
+        "weight": 0.1336,
+        "latency_steps": 1
+      },
+      {
+        "src": 13,
+        "dst": 16,
+        "weight": -0.0535,
+        "latency_steps": 1
+      },
+      {
+        "src": 13,
+        "dst": 17,
+        "weight": -0.3009,
+        "latency_steps": 1
+      },
+      {
+        "src": 14,
+        "dst": 2,
+        "weight": 0.3928,
+        "latency_steps": 1
+      },
+      {
+        "src": 14,
+        "dst": 4,
+        "weight": -0.2141,
+        "latency_steps": 1
+      },
+      {
+        "src": 14,
+        "dst": 5,
+        "weight": 0.2086,
+        "latency_steps": 1
+      },
+      {
+        "src": 14,
+        "dst": 6,
+        "weight": -0.3133,
+        "latency_steps": 1
+      },
+      {
+        "src": 14,
+        "dst": 7,
+        "weight": -0.5258,
+        "latency_steps": 1
+      },
+      {
+        "src": 14,
+        "dst": 8,
+        "weight": -0.3089,
+        "latency_steps": 1
+      },
+      {
+        "src": 14,
+        "dst": 9,
+        "weight": 0.0764,
+        "latency_steps": 1
+      },
+      {
+        "src": 14,
+        "dst": 10,
+        "weight": 0.4723,
+        "latency_steps": 1
+      },
+      {
+        "src": 14,
+        "dst": 11,
+        "weight": -0.3224,
+        "latency_steps": 1
+      },
+      {
+        "src": 14,
+        "dst": 12,
+        "weight": -0.2884,
+        "latency_steps": 1
+      },
+      {
+        "src": 14,
+        "dst": 13,
+        "weight": -0.1326,
+        "latency_steps": 1
+      },
+      {
+        "src": 14,
+        "dst": 14,
+        "weight": -0.5716,
+        "latency_steps": 1
+      },
+      {
+        "src": 14,
+        "dst": 15,
+        "weight": 0.5555,
+        "latency_steps": 1
+      },
+      {
+        "src": 14,
+        "dst": 17,
+        "weight": 0.1071,
+        "latency_steps": 1
+      },
+      {
+        "src": 15,
+        "dst": 2,
+        "weight": -0.2256,
+        "latency_steps": 1
+      },
+      {
+        "src": 15,
+        "dst": 3,
+        "weight": 0.2693,
+        "latency_steps": 1
+      },
+      {
+        "src": 15,
+        "dst": 4,
+        "weight": 0.2254,
+        "latency_steps": 1
+      },
+      {
+        "src": 15,
+        "dst": 5,
+        "weight": -0.0946,
+        "latency_steps": 1
+      },
+      {
+        "src": 15,
+        "dst": 6,
+        "weight": -0.0934,
+        "latency_steps": 1
+      },
+      {
+        "src": 15,
+        "dst": 8,
+        "weight": 0.0668,
+        "latency_steps": 1
+      },
+      {
+        "src": 15,
+        "dst": 9,
+        "weight": -0.2656,
+        "latency_steps": 1
+      },
+      {
+        "src": 15,
+        "dst": 10,
+        "weight": -0.4472,
+        "latency_steps": 1
+      },
+      {
+        "src": 15,
+        "dst": 11,
+        "weight": -0.2021,
+        "latency_steps": 1
+      },
+      {
+        "src": 15,
+        "dst": 13,
+        "weight": 0.2465,
+        "latency_steps": 1
+      },
+      {
+        "src": 15,
+        "dst": 14,
+        "weight": -0.1827,
+        "latency_steps": 1
+      },
+      {
+        "src": 15,
+        "dst": 15,
+        "weight": 0.1518,
+        "latency_steps": 1
+      },
+      {
+        "src": 15,
+        "dst": 16,
+        "weight": -0.1026,
+        "latency_steps": 1
+      },
+      {
+        "src": 15,
+        "dst": 17,
+        "weight": 0.1741,
+        "latency_steps": 1
+      },
+      {
+        "src": 16,
+        "dst": 2,
+        "weight": 0.5654,
+        "latency_steps": 1
+      },
+      {
+        "src": 16,
+        "dst": 3,
+        "weight": -0.1643,
+        "latency_steps": 1
+      },
+      {
+        "src": 16,
+        "dst": 4,
+        "weight": 0.2167,
+        "latency_steps": 1
+      },
+      {
+        "src": 16,
+        "dst": 5,
+        "weight": -0.2131,
+        "latency_steps": 1
+      },
+      {
+        "src": 16,
+        "dst": 6,
+        "weight": 0.3139,
+        "latency_steps": 1
+      },
+      {
+        "src": 16,
+        "dst": 7,
+        "weight": 0.1806,
+        "latency_steps": 1
+      },
+      {
+        "src": 16,
+        "dst": 8,
+        "weight": 0.3697,
+        "latency_steps": 1
+      },
+      {
+        "src": 16,
+        "dst": 9,
+        "weight": 0.2213,
+        "latency_steps": 1
+      },
+      {
+        "src": 16,
+        "dst": 10,
+        "weight": -0.1639,
+        "latency_steps": 1
+      },
+      {
+        "src": 16,
+        "dst": 11,
+        "weight": 0.104,
+        "latency_steps": 1
+      },
+      {
+        "src": 16,
+        "dst": 12,
+        "weight": 0.2851,
+        "latency_steps": 1
+      },
+      {
+        "src": 16,
+        "dst": 13,
+        "weight": 0.1035,
+        "latency_steps": 1
+      },
+      {
+        "src": 16,
+        "dst": 14,
+        "weight": 0.1676,
+        "latency_steps": 1
+      },
+      {
+        "src": 16,
+        "dst": 15,
+        "weight": -0.1497,
+        "latency_steps": 1
+      },
+      {
+        "src": 16,
+        "dst": 16,
+        "weight": -0.3273,
+        "latency_steps": 1
+      },
+      {
+        "src": 16,
+        "dst": 17,
+        "weight": 0.3698,
+        "latency_steps": 1
+      },
+      {
+        "src": 17,
+        "dst": 2,
+        "weight": 0.1241,
+        "latency_steps": 1
+      },
+      {
+        "src": 17,
+        "dst": 3,
+        "weight": 0.1939,
+        "latency_steps": 1
+      },
+      {
+        "src": 17,
+        "dst": 4,
+        "weight": 0.2352,
+        "latency_steps": 1
+      },
+      {
+        "src": 17,
+        "dst": 5,
+        "weight": -0.2953,
+        "latency_steps": 1
+      },
+      {
+        "src": 17,
+        "dst": 6,
+        "weight": -0.3264,
+        "latency_steps": 1
+      },
+      {
+        "src": 17,
+        "dst": 7,
+        "weight": -0.2424,
+        "latency_steps": 1
+      },
+      {
+        "src": 17,
+        "dst": 8,
+        "weight": -0.0595,
+        "latency_steps": 1
+      },
+      {
+        "src": 17,
+        "dst": 9,
+        "weight": 0.1348,
+        "latency_steps": 1
+      },
+      {
+        "src": 17,
+        "dst": 10,
+        "weight": -0.3069,
+        "latency_steps": 1
+      },
+      {
+        "src": 17,
+        "dst": 11,
+        "weight": 0.0508,
+        "latency_steps": 1
+      },
+      {
+        "src": 17,
+        "dst": 12,
+        "weight": -0.0976,
+        "latency_steps": 1
+      },
+      {
+        "src": 17,
+        "dst": 13,
+        "weight": 0.1498,
+        "latency_steps": 1
+      },
+      {
+        "src": 17,
+        "dst": 14,
+        "weight": -0.1829,
+        "latency_steps": 1
+      },
+      {
+        "src": 17,
+        "dst": 15,
+        "weight": -0.0993,
+        "latency_steps": 1
+      },
+      {
+        "src": 17,
+        "dst": 16,
+        "weight": 0.3363,
+        "latency_steps": 1
+      },
+      {
+        "src": 17,
+        "dst": 17,
+        "weight": -0.1854,
+        "latency_steps": 1
+      },
+      {
+        "src": 3,
+        "dst": 18,
+        "weight": 0.2145,
+        "latency_steps": 1
+      },
+      {
+        "src": 4,
+        "dst": 18,
+        "weight": 0.2272,
+        "latency_steps": 1
+      },
+      {
+        "src": 5,
+        "dst": 18,
+        "weight": 0.3559,
+        "latency_steps": 1
+      },
+      {
+        "src": 6,
+        "dst": 18,
+        "weight": 0.4544,
+        "latency_steps": 1
+      },
+      {
+        "src": 7,
+        "dst": 18,
+        "weight": -0.0553,
+        "latency_steps": 1
+      },
+      {
+        "src": 8,
+        "dst": 18,
+        "weight": -0.165,
+        "latency_steps": 1
+      },
+      {
+        "src": 9,
+        "dst": 18,
+        "weight": 0.5001,
+        "latency_steps": 1
+      },
+      {
+        "src": 10,
+        "dst": 18,
+        "weight": 0.3216,
+        "latency_steps": 1
+      },
+      {
+        "src": 11,
+        "dst": 18,
+        "weight": 0.4761,
+        "latency_steps": 1
+      },
+      {
+        "src": 12,
+        "dst": 18,
+        "weight": 0.2112,
+        "latency_steps": 1
+      },
+      {
+        "src": 13,
+        "dst": 18,
+        "weight": -0.2105,
+        "latency_steps": 1
+      },
+      {
+        "src": 15,
+        "dst": 18,
+        "weight": 0.0557,
+        "latency_steps": 1
+      },
+      {
+        "src": 16,
+        "dst": 18,
+        "weight": 0.3515,
+        "latency_steps": 1
+      },
+      {
+        "src": 17,
+        "dst": 18,
+        "weight": -0.2267,
+        "latency_steps": 1
+      }
+    ]
+  },
+  "frames": [
+    {
+      "step": 0,
+      "time_ms": 0.0,
+      "inputs": [
+        1.0,
+        1.0
+      ],
+      "activations": [
+        1.0,
+        1.0,
+        0.031,
+        0.1998,
+        -0.0744,
+        0.5052,
+        -0.4015,
+        -0.1023,
+        0.146,
+        -0.2611,
+        -0.3057,
+        -0.0166,
+        -0.0397,
+        -0.0557,
+        0.0074,
+        -0.0413,
+        -0.1093,
+        -0.3985,
+        -0.1929
+      ],
+      "states": [
+        1.0,
+        1.0,
+        0.031,
+        0.1998,
+        -0.0744,
+        0.5052,
+        -0.4015,
+        -0.1023,
+        0.146,
+        -0.2611,
+        -0.3057,
+        -0.0166,
+        -0.0397,
+        -0.0557,
+        0.0074,
+        -0.0413,
+        -0.1093,
+        -0.3985,
+        -0.1929
+      ],
+      "output": -0.1929,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [
+        {
+          "src": 0,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": 0.142
+        },
+        {
+          "src": 0,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.1345
+        },
+        {
+          "src": 0,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": -0.2012
+        },
+        {
+          "src": 0,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": 0.8766
+        },
+        {
+          "src": 0,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": 0.1154
+        },
+        {
+          "src": 0,
+          "dst": 7,
+          "progress": 1.0,
+          "mag": -0.1602
+        },
+        {
+          "src": 0,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": 0.4088
+        },
+        {
+          "src": 0,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.3982
+        },
+        {
+          "src": 0,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": -0.2006
+        },
+        {
+          "src": 0,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": -0.2721
+        },
+        {
+          "src": 0,
+          "dst": 13,
+          "progress": 1.0,
+          "mag": -0.0872
+        },
+        {
+          "src": 0,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": -0.0903
+        },
+        {
+          "src": 0,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": -0.4695
+        },
+        {
+          "src": 1,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.2086
+        },
+        {
+          "src": 1,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": 0.0906
+        },
+        {
+          "src": 1,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": 0.2076
+        },
+        {
+          "src": 1,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": -0.6593
+        },
+        {
+          "src": 1,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": -0.1804
+        },
+        {
+          "src": 1,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.3085
+        },
+        {
+          "src": 1,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": -0.2706
+        },
+        {
+          "src": 1,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": 0.2663
+        },
+        {
+          "src": 1,
+          "dst": 14,
+          "progress": 1.0,
+          "mag": 0.0962
+        },
+        {
+          "src": 1,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": 0.1381
+        },
+        {
+          "src": 1,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": 0.2931
+        },
+        {
+          "src": 1,
+          "dst": 17,
+          "progress": 1.0,
+          "mag": -0.5974
+        },
+        {
+          "src": 5,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": -0.3273
+        },
+        {
+          "src": 5,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": -0.1322
+        },
+        {
+          "src": 5,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": -0.2685
+        },
+        {
+          "src": 5,
+          "dst": 7,
+          "progress": 1.0,
+          "mag": 0.1504
+        },
+        {
+          "src": 5,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": -0.1775
+        },
+        {
+          "src": 5,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.1104
+        },
+        {
+          "src": 5,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": 0.2086
+        },
+        {
+          "src": 5,
+          "dst": 17,
+          "progress": 1.0,
+          "mag": 0.3549
+        },
+        {
+          "src": 6,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": 0.1343
+        },
+        {
+          "src": 6,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": -0.1044
+        },
+        {
+          "src": 6,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": 0.1545
+        },
+        {
+          "src": 6,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.2132
+        },
+        {
+          "src": 6,
+          "dst": 13,
+          "progress": 1.0,
+          "mag": -0.2025
+        },
+        {
+          "src": 6,
+          "dst": 17,
+          "progress": 1.0,
+          "mag": 0.0874
+        },
+        {
+          "src": 8,
+          "dst": 7,
+          "progress": 1.0,
+          "mag": -0.0921
+        }
+      ],
+      "events": [
+        {
+          "type": "CUE_START",
+          "node_id": 0,
+          "val": 1.0
+        }
+      ]
+    },
+    {
+      "step": 1,
+      "time_ms": 40.0,
+      "inputs": [
+        1.0,
+        1.0
+      ],
+      "activations": [
+        1.0,
+        1.0,
+        -0.0068,
+        0.2141,
+        -0.096,
+        0.6713,
+        -0.5365,
+        -0.0816,
+        0.1947,
+        -0.392,
+        -0.3202,
+        0.1855,
+        -0.0521,
+        -0.1421,
+        -0.0358,
+        -0.0795,
+        -0.1376,
+        -0.3577,
+        -0.1855
+      ],
+      "states": [
+        1.0,
+        1.0,
+        -0.0068,
+        0.2141,
+        -0.096,
+        0.6713,
+        -0.5365,
+        -0.0816,
+        0.1947,
+        -0.392,
+        -0.3202,
+        0.1855,
+        -0.0521,
+        -0.1421,
+        -0.0358,
+        -0.0795,
+        -0.1376,
+        -0.3577,
+        -0.1855
+      ],
+      "output": -0.1855,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [
+        {
+          "src": 0,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": 0.142
+        },
+        {
+          "src": 0,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.1345
+        },
+        {
+          "src": 0,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": -0.2012
+        },
+        {
+          "src": 0,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": 0.8766
+        },
+        {
+          "src": 0,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": 0.1154
+        },
+        {
+          "src": 0,
+          "dst": 7,
+          "progress": 1.0,
+          "mag": -0.1602
+        },
+        {
+          "src": 0,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": 0.4088
+        },
+        {
+          "src": 0,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.3982
+        },
+        {
+          "src": 0,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": -0.2006
+        },
+        {
+          "src": 0,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": -0.2721
+        },
+        {
+          "src": 0,
+          "dst": 13,
+          "progress": 1.0,
+          "mag": -0.0872
+        },
+        {
+          "src": 0,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": -0.0903
+        },
+        {
+          "src": 0,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": -0.4695
+        },
+        {
+          "src": 1,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.2086
+        },
+        {
+          "src": 1,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": 0.0906
+        },
+        {
+          "src": 1,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": 0.2076
+        },
+        {
+          "src": 1,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": -0.6593
+        },
+        {
+          "src": 1,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": -0.1804
+        },
+        {
+          "src": 1,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.3085
+        },
+        {
+          "src": 1,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": -0.2706
+        },
+        {
+          "src": 1,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": 0.2663
+        },
+        {
+          "src": 1,
+          "dst": 14,
+          "progress": 1.0,
+          "mag": 0.0962
+        },
+        {
+          "src": 1,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": 0.1381
+        },
+        {
+          "src": 1,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": 0.2931
+        },
+        {
+          "src": 1,
+          "dst": 17,
+          "progress": 1.0,
+          "mag": -0.5974
+        },
+        {
+          "src": 3,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": 0.0845
+        },
+        {
+          "src": 5,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": -0.4349
+        },
+        {
+          "src": 5,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.0847
+        },
+        {
+          "src": 5,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": 0.0908
+        },
+        {
+          "src": 5,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": -0.1757
+        },
+        {
+          "src": 5,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": -0.3567
+        },
+        {
+          "src": 5,
+          "dst": 7,
+          "progress": 1.0,
+          "mag": 0.1998
+        },
+        {
+          "src": 5,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": -0.2359
+        },
+        {
+          "src": 5,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.1467
+        },
+        {
+          "src": 5,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": 0.2772
+        },
+        {
+          "src": 5,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": 0.0934
+        },
+        {
+          "src": 5,
+          "dst": 17,
+          "progress": 1.0,
+          "mag": 0.4715
+        },
+        {
+          "src": 6,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": 0.1794
+        },
+        {
+          "src": 6,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": -0.1395
+        },
+        {
+          "src": 6,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": 0.2064
+        }
+      ],
+      "events": []
+    },
+    {
+      "step": 2,
+      "time_ms": 80.0,
+      "inputs": [
+        1.0,
+        1.0
+      ],
+      "activations": [
+        1.0,
+        1.0,
+        -0.0458,
+        0.1924,
+        -0.1115,
+        0.7385,
+        -0.6034,
+        -0.0341,
+        0.2009,
+        -0.4757,
+        -0.351,
+        0.3041,
+        -0.0497,
+        -0.1991,
+        -0.0782,
+        -0.1525,
+        -0.1353,
+        -0.3235,
+        -0.1974
+      ],
+      "states": [
+        1.0,
+        1.0,
+        -0.0458,
+        0.1924,
+        -0.1115,
+        0.7385,
+        -0.6034,
+        -0.0341,
+        0.2009,
+        -0.4757,
+        -0.351,
+        0.3041,
+        -0.0497,
+        -0.1991,
+        -0.0782,
+        -0.1525,
+        -0.1353,
+        -0.3235,
+        -0.1974
+      ],
+      "output": -0.1974,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [
+        {
+          "src": 0,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": 0.142
+        },
+        {
+          "src": 0,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.1345
+        },
+        {
+          "src": 0,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": -0.2012
+        },
+        {
+          "src": 0,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": 0.8766
+        },
+        {
+          "src": 0,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": 0.1154
+        },
+        {
+          "src": 0,
+          "dst": 7,
+          "progress": 1.0,
+          "mag": -0.1602
+        },
+        {
+          "src": 0,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": 0.4088
+        },
+        {
+          "src": 0,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.3982
+        },
+        {
+          "src": 0,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": -0.2006
+        },
+        {
+          "src": 0,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": -0.2721
+        },
+        {
+          "src": 0,
+          "dst": 13,
+          "progress": 1.0,
+          "mag": -0.0872
+        },
+        {
+          "src": 0,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": -0.0903
+        },
+        {
+          "src": 0,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": -0.4695
+        },
+        {
+          "src": 1,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.2086
+        },
+        {
+          "src": 1,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": 0.0906
+        },
+        {
+          "src": 1,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": 0.2076
+        },
+        {
+          "src": 1,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": -0.6593
+        },
+        {
+          "src": 1,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": -0.1804
+        },
+        {
+          "src": 1,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.3085
+        },
+        {
+          "src": 1,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": -0.2706
+        },
+        {
+          "src": 1,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": 0.2663
+        },
+        {
+          "src": 1,
+          "dst": 14,
+          "progress": 1.0,
+          "mag": 0.0962
+        },
+        {
+          "src": 1,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": 0.1381
+        },
+        {
+          "src": 1,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": 0.2931
+        },
+        {
+          "src": 1,
+          "dst": 17,
+          "progress": 1.0,
+          "mag": -0.5974
+        },
+        {
+          "src": 5,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": -0.4784
+        },
+        {
+          "src": 5,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.0931
+        },
+        {
+          "src": 5,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": 0.0998
+        },
+        {
+          "src": 5,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": -0.1933
+        },
+        {
+          "src": 5,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": -0.3924
+        },
+        {
+          "src": 5,
+          "dst": 7,
+          "progress": 1.0,
+          "mag": 0.2199
+        },
+        {
+          "src": 5,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": -0.2595
+        },
+        {
+          "src": 5,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.1614
+        },
+        {
+          "src": 5,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": 0.305
+        },
+        {
+          "src": 5,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": 0.1028
+        },
+        {
+          "src": 5,
+          "dst": 17,
+          "progress": 1.0,
+          "mag": 0.5187
+        },
+        {
+          "src": 6,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": 0.2018
+        },
+        {
+          "src": 6,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": -0.1569
+        },
+        {
+          "src": 6,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": 0.2321
+        },
+        {
+          "src": 6,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.3203
+        }
+      ],
+      "events": []
+    },
+    {
+      "step": 3,
+      "time_ms": 120.0,
+      "inputs": [
+        1.0,
+        1.0
+      ],
+      "activations": [
+        1.0,
+        1.0,
+        -0.0573,
+        0.1599,
+        -0.1246,
+        0.7673,
+        -0.6373,
+        0.0092,
+        0.2,
+        -0.5319,
+        -0.3762,
+        0.3856,
+        -0.0401,
+        -0.2387,
+        -0.1091,
+        -0.2263,
+        -0.1245,
+        -0.3037,
+        -0.2066
+      ],
+      "states": [
+        1.0,
+        1.0,
+        -0.0573,
+        0.1599,
+        -0.1246,
+        0.7673,
+        -0.6373,
+        0.0092,
+        0.2,
+        -0.5319,
+        -0.3762,
+        0.3856,
+        -0.0401,
+        -0.2387,
+        -0.1091,
+        -0.2263,
+        -0.1245,
+        -0.3037,
+        -0.2066
+      ],
+      "output": -0.2066,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [
+        {
+          "src": 0,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": 0.142
+        },
+        {
+          "src": 0,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.1345
+        },
+        {
+          "src": 0,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": -0.2012
+        },
+        {
+          "src": 0,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": 0.8766
+        },
+        {
+          "src": 0,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": 0.1154
+        },
+        {
+          "src": 0,
+          "dst": 7,
+          "progress": 1.0,
+          "mag": -0.1602
+        },
+        {
+          "src": 0,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": 0.4088
+        },
+        {
+          "src": 0,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.3982
+        },
+        {
+          "src": 0,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": -0.2006
+        },
+        {
+          "src": 0,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": -0.2721
+        },
+        {
+          "src": 0,
+          "dst": 13,
+          "progress": 1.0,
+          "mag": -0.0872
+        },
+        {
+          "src": 0,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": -0.0903
+        },
+        {
+          "src": 0,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": -0.4695
+        },
+        {
+          "src": 1,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.2086
+        },
+        {
+          "src": 1,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": 0.0906
+        },
+        {
+          "src": 1,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": 0.2076
+        },
+        {
+          "src": 1,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": -0.6593
+        },
+        {
+          "src": 1,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": -0.1804
+        },
+        {
+          "src": 1,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.3085
+        },
+        {
+          "src": 1,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": -0.2706
+        },
+        {
+          "src": 1,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": 0.2663
+        },
+        {
+          "src": 1,
+          "dst": 14,
+          "progress": 1.0,
+          "mag": 0.0962
+        },
+        {
+          "src": 1,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": 0.1381
+        },
+        {
+          "src": 1,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": 0.2931
+        },
+        {
+          "src": 1,
+          "dst": 17,
+          "progress": 1.0,
+          "mag": -0.5974
+        },
+        {
+          "src": 5,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": -0.4971
+        },
+        {
+          "src": 5,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.0968
+        },
+        {
+          "src": 5,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": 0.1037
+        },
+        {
+          "src": 5,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": -0.2008
+        },
+        {
+          "src": 5,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": -0.4077
+        },
+        {
+          "src": 5,
+          "dst": 7,
+          "progress": 1.0,
+          "mag": 0.2284
+        },
+        {
+          "src": 5,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": -0.2696
+        },
+        {
+          "src": 5,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.1677
+        },
+        {
+          "src": 5,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": 0.3169
+        },
+        {
+          "src": 5,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": 0.1068
+        },
+        {
+          "src": 5,
+          "dst": 17,
+          "progress": 1.0,
+          "mag": 0.539
+        },
+        {
+          "src": 6,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": 0.2131
+        },
+        {
+          "src": 6,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": -0.1657
+        },
+        {
+          "src": 6,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": 0.0821
+        },
+        {
+          "src": 6,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": 0.2452
+        }
+      ],
+      "events": []
+    },
+    {
+      "step": 4,
+      "time_ms": 160.0,
+      "inputs": [
+        1.0,
+        1.0
+      ],
+      "activations": [
+        1.0,
+        1.0,
+        -0.0538,
+        0.1281,
+        -0.1367,
+        0.7811,
+        -0.6565,
+        0.0421,
+        0.1993,
+        -0.57,
+        -0.3911,
+        0.4412,
+        -0.0283,
+        -0.2668,
+        -0.1293,
+        -0.2908,
+        -0.1139,
+        -0.2917,
+        -0.2134
+      ],
+      "states": [
+        1.0,
+        1.0,
+        -0.0538,
+        0.1281,
+        -0.1367,
+        0.7811,
+        -0.6565,
+        0.0421,
+        0.1993,
+        -0.57,
+        -0.3911,
+        0.4412,
+        -0.0283,
+        -0.2668,
+        -0.1293,
+        -0.2908,
+        -0.1139,
+        -0.2917,
+        -0.2134
+      ],
+      "output": -0.2134,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [
+        {
+          "src": 0,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": 0.142
+        },
+        {
+          "src": 0,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.1345
+        },
+        {
+          "src": 0,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": -0.2012
+        },
+        {
+          "src": 0,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": 0.8766
+        },
+        {
+          "src": 0,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": 0.1154
+        },
+        {
+          "src": 0,
+          "dst": 7,
+          "progress": 1.0,
+          "mag": -0.1602
+        },
+        {
+          "src": 0,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": 0.4088
+        },
+        {
+          "src": 0,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.3982
+        },
+        {
+          "src": 0,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": -0.2006
+        },
+        {
+          "src": 0,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": -0.2721
+        },
+        {
+          "src": 0,
+          "dst": 13,
+          "progress": 1.0,
+          "mag": -0.0872
+        },
+        {
+          "src": 0,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": -0.0903
+        },
+        {
+          "src": 0,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": -0.4695
+        },
+        {
+          "src": 1,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.2086
+        },
+        {
+          "src": 1,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": 0.0906
+        },
+        {
+          "src": 1,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": 0.2076
+        },
+        {
+          "src": 1,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": -0.6593
+        },
+        {
+          "src": 1,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": -0.1804
+        },
+        {
+          "src": 1,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.3085
+        },
+        {
+          "src": 1,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": -0.2706
+        },
+        {
+          "src": 1,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": 0.2663
+        },
+        {
+          "src": 1,
+          "dst": 14,
+          "progress": 1.0,
+          "mag": 0.0962
+        },
+        {
+          "src": 1,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": 0.1381
+        },
+        {
+          "src": 1,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": 0.2931
+        },
+        {
+          "src": 1,
+          "dst": 17,
+          "progress": 1.0,
+          "mag": -0.5974
+        },
+        {
+          "src": 5,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": -0.506
+        },
+        {
+          "src": 5,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.0985
+        },
+        {
+          "src": 5,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": 0.1056
+        },
+        {
+          "src": 5,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": -0.2044
+        },
+        {
+          "src": 5,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": -0.4151
+        },
+        {
+          "src": 5,
+          "dst": 7,
+          "progress": 1.0,
+          "mag": 0.2325
+        },
+        {
+          "src": 5,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": -0.2745
+        },
+        {
+          "src": 5,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.1707
+        },
+        {
+          "src": 5,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": 0.3226
+        },
+        {
+          "src": 5,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": 0.1087
+        },
+        {
+          "src": 5,
+          "dst": 17,
+          "progress": 1.0,
+          "mag": 0.5486
+        },
+        {
+          "src": 6,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": 0.2195
+        },
+        {
+          "src": 6,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": -0.1707
+        },
+        {
+          "src": 6,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": 0.0846
+        },
+        {
+          "src": 6,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": 0.2526
+        }
+      ],
+      "events": []
+    },
+    {
+      "step": 5,
+      "time_ms": 200.0,
+      "inputs": [
+        -0.0619,
+        0.0
+      ],
+      "activations": [
+        -0.0619,
+        0.0,
+        -0.0951,
+        -0.1392,
+        -0.0738,
+        0.2212,
+        -0.3338,
+        0.1776,
+        -0.0023,
+        -0.3622,
+        -0.0295,
+        0.4417,
+        -0.0019,
+        -0.2448,
+        -0.2045,
+        -0.3333,
+        0.0206,
+        0.1617,
+        -0.1198
+      ],
+      "states": [
+        -0.0619,
+        0.0,
+        -0.0951,
+        -0.1392,
+        -0.0738,
+        0.2212,
+        -0.3338,
+        0.1776,
+        -0.0023,
+        -0.3622,
+        -0.0295,
+        0.4417,
+        -0.0019,
+        -0.2448,
+        -0.2045,
+        -0.3333,
+        0.0206,
+        0.1617,
+        -0.1198
+      ],
+      "output": -0.1198,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [
+        {
+          "src": 5,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": -0.1433
+        },
+        {
+          "src": 5,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": -0.1175
+        },
+        {
+          "src": 5,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": 0.0914
+        },
+        {
+          "src": 5,
+          "dst": 17,
+          "progress": 1.0,
+          "mag": 0.1554
+        },
+        {
+          "src": 6,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": 0.1116
+        },
+        {
+          "src": 6,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": -0.0868
+        },
+        {
+          "src": 6,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": 0.1284
+        },
+        {
+          "src": 6,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.1772
+        },
+        {
+          "src": 6,
+          "dst": 13,
+          "progress": 1.0,
+          "mag": -0.1684
+        },
+        {
+          "src": 7,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": 0.0873
+        },
+        {
+          "src": 7,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": -0.08
+        },
+        {
+          "src": 9,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": 0.0848
+        },
+        {
+          "src": 9,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": 0.1723
+        },
+        {
+          "src": 9,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": -0.1137
+        },
+        {
+          "src": 9,
+          "dst": 7,
+          "progress": 1.0,
+          "mag": 0.1962
+        },
+        {
+          "src": 9,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": 0.0843
+        },
+        {
+          "src": 9,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": 0.2502
+        },
+        {
+          "src": 9,
+          "dst": 12,
+          "progress": 1.0,
+          "mag": 0.095
+        },
+        {
+          "src": 9,
+          "dst": 14,
+          "progress": 1.0,
+          "mag": -0.0806
+        },
+        {
+          "src": 9,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": -0.1933
+        },
+        {
+          "src": 9,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": 0.09
+        },
+        {
+          "src": 11,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": -0.1293
+        },
+        {
+          "src": 11,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": -0.1593
+        },
+        {
+          "src": 11,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": -0.1186
+        },
+        {
+          "src": 11,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": -0.1577
+        },
+        {
+          "src": 11,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": -0.1369
+        },
+        {
+          "src": 11,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": -0.094
+        },
+        {
+          "src": 13,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": -0.1096
+        },
+        {
+          "src": 13,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.1434
+        },
+        {
+          "src": 13,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": -0.104
+        },
+        {
+          "src": 14,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": -0.0803
+        },
+        {
+          "src": 14,
+          "dst": 7,
+          "progress": 1.0,
+          "mag": 0.1075
+        },
+        {
+          "src": 14,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": -0.0966
+        },
+        {
+          "src": 14,
+          "dst": 14,
+          "progress": 1.0,
+          "mag": 0.1169
+        },
+        {
+          "src": 14,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": -0.1136
+        },
+        {
+          "src": 15,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": -0.0898
+        },
+        {
+          "src": 15,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": 0.0885
+        },
+        {
+          "src": 15,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": 0.1491
+        },
+        {
+          "src": 15,
+          "dst": 13,
+          "progress": 1.0,
+          "mag": -0.0822
+        },
+        {
+          "src": 6,
+          "dst": 18,
+          "progress": 1.0,
+          "mag": -0.1517
+        }
+      ],
+      "events": [
+        {
+          "type": "DELAY_START"
+        }
+      ]
+    },
+    {
+      "step": 6,
+      "time_ms": 240.0,
+      "inputs": [
+        -0.0338,
+        0.0
+      ],
+      "activations": [
+        -0.0338,
+        0.0,
+        -0.0263,
+        -0.1927,
+        -0.0396,
+        0.0815,
+        -0.1853,
+        0.1874,
+        -0.0346,
+        -0.1157,
+        -0.1176,
+        0.3098,
+        0.0392,
+        -0.1858,
+        -0.1814,
+        -0.3905,
+        0.0733,
+        0.1383,
+        -0.0528
+      ],
+      "states": [
+        -0.0338,
+        0.0,
+        -0.0263,
+        -0.1927,
+        -0.0396,
+        0.0815,
+        -0.1853,
+        0.1874,
+        -0.0346,
+        -0.1157,
+        -0.1176,
+        0.3098,
+        0.0392,
+        -0.1858,
+        -0.1814,
+        -0.3905,
+        0.0733,
+        0.1383,
+        -0.0528
+      ],
+      "output": -0.0528,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [
+        {
+          "src": 6,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.0984
+        },
+        {
+          "src": 6,
+          "dst": 13,
+          "progress": 1.0,
+          "mag": -0.0935
+        },
+        {
+          "src": 7,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": 0.0921
+        },
+        {
+          "src": 7,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": -0.0845
+        },
+        {
+          "src": 11,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": -0.0907
+        },
+        {
+          "src": 11,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": -0.1117
+        },
+        {
+          "src": 11,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": -0.0832
+        },
+        {
+          "src": 11,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": -0.1106
+        },
+        {
+          "src": 11,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": -0.096
+        },
+        {
+          "src": 13,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": -0.0832
+        },
+        {
+          "src": 13,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.1088
+        },
+        {
+          "src": 14,
+          "dst": 7,
+          "progress": 1.0,
+          "mag": 0.0954
+        },
+        {
+          "src": 14,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": -0.0857
+        },
+        {
+          "src": 14,
+          "dst": 14,
+          "progress": 1.0,
+          "mag": 0.1037
+        },
+        {
+          "src": 14,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": -0.1008
+        },
+        {
+          "src": 15,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": 0.0881
+        },
+        {
+          "src": 15,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": -0.1052
+        },
+        {
+          "src": 15,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": -0.088
+        },
+        {
+          "src": 15,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": 0.1037
+        },
+        {
+          "src": 15,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": 0.1746
+        },
+        {
+          "src": 15,
+          "dst": 13,
+          "progress": 1.0,
+          "mag": -0.0963
+        },
+        {
+          "src": 6,
+          "dst": 18,
+          "progress": 1.0,
+          "mag": -0.0842
+        },
+        {
+          "src": 11,
+          "dst": 18,
+          "progress": 1.0,
+          "mag": 0.1475
+        }
+      ],
+      "events": []
+    },
+    {
+      "step": 7,
+      "time_ms": 280.0,
+      "inputs": [
+        -0.1355,
+        0.0
+      ],
+      "activations": [
+        -0.1355,
+        0.0,
+        0.0221,
+        -0.2178,
+        -0.0313,
+        -0.0732,
+        -0.094,
+        0.1241,
+        -0.0391,
+        0.0142,
+        -0.0765,
+        0.2187,
+        0.046,
+        -0.119,
+        -0.1346,
+        -0.3735,
+        0.0845,
+        0.0965,
+        -0.0295
+      ],
+      "states": [
+        -0.1355,
+        0.0,
+        0.0221,
+        -0.2178,
+        -0.0313,
+        -0.0732,
+        -0.094,
+        0.1241,
+        -0.0391,
+        0.0142,
+        -0.0765,
+        0.2187,
+        0.046,
+        -0.119,
+        -0.1346,
+        -0.3735,
+        0.0845,
+        0.0965,
+        -0.0295
+      ],
+      "output": -0.0295,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [
+        {
+          "src": 0,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": -0.1188
+        },
+        {
+          "src": 3,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": -0.086
+        },
+        {
+          "src": 15,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": 0.0843
+        },
+        {
+          "src": 15,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": -0.1006
+        },
+        {
+          "src": 15,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": -0.0842
+        },
+        {
+          "src": 15,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": 0.0992
+        },
+        {
+          "src": 15,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": 0.167
+        },
+        {
+          "src": 15,
+          "dst": 13,
+          "progress": 1.0,
+          "mag": -0.0921
+        },
+        {
+          "src": 11,
+          "dst": 18,
+          "progress": 1.0,
+          "mag": 0.1041
+        }
+      ],
+      "events": []
+    },
+    {
+      "step": 8,
+      "time_ms": 320.0,
+      "inputs": [
+        -0.0314,
+        0.0
+      ],
+      "activations": [
+        -0.0314,
+        0.0,
+        0.0622,
+        -0.1934,
+        -0.0543,
+        -0.0608,
+        -0.0192,
+        0.055,
+        0.0138,
+        0.0514,
+        -0.0469,
+        0.1027,
+        0.0351,
+        -0.063,
+        -0.0836,
+        -0.3311,
+        0.0282,
+        0.0351,
+        -0.041
+      ],
+      "states": [
+        -0.0314,
+        0.0,
+        0.0622,
+        -0.1934,
+        -0.0543,
+        -0.0608,
+        -0.0192,
+        0.055,
+        0.0138,
+        0.0514,
+        -0.0469,
+        0.1027,
+        0.0351,
+        -0.063,
+        -0.0836,
+        -0.3311,
+        0.0282,
+        0.0351,
+        -0.041
+      ],
+      "output": -0.041,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [
+        {
+          "src": 15,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": -0.0892
+        },
+        {
+          "src": 15,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": 0.0879
+        },
+        {
+          "src": 15,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": 0.1481
+        },
+        {
+          "src": 15,
+          "dst": 13,
+          "progress": 1.0,
+          "mag": -0.0816
+        }
+      ],
+      "events": []
+    },
+    {
+      "step": 9,
+      "time_ms": 360.0,
+      "inputs": [
+        0.0008,
+        0.0
+      ],
+      "activations": [
+        0.0008,
+        0.0,
+        0.0532,
+        -0.1491,
+        -0.0615,
+        -0.035,
+        0.0064,
+        0.01,
+        0.0384,
+        0.059,
+        0.0028,
+        0.0458,
+        0.0203,
+        -0.0246,
+        -0.048,
+        -0.2739,
+        -0.0047,
+        0.01,
+        -0.0347
+      ],
+      "states": [
+        0.0008,
+        0.0,
+        0.0532,
+        -0.1491,
+        -0.0615,
+        -0.035,
+        0.0064,
+        0.01,
+        0.0384,
+        0.059,
+        0.0028,
+        0.0458,
+        0.0203,
+        -0.0246,
+        -0.048,
+        -0.2739,
+        -0.0047,
+        0.01,
+        -0.0347
+      ],
+      "output": -0.0347,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [
+        {
+          "src": 15,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": 0.1225
+        }
+      ],
+      "events": []
+    },
+    {
+      "step": 10,
+      "time_ms": 400.0,
+      "inputs": [
+        0.1996,
+        0.0
+      ],
+      "activations": [
+        0.1996,
+        0.0,
+        0.0452,
+        -0.0938,
+        -0.0847,
+        0.0993,
+        0.0246,
+        -0.0315,
+        0.0943,
+        0.0025,
+        0.0066,
+        -0.0255,
+        -0.0067,
+        -0.016,
+        -0.0316,
+        -0.2285,
+        -0.079,
+        0.0083,
+        -0.0704
+      ],
+      "states": [
+        0.1996,
+        0.0,
+        0.0452,
+        -0.0938,
+        -0.0847,
+        0.0993,
+        0.0246,
+        -0.0315,
+        0.0943,
+        0.0025,
+        0.0066,
+        -0.0255,
+        -0.0067,
+        -0.016,
+        -0.0316,
+        -0.2285,
+        -0.079,
+        0.0083,
+        -0.0704
+      ],
+      "output": -0.0704,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [
+        {
+          "src": 0,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": 0.175
+        },
+        {
+          "src": 0,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": 0.0816
+        },
+        {
+          "src": 0,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": -0.0937
+        },
+        {
+          "src": 15,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": 0.1022
+        }
+      ],
+      "events": []
+    },
+    {
+      "step": 11,
+      "time_ms": 440.0,
+      "inputs": [
+        0.0601,
+        0.0
+      ],
+      "activations": [
+        0.0601,
+        0.0,
+        -0.0193,
+        -0.0651,
+        -0.0562,
+        0.0446,
+        -0.0151,
+        -0.02,
+        0.0444,
+        0.0104,
+        0.0471,
+        0.0152,
+        -0.0175,
+        -0.003,
+        -0.0315,
+        -0.1822,
+        -0.0367,
+        0.0349,
+        -0.0439
+      ],
+      "states": [
+        0.0601,
+        0.0,
+        -0.0193,
+        -0.0651,
+        -0.0562,
+        0.0446,
+        -0.0151,
+        -0.02,
+        0.0444,
+        0.0104,
+        0.0471,
+        0.0152,
+        -0.0175,
+        -0.003,
+        -0.0315,
+        -0.1822,
+        -0.0367,
+        0.0349,
+        -0.0439
+      ],
+      "output": -0.0439,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [
+        {
+          "src": 15,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": 0.0815
+        }
+      ],
+      "events": []
+    },
+    {
+      "step": 12,
+      "time_ms": 480.0,
+      "inputs": [
+        -0.0056,
+        0.0
+      ],
+      "activations": [
+        -0.0056,
+        0.0,
+        -0.0223,
+        -0.0652,
+        -0.034,
+        -0.0066,
+        -0.0216,
+        -0.0001,
+        0.0141,
+        0.0309,
+        0.0327,
+        0.0224,
+        -0.02,
+        0.0016,
+        -0.0393,
+        -0.156,
+        -0.0044,
+        0.0342,
+        -0.0356
+      ],
+      "states": [
+        -0.0056,
+        0.0,
+        -0.0223,
+        -0.0652,
+        -0.034,
+        -0.0066,
+        -0.0216,
+        -0.0001,
+        0.0141,
+        0.0309,
+        0.0327,
+        0.0224,
+        -0.02,
+        0.0016,
+        -0.0393,
+        -0.156,
+        -0.0044,
+        0.0342,
+        -0.0356
+      ],
+      "output": -0.0356,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [],
+      "events": []
+    },
+    {
+      "step": 13,
+      "time_ms": 520.0,
+      "inputs": [
+        0.0381,
+        0.0
+      ],
+      "activations": [
+        0.0381,
+        0.0,
+        -0.0005,
+        -0.0639,
+        -0.0316,
+        0.0061,
+        -0.0049,
+        -0.0014,
+        0.0316,
+        0.0242,
+        0.0102,
+        0.0032,
+        -0.02,
+        0.0044,
+        -0.0417,
+        -0.146,
+        -0.0175,
+        0.0249,
+        -0.0481
+      ],
+      "states": [
+        0.0381,
+        0.0,
+        -0.0005,
+        -0.0639,
+        -0.0316,
+        0.0061,
+        -0.0049,
+        -0.0014,
+        0.0316,
+        0.0242,
+        0.0102,
+        0.0032,
+        -0.02,
+        0.0044,
+        -0.0417,
+        -0.146,
+        -0.0175,
+        0.0249,
+        -0.0481
+      ],
+      "output": -0.0481,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [],
+      "events": []
+    },
+    {
+      "step": 14,
+      "time_ms": 560.0,
+      "inputs": [
+        -0.0442,
+        0.0
+      ],
+      "activations": [
+        -0.0442,
+        0.0,
+        -0.0086,
+        -0.0676,
+        -0.0157,
+        -0.0453,
+        -0.0089,
+        0.0046,
+        0.0153,
+        0.0452,
+        0.0233,
+        0.0184,
+        -0.0145,
+        0.0155,
+        -0.042,
+        -0.1358,
+        0.006,
+        0.0234,
+        -0.033
+      ],
+      "states": [
+        -0.0442,
+        0.0,
+        -0.0086,
+        -0.0676,
+        -0.0157,
+        -0.0453,
+        -0.0089,
+        0.0046,
+        0.0153,
+        0.0452,
+        0.0233,
+        0.0184,
+        -0.0145,
+        0.0155,
+        -0.042,
+        -0.1358,
+        0.006,
+        0.0234,
+        -0.033
+      ],
+      "output": -0.033,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [],
+      "events": []
+    },
+    {
+      "step": 15,
+      "time_ms": 600.0,
+      "inputs": [
+        0.0531,
+        0.0
+      ],
+      "activations": [
+        0.0531,
+        0.0,
+        0.0124,
+        -0.0623,
+        -0.0266,
+        0.0053,
+        0.0114,
+        -0.008,
+        0.0466,
+        0.0279,
+        0.0043,
+        -0.0126,
+        -0.0168,
+        0.0151,
+        -0.041,
+        -0.1362,
+        -0.0276,
+        0.0128,
+        -0.0512
+      ],
+      "states": [
+        0.0531,
+        0.0,
+        0.0124,
+        -0.0623,
+        -0.0266,
+        0.0053,
+        0.0114,
+        -0.008,
+        0.0466,
+        0.0279,
+        0.0043,
+        -0.0126,
+        -0.0168,
+        0.0151,
+        -0.041,
+        -0.1362,
+        -0.0276,
+        0.0128,
+        -0.0512
+      ],
+      "output": -0.0512,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [],
+      "events": []
+    },
+    {
+      "step": 16,
+      "time_ms": 640.0,
+      "inputs": [
+        0.1021,
+        0.0
+      ],
+      "activations": [
+        0.1021,
+        0.0,
+        0.0033,
+        -0.0496,
+        -0.0333,
+        0.0475,
+        0.0103,
+        -0.019,
+        0.0652,
+        0.0054,
+        0.0081,
+        -0.0184,
+        -0.0214,
+        0.0146,
+        -0.0397,
+        -0.1357,
+        -0.049,
+        0.0186,
+        -0.0603
+      ],
+      "states": [
+        0.1021,
+        0.0,
+        0.0033,
+        -0.0496,
+        -0.0333,
+        0.0475,
+        0.0103,
+        -0.019,
+        0.0652,
+        0.0054,
+        0.0081,
+        -0.0184,
+        -0.0214,
+        0.0146,
+        -0.0397,
+        -0.1357,
+        -0.049,
+        0.0186,
+        -0.0603
+      ],
+      "output": -0.0603,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [
+        {
+          "src": 0,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": 0.0895
+        }
+      ],
+      "events": []
+    },
+    {
+      "step": 17,
+      "time_ms": 680.0,
+      "inputs": [
+        0.0354,
+        0.0
+      ],
+      "activations": [
+        0.0354,
+        0.0,
+        -0.0193,
+        -0.0491,
+        -0.0227,
+        0.0158,
+        -0.0068,
+        -0.0104,
+        0.0416,
+        0.0145,
+        0.0218,
+        0.0051,
+        -0.0223,
+        0.016,
+        -0.0425,
+        -0.1307,
+        -0.0258,
+        0.0287,
+        -0.0473
+      ],
+      "states": [
+        0.0354,
+        0.0,
+        -0.0193,
+        -0.0491,
+        -0.0227,
+        0.0158,
+        -0.0068,
+        -0.0104,
+        0.0416,
+        0.0145,
+        0.0218,
+        0.0051,
+        -0.0223,
+        0.016,
+        -0.0425,
+        -0.1307,
+        -0.0258,
+        0.0287,
+        -0.0473
+      ],
+      "output": -0.0473,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [],
+      "events": []
+    },
+    {
+      "step": 18,
+      "time_ms": 720.0,
+      "inputs": [
+        -0.1372,
+        0.0
+      ],
+      "activations": [
+        -0.1372,
+        0.0,
+        -0.0278,
+        -0.0695,
+        0.0037,
+        -0.1018,
+        -0.0197,
+        0.0152,
+        -0.0124,
+        0.0693,
+        0.0357,
+        0.0389,
+        -0.0135,
+        0.0248,
+        -0.0452,
+        -0.1211,
+        0.0377,
+        0.0258,
+        -0.0142
+      ],
+      "states": [
+        -0.1372,
+        0.0,
+        -0.0278,
+        -0.0695,
+        0.0037,
+        -0.1018,
+        -0.0197,
+        0.0152,
+        -0.0124,
+        0.0693,
+        0.0357,
+        0.0389,
+        -0.0135,
+        0.0248,
+        -0.0452,
+        -0.1211,
+        0.0377,
+        0.0258,
+        -0.0142
+      ],
+      "output": -0.0142,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [
+        {
+          "src": 0,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": -0.1203
+        }
+      ],
+      "events": []
+    },
+    {
+      "step": 19,
+      "time_ms": 760.0,
+      "inputs": [
+        -0.2208,
+        0.0
+      ],
+      "activations": [
+        -0.2208,
+        0.0,
+        0.001,
+        -0.0925,
+        0.0169,
+        -0.1799,
+        -0.0005,
+        0.0254,
+        -0.0331,
+        0.1194,
+        0.032,
+        0.0348,
+        -0.0016,
+        0.0355,
+        -0.0416,
+        -0.1152,
+        0.0671,
+        0.0012,
+        0.0056
+      ],
+      "states": [
+        -0.2208,
+        0.0,
+        0.001,
+        -0.0925,
+        0.0169,
+        -0.1799,
+        -0.0005,
+        0.0254,
+        -0.0331,
+        0.1194,
+        0.032,
+        0.0348,
+        -0.0016,
+        0.0355,
+        -0.0416,
+        -0.1152,
+        0.0671,
+        0.0012,
+        0.0056
+      ],
+      "output": 0.0056,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [
+        {
+          "src": 0,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": -0.1936
+        },
+        {
+          "src": 0,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": -0.0903
+        },
+        {
+          "src": 0,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": 0.0879
+        },
+        {
+          "src": 0,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": 0.1037
+        },
+        {
+          "src": 5,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": 0.1165
+        },
+        {
+          "src": 5,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": 0.0956
+        },
+        {
+          "src": 5,
+          "dst": 17,
+          "progress": 1.0,
+          "mag": -0.1264
+        },
+        {
+          "src": 9,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": -0.0825
+        }
+      ],
+      "events": []
+    },
+    {
+      "step": 20,
+      "time_ms": 800.0,
+      "inputs": [
+        0.0616,
+        0.0
+      ],
+      "activations": [
+        0.0616,
+        0.0,
+        0.0526,
+        -0.0735,
+        -0.0259,
+        -0.0275,
+        0.0498,
+        -0.0153,
+        0.0582,
+        0.0574,
+        -0.0069,
+        -0.0523,
+        -0.0087,
+        0.0317,
+        -0.032,
+        -0.1226,
+        -0.0343,
+        -0.0207,
+        -0.0533
+      ],
+      "states": [
+        0.0616,
+        0.0,
+        0.0526,
+        -0.0735,
+        -0.0259,
+        -0.0275,
+        0.0498,
+        -0.0153,
+        0.0582,
+        0.0574,
+        -0.0069,
+        -0.0523,
+        -0.0087,
+        0.0317,
+        -0.032,
+        -0.1226,
+        -0.0343,
+        -0.0207,
+        -0.0533
+      ],
+      "output": -0.0533,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [],
+      "events": []
+    },
+    {
+      "step": 21,
+      "time_ms": 840.0,
+      "inputs": [
+        -0.0503,
+        0.0
+      ],
+      "activations": [
+        -0.0503,
+        0.0,
+        0.001,
+        -0.0588,
+        -0.0129,
+        -0.058,
+        0.0187,
+        -0.016,
+        0.0339,
+        0.0643,
+        0.0416,
+        -0.014,
+        -0.009,
+        0.0419,
+        -0.0284,
+        -0.1126,
+        -0.0091,
+        -0.0017,
+        -0.0271
+      ],
+      "states": [
+        -0.0503,
+        0.0,
+        0.001,
+        -0.0588,
+        -0.0129,
+        -0.058,
+        0.0187,
+        -0.016,
+        0.0339,
+        0.0643,
+        0.0416,
+        -0.014,
+        -0.009,
+        0.0419,
+        -0.0284,
+        -0.1126,
+        -0.0091,
+        -0.0017,
+        -0.0271
+      ],
+      "output": -0.0271,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [],
+      "events": []
+    },
+    {
+      "step": 22,
+      "time_ms": 880.0,
+      "inputs": [
+        -0.0683,
+        0.0
+      ],
+      "activations": [
+        -0.0683,
+        0.0,
+        -0.0023,
+        -0.0607,
+        -0.0072,
+        -0.0719,
+        0.0138,
+        -0.0081,
+        0.0174,
+        0.0734,
+        0.0376,
+        -0.0099,
+        -0.0117,
+        0.0395,
+        -0.0316,
+        -0.1069,
+        0.0036,
+        0.0,
+        -0.0216
+      ],
+      "states": [
+        -0.0683,
+        0.0,
+        -0.0023,
+        -0.0607,
+        -0.0072,
+        -0.0719,
+        0.0138,
+        -0.0081,
+        0.0174,
+        0.0734,
+        0.0376,
+        -0.0099,
+        -0.0117,
+        0.0395,
+        -0.0316,
+        -0.1069,
+        0.0036,
+        0.0,
+        -0.0216
+      ],
+      "output": -0.0216,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [],
+      "events": []
+    },
+    {
+      "step": 23,
+      "time_ms": 920.0,
+      "inputs": [
+        0.0394,
+        0.0
+      ],
+      "activations": [
+        0.0394,
+        0.0,
+        0.0127,
+        -0.0524,
+        -0.0212,
+        -0.0088,
+        0.0255,
+        -0.0177,
+        0.0476,
+        0.0432,
+        0.0163,
+        -0.0345,
+        -0.0174,
+        0.0322,
+        -0.0322,
+        -0.1096,
+        -0.0309,
+        -0.0011,
+        -0.0453
+      ],
+      "states": [
+        0.0394,
+        0.0,
+        0.0127,
+        -0.0524,
+        -0.0212,
+        -0.0088,
+        0.0255,
+        -0.0177,
+        0.0476,
+        0.0432,
+        0.0163,
+        -0.0345,
+        -0.0174,
+        0.0322,
+        -0.0322,
+        -0.1096,
+        -0.0309,
+        -0.0011,
+        -0.0453
+      ],
+      "output": -0.0453,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [],
+      "events": []
+    },
+    {
+      "step": 24,
+      "time_ms": 960.0,
+      "inputs": [
+        0.0112,
+        0.0
+      ],
+      "activations": [
+        0.0112,
+        0.0,
+        -0.0065,
+        -0.0474,
+        -0.0168,
+        -0.0129,
+        0.011,
+        -0.0153,
+        0.0404,
+        0.0374,
+        0.0271,
+        -0.017,
+        -0.019,
+        0.0318,
+        -0.0342,
+        -0.1088,
+        -0.0231,
+        0.0105,
+        -0.041
+      ],
+      "states": [
+        0.0112,
+        0.0,
+        -0.0065,
+        -0.0474,
+        -0.0168,
+        -0.0129,
+        0.011,
+        -0.0153,
+        0.0404,
+        0.0374,
+        0.0271,
+        -0.017,
+        -0.019,
+        0.0318,
+        -0.0342,
+        -0.1088,
+        -0.0231,
+        0.0105,
+        -0.041
+      ],
+      "output": -0.041,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [],
+      "events": []
+    },
+    {
+      "step": 25,
+      "time_ms": 1000.0,
+      "inputs": [
+        -0.0182,
+        0.0
+      ],
+      "activations": [
+        -0.0182,
+        0.0,
+        -0.0107,
+        -0.0516,
+        -0.0108,
+        -0.0315,
+        0.0044,
+        -0.0074,
+        0.0278,
+        0.0441,
+        0.0257,
+        -0.0053,
+        -0.0186,
+        0.0298,
+        -0.0379,
+        -0.1093,
+        -0.0094,
+        0.0139,
+        -0.0356
+      ],
+      "states": [
+        -0.0182,
+        0.0,
+        -0.0107,
+        -0.0516,
+        -0.0108,
+        -0.0315,
+        0.0044,
+        -0.0074,
+        0.0278,
+        0.0441,
+        0.0257,
+        -0.0053,
+        -0.0186,
+        0.0298,
+        -0.0379,
+        -0.1093,
+        -0.0094,
+        0.0139,
+        -0.0356
+      ],
+      "output": -0.0356,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [],
+      "events": []
+    },
+    {
+      "step": 26,
+      "time_ms": 1040.0,
+      "inputs": [
+        0.0092,
+        0.0
+      ],
+      "activations": [
+        0.0092,
+        0.0,
+        -0.0014,
+        -0.0536,
+        -0.0141,
+        -0.019,
+        0.0095,
+        -0.0079,
+        0.0357,
+        0.0387,
+        0.0156,
+        -0.011,
+        -0.0187,
+        0.0269,
+        -0.0392,
+        -0.1132,
+        -0.0169,
+        0.0117,
+        -0.0418
+      ],
+      "states": [
+        0.0092,
+        0.0,
+        -0.0014,
+        -0.0536,
+        -0.0141,
+        -0.019,
+        0.0095,
+        -0.0079,
+        0.0357,
+        0.0387,
+        0.0156,
+        -0.011,
+        -0.0187,
+        0.0269,
+        -0.0392,
+        -0.1132,
+        -0.0169,
+        0.0117,
+        -0.0418
+      ],
+      "output": -0.0418,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [],
+      "events": []
+    },
+    {
+      "step": 27,
+      "time_ms": 1080.0,
+      "inputs": [
+        -0.1558,
+        0.0
+      ],
+      "activations": [
+        -0.1558,
+        0.0,
+        -0.0177,
+        -0.0692,
+        0.0089,
+        -0.1225,
+        -0.0062,
+        0.011,
+        -0.0103,
+        0.0849,
+        0.0398,
+        0.0249,
+        -0.0097,
+        0.0367,
+        -0.0396,
+        -0.1071,
+        0.0387,
+        0.0126,
+        -0.0097
+      ],
+      "states": [
+        -0.1558,
+        0.0,
+        -0.0177,
+        -0.0692,
+        0.0089,
+        -0.1225,
+        -0.0062,
+        0.011,
+        -0.0103,
+        0.0849,
+        0.0398,
+        0.0249,
+        -0.0097,
+        0.0367,
+        -0.0396,
+        -0.1071,
+        0.0387,
+        0.0126,
+        -0.0097
+      ],
+      "output": -0.0097,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [
+        {
+          "src": 0,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": -0.1366
+        },
+        {
+          "src": 5,
+          "dst": 17,
+          "progress": 1.0,
+          "mag": -0.086
+        }
+      ],
+      "events": []
+    },
+    {
+      "step": 28,
+      "time_ms": 1120.0,
+      "inputs": [
+        0.1544,
+        0.0
+      ],
+      "activations": [
+        0.1544,
+        0.0,
+        0.0382,
+        -0.053,
+        -0.0351,
+        0.0467,
+        0.0417,
+        -0.0239,
+        0.0813,
+        0.0157,
+        -0.0156,
+        -0.0585,
+        -0.0205,
+        0.0217,
+        -0.0366,
+        -0.1223,
+        -0.0631,
+        -0.0052,
+        -0.0721
+      ],
+      "states": [
+        0.1544,
+        0.0,
+        0.0382,
+        -0.053,
+        -0.0351,
+        0.0467,
+        0.0417,
+        -0.0239,
+        0.0813,
+        0.0157,
+        -0.0156,
+        -0.0585,
+        -0.0205,
+        0.0217,
+        -0.0366,
+        -0.1223,
+        -0.0631,
+        -0.0052,
+        -0.0721
+      ],
+      "output": -0.0721,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [
+        {
+          "src": 0,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": 0.1353
+        }
+      ],
+      "events": []
+    },
+    {
+      "step": 29,
+      "time_ms": 1160.0,
+      "inputs": [
+        0.1752,
+        0.0
+      ],
+      "activations": [
+        0.1752,
+        0.0,
+        -0.0038,
+        -0.0295,
+        -0.0411,
+        0.1022,
+        0.0175,
+        -0.0376,
+        0.0942,
+        -0.0214,
+        0.0118,
+        -0.0378,
+        -0.0285,
+        0.0185,
+        -0.0356,
+        -0.1259,
+        -0.0809,
+        0.0199,
+        -0.0734
+      ],
+      "states": [
+        0.1752,
+        0.0,
+        -0.0038,
+        -0.0295,
+        -0.0411,
+        0.1022,
+        0.0175,
+        -0.0376,
+        0.0942,
+        -0.0214,
+        0.0118,
+        -0.0378,
+        -0.0285,
+        0.0185,
+        -0.0356,
+        -0.1259,
+        -0.0809,
+        0.0199,
+        -0.0734
+      ],
+      "output": -0.0734,
+      "target": 0.0,
+      "mask": 0.0,
+      "error": 0.0,
+      "signals": [
+        {
+          "src": 0,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": 0.1536
+        },
+        {
+          "src": 0,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": -0.0823
+        }
+      ],
+      "events": []
+    },
+    {
+      "step": 30,
+      "time_ms": 1200.0,
+      "inputs": [
+        1.0,
+        2.0
+      ],
+      "activations": [
+        1.0,
+        2.0,
+        -0.0255,
+        0.3269,
+        -0.0283,
+        0.5932,
+        -0.6579,
+        -0.108,
+        0.0797,
+        -0.1965,
+        -0.393,
+        0.2129,
+        -0.0171,
+        -0.0706,
+        0.1025,
+        0.0049,
+        0.0169,
+        -0.71,
+        0.0115
+      ],
+      "states": [
+        1.0,
+        2.0,
+        -0.0255,
+        0.3269,
+        -0.0283,
+        0.5932,
+        -0.6579,
+        -0.108,
+        0.0797,
+        -0.1965,
+        -0.393,
+        0.2129,
+        -0.0171,
+        -0.0706,
+        0.1025,
+        0.0049,
+        0.0169,
+        -0.71,
+        0.0115
+      ],
+      "output": 0.0115,
+      "target": 1.0,
+      "mask": 1.0,
+      "error": 0.9885,
+      "signals": [
+        {
+          "src": 0,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": 0.142
+        },
+        {
+          "src": 0,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.1345
+        },
+        {
+          "src": 0,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": -0.2012
+        },
+        {
+          "src": 0,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": 0.8766
+        },
+        {
+          "src": 0,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": 0.1154
+        },
+        {
+          "src": 0,
+          "dst": 7,
+          "progress": 1.0,
+          "mag": -0.1602
+        },
+        {
+          "src": 0,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": 0.4088
+        },
+        {
+          "src": 0,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.3982
+        },
+        {
+          "src": 0,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": -0.2006
+        },
+        {
+          "src": 0,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": -0.2721
+        },
+        {
+          "src": 0,
+          "dst": 13,
+          "progress": 1.0,
+          "mag": -0.0872
+        },
+        {
+          "src": 0,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": -0.0903
+        },
+        {
+          "src": 0,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": -0.4695
+        },
+        {
+          "src": 1,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": -0.1516
+        },
+        {
+          "src": 1,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.4172
+        },
+        {
+          "src": 1,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": 0.1812
+        },
+        {
+          "src": 1,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": 0.4152
+        },
+        {
+          "src": 1,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": -1.3186
+        },
+        {
+          "src": 1,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": -0.3608
+        },
+        {
+          "src": 1,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.617
+        },
+        {
+          "src": 1,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": -0.5412
+        },
+        {
+          "src": 1,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": 0.5326
+        },
+        {
+          "src": 1,
+          "dst": 14,
+          "progress": 1.0,
+          "mag": 0.1924
+        },
+        {
+          "src": 1,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": 0.2762
+        },
+        {
+          "src": 1,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": 0.5862
+        },
+        {
+          "src": 1,
+          "dst": 17,
+          "progress": 1.0,
+          "mag": -1.1948
+        },
+        {
+          "src": 3,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": 0.0961
+        },
+        {
+          "src": 3,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": -0.0974
+        },
+        {
+          "src": 3,
+          "dst": 12,
+          "progress": 1.0,
+          "mag": -0.0903
+        },
+        {
+          "src": 3,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": 0.1291
+        },
+        {
+          "src": 3,
+          "dst": 17,
+          "progress": 1.0,
+          "mag": 0.0979
+        },
+        {
+          "src": 5,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": -0.3843
+        },
+        {
+          "src": 5,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": 0.0802
+        },
+        {
+          "src": 5,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": -0.1552
+        },
+        {
+          "src": 5,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": -0.3152
+        },
+        {
+          "src": 5,
+          "dst": 7,
+          "progress": 1.0,
+          "mag": 0.1766
+        },
+        {
+          "src": 5,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": -0.2085
+        },
+        {
+          "src": 5,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.1296
+        },
+        {
+          "src": 5,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": 0.245
+        },
+        {
+          "src": 5,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": 0.0826
+        }
+      ],
+      "events": [
+        {
+          "type": "PROBE_START",
+          "node_id": 0,
+          "val": 1.0
+        }
+      ]
+    },
+    {
+      "step": 31,
+      "time_ms": 1240.0,
+      "inputs": [
+        1.0,
+        2.0
+      ],
+      "activations": [
+        1.0,
+        2.0,
+        -0.0312,
+        0.3528,
+        -0.0466,
+        0.7153,
+        -0.8355,
+        -0.0972,
+        0.0781,
+        -0.275,
+        -0.5303,
+        0.3909,
+        -0.0315,
+        -0.1197,
+        0.0129,
+        0.0334,
+        0.0393,
+        -0.7244,
+        -0.0039
+      ],
+      "states": [
+        1.0,
+        2.0,
+        -0.0312,
+        0.3528,
+        -0.0466,
+        0.7153,
+        -0.8355,
+        -0.0972,
+        0.0781,
+        -0.275,
+        -0.5303,
+        0.3909,
+        -0.0315,
+        -0.1197,
+        0.0129,
+        0.0334,
+        0.0393,
+        -0.7244,
+        -0.0039
+      ],
+      "output": -0.0039,
+      "target": 1.0,
+      "mask": 1.0,
+      "error": 1.0039,
+      "signals": [
+        {
+          "src": 0,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": 0.142
+        },
+        {
+          "src": 0,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.1345
+        },
+        {
+          "src": 0,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": -0.2012
+        },
+        {
+          "src": 0,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": 0.8766
+        },
+        {
+          "src": 0,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": 0.1154
+        },
+        {
+          "src": 0,
+          "dst": 7,
+          "progress": 1.0,
+          "mag": -0.1602
+        },
+        {
+          "src": 0,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": 0.4088
+        },
+        {
+          "src": 0,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.3982
+        },
+        {
+          "src": 0,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": -0.2006
+        },
+        {
+          "src": 0,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": -0.2721
+        },
+        {
+          "src": 0,
+          "dst": 13,
+          "progress": 1.0,
+          "mag": -0.0872
+        },
+        {
+          "src": 0,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": -0.0903
+        },
+        {
+          "src": 0,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": -0.4695
+        },
+        {
+          "src": 1,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": -0.1516
+        },
+        {
+          "src": 1,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.4172
+        },
+        {
+          "src": 1,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": 0.1812
+        },
+        {
+          "src": 1,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": 0.4152
+        },
+        {
+          "src": 1,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": -1.3186
+        },
+        {
+          "src": 1,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": -0.3608
+        },
+        {
+          "src": 1,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.617
+        },
+        {
+          "src": 1,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": -0.5412
+        },
+        {
+          "src": 1,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": 0.5326
+        },
+        {
+          "src": 1,
+          "dst": 14,
+          "progress": 1.0,
+          "mag": 0.1924
+        },
+        {
+          "src": 1,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": 0.2762
+        },
+        {
+          "src": 1,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": 0.5862
+        },
+        {
+          "src": 1,
+          "dst": 17,
+          "progress": 1.0,
+          "mag": -1.1948
+        },
+        {
+          "src": 3,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": 0.1037
+        },
+        {
+          "src": 3,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": -0.1051
+        },
+        {
+          "src": 3,
+          "dst": 12,
+          "progress": 1.0,
+          "mag": -0.0975
+        },
+        {
+          "src": 3,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": 0.1393
+        },
+        {
+          "src": 3,
+          "dst": 17,
+          "progress": 1.0,
+          "mag": 0.1057
+        },
+        {
+          "src": 5,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": -0.4634
+        },
+        {
+          "src": 5,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.0902
+        },
+        {
+          "src": 5,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": 0.0967
+        },
+        {
+          "src": 5,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": -0.1872
+        },
+        {
+          "src": 5,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": -0.3801
+        },
+        {
+          "src": 5,
+          "dst": 7,
+          "progress": 1.0,
+          "mag": 0.2129
+        },
+        {
+          "src": 5,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": -0.2514
+        },
+        {
+          "src": 5,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.1563
+        },
+        {
+          "src": 5,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": 0.2954
+        }
+      ],
+      "events": []
+    },
+    {
+      "step": 32,
+      "time_ms": 1280.0,
+      "inputs": [
+        1.0,
+        2.0
+      ],
+      "activations": [
+        1.0,
+        2.0,
+        -0.0322,
+        0.3394,
+        -0.0601,
+        0.7664,
+        -0.8751,
+        -0.0705,
+        0.0865,
+        -0.3318,
+        -0.5814,
+        0.497,
+        -0.0308,
+        -0.1506,
+        -0.0288,
+        0.0126,
+        0.0513,
+        -0.718,
+        0.0011
+      ],
+      "states": [
+        1.0,
+        2.0,
+        -0.0322,
+        0.3394,
+        -0.0601,
+        0.7664,
+        -0.8751,
+        -0.0705,
+        0.0865,
+        -0.3318,
+        -0.5814,
+        0.497,
+        -0.0308,
+        -0.1506,
+        -0.0288,
+        0.0126,
+        0.0513,
+        -0.718,
+        0.0011
+      ],
+      "output": 0.0011,
+      "target": 1.0,
+      "mask": 1.0,
+      "error": 0.9989,
+      "signals": [
+        {
+          "src": 0,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": 0.142
+        },
+        {
+          "src": 0,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.1345
+        },
+        {
+          "src": 0,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": -0.2012
+        },
+        {
+          "src": 0,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": 0.8766
+        },
+        {
+          "src": 0,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": 0.1154
+        },
+        {
+          "src": 0,
+          "dst": 7,
+          "progress": 1.0,
+          "mag": -0.1602
+        },
+        {
+          "src": 0,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": 0.4088
+        },
+        {
+          "src": 0,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.3982
+        },
+        {
+          "src": 0,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": -0.2006
+        },
+        {
+          "src": 0,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": -0.2721
+        },
+        {
+          "src": 0,
+          "dst": 13,
+          "progress": 1.0,
+          "mag": -0.0872
+        },
+        {
+          "src": 0,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": -0.0903
+        },
+        {
+          "src": 0,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": -0.4695
+        },
+        {
+          "src": 1,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": -0.1516
+        },
+        {
+          "src": 1,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.4172
+        },
+        {
+          "src": 1,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": 0.1812
+        },
+        {
+          "src": 1,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": 0.4152
+        },
+        {
+          "src": 1,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": -1.3186
+        },
+        {
+          "src": 1,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": -0.3608
+        },
+        {
+          "src": 1,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.617
+        },
+        {
+          "src": 1,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": -0.5412
+        },
+        {
+          "src": 1,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": 0.5326
+        },
+        {
+          "src": 1,
+          "dst": 14,
+          "progress": 1.0,
+          "mag": 0.1924
+        },
+        {
+          "src": 1,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": 0.2762
+        },
+        {
+          "src": 1,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": 0.5862
+        },
+        {
+          "src": 1,
+          "dst": 17,
+          "progress": 1.0,
+          "mag": -1.1948
+        },
+        {
+          "src": 3,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": 0.0998
+        },
+        {
+          "src": 3,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": -0.1011
+        },
+        {
+          "src": 3,
+          "dst": 12,
+          "progress": 1.0,
+          "mag": -0.0938
+        },
+        {
+          "src": 3,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": 0.134
+        },
+        {
+          "src": 3,
+          "dst": 17,
+          "progress": 1.0,
+          "mag": 0.1017
+        },
+        {
+          "src": 5,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": -0.4965
+        },
+        {
+          "src": 5,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.0966
+        },
+        {
+          "src": 5,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": 0.1036
+        },
+        {
+          "src": 5,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": -0.2006
+        },
+        {
+          "src": 5,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": -0.4073
+        },
+        {
+          "src": 5,
+          "dst": 7,
+          "progress": 1.0,
+          "mag": 0.2282
+        },
+        {
+          "src": 5,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": -0.2693
+        },
+        {
+          "src": 5,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.1675
+        },
+        {
+          "src": 5,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": 0.3165
+        }
+      ],
+      "events": []
+    },
+    {
+      "step": 33,
+      "time_ms": 1320.0,
+      "inputs": [
+        1.0,
+        2.0
+      ],
+      "activations": [
+        1.0,
+        2.0,
+        -0.0318,
+        0.3208,
+        -0.0706,
+        0.7916,
+        -0.887,
+        -0.0457,
+        0.0952,
+        -0.3782,
+        -0.6024,
+        0.556,
+        -0.0246,
+        -0.1732,
+        -0.0518,
+        -0.0222,
+        0.0597,
+        -0.7124,
+        -0.0008
+      ],
+      "states": [
+        1.0,
+        2.0,
+        -0.0318,
+        0.3208,
+        -0.0706,
+        0.7916,
+        -0.887,
+        -0.0457,
+        0.0952,
+        -0.3782,
+        -0.6024,
+        0.556,
+        -0.0246,
+        -0.1732,
+        -0.0518,
+        -0.0222,
+        0.0597,
+        -0.7124,
+        -0.0008
+      ],
+      "output": -0.0008,
+      "target": 1.0,
+      "mask": 1.0,
+      "error": 1.0008,
+      "signals": [
+        {
+          "src": 0,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": 0.142
+        },
+        {
+          "src": 0,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.1345
+        },
+        {
+          "src": 0,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": -0.2012
+        },
+        {
+          "src": 0,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": 0.8766
+        },
+        {
+          "src": 0,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": 0.1154
+        },
+        {
+          "src": 0,
+          "dst": 7,
+          "progress": 1.0,
+          "mag": -0.1602
+        },
+        {
+          "src": 0,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": 0.4088
+        },
+        {
+          "src": 0,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.3982
+        },
+        {
+          "src": 0,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": -0.2006
+        },
+        {
+          "src": 0,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": -0.2721
+        },
+        {
+          "src": 0,
+          "dst": 13,
+          "progress": 1.0,
+          "mag": -0.0872
+        },
+        {
+          "src": 0,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": -0.0903
+        },
+        {
+          "src": 0,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": -0.4695
+        },
+        {
+          "src": 1,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": -0.1516
+        },
+        {
+          "src": 1,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.4172
+        },
+        {
+          "src": 1,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": 0.1812
+        },
+        {
+          "src": 1,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": 0.4152
+        },
+        {
+          "src": 1,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": -1.3186
+        },
+        {
+          "src": 1,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": -0.3608
+        },
+        {
+          "src": 1,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.617
+        },
+        {
+          "src": 1,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": -0.5412
+        },
+        {
+          "src": 1,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": 0.5326
+        },
+        {
+          "src": 1,
+          "dst": 14,
+          "progress": 1.0,
+          "mag": 0.1924
+        },
+        {
+          "src": 1,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": 0.2762
+        },
+        {
+          "src": 1,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": 0.5862
+        },
+        {
+          "src": 1,
+          "dst": 17,
+          "progress": 1.0,
+          "mag": -1.1948
+        },
+        {
+          "src": 3,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": 0.0943
+        },
+        {
+          "src": 3,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": -0.0955
+        },
+        {
+          "src": 3,
+          "dst": 12,
+          "progress": 1.0,
+          "mag": -0.0886
+        },
+        {
+          "src": 3,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": 0.1267
+        },
+        {
+          "src": 3,
+          "dst": 17,
+          "progress": 1.0,
+          "mag": 0.0961
+        },
+        {
+          "src": 5,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": -0.5128
+        },
+        {
+          "src": 5,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.0998
+        },
+        {
+          "src": 5,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": 0.107
+        },
+        {
+          "src": 5,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": -0.2072
+        },
+        {
+          "src": 5,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": -0.4207
+        },
+        {
+          "src": 5,
+          "dst": 7,
+          "progress": 1.0,
+          "mag": 0.2357
+        },
+        {
+          "src": 5,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": -0.2782
+        },
+        {
+          "src": 5,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.173
+        },
+        {
+          "src": 5,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": 0.3269
+        }
+      ],
+      "events": []
+    },
+    {
+      "step": 34,
+      "time_ms": 1360.0,
+      "inputs": [
+        1.0,
+        2.0
+      ],
+      "activations": [
+        1.0,
+        2.0,
+        -0.03,
+        0.3046,
+        -0.0777,
+        0.8056,
+        -0.8925,
+        -0.0244,
+        0.1023,
+        -0.418,
+        -0.6115,
+        0.5912,
+        -0.0164,
+        -0.1908,
+        -0.0663,
+        -0.0592,
+        0.0668,
+        -0.7079,
+        -0.0071
+      ],
+      "states": [
+        1.0,
+        2.0,
+        -0.03,
+        0.3046,
+        -0.0777,
+        0.8056,
+        -0.8925,
+        -0.0244,
+        0.1023,
+        -0.418,
+        -0.6115,
+        0.5912,
+        -0.0164,
+        -0.1908,
+        -0.0663,
+        -0.0592,
+        0.0668,
+        -0.7079,
+        -0.0071
+      ],
+      "output": -0.0071,
+      "target": 1.0,
+      "mask": 1.0,
+      "error": 1.0071,
+      "signals": [
+        {
+          "src": 0,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": 0.142
+        },
+        {
+          "src": 0,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.1345
+        },
+        {
+          "src": 0,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": -0.2012
+        },
+        {
+          "src": 0,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": 0.8766
+        },
+        {
+          "src": 0,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": 0.1154
+        },
+        {
+          "src": 0,
+          "dst": 7,
+          "progress": 1.0,
+          "mag": -0.1602
+        },
+        {
+          "src": 0,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": 0.4088
+        },
+        {
+          "src": 0,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.3982
+        },
+        {
+          "src": 0,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": -0.2006
+        },
+        {
+          "src": 0,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": -0.2721
+        },
+        {
+          "src": 0,
+          "dst": 13,
+          "progress": 1.0,
+          "mag": -0.0872
+        },
+        {
+          "src": 0,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": -0.0903
+        },
+        {
+          "src": 0,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": -0.4695
+        },
+        {
+          "src": 1,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": -0.1516
+        },
+        {
+          "src": 1,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.4172
+        },
+        {
+          "src": 1,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": 0.1812
+        },
+        {
+          "src": 1,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": 0.4152
+        },
+        {
+          "src": 1,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": -1.3186
+        },
+        {
+          "src": 1,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": -0.3608
+        },
+        {
+          "src": 1,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.617
+        },
+        {
+          "src": 1,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": -0.5412
+        },
+        {
+          "src": 1,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": 0.5326
+        },
+        {
+          "src": 1,
+          "dst": 14,
+          "progress": 1.0,
+          "mag": 0.1924
+        },
+        {
+          "src": 1,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": 0.2762
+        },
+        {
+          "src": 1,
+          "dst": 16,
+          "progress": 1.0,
+          "mag": 0.5862
+        },
+        {
+          "src": 1,
+          "dst": 17,
+          "progress": 1.0,
+          "mag": -1.1948
+        },
+        {
+          "src": 3,
+          "dst": 10,
+          "progress": 1.0,
+          "mag": 0.0896
+        },
+        {
+          "src": 3,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": -0.0907
+        },
+        {
+          "src": 3,
+          "dst": 12,
+          "progress": 1.0,
+          "mag": -0.0842
+        },
+        {
+          "src": 3,
+          "dst": 15,
+          "progress": 1.0,
+          "mag": 0.1203
+        },
+        {
+          "src": 3,
+          "dst": 17,
+          "progress": 1.0,
+          "mag": 0.0913
+        },
+        {
+          "src": 5,
+          "dst": 2,
+          "progress": 1.0,
+          "mag": -0.5219
+        },
+        {
+          "src": 5,
+          "dst": 3,
+          "progress": 1.0,
+          "mag": 0.1016
+        },
+        {
+          "src": 5,
+          "dst": 4,
+          "progress": 1.0,
+          "mag": 0.1089
+        },
+        {
+          "src": 5,
+          "dst": 5,
+          "progress": 1.0,
+          "mag": -0.2108
+        },
+        {
+          "src": 5,
+          "dst": 6,
+          "progress": 1.0,
+          "mag": -0.4281
+        },
+        {
+          "src": 5,
+          "dst": 7,
+          "progress": 1.0,
+          "mag": 0.2398
+        },
+        {
+          "src": 5,
+          "dst": 8,
+          "progress": 1.0,
+          "mag": -0.2831
+        },
+        {
+          "src": 5,
+          "dst": 9,
+          "progress": 1.0,
+          "mag": -0.176
+        },
+        {
+          "src": 5,
+          "dst": 11,
+          "progress": 1.0,
+          "mag": 0.3327
+        }
+      ],
+      "events": [
+        {
+          "type": "DECISION_COMMITTED",
+          "node_id": 18,
+          "prediction": -0.007,
+          "target": 1.0
+        }
+      ]
+    }
+  ]
+}

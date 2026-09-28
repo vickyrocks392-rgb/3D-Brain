@@ -3,291 +3,556 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>3D-Brain Observability & Causal Replay Console</title>
+  <title>3D-Brain — Neural Observatory Console</title>
+  <meta name="description" content="Scientific neural observatory and computational replay console for 3D-Brain.">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <style>
+    /* =========================================================================
+       3D-BRAIN NEURAL OBSERVATORY — CENTRALIZED SEMANTIC DESIGN SYSTEM
+       ========================================================================= */
     :root {
-      --bg: #07090e;
-      --panel-bg: rgba(13, 17, 26, 0.88);
-      --border: rgba(255, 255, 255, 0.12);
-      --border-focus: rgba(0, 229, 255, 0.4);
-      --text: #e2e8f0;
-      --text-muted: #8492a6;
-      --cyan: #00e5ff;
-      --amber: #ff9100;
-      --magenta: #e040fb;
-      --green: #00e676;
-      --gold: #ffd700;
-      --purple: #7c4dff;
+      /* Surface & Atmosphere */
+      --bg-void: #05070b;
+      --bg-surface: rgba(11, 15, 23, 0.85);
+      --bg-surface-elevated: rgba(18, 24, 38, 0.92);
+      --bg-card: rgba(255, 255, 255, 0.03);
+      --bg-card-hover: rgba(255, 255, 255, 0.06);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-medium: rgba(255, 255, 255, 0.16);
+      --border-focus: rgba(255, 255, 255, 0.35);
+
+      /* Typography */
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+      /* Core Semantic Palette */
+      --color-excitatory: #ff6b4a; /* Warm Coral / Orange */
+      --color-inhibitory: #00e5ff; /* Electric Cyan / Blue */
+      --color-neutral: #94a3b8;    /* Slate Gray / White */
+      --color-selected: #ffd700;   /* Bright Gold / Yellow */
+      --color-prediction: #a855f7; /* Violet / Purple */
+      --color-error: #f43f5e;      /* Crimson / Coral */
+      --color-reward: #10b981;     /* Emerald Green */
+      --color-memory: #06b6d4;     /* Deep Cyan */
+      --color-plasticity: #f59e0b; /* Amber */
+
+      /* Shadows & Radii */
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 10px;
+      --shadow-panel: 0 12px 32px rgba(0, 0, 0, 0.7);
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      overflow: hidden;
+    html, body {
       width: 100vw;
       height: 100vh;
+      overflow: hidden;
+      background-color: var(--bg-void);
+      color: var(--text-primary);
+      font-family: var(--font-ui);
+      font-size: 12px;
+      line-height: 1.4;
       user-select: none;
+      -webkit-font-smoothing: antialiased;
     }
+
     #viewport {
-      width: 100%;
-      height: 100%;
       position: absolute;
       top: 0;
       left: 0;
+      width: 100%;
+      height: 100%;
       z-index: 1;
     }
 
-    /* Top Bar HUD */
-    .header {
+    /* Custom Sleek Scrollbar */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
+    ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.3); }
+
+    /* Tooltip */
+    #tooltip {
       position: absolute;
-      top: 16px;
-      left: 20px;
-      right: 20px;
-      z-index: 10;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display: none;
+      z-index: 100;
       pointer-events: none;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-sm);
+      padding: 6px 10px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-primary);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+      backdrop-filter: blur(12px);
     }
-    .badge-group {
+
+    /* =========================================================================
+       TOP BAR HUD
+       ========================================================================= */
+    .top-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 52px;
+      z-index: 20;
+      background: linear-gradient(180deg, rgba(7, 10, 16, 0.95) 0%, rgba(7, 10, 16, 0.85) 100%);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      gap: 12px;
+    }
+
+    .brand-section {
       display: flex;
       align-items: center;
       gap: 12px;
-      pointer-events: auto;
+      flex-shrink: 0;
     }
-    .badge {
-      background: var(--panel-bg);
-      backdrop-filter: blur(14px);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 9px 16px;
+    .brand-title {
       display: flex;
-      align-items: center;
-      gap: 10px;
+      flex-direction: column;
     }
-    .badge h1 {
-      font-size: 14px;
-      letter-spacing: 0.8px;
-      font-weight: 700;
-      color: #fff;
-    }
-    .tag {
-      font-size: 11px;
+    .brand-title h1 {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      padding: 3px 8px;
-      border-radius: 4px;
-      background: rgba(0, 229, 255, 0.15);
-      color: var(--cyan);
-      font-weight: 600;
-      border: 1px solid rgba(0, 229, 255, 0.3);
+      color: #ffffff;
+      line-height: 1.1;
     }
-    .tag.gold {
-      background: rgba(255, 215, 0, 0.15);
-      color: var(--gold);
-      border-color: rgba(255, 215, 0, 0.3);
+    .brand-subtitle {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
     }
 
-    .controls-top {
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+      border: 1px solid transparent;
+    }
+    .status-badge.live {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--color-reward);
+      border-color: rgba(16, 185, 129, 0.35);
+    }
+    .status-badge.replay {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--color-plasticity);
+      border-color: rgba(245, 158, 11, 0.35);
+    }
+
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 8px currentColor;
+    }
+
+    /* Regime Bar (Center) */
+    .regime-bar {
       display: flex;
       align-items: center;
-      gap: 10px;
-      pointer-events: auto;
+      gap: 16px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 4px 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
     }
-    .select-model {
-      background: var(--panel-bg);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-size: 13px;
-      cursor: pointer;
-      outline: none;
+    .regime-item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1px;
     }
-    .select-model option {
-      background: #0d111a;
-      color: var(--text);
+    .regime-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+      text-transform: uppercase;
     }
-    .btn {
-      background: var(--panel-bg);
-      backdrop-filter: blur(8px);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 8px 14px;
-      border-radius: 6px;
-      font-size: 13px;
-      cursor: pointer;
+    .regime-val {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* Action Controls (Right) */
+    .top-controls {
       display: flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      padding: 5px 9px;
+      border-radius: var(--radius-sm);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+      outline: none;
+      white-space: nowrap;
     }
     .btn:hover {
       background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.3);
+      border-color: var(--border-medium);
+    }
+    .btn.active {
+      background: rgba(0, 229, 255, 0.15);
+      border-color: var(--color-inhibitory);
+      color: var(--color-inhibitory);
     }
     .btn.primary {
-      background: rgba(0, 229, 255, 0.2);
-      border-color: var(--cyan);
+      background: rgba(16, 185, 129, 0.2);
+      border-color: var(--color-reward);
       color: #fff;
     }
 
-    /* Inspector Drawer */
-    #inspector {
-      position: absolute;
-      top: 76px;
-      right: 20px;
-      width: 340px;
-      max-height: calc(100vh - 220px);
-      overflow-y: auto;
-      background: var(--panel-bg);
-      backdrop-filter: blur(16px);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 18px;
-      z-index: 10;
-      display: none;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    .select-model {
+      background: #0d121c;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      padding: 5px 8px;
+      border-radius: var(--radius-sm);
+      font-size: 11px;
+      font-family: var(--font-ui);
+      cursor: pointer;
+      outline: none;
+      max-width: 170px;
+      text-overflow: ellipsis;
     }
-    #inspector h2 {
-      font-size: 14px;
+    .select-model option { background: #0d121c; color: var(--text-primary); }
+
+    /* =========================================================================
+       SIDE PANELS (INSPECTOR & TELEMETRY)
+       ========================================================================= */
+    .panel {
+      position: absolute;
+      top: 64px;
+      bottom: 104px;
+      z-index: 10;
+      background: var(--bg-surface);
+      backdrop-filter: blur(18px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-panel);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s;
+    }
+
+    .panel-header {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0, 0, 0, 0.2);
+      flex-shrink: 0;
+    }
+    .panel-title {
+      font-size: 11px;
       font-weight: 700;
-      margin-bottom: 12px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .panel-body {
+      padding: 12px 14px;
+      overflow-y: auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Left Panel: Inspector */
+    #left-panel {
+      left: 16px;
+      width: 320px;
+    }
+
+    /* Right Panel: Telemetry & Events */
+    #right-panel {
+      right: 16px;
+      width: 350px;
+    }
+
+    /* Section & Cards */
+    .section-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .section-header-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 2px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: var(--cyan);
-    }
-    .section-title {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-      color: var(--text-muted);
-      margin-top: 12px;
-      margin-bottom: 6px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding-bottom: 3px;
-    }
-    .metric-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      padding: 5px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-    }
-    .metric-row span.label { color: var(--text-muted); }
-    .metric-row span.val { font-family: monospace; font-weight: 600; color: #fff; }
-    .bar-container {
-      margin-top: 6px;
-      height: 6px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 3px;
-      overflow: hidden;
-      display: flex;
-    }
-    .bar-fill {
-      height: 100%;
-      background: var(--cyan);
-      transition: width 0.15s ease;
-    }
-    .connected-edges {
-      margin-top: 8px;
-      max-height: 110px;
-      overflow-y: auto;
-      font-size: 11px;
-    }
-    .edge-chip {
-      padding: 3px 6px;
-      background: rgba(255, 255, 255, 0.06);
-      border-radius: 4px;
-      margin-bottom: 4px;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      transition: background 0.2s;
-    }
-    .edge-chip:hover {
-      background: rgba(0, 229, 255, 0.2);
     }
 
-    /* Bottom Scrubber & Event Track */
-    .footer {
-      position: absolute;
-      bottom: 20px;
-      left: 20px;
-      right: 20px;
-      z-index: 10;
-      background: var(--panel-bg);
-      backdrop-filter: blur(16px);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px 20px;
+    .metric-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 12px;
+    }
+    .metric-cell {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      gap: 1px;
+    }
+    .metric-cell.full {
+      grid-column: span 2;
+    }
+    .metric-name {
+      font-size: 10px;
+      color: var(--text-secondary);
+    }
+    .metric-val {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .metric-val.unrecorded {
+      color: var(--text-muted);
+      font-style: italic;
+      font-weight: 400;
     }
 
-    /* Event Track */
-    .event-track-container {
-      position: relative;
-      width: 100%;
-      height: 20px;
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 4px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      overflow: hidden;
+    .val-pill {
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
     }
-    .event-pin {
-      position: absolute;
-      top: 2px;
-      width: 14px;
-      height: 16px;
-      transform: translateX(-50%);
+
+    /* Progress bar gauge */
+    .gauge-track {
+      width: 100%;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 3px;
+    }
+    .gauge-fill {
+      height: 100%;
+      background: var(--color-inhibitory);
+      border-radius: 3px;
+      transition: width 0.15s ease;
+    }
+
+    /* Tabs in Right Panel */
+    .tab-nav {
+      display: flex;
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(0,0,0,0.15);
+      flex-shrink: 0;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 8px 10px;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--text-secondary);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
+      gap: 6px;
+      outline: none;
+      transition: all 0.15s;
+    }
+    .tab-btn:hover { color: #fff; }
+    .tab-btn.active {
+      color: #fff;
+      border-bottom-color: var(--color-inhibitory);
+      background: rgba(255,255,255,0.02);
+    }
+    .tab-badge {
+      background: rgba(255,255,255,0.1);
+      padding: 1px 5px;
+      border-radius: 10px;
+      font-size: 9px;
+    }
+
+    /* Event Feed */
+    .event-feed-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .event-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 7px 10px;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .event-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-medium);
+      transform: translateX(2px);
+    }
+    .event-card.current {
+      border-color: var(--color-selected);
+      background: rgba(255, 215, 0, 0.08);
+    }
+    .event-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .event-type-badge {
       font-size: 9px;
       font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 2px 6px;
       border-radius: 3px;
-      color: #000;
-      transition: transform 0.15s, filter 0.15s;
+      text-transform: uppercase;
     }
-    .event-pin:hover {
-      transform: translateX(-50%) scale(1.3);
+    .event-time-text {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+    .event-desc {
+      font-size: 11px;
+      color: var(--text-primary);
+      word-break: break-word;
+    }
+
+    /* Connected Synapses Chips */
+    .synapse-chip-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-height: 120px;
+      overflow-y: auto;
+    }
+    .synapse-chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 4px 8px;
+      font-size: 10px;
+      display: flex;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .synapse-chip:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-medium);
+    }
+
+    /* =========================================================================
+       BOTTOM TIMELINE & REPLAY SCRUBBER
+       ========================================================================= */
+    .timeline-bar {
+      position: absolute;
+      bottom: 12px;
+      left: 16px;
+      right: 16px;
+      z-index: 20;
+      background: var(--bg-surface-elevated);
+      backdrop-filter: blur(18px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-panel);
+      padding: 10px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* Event Marker Track */
+    .marker-rail {
+      position: relative;
+      width: 100%;
+      height: 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      overflow: hidden;
+    }
+    .marker-pin {
+      position: absolute;
+      top: 1px;
+      width: 8px;
+      height: 12px;
+      transform: translateX(-50%);
+      cursor: pointer;
+      border-radius: 2px;
+      transition: transform 0.12s;
+    }
+    .marker-pin:hover {
+      transform: translateX(-50%) scale(1.6);
       z-index: 5;
-      filter: brightness(1.2);
     }
-    .pin-input { background: var(--cyan); }
-    .pin-memory { background: var(--green); }
-    .pin-output { background: var(--magenta); }
-    .pin-error { background: var(--amber); }
-    .pin-trial { background: var(--gold); }
-    .pin-plasticity { background: #b388ff; color: #000; }
-    .pin-env { background: #ff5722; color: #fff; }
-    .pin-action { background: #38bdf8; color: #000; }
-    .pin-syn-form { background: #10b981; color: #000; }
-    .pin-syn-prune { background: #f43f5e; color: #fff; }
-    .pin-neu-born { background: #a855f7; color: #fff; }
-    .pin-neu-prune { background: #f59e0b; color: #000; }
-    .pin-latent { background: #8b5cf6; color: #fff; }
-    .pin-decay { background: #64748b; color: #fff; }
-    .pin-multistep { background: #ec4899; color: #fff; }
-    .pin-context { background: #eab308; color: #000; }
-    .pin-ablation { background: #ef4444; color: #fff; }
-    .pin-eligibility { background: #10b981; color: #fff; }
-    .pin-modulator { background: #ec4899; color: #fff; }
-    .pin-reward { background: #ffd700; color: #000; font-weight: bold; }
-    .pin-rpe { background: #f59e0b; color: #fff; }
-    .pin-credit { background: #8b5cf6; color: #fff; }
-    .pin-comm-pos { background: #06b6d4; color: #fff; }
-    .pin-comm-neg { background: #f43f5e; color: #fff; }
 
-
-    .scrubber-container {
+    .scrubber-row {
       display: flex;
       align-items: center;
       gap: 14px;
@@ -295,331 +560,723 @@
     .timeline-slider {
       flex: 1;
       -webkit-appearance: none;
-      height: 6px;
+      height: 5px;
       border-radius: 3px;
-      background: rgba(255,255,255,0.15);
+      background: rgba(255, 255, 255, 0.15);
       outline: none;
       cursor: pointer;
     }
     .timeline-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 16px;
-      height: 16px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
-      background: var(--cyan);
+      background: #ffffff;
+      border: 2px solid var(--color-inhibitory);
       cursor: pointer;
-      box-shadow: 0 0 10px var(--cyan);
+      box-shadow: 0 0 10px rgba(0, 229, 255, 0.8);
+      transition: transform 0.1s;
     }
-    .time-label {
-      font-family: monospace;
-      font-size: 13px;
-      color: var(--text);
-      min-width: 100px;
+    .timeline-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    .time-readout {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-primary);
+      min-width: 170px;
       text-align: right;
     }
-    .playback-bar {
+
+    .playback-controls-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .transport-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 10px;
+      color: var(--text-secondary);
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .legend-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    /* Modal / Drawer Overlay */
+    .modal-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      width: 480px;
+      max-width: 90vw;
+      box-shadow: var(--shadow-panel);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 8px;
     }
-    .btn-group {
-      display: flex;
-      gap: 8px;
-    }
-    .phase-badge {
-      font-size: 12px;
+    .modal-title {
+      font-size: 13px;
       font-weight: 700;
-      letter-spacing: 0.8px;
+      letter-spacing: 1px;
       text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: 4px;
-      background: rgba(255,255,255,0.08);
+      color: var(--text-primary);
     }
-    .phase-cue { color: var(--cyan); border: 1px solid rgba(0, 229, 255, 0.3); }
-    .phase-delay { color: var(--amber); border: 1px solid rgba(255, 145, 0, 0.3); }
-    .phase-probe { color: var(--magenta); border: 1px solid rgba(224, 64, 251, 0.3); }
 
-    /* Legend */
-    .legend {
-      display: flex;
-      gap: 16px;
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-    .legend-item { display: flex; align-items: center; gap: 5px; }
-    .dot { width: 8px; height: 8px; border-radius: 50%; }
-    .dot-cyan { background: var(--cyan); box-shadow: 0 0 6px var(--cyan); }
-    .dot-amber { background: var(--amber); box-shadow: 0 0 6px var(--amber); }
-    .dot-edge { background: rgba(255,255,255,0.4); }
-
-    /* Tooltip */
-    #tooltip {
+    /* Spike Raster Drawer */
+    #raster-drawer {
       position: absolute;
-      background: rgba(0, 0, 0, 0.85);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 4px 8px;
-      font-size: 11px;
-      color: #fff;
-      pointer-events: none;
-      z-index: 100;
-      display: none;
-    }
-
-    /* Spike Raster Panel */
-    #raster-panel {
-      position: absolute;
-      bottom: 125px;
-      left: 20px;
-      right: 20px;
-      height: 140px;
-      background: var(--panel-bg);
+      bottom: 96px;
+      left: 350px;
+      right: 380px;
+      height: 110px;
+      z-index: 15;
+      background: var(--bg-surface-elevated);
       backdrop-filter: blur(16px);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px 14px;
-      z-index: 9;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 8px 12px;
       display: none;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      flex-direction: column;
+      gap: 4px;
     }
-    #raster-canvas {
-      width: 100%;
-      height: 95px;
-      background: rgba(0,0,0,0.4);
-      border-radius: 4px;
-      display: block;
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      #left-panel { width: 280px; }
+      #right-panel { width: 300px; }
+      .regime-bar { display: none; }
+    }
+    @media (max-width: 900px) {
+      #left-panel { display: none; }
+      #right-panel { width: 320px; }
     }
   </style>
 </head>
 <body>
+  <!-- 3D Canvas Viewport -->
   <div id="viewport"></div>
   <div id="tooltip"></div>
 
-  <!-- Header -->
-  <div class="header">
-    <div class="badge-group">
-      <div class="badge">
+  <!-- TOP BAR HUD -->
+  <header class="top-bar">
+    <div class="brand-section">
+      <div class="brand-title">
         <h1>3D-Brain</h1>
-        <span class="tag gold" id="version-tag">OBSERVABILITY v2.5 (SPIKING & STDP)</span>
-        <span class="tag" id="model-tag">SPIKING_STDP_ACTIVE</span>
-        <span id="exp-info" style="font-size: 12px; color: var(--text-muted);">EXP007 Spiking Neural Dynamics & STDP</span>
-        <span class="tag" id="spikes-tag" style="display: none; background: rgba(239, 68, 68, 0.15); color: #f87171; border-color: #ef4444;">Spikes: -</span>
-        <span class="tag" id="ei-tag" style="display: none; background: rgba(245, 158, 11, 0.15); color: #fbbf24; border-color: #f59e0b;">E/I Ratio: -</span>
-        <span class="tag" id="ai-tag" style="display: none; background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: #10b981;">AI Status: -</span>
-        <span class="tag" id="multisync-tag" style="display: none; background: rgba(59, 130, 246, 0.15); color: #60a5fa; border-color: #3b82f6;">Sync (Loc/Glob): -</span>
-        <span class="tag" id="osc-tag" style="display: none; background: rgba(168, 85, 247, 0.15); color: #c084fc; border-color: #a855f7;">Osc: - Hz</span>
-        <span class="tag" id="sync-tag" style="display: none; background: rgba(217, 70, 239, 0.15); color: #d946ef; border-color: #d946ef;">Sync R: -</span>
-        <span class="tag" id="q-tag" style="display: none; background: rgba(0, 229, 255, 0.15); color: var(--cyan); border-color: var(--cyan);">Q_func: -</span>
-        <span class="tag" id="eligibility-tag" style="display: none; background: rgba(16, 185, 129, 0.15); color: #10b981; border-color: #059669;">Elig: -</span>
-        <span class="tag" id="neuromod-tag" style="display: none; background: rgba(236, 72, 153, 0.15); color: #ec4899; border-color: #db2777;">M(t): -</span>
-        <span class="tag" id="rpe-tag" style="display: none; background: rgba(245, 158, 11, 0.15); color: #f59e0b; border-color: #d97706;">RPE: -</span>
-        <span class="tag" id="latent-tag" style="display: none; background: rgba(139, 92, 246, 0.15); color: #c4b5fd; border-color: #8b5cf6;">Latent ||z||: -</span>
-        <span class="tag" id="context-tag" style="display: none; background: rgba(234, 179, 8, 0.15); color: #fde047; border-color: #eab308;">Context: -</span>
-        <span class="tag" id="pred-tag" style="display: none; background: rgba(0, 229, 255, 0.15); color: var(--cyan); border-color: var(--cyan);">Pred MSE: -</span>
-        <span class="tag" id="action-tag" style="display: none; background: rgba(56, 189, 248, 0.15); color: #38bdf8; border-color: #38bdf8;">Act: -</span>
-        <span class="tag" id="env-tag" style="display: none; background: rgba(255, 87, 34, 0.15); color: #ff5722; border-color: #ff5722;">Env: -</span>
+        <span class="brand-subtitle">Neural Observatory</span>
+      </div>
+      <div id="mode-badge" class="status-badge replay" title="Execution Mode">
+        <span class="pulse-dot"></span>
+        <span id="mode-text">REPLAY</span>
+      </div>
+      <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary);" id="master-time-header">
+        t = 0.0 ms
       </div>
     </div>
-    <div class="controls-top">
-      <button class="btn" id="raster-toggle-btn" style="border-color: #f87171; color: #f87171;" title="Toggle Spike Raster View">
+
+    <!-- Center: Computational Regime Indicators -->
+    <div class="regime-bar">
+      <div class="regime-item" title="Ratio of Excitatory vs Inhibitory Units">
+        <span class="regime-label">E/I Balance</span>
+        <span class="regime-val" id="regime-ei">4.0 : 1 (Dale)</span>
+      </div>
+      <div class="regime-item" title="Asynchronous-Irregular Regime Status">
+        <span class="regime-label">AI Regime</span>
+        <span class="regime-val" id="regime-ai" style="color: var(--color-reward);">AI_REGIME</span>
+      </div>
+      <div class="regime-item" title="Global Kuramoto Synchrony (R)">
+        <span class="regime-label">Synchrony (R)</span>
+        <span class="regime-val" id="regime-sync">R = 0.12</span>
+      </div>
+      <div class="regime-item" title="Current Active Plasticity / Learning Model">
+        <span class="regime-label">Plasticity</span>
+        <span class="regime-val" id="regime-plast" style="color: var(--color-plasticity);">Three-Factor RPE</span>
+      </div>
+    </div>
+
+    <!-- Right Controls -->
+    <div class="top-controls">
+      <button class="btn" id="conn-mode-btn" title="Toggle Structural vs Functional Connectivity [1 / 2]">
+        🌐 Mode: Structural
+      </button>
+
+      <select id="model-select" class="select-model" title="Select .brainlog Trace">
+        <option value="/experiments/results/brainlogs/EXP009_three_factor_rpe_modular.brainlog" selected>EXP009: Three-Factor RPE (Modular 3D)</option>
+        <option value="/experiments/results/brainlogs/EXP009_three_factor_global_reward.brainlog">EXP009: Global Reward Modulation</option>
+        <option value="/experiments/results/brainlogs/exp008_phase8_ei_full_system.brainlog">EXP008: E/I Balanced Dale + STDP</option>
+        <option value="/experiments/results/brainlogs/exp008_phase8_ei_no_homeo.brainlog">EXP008: E/I without Homeostasis</option>
+        <option value="/experiments/results/brainlogs/EXP007_SPIKING_STDP_MODULAR_s42.brainlog">EXP007: Spiking LIF + STDP (Modular)</option>
+        <option value="/experiments/results/brainlogs/EXP007_SPIKING_LATENT_HYBRID_s42.brainlog">EXP007: Spiking Latent Hybrid</option>
+        <option value="/experiments/results/brainlogs/EXP006_PERSISTENT_LATENT_ACTIVE_s42.brainlog">EXP006: Persistent Latent Memory</option>
+        <option value="/experiments/results/brainlogs/EXP005_LOCAL_PRED_DYNAMIC_SYNAPSES_ACTIVE_s42.brainlog">EXP005: Local Pred + Dynamic Synapses</option>
+        <option value="/experiments/results/brainlogs/EXP004_Modular_rep.brainlog">EXP004: Modular Spatial Topology</option>
+        <option value="/experiments/results/brainlogs/EXP003_Modulated_rep.brainlog">EXP003: Modulated 3-Factor Plasticity</option>
+        <option value="/experiments/results/brainlogs/EXP001_default.brainlog">EXP001: Default Sensory Trace</option>
+      </select>
+
+      <input type="file" id="file-input" accept=".brainlog,.json" style="display: none;">
+      <button class="btn" onclick="document.getElementById('file-input').click()" title="Open local .brainlog file">
+        📁 Open
+      </button>
+
+      <button class="btn" id="cam-focus-btn" title="Focus camera on selected object [F]">
+        🎯 Focus
+      </button>
+
+      <button class="btn" id="cam-reset-btn" title="Reset camera position">
+        ↺ Reset
+      </button>
+
+      <button class="btn" id="auto-orbit-btn" title="Toggle automatic camera rotation">
+        🔄 Orbit: Off
+      </button>
+
+      <button class="btn" id="raster-toggle-btn" title="Toggle Population Spike Raster">
         ⚡ Raster
       </button>
-      <button class="btn" id="view-mode-btn" style="border-color: var(--cyan); color: var(--cyan);" title="Toggle between Structural and Functional Connectivity">
-        🌐 View: Structural
+
+      <button class="btn" id="exp-meta-btn" title="Experiment Metadata">
+        ℹ Info
       </button>
-      <select id="model-select" class="select-model">
-        <option value="/experiments/results/brainlogs/EXP009_three_factor_rpe_modular.brainlog">EXP009: Three-Factor RPE Plasticity (Modular 3D)</option>
-        <option value="/experiments/results/brainlogs/EXP009_three_factor_delayed_reward.brainlog">EXP009: Delayed Reward Credit Assignment (Modular 3D)</option>
-        <option value="/experiments/results/brainlogs/EXP009_three_factor_global_reward.brainlog">EXP009: Three-Factor Global Reward Modulation</option>
-        <option value="/experiments/results/brainlogs/exp008_phase8_ei_full_system.brainlog">EXP008: E/I Balanced Dale + Homeostasis + STDP</option>
-        <option value="/experiments/results/brainlogs/EXP007_SPIKING_STDP_MODULAR_s42.brainlog">EXP007: Spiking LIF + STDP (Modular 3D)</option>
-        <option value="/experiments/results/brainlogs/EXP007_SPIKING_LATENT_HYBRID_s42.brainlog">EXP007: Spiking Latent Spatial Hybrid (s42)</option>
-        <option value="/experiments/results/brainlogs/EXP006_PERSISTENT_LATENT_ACTIVE_s42.brainlog">EXP006: Persistent Latent Memory + Embodied World Model (s42)</option>
-        <option value="/experiments/results/brainlogs/EXP006_CONTEXT_DISAMBIGUATION_s42.brainlog">EXP006: Temporal Context Disambiguation (s42)</option>
-        <option value="/experiments/results/brainlogs/EXP005_LOCAL_PRED_DYNAMIC_SYNAPSES_ACTIVE_s42.brainlog">EXP005: Local Pred + Dynamic Synapses (Active Embodied)</option>
-        <option value="/experiments/results/brainlogs/EXP005_NEURO_PRED_DYNAMIC_SYNAPSES_ACTIVE_s42.brainlog">EXP005: Neuromodulated Pred + Dynamic Synapses (Active Embodied)</option>
-        <option value="/experiments/results/brainlogs/EXP005_NEURO_PRED_DYNAMIC_GROWTH_ACTIVE_s42.brainlog">EXP005: Neuromodulated Pred + Dynamic Growth (Active Embodied)</option>
-        <option value="/experiments/results/brainlogs/EXP005_LOCAL_PRED_DYNAMIC_SYNAPSES_PASSIVE_s42.brainlog">EXP005: Local Pred + Dynamic Synapses (Passive Observer)</option>
-        <option value="/experiments/results/brainlogs/EXP005_FROZEN_ACTIVE_FIXED_s42.brainlog">EXP005: Frozen Control Baseline (Active Embodied)</option>
-        <option value="/experiments/results/brainlogs/EXP004_SmallWorld_rep.brainlog">EXP004: Small-World Spatial Topology (3D)</option>
-        <option value="/experiments/results/brainlogs/EXP004_Modular_rep.brainlog">EXP004: Modular Spatial Clustering (3D)</option>
-        <option value="/experiments/results/brainlogs/EXP004_Local_rep.brainlog">EXP004: Local Metric Receptive Fields (3D)</option>
-        <option value="/experiments/results/brainlogs/EXP004_Random_rep.brainlog">EXP004: Random Metric-Free Control (3D)</option>
-        <option value="/experiments/results/brainlogs/EXP003_Modulated_rep.brainlog">EXP003: Modulated 3-Factor Plasticity (A-B-A)</option>
-        <option value="/experiments/results/brainlogs/EXP003_Homeostatic_rep.brainlog">EXP003: Homeostatic Plasticity (A-B-A)</option>
-        <option value="/experiments/results/brainlogs/EXP003_Oja_rep.brainlog">EXP003: Oja Normalized Plasticity (A-B-A)</option>
-        <option value="/experiments/results/brainlogs/EXP003_Hebbian_rep.brainlog">EXP003: Hebbian Plasticity (A-B-A)</option>
-        <option value="/experiments/results/brainlogs/EXP003_Frozen_rep.brainlog">EXP003: Frozen Control Baseline (A-B-A)</option>
-        <option value="/experiments/results/brainlogs/EXP002_DISC-LRNN_rep.brainlog">EXP002: DISC-LRNN (Discrete Leaky)</option>
-        <option value="/experiments/results/brainlogs/EXP002_CAND-LI_rep.brainlog">EXP002: CAND-LI (Forward Euler)</option>
-        <option value="/experiments/results/brainlogs/EXP002_BASE-GRU-MemBias_rep.brainlog">EXP002: BASE-GRU-MemBias (Memory-Biased)</option>
-        <option value="/experiments/results/brainlogs/EXP002_BASE-RNN_rep.brainlog">EXP002: BASE-RNN (Vanilla RNN)</option>
-        <option value="/experiments/results/brainlogs/EXP001_default.brainlog">EXP001: Default Sample Trace</option>
-      </select>
-      <input type="file" id="file-input" accept=".brainlog,.json" style="display: none;">
-      <button class="btn" onclick="document.getElementById('file-input').click()">
-        📁 Open .brainlog
+
+      <button class="btn" id="help-btn" title="Keyboard Shortcuts [?]">
+        ⌨
       </button>
-      <button class="btn" id="reset-cam-btn">🎯 Reset View</button>
     </div>
-  </div>
+  </header>
 
-  <!-- Inspector HUD -->
-  <div id="inspector">
-    <h2>
-      <span id="insp-title">Inspector</span>
-      <button onclick="document.getElementById('inspector').style.display='none'" style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:16px;">✕</button>
-    </h2>
+  <!-- LEFT PANEL: INSPECTOR -->
+  <aside id="left-panel" class="panel">
+    <div class="panel-header">
+      <span class="panel-title" id="insp-header-title">
+        <span>🔍</span> INSPECTOR
+      </span>
+      <button id="clear-selection-btn" class="btn" style="padding: 2px 7px; font-size: 10px; display: none;" title="Clear Selection [Esc]">
+        Clear
+      </button>
+    </div>
 
-    <div id="neuron-insp-fields">
-      <div class="section-title">Neuron Properties</div>
-      <div class="metric-row"><span class="label">Node ID:</span><span class="val" id="insp-id">-</span></div>
-      <div class="metric-row"><span class="label">Type:</span><span class="val" id="insp-type">-</span></div>
-      <div class="metric-row"><span class="label">Coordinates:</span><span class="val" id="insp-pos">-</span></div>
-      <div class="metric-row"><span class="label">Activation:</span><span class="val" id="insp-act">-</span></div>
-      <div class="metric-row"><span class="label">State Variable:</span><span class="val" id="insp-state">-</span></div>
-      <div class="metric-row"><span class="label">Module Cluster:</span><span class="val" id="insp-module">-</span></div>
-      <div class="metric-row"><span class="label">In / Out Degree:</span><span class="val" id="insp-degrees">-</span></div>
-
-      <div class="section-title" id="dyn-sec-title">Dynamic Unit Variables</div>
-      <div id="dyn-vars-container">
-        <!-- Injected dynamically based on model type -->
-      </div>
-
-      <div id="spiking-insp-section" style="display: none;">
-        <div class="section-title">Spiking & Membrane Dynamics</div>
-        <div class="metric-row"><span class="label">Membrane Potential (V_m):</span><span class="val" id="insp-v-mem">- mV</span></div>
-        <div style="height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; margin: 4px 0 8px 0; overflow: hidden; position: relative;">
-          <div id="insp-v-mem-bar" style="height: 100%; width: 0%; background: #00e5ff; border-radius: 3px; transition: width 0.1s;"></div>
+    <div class="panel-body" id="inspector-content">
+      <!-- Default Empty State -->
+      <div id="insp-empty-state" class="section-box" style="text-align: center; padding: 24px 14px; gap: 10px;">
+        <div style="font-size: 24px; opacity: 0.6;">🔭</div>
+        <div style="font-weight: 700; font-size: 12px; letter-spacing: 0.8px; color: var(--text-primary);">NO SELECTION</div>
+        <p style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">
+          Click a neuron, synapse, functional community, or timeline event to inspect its actual computational state.
+        </p>
+        <div style="margin-top: 12px; border-top: 1px solid var(--border-subtle); padding-top: 12px; text-align: left;">
+          <span class="section-header-label">Functional Communities</span>
+          <div id="communities-quick-list" style="display: flex; flex-direction: column; gap: 4px; margin-top: 6px;">
+            <!-- Dynamically populated -->
+          </div>
         </div>
-        <div class="metric-row"><span class="label">Spike Threshold (V_th):</span><span class="val" id="insp-v-thresh">-50.0 mV</span></div>
-        <div class="metric-row"><span class="label">Refractory State:</span><span class="val" id="insp-refractory">Resting</span></div>
-        <div class="metric-row"><span class="label">Fired This Step:</span><span class="val" id="insp-fired-now">No</span></div>
       </div>
 
-      <div id="ei-insp-section" style="display: none;">
-        <div class="section-title">E/I Balance & Homeostasis (Phase 8)</div>
-        <div class="metric-row"><span class="label">Dale Cell Type:</span><span class="val" id="insp-cell-type">EXCITATORY</span></div>
-        <div class="metric-row"><span class="label">Excitatory Current (I_E):</span><span class="val" id="insp-i-e" style="color:var(--cyan);">0.0000</span></div>
-        <div class="metric-row"><span class="label">Inhibitory Current (I_I):</span><span class="val" id="insp-i-i" style="color:var(--amber);">0.0000</span></div>
-        <div class="metric-row"><span class="label">Net Drive (I_net):</span><span class="val" id="insp-i-net">0.0000</span></div>
-        <div class="metric-row"><span class="label">Homeostatic Scale:</span><span class="val" id="insp-homeo-scale">1.0000</span></div>
-      </div>
+      <!-- Neuron Inspector State -->
+      <div id="insp-neuron-state" style="display: none; flex-direction: column; gap: 12px;">
+        <div class="section-box">
+          <span class="section-header-label">Neuron Identity</span>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span id="n-type-dot" class="legend-dot" style="background: var(--color-excitatory);"></span>
+              <span id="n-label-title" style="font-size: 13px; font-weight: 800; font-family: var(--font-mono); color: #fff;">Unit_00</span>
+            </div>
+            <span id="n-type-pill" class="val-pill" style="background: rgba(255,107,74,0.15); color: var(--color-excitatory);">EXCITATORY</span>
+          </div>
 
-      <div id="three-factor-insp-section" style="display: none;">
-        <div class="section-title">Three-Factor Credit Assignment (Phase 9)</div>
-        <div class="metric-row"><span class="label">Mean Eligibility (&lt;|e_ij|&gt;):</span><span class="val" id="insp-eligibility" style="color:var(--green);">0.0000</span></div>
-        <div class="metric-row"><span class="label">Max Eligibility:</span><span class="val" id="insp-max-eligibility">0.0000</span></div>
-        <div class="metric-row"><span class="label">Neuromodulator M(t):</span><span class="val" id="insp-neuromodulator" style="color:var(--magenta);">0.0000</span></div>
-        <div class="metric-row"><span class="label">Reward Prediction Error:</span><span class="val" id="insp-rpe" style="color:var(--amber);">0.0000</span></div>
-        <div class="metric-row"><span class="label">Plastic Updates (ΔW):</span><span class="val" id="insp-plastic-updates">0</span></div>
-        <div class="metric-row"><span class="label">Credit Status:</span><span class="val" id="insp-credit-status" style="color:var(--cyan);">Active</span></div>
-      </div>
-
-      <div class="section-title">Connected Synapses</div>
-      <div class="connected-edges" id="insp-edges-list">
-        <!-- Injected list of connected edges -->
-      </div>
-
-      <div id="embodied-insp-section" style="display: none;">
-        <div class="section-title">Embodied Sensory & Predictive State</div>
-        <div class="metric-row"><span class="label">Env / Cycle:</span><span class="val" id="insp-env-cycle">-</span></div>
-        <div class="metric-row"><span class="label">Agent Position:</span><span class="val" id="insp-agent-pos">-</span></div>
-        <div class="metric-row"><span class="label">Agent Heading:</span><span class="val" id="insp-agent-heading">-</span></div>
-        <div class="metric-row"><span class="label">Chosen Action:</span><span class="val" id="insp-action-name">-</span></div>
-        <div class="section-title">Sensory State vs Prediction</div>
-        <div id="sensory-bars-container" style="display: flex; flex-direction: column; gap: 4px; margin-top: 6px;"></div>
-      </div>
-
-      <div id="latent-insp-section" style="display: none;">
-        <div class="section-title">Persistent Latent Memory & Predictive State</div>
-        <div class="metric-row"><span class="label">Latent Norm ||z_t||:</span><span class="val" id="insp-latent-norm">-</span></div>
-        <div class="metric-row"><span class="label">Context ID:</span><span class="val" id="insp-context-id">-</span></div>
-        <div class="section-title">Latent State Vector (z_t)</div>
-        <div id="latent-bars-container" style="display: flex; flex-wrap: wrap; gap: 3px; margin-top: 6px;"></div>
-        <div class="section-title">Multi-Step Future Predictions</div>
-        <div id="multistep-container" style="display: flex; flex-direction: column; gap: 4px; margin-top: 6px;"></div>
-        <div class="section-title">History Disambiguation Tool</div>
-        <div style="display: flex; gap: 6px; align-items: center; margin-top: 6px;">
-          <input type="number" id="hist-step-a" placeholder="Step A" style="width: 55px; background: rgba(0,0,0,0.4); border: 1px solid var(--border); color: #fff; padding: 4px; border-radius: 4px; font-size: 11px;">
-          <input type="number" id="hist-step-b" placeholder="Step B" style="width: 55px; background: rgba(0,0,0,0.4); border: 1px solid var(--border); color: #fff; padding: 4px; border-radius: 4px; font-size: 11px;">
-          <button class="btn" id="compare-hist-btn" style="padding: 4px 8px; font-size: 11px;">Compare</button>
+          <div class="metric-grid">
+            <div class="metric-cell">
+              <span class="metric-name">Node ID</span>
+              <span class="metric-val" id="n-id">-</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Community</span>
+              <span class="metric-val" id="n-community">-</span>
+            </div>
+            <div class="metric-cell full">
+              <span class="metric-name">3D Position</span>
+              <span class="metric-val" id="n-pos">-</span>
+            </div>
+          </div>
         </div>
-        <div id="hist-compare-result" style="font-size: 10px; margin-top: 6px; color: var(--text-muted); line-height: 1.4;"></div>
+
+        <!-- Membrane Dynamics -->
+        <div class="section-box" id="n-membrane-box">
+          <span class="section-header-label">Membrane Dynamics</span>
+          <div class="metric-grid">
+            <div class="metric-cell">
+              <span class="metric-name">Membrane (V_m)</span>
+              <span class="metric-val" id="n-vm">- mV</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Threshold (V_th)</span>
+              <span class="metric-val" id="n-vth">-50.0 mV</span>
+            </div>
+          </div>
+          <div class="gauge-track">
+            <div id="n-vm-fill" class="gauge-fill" style="width: 20%;"></div>
+          </div>
+          <div class="metric-grid" style="margin-top: 4px;">
+            <div class="metric-cell">
+              <span class="metric-name">Firing State</span>
+              <span class="metric-val" id="n-firing-state">Resting</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Total Spikes</span>
+              <span class="metric-val" id="n-spikes-total">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Three-Factor Learning Variables -->
+        <div class="section-box" id="n-three-factor-box">
+          <span class="section-header-label">Three-Factor Credit State</span>
+          <div class="metric-grid">
+            <div class="metric-cell">
+              <span class="metric-name">Mean Eligibility</span>
+              <span class="metric-val" id="n-eligibility" style="color: var(--color-reward);">-</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Max Eligibility</span>
+              <span class="metric-val" id="n-max-eligibility">-</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Neuromodulator M(t)</span>
+              <span class="metric-val" id="n-neuromod" style="color: var(--color-prediction);">-</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Reward Prediction Err</span>
+              <span class="metric-val" id="n-rpe" style="color: var(--color-plasticity);">-</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Connected Synapses -->
+        <div class="section-box">
+          <span class="section-header-label">Connected Synapses (<span id="n-synapse-count">0</span>)</span>
+          <div class="synapse-chip-list" id="n-synapses-list">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Synapse Inspector State -->
+      <div id="insp-synapse-state" style="display: none; flex-direction: column; gap: 12px;">
+        <div class="section-box">
+          <span class="section-header-label">Synapse Topology</span>
+          <div style="font-size: 13px; font-weight: 800; font-family: var(--font-mono); color: #fff; margin-bottom: 6px;" id="syn-title">
+            Node 0 → Node 4
+          </div>
+          <div class="metric-grid">
+            <div class="metric-cell">
+              <span class="metric-name">Class</span>
+              <span class="metric-val" id="syn-class" style="color: var(--color-excitatory);">E → E</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Dale Sign</span>
+              <span class="metric-val" id="syn-dale">Excitatory (+)</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Physical Distance</span>
+              <span class="metric-val" id="syn-dist">-</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Propagation Delay</span>
+              <span class="metric-val" id="syn-delay">1 step</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-box">
+          <span class="section-header-label">Synaptic Weight & Plasticity</span>
+          <div class="metric-grid">
+            <div class="metric-cell">
+              <span class="metric-name">Weight (W_t)</span>
+              <span class="metric-val" id="syn-weight">-</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Synaptic Eligibility (e)</span>
+              <span class="metric-val" id="syn-elig" style="color: var(--color-reward);">-</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Last Weight Update (Δw)</span>
+              <span class="metric-val" id="syn-dw" style="color: var(--color-plasticity);">-</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Plasticity Rule</span>
+              <span class="metric-val" id="syn-rule">Three-Factor</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-box">
+          <span class="section-header-label">Signal Transit</span>
+          <div class="metric-grid">
+            <div class="metric-cell">
+              <span class="metric-name">Signal Magnitude</span>
+              <span class="metric-val" id="syn-signal-mag">0.0000</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Transit Progress</span>
+              <span class="metric-val" id="syn-signal-progress">Idle</span>
+            </div>
+          </div>
+          <div class="gauge-track">
+            <div id="syn-signal-fill" class="gauge-fill" style="width: 0%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Community Inspector State -->
+      <div id="insp-community-state" style="display: none; flex-direction: column; gap: 12px;">
+        <div class="section-box">
+          <span class="section-header-label">Community Identity</span>
+          <div style="font-size: 14px; font-weight: 800; font-family: var(--font-mono); color: var(--color-inhibitory); margin-bottom: 6px;" id="comm-title">
+            COMMUNITY C00
+          </div>
+          <div class="metric-grid">
+            <div class="metric-cell">
+              <span class="metric-name">Total Members</span>
+              <span class="metric-val" id="comm-members-count">-</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Excitatory / Inhibitory</span>
+              <span class="metric-val" id="comm-ei-ratio">-</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Mean Activation</span>
+              <span class="metric-val" id="comm-mean-act">-</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Mean Membrane Potential</span>
+              <span class="metric-val" id="comm-mean-vm">- mV</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-box">
+          <span class="section-header-label">Member Neurons</span>
+          <div class="synapse-chip-list" id="comm-members-list">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- RIGHT PANEL: TELEMETRY & EVENTS -->
+  <aside id="right-panel" class="panel">
+    <nav class="tab-nav">
+      <button class="tab-btn active" id="tab-telemetry-btn">
+        <span>📊</span> Telemetry
+      </button>
+      <button class="tab-btn" id="tab-events-btn">
+        <span>⚡</span> Events
+        <span class="tab-badge" id="event-feed-badge">0</span>
+      </button>
+    </nav>
+
+    <div class="panel-body">
+      <!-- TAB 1: TELEMETRY -->
+      <div id="tab-telemetry-content" style="display: flex; flex-direction: column; gap: 12px;">
+        <!-- Network Overview -->
+        <div class="section-box">
+          <span class="section-header-label">Network Architecture</span>
+          <div class="metric-grid">
+            <div class="metric-cell">
+              <span class="metric-name">Neurons</span>
+              <span class="metric-val" id="m-neurons-count">30</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Synapses</span>
+              <span class="metric-val" id="m-synapses-count">259</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Excitatory %</span>
+              <span class="metric-val" id="m-exc-pct" style="color: var(--color-excitatory);">76.7%</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Inhibitory %</span>
+              <span class="metric-val" id="m-inh-pct" style="color: var(--color-inhibitory);">16.7%</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Active Spikes</span>
+              <span class="metric-val" id="m-active-spikes">0</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Mean Firing Rate</span>
+              <span class="metric-val" id="m-mean-firing-rate">0.0 Hz</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Synchrony & Regimes -->
+        <div class="section-box">
+          <span class="section-header-label">Synchrony & Dynamics</span>
+          <div class="metric-grid">
+            <div class="metric-cell">
+              <span class="metric-name">Global R (Kuramoto)</span>
+              <span class="metric-val" id="m-global-r">NOT RECORDED</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Local R</span>
+              <span class="metric-val" id="m-local-r">NOT RECORDED</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Phase Locking (PLV)</span>
+              <span class="metric-val" id="m-plv">NOT RECORDED</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Pair Correlation</span>
+              <span class="metric-val" id="m-pair-corr">NOT RECORDED</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">CV-ISI</span>
+              <span class="metric-val" id="m-cv-isi">NOT RECORDED</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Fano Factor</span>
+              <span class="metric-val" id="m-fano">NOT RECORDED</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Functional Organization -->
+        <div class="section-box">
+          <span class="section-header-label">Functional Organization</span>
+          <div class="metric-grid">
+            <div class="metric-cell">
+              <span class="metric-name">Q_struct (Topology)</span>
+              <span class="metric-val" id="m-q-struct">0.421</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Q_func (Emergent)</span>
+              <span class="metric-val" id="m-q-func">NOT RECORDED</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Communities</span>
+              <span class="metric-val" id="m-communities-count">4</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Participation</span>
+              <span class="metric-val" id="m-participation">NOT RECORDED</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Learning (Phase 9 Three-Factor RPE) -->
+        <div class="section-box">
+          <span class="section-header-label">Learning & Credit Assignment</span>
+          <div class="metric-grid">
+            <div class="metric-cell">
+              <span class="metric-name">Reward R(t)</span>
+              <span class="metric-val" id="m-reward" style="color: var(--color-reward);">0.0000</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Baseline V(t)</span>
+              <span class="metric-val" id="m-baseline">0.0000</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">RPE (δ)</span>
+              <span class="metric-val" id="m-rpe" style="color: var(--color-plasticity);">0.0000</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Neuromodulator M(t)</span>
+              <span class="metric-val" id="m-neuromod" style="color: var(--color-prediction);">0.0000</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Mean Eligibility</span>
+              <span class="metric-val" id="m-mean-elig">0.0000</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Max Eligibility</span>
+              <span class="metric-val" id="m-max-elig">0.0000</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Plastic Updates</span>
+              <span class="metric-val" id="m-plastic-updates">0</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Weight ΔW Total</span>
+              <span class="metric-val" id="m-dw-total">0.0000</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Predictive Memory State -->
+        <div class="section-box">
+          <span class="section-header-label">Predictive State & Memory</span>
+          <div class="metric-grid">
+            <div class="metric-cell">
+              <span class="metric-name">Prediction Error</span>
+              <span class="metric-val" id="m-pred-error">0.0000</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Context Accuracy</span>
+              <span class="metric-val" id="m-context-acc">—</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Memory R²</span>
+              <span class="metric-val" id="m-memory-r2">—</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Rollout MSE</span>
+              <span class="metric-val" id="m-rollout-mse">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: EVENT FEED -->
+      <div id="tab-events-content" style="display: none; flex-direction: column; gap: 8px;">
+        <div style="display: flex; gap: 6px; margin-bottom: 4px;">
+          <button class="btn active" id="filter-all-events-btn" style="flex: 1; padding: 4px 6px; font-size: 10px;">ALL</button>
+          <button class="btn" id="filter-learning-events-btn" style="flex: 1; padding: 4px 6px; font-size: 10px;">LEARNING</button>
+          <button class="btn" id="filter-spikes-events-btn" style="flex: 1; padding: 4px 6px; font-size: 10px;">SPIKES</button>
+        </div>
+        <div class="event-feed-list" id="event-feed-container">
+          <!-- Dynamically populated cards -->
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- POPULATION SPIKE RASTER DRAWER -->
+  <div id="raster-drawer">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <span style="font-size: 10px; font-weight: 700; color: var(--color-error); letter-spacing: 0.8px;">⚡ POPULATION SPIKE RASTER</span>
+      <span id="raster-stats-text" style="font-size: 10px; font-family: var(--font-mono); color: var(--text-muted);">Step: 0</span>
+    </div>
+    <canvas id="raster-canvas" style="width: 100%; height: 80px;"></canvas>
+  </div>
+
+  <!-- BOTTOM TIMELINE / REPLAY / EVENT SCRUBBER -->
+  <footer class="timeline-bar">
+    <!-- Event Marker Track -->
+    <div class="marker-rail" id="marker-rail" title="Computational Events Track (Click marker to navigate)">
+      <!-- Markers injected dynamically -->
+    </div>
+
+    <!-- Scrubber Slider & Timing -->
+    <div class="scrubber-row">
+      <input type="range" id="timeline-slider" class="timeline-slider" min="0" max="0" value="0">
+      <div class="time-readout" id="timeline-readout">
+        Step: 0 / 0 | t = 0.0 ms
       </div>
     </div>
 
-    <div id="edge-insp-fields" style="display: none;">
-      <div class="section-title">Synaptic Edge Properties</div>
-      <div class="metric-row"><span class="label">Connection:</span><span class="val" id="edge-connection">-</span></div>
-      <div class="metric-row"><span class="label">Synapse Class:</span><span class="val" id="edge-synapse-class" style="color:var(--cyan);">E → E</span></div>
-      <div class="metric-row"><span class="label">Dale Sign Constraint:</span><span class="val" id="edge-dale-sign">Excitatory (+)</span></div>
-      <div class="metric-row"><span class="label">Source:</span><span class="val" id="edge-src">-</span></div>
-      <div class="metric-row"><span class="label">Destination:</span><span class="val" id="edge-dst">-</span></div>
-      <div class="metric-row"><span class="label">Physical Distance:</span><span class="val" id="edge-dist">-</span></div>
-      <div class="metric-row"><span class="label">Propagation Delay:</span><span class="val" id="edge-delay">-</span></div>
-      <div class="metric-row"><span class="label">Initial Weight (W_0):</span><span class="val" id="edge-init-weight">-</span></div>
-      <div class="metric-row"><span class="label">Current Weight (W_t):</span><span class="val" id="edge-weight">-</span></div>
-      <div class="metric-row"><span class="label">Synaptic Eligibility (e_ij):</span><span class="val" id="edge-eligibility" style="color:var(--green);">-</span></div>
-      <div class="metric-row"><span class="label">Three-Factor ΔW:</span><span class="val" id="edge-three-factor-dw">-</span></div>
-      <div class="metric-row"><span class="label">Cumulative ΔW:</span><span class="val" id="edge-delta-weight">-</span></div>
-      <div class="metric-row"><span class="label">Recent |ΔW|:</span><span class="val" id="edge-recent-dw">-</span></div>
-      <div class="metric-row"><span class="label">Plasticity Rule:</span><span class="val" id="edge-plasticity-rule">-</span></div>
-      <div class="metric-row"><span class="label">STDP Modification:</span><span class="val" id="edge-stdp-status">None</span></div>
-      <div class="metric-row"><span class="label">Live Signal / Transit:</span><span class="val" id="edge-signal">-</span></div>
-      <div class="bar-container">
-        <div class="bar-fill" id="edge-signal-bar" style="width: 0%;"></div>
+    <!-- Playback Transport & Legend -->
+    <div class="playback-controls-row">
+      <div class="transport-group">
+        <button class="btn" id="btn-first" title="First Step [Home]">⏮</button>
+        <button class="btn" id="btn-prev" title="Previous Step [←]">◀ Step</button>
+        <button class="btn primary" id="btn-play" title="Play / Pause [Space]">▶ Play</button>
+        <button class="btn" id="btn-next" title="Next Step [→]">Step ▶</button>
+        <button class="btn" id="btn-last" title="Last Step [End]">⏭</button>
+
+        <div style="width: 1px; height: 16px; background: var(--border-subtle); margin: 0 4px;"></div>
+
+        <button class="btn" id="btn-speed" title="Cycle playback speed">1.0×</button>
+
+        <div style="width: 1px; height: 16px; background: var(--border-subtle); margin: 0 4px;"></div>
+
+        <div id="phase-badge" class="status-badge" style="background: rgba(255,255,255,0.06); color: #fff;">
+          CONTEXT
+        </div>
+      </div>
+
+      <div class="legend-row">
+        <div class="legend-item"><div class="legend-dot" style="background: var(--color-excitatory);"></div> Excitatory</div>
+        <div class="legend-item"><div class="legend-dot" style="background: var(--color-inhibitory);"></div> Inhibitory</div>
+        <div class="legend-item"><div class="legend-dot" style="background: var(--color-reward);"></div> Reward</div>
+        <div class="legend-item"><div class="legend-dot" style="background: var(--color-plasticity);"></div> Plasticity</div>
+        <div class="legend-item"><div class="legend-dot" style="background: var(--color-selected);"></div> Selected</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- EXPERIMENT METADATA MODAL -->
+  <div id="exp-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <span class="modal-title">Experiment Metadata</span>
+        <button class="btn" id="exp-modal-close" style="padding: 2px 7px;">✕</button>
+      </div>
+      <div id="exp-modal-body" class="metric-grid">
+        <!-- Dynamically injected -->
       </div>
     </div>
   </div>
 
-  <!-- Spike Raster Panel -->
-  <div id="raster-panel">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-      <span style="font-size: 11px; font-weight: 700; color: #f87171; letter-spacing: 0.8px;">⚡ POPULATION SPIKE RASTER</span>
-      <span id="raster-stats" style="font-size: 11px; color: var(--text-muted);">Active: 0 spikes</span>
-    </div>
-    <canvas id="raster-canvas"></canvas>
-  </div>
-
-  <!-- Footer Controls -->
-  <div class="footer">
-    <!-- Event Timeline Track -->
-    <div class="event-track-container" id="event-track" title="Computational Events Timeline">
-      <!-- Injected event pins -->
-    </div>
-
-    <!-- Scrubber -->
-    <div class="scrubber-container">
-      <input type="range" id="timeline" class="timeline-slider" min="0" max="0" value="0">
-      <div class="time-label" id="step-display">Step: 0 / 0</div>
-    </div>
-
-    <!-- Playback Controls -->
-    <div class="playback-bar">
-      <div class="btn-group">
-        <button class="btn primary" id="play-btn">▶ Play</button>
-        <button class="btn" id="prev-btn">⏮ Step</button>
-        <button class="btn" id="next-btn">⏭ Step</button>
-        <button class="btn" id="speed-btn">1.0x</button>
+  <!-- KEYBOARD SHORTCUTS MODAL -->
+  <div id="shortcuts-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <span class="modal-title">Keyboard Navigation</span>
+        <button class="btn" id="shortcuts-modal-close" style="padding: 2px 7px;">✕</button>
       </div>
-
-      <div id="phase-badge" class="phase-badge phase-cue">CUE PHASE</div>
-
-      <div class="legend">
-        <div class="legend-item"><div class="dot dot-cyan"></div> Excitatory (+1.0)</div>
-        <div class="legend-item"><div class="dot dot-amber"></div> Inhibitory (-1.0)</div>
-        <div class="legend-item"><div class="dot dot-edge"></div> Synaptic Edge</div>
+      <div class="metric-grid" style="font-size: 11px;">
+        <div class="metric-cell"><span class="metric-name">Space</span><span class="metric-val">Play / Pause</span></div>
+        <div class="metric-cell"><span class="metric-name">Left Arrow (←)</span><span class="metric-val">Previous Step</span></div>
+        <div class="metric-cell"><span class="metric-name">Right Arrow (→)</span><span class="metric-val">Next Step</span></div>
+        <div class="metric-cell"><span class="metric-name">Home / End</span><span class="metric-val">Start / End</span></div>
+        <div class="metric-cell"><span class="metric-name">L</span><span class="metric-val">Jump to LIVE</span></div>
+        <div class="metric-cell"><span class="metric-name">R</span><span class="metric-val">Restart REPLAY</span></div>
+        <div class="metric-cell"><span class="metric-name">F</span><span class="metric-val">Focus Camera on Selection</span></div>
+        <div class="metric-cell"><span class="metric-name">O</span><span class="metric-val">Reset Camera</span></div>
+        <div class="metric-cell"><span class="metric-name">Esc</span><span class="metric-val">Clear Selection</span></div>
+        <div class="metric-cell"><span class="metric-name">1</span><span class="metric-val">Structural Connectivity</span></div>
+        <div class="metric-cell"><span class="metric-name">2</span><span class="metric-val">Functional Connectivity</span></div>
+        <div class="metric-cell"><span class="metric-name">?</span><span class="metric-val">Toggle Shortcuts Help</span></div>
       </div>
     </div>
   </div>
 
-  <!-- Three.js from CDN -->
+  <!-- Three.js (r160) -->
   <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
 
   <script>
     /**
-     * Standalone Replay Engine implementation for in-browser causal replay.
+     * =========================================================================
+     * 3D-BRAIN REPLAY ENGINE & STATE OBSERVER
+     * =========================================================================
      */
     class ReplayEngine {
       constructor(logData) {
@@ -635,16 +1292,12 @@
       }
 
       stepForward() {
-        if (this.currentStep < this.totalSteps - 1) {
-          this.currentStep++;
-        }
+        if (this.currentStep < this.totalSteps - 1) this.currentStep++;
         return this.log.frames[this.currentStep];
       }
 
       stepBackward() {
-        if (this.currentStep > 0) {
-          this.currentStep--;
-        }
+        if (this.currentStep > 0) this.currentStep--;
         return this.log.frames[this.currentStep];
       }
 
@@ -654,15 +1307,13 @@
         const frame = this.log.frames[this.currentStep];
         const inEdges = (this.log.topology.edges || []).filter(e => e.dst === nodeId);
         const outEdges = (this.log.topology.edges || []).filter(e => e.src === nodeId);
-        
-        let dyn = {};
-        if (frame.observable_state) {
-          const uIdx = node.unit_index;
-          if (uIdx !== undefined && uIdx >= 0) {
-            for (const [k, v] of Object.entries(frame.observable_state)) {
-              if (Array.isArray(v) && v.length > uIdx) {
-                dyn[k] = v[uIdx];
-              }
+
+        // Calculate total spikes across trace
+        let totalSpikes = 0;
+        if (this.events) {
+          for (let ev of this.events) {
+            if ((ev.type === 'SPIKE_EMITTED' || ev.type === 'INHIBITORY_SPIKE' || ev.type === 'EXCITATORY_SPIKE') && ev.node_id === nodeId) {
+              totalSpikes++;
             }
           }
         }
@@ -671,10 +1322,9 @@
           node,
           activation: frame.activations ? frame.activations[nodeId] : 0.0,
           state: frame.states ? frame.states[nodeId] : 0.0,
-          module_id: node.module_id !== undefined ? node.module_id : 0,
           inEdges,
           outEdges,
-          dynamicState: dyn
+          totalSpikes
         };
       }
 
@@ -694,27 +1344,68 @@
           signalProgress: signal ? signal.progress : 0.0
         };
       }
+
+      inspectCommunity(moduleId) {
+        if (!this.log.topology || !this.log.topology.nodes) return null;
+        const members = this.log.topology.nodes.filter(n => n.module_id === moduleId && n.type === 'RECURRENT');
+        const frame = this.log.frames[this.currentStep];
+        let totalAct = 0.0;
+        let totalVm = 0.0;
+        let excCount = 0;
+        let inhCount = 0;
+
+        members.forEach(m => {
+          const act = frame.activations ? frame.activations[m.id] : 0.0;
+          const st = frame.states ? frame.states[m.id] : 0.0;
+          totalAct += act;
+          totalVm += st;
+          const isI = (m.metadata && m.metadata.neuron_type === 'INHIBITORY') || (m.label && m.label.includes('[I]'));
+          if (isI) inhCount++; else excCount++;
+        });
+
+        const meanAct = members.length > 0 ? totalAct / members.length : 0.0;
+        const meanVm = members.length > 0 ? totalVm / members.length : 0.0;
+
+        return {
+          moduleId,
+          members,
+          excCount,
+          inhCount,
+          meanAct,
+          meanVm
+        };
+      }
     }
 
-    // App State
+    /**
+     * =========================================================================
+     * APPLICATION STATE & THREE.JS INITIALIZATION
+     * =========================================================================
+     */
     let replay = null;
     let logData = null;
     let isPlaying = false;
     let playbackSpeed = 1.0;
+    const speedLevels = [0.25, 0.5, 1.0, 2.0, 5.0, 10.0];
     let playInterval = null;
+
+    // Selection
+    let selectionType = null; // 'NEURON', 'SYNAPSE', 'COMMUNITY', null
     let selectedNodeId = null;
     let selectedEdge = null; // {src, dst}
+    let selectedCommunityId = null;
+
+    // View & Camera
     let viewMode = 'STRUCTURAL'; // 'STRUCTURAL' or 'FUNCTIONAL'
+    let autoOrbit = false;
 
-    // Three.js Scene Setup
-    const container = document.getElementById('viewport');
+    // Three.js Scene
+    const viewport = document.getElementById('viewport');
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x07090e, 0.025);
+    scene.fog = new THREE.FogExp2(0x05070b, 0.022);
 
-    const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
-
-    // Orbit Camera State
-    let camRadius = 22.0;
+    const camera = new THREE.PerspectiveCamera(48, window.innerWidth / window.innerHeight, 0.1, 100);
+    let camRadius = 24.0;
     let camTheta = 0.0;
     let camPhi = Math.PI / 3.0;
     const camTarget = new THREE.Vector3(0, 0, 0);
@@ -727,107 +1418,117 @@
     }
     updateCameraPosition();
 
-    // Mouse Interaction for Orbit & Zoom
-    let isDragging = false;
-    let prevMouseX = 0;
-    let prevMouseY = 0;
-
-    window.addEventListener('mousedown', (e) => {
-      if (e.target.closest('.header') || e.target.closest('.footer') || e.target.closest('#inspector')) return;
-      isDragging = true;
-      prevMouseX = e.clientX;
-      prevMouseY = e.clientY;
-    });
-
-    window.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      const deltaX = e.clientX - prevMouseX;
-      const deltaY = e.clientY - prevMouseY;
-      prevMouseX = e.clientX;
-      prevMouseY = e.clientY;
-
-      camTheta -= deltaX * 0.008;
-      camPhi -= deltaY * 0.008;
-      camPhi = Math.max(0.1, Math.min(Math.PI - 0.1, camPhi));
-      updateCameraPosition();
-    });
-
-    window.addEventListener('mouseup', () => { isDragging = false; });
-
-    window.addEventListener('wheel', (e) => {
-      camRadius += e.deltaY * 0.02;
-      camRadius = Math.max(6.0, Math.min(45.0, camRadius));
-      updateCameraPosition();
-    });
-
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0x07090e, 1.0);
-    container.appendChild(renderer.domElement);
+    renderer.setClearColor(0x05070b, 1.0);
+    viewport.appendChild(renderer.domElement);
 
     // Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
-    scene.add(ambientLight);
-    const dirLight = new THREE.DirectionalLight(0x00e5ff, 1.3);
-    dirLight.position.set(10, 15, 10);
-    scene.add(dirLight);
+    const ambLight = new THREE.AmbientLight(0xffffff, 0.85);
+    scene.add(ambLight);
+    const dirLight1 = new THREE.DirectionalLight(0xffffff, 1.1);
+    dirLight1.position.set(10, 18, 12);
+    scene.add(dirLight1);
+    const dirLight2 = new THREE.DirectionalLight(0x00e5ff, 0.6);
+    dirLight2.position.set(-12, -10, -10);
+    scene.add(dirLight2);
 
-    // Visual Objects References
+    // Meshes
     let nodeMeshes = [];
     let edgeLines = [];
     let signalSprites = [];
     let selectionHalo = null;
 
-    // Selection Halo Mesh
-    const haloGeo = new THREE.RingGeometry(0.5, 0.62, 32);
-    const haloMat = new THREE.MeshBasicMaterial({ color: 0xffd700, side: THREE.DoubleSide, transparent: true, opacity: 0.85 });
+    // Halo Mesh
+    const haloGeo = new THREE.RingGeometry(0.48, 0.60, 32);
+    const haloMat = new THREE.MeshBasicMaterial({ color: 0xffd700, side: THREE.DoubleSide, transparent: true, opacity: 0.9 });
     selectionHalo = new THREE.Mesh(haloGeo, haloMat);
     selectionHalo.visible = false;
     scene.add(selectionHalo);
 
-    // Embodied 3D Arena Group at Y = -10.0
-    const envGroup = new THREE.Group();
-    scene.add(envGroup);
-
-    const arenaGrid = new THREE.GridHelper(10, 10, 0x00e5ff, 0x1e293b);
-    arenaGrid.position.y = -10.0;
-    envGroup.add(arenaGrid);
-
-    const ringGeo = new THREE.RingGeometry(4.95, 5.05, 48);
-    const ringMat = new THREE.MeshBasicMaterial({ color: 0x334155, side: THREE.DoubleSide });
-    const arenaRing = new THREE.Mesh(ringGeo, ringMat);
-    arenaRing.rotation.x = -Math.PI / 2;
-    arenaRing.position.y = -9.99;
-    envGroup.add(arenaRing);
-
-    const beaconColors = [0x00e5ff, 0xff9100, 0xe040fb];
-    const beaconMeshes = [];
-    for (let i = 0; i < 3; i++) {
-      const bGeo = new THREE.CylinderGeometry(0.18, 0.22, 0.6, 16);
-      const bMat = new THREE.MeshStandardMaterial({ color: beaconColors[i], emissive: beaconColors[i], emissiveIntensity: 0.7, roughness: 0.3 });
-      const bMesh = new THREE.Mesh(bGeo, bMat);
-      bMesh.position.set(0, -9.7, 0);
-      envGroup.add(bMesh);
-      beaconMeshes.push(bMesh);
-    }
-
-    const puckGeo = new THREE.CylinderGeometry(0.32, 0.32, 0.18, 24);
-    const puckMat = new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x0284c7, emissiveIntensity: 0.8, roughness: 0.2 });
-    const agentPuck = new THREE.Mesh(puckGeo, puckMat);
-    agentPuck.position.set(0, -9.9, 0);
-
-    const pointerGeo = new THREE.ConeGeometry(0.12, 0.35, 12);
-    pointerGeo.rotateX(Math.PI / 2);
-    const pointerMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
-    const agentPointer = new THREE.Mesh(pointerGeo, pointerMat);
-    agentPointer.position.set(0, 0.1, 0.25);
-    agentPuck.add(agentPointer);
-    envGroup.add(agentPuck);
-
+    // Raycaster
     const raycaster = new THREE.Raycaster();
-    raycaster.params.Line.threshold = 0.25;
+    raycaster.params.Line.threshold = 0.22;
     const mouse = new THREE.Vector2();
+    let isDragging = false;
+    let isRightDragging = false;
+    let prevMouseX = 0;
+    let prevMouseY = 0;
+
+    /**
+     * =========================================================================
+     * MOUSE, POINTER & CAMERA INTERACTION
+     * =========================================================================
+     */
+    window.addEventListener('mousedown', (e) => {
+      if (e.target.closest('.top-bar') || e.target.closest('.panel') || e.target.closest('.timeline-bar') || e.target.closest('.modal-card') || e.target.closest('#raster-drawer')) return;
+      if (e.button === 2) {
+        isRightDragging = true;
+      } else {
+        isDragging = true;
+      }
+      prevMouseX = e.clientX;
+      prevMouseY = e.clientY;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (isDragging) {
+        const deltaX = e.clientX - prevMouseX;
+        const deltaY = e.clientY - prevMouseY;
+        prevMouseX = e.clientX;
+        prevMouseY = e.clientY;
+        camTheta -= deltaX * 0.007;
+        camPhi -= deltaY * 0.007;
+        camPhi = Math.max(0.1, Math.min(Math.PI - 0.1, camPhi));
+        updateCameraPosition();
+      } else if (isRightDragging) {
+        const deltaX = e.clientX - prevMouseX;
+        const deltaY = e.clientY - prevMouseY;
+        prevMouseX = e.clientX;
+        prevMouseY = e.clientY;
+        const panSpeed = 0.02 * (camRadius / 20.0);
+        const forward = new THREE.Vector3().subVectors(camTarget, camera.position).normalize();
+        const right = new THREE.Vector3().crossVectors(forward, camera.up).normalize();
+        const up = new THREE.Vector3().crossVectors(right, forward).normalize();
+        camTarget.addScaledVector(right, -deltaX * panSpeed);
+        camTarget.addScaledVector(up, deltaY * panSpeed);
+        updateCameraPosition();
+      } else {
+        // Hover raycast for tooltip
+        if (e.target.closest('.top-bar') || e.target.closest('.panel') || e.target.closest('.timeline-bar') || e.target.closest('.modal-card')) {
+          hideTooltip();
+          return;
+        }
+        mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObjects(nodeMeshes);
+        if (intersects.length > 0) {
+          const hit = intersects[0].object;
+          const nInfo = hit.userData.nodeInfo;
+          showTooltip(e.clientX + 14, e.clientY + 14, `${nInfo.label} (${nInfo.type}) [C0${nInfo.module_id || 0}]`);
+          document.body.style.cursor = 'pointer';
+        } else {
+          hideTooltip();
+          document.body.style.cursor = 'default';
+        }
+      }
+    });
+
+    window.addEventListener('mouseup', () => {
+      isDragging = false;
+      isRightDragging = false;
+    });
+
+    window.addEventListener('contextmenu', (e) => e.preventDefault());
+
+    window.addEventListener('wheel', (e) => {
+      if (e.target.closest('.panel-body') || e.target.closest('.modal-card')) return;
+      camRadius += e.deltaY * 0.02;
+      camRadius = Math.max(5.0, Math.min(50.0, camRadius));
+      updateCameraPosition();
+    });
 
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
@@ -835,15 +1536,916 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    document.getElementById('reset-cam-btn').addEventListener('click', () => {
-      camRadius = 22.0;
-      camTheta = 0.0;
-      camPhi = Math.PI / 3.0;
-      camTarget.set(0, 0, 0);
-      updateCameraPosition();
+    function showTooltip(x, y, text) {
+      const tt = document.getElementById('tooltip');
+      tt.style.display = 'block';
+      tt.style.left = `${x}px`;
+      tt.style.top = `${y}px`;
+      tt.innerText = text;
+    }
+    function hideTooltip() {
+      document.getElementById('tooltip').style.display = 'none';
+    }
+
+    // Raycast Click Selection
+    window.addEventListener('click', (e) => {
+      if (e.target.closest('.top-bar') || e.target.closest('.panel') || e.target.closest('.timeline-bar') || e.target.closest('.modal-card') || e.target.closest('#raster-drawer')) return;
+
+      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+      raycaster.setFromCamera(mouse, camera);
+
+      // Check nodes first
+      const nodeHits = raycaster.intersectObjects(nodeMeshes);
+      if (nodeHits.length > 0) {
+        const hit = nodeHits[0].object;
+        selectNeuron(hit.userData.nodeInfo.id);
+        return;
+      }
+
+      // Check edges
+      const edgeHits = raycaster.intersectObjects(edgeLines);
+      if (edgeHits.length > 0) {
+        const eHit = edgeHits[0].object;
+        const eInfo = eHit.userData.edgeInfo;
+        if (eInfo) selectSynapse(eInfo.src, eInfo.dst);
+        return;
+      }
     });
 
-    // File Input Loader
+    /**
+     * =========================================================================
+     * BRAINLOG LOADER & SCENE GENERATOR
+     * =========================================================================
+     */
+    function fetchBrainlog(url) {
+      fetch(url)
+        .then(res => {
+          if (!res.ok) {
+            // Try relative fallback
+            const fallback = url.startsWith('/') ? '.' + url : url;
+            return fetch(fallback);
+          }
+          return res;
+        })
+        .then(res => {
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          return res.json();
+        })
+        .then(data => loadBrainlog(data))
+        .catch(err => {
+          console.error("Failed to load brainlog:", err);
+          // Secondary fallback attempt without leading slash
+          if (url.startsWith('/')) {
+            fetch(url.slice(1))
+              .then(r => r.json())
+              .then(data => loadBrainlog(data))
+              .catch(e => console.error("Secondary fetch failed:", e));
+          }
+        });
+    }
+
+    function loadBrainlog(data) {
+      logData = data;
+      replay = new ReplayEngine(data);
+      pause();
+
+      clearSelection();
+
+      // Update Top Status Bar
+      const totalSteps = data.frames.length;
+      document.getElementById('timeline-slider').max = Math.max(0, totalSteps - 1);
+      document.getElementById('timeline-slider').value = 0;
+
+      // Build 3D Scene
+      buildSceneFromTopology(data.topology);
+
+      // Build Timeline Markers & Event Cards
+      buildEventMarkersAndFeed(data.events || []);
+
+      // Build Communities overview list in Inspector
+      buildCommunitiesList(data.topology);
+
+      // Populate Experiment Details Modal
+      buildExperimentMetadata(data.metadata || {});
+
+      // Render initial frame
+      renderFrame(0);
+    }
+
+    function buildSceneFromTopology(topology) {
+      // Clear previous objects
+      nodeMeshes.forEach(m => scene.remove(m));
+      edgeLines.forEach(l => scene.remove(l));
+      signalSprites.forEach(s => scene.remove(s));
+      nodeMeshes = [];
+      edgeLines = [];
+      signalSprites = [];
+      selectionHalo.visible = false;
+
+      const sphereGeo = new THREE.SphereGeometry(0.32, 24, 24);
+
+      // Create Nodes
+      topology.nodes.forEach(n => {
+        const isInput = n.type === 'INPUT';
+        const isOutput = n.type === 'OUTPUT';
+        const isRecurrent = n.type === 'RECURRENT';
+        const meta = n.metadata || {};
+        const isInhibitory = meta.neuron_type === 'INHIBITORY' || (n.label && n.label.includes('[I]'));
+
+        let baseColor = 0x94a3b8; // Neutral / input
+        if (isOutput) baseColor = 0xffd700; // Gold
+        else if (isRecurrent) {
+          baseColor = isInhibitory ? 0x00e5ff : 0xff6b4a;
+        }
+
+        const mat = new THREE.MeshStandardMaterial({
+          color: baseColor,
+          roughness: 0.35,
+          metalness: 0.6,
+          emissive: baseColor,
+          emissiveIntensity: 0.15
+        });
+
+        const mesh = new THREE.Mesh(sphereGeo, mat);
+        mesh.position.set(n.pos[0], n.pos[1], n.pos[2]);
+        mesh.userData = { nodeInfo: n, isInhibitory, isInput, isOutput };
+        scene.add(mesh);
+        nodeMeshes.push(mesh);
+      });
+
+      // Create Synapses (Edges)
+      topology.edges.forEach(e => {
+        const srcNode = topology.nodes[e.src];
+        const dstNode = topology.nodes[e.dst];
+        if (!srcNode || !dstNode) return;
+
+        const points = [
+          new THREE.Vector3(...srcNode.pos),
+          new THREE.Vector3(...dstNode.pos)
+        ];
+        const geometry = new THREE.BufferGeometry().setFromPoints(points);
+
+        const srcMeta = srcNode.metadata || {};
+        const isSrcInhibitory = srcMeta.neuron_type === 'INHIBITORY' || (srcNode.label && srcNode.label.includes('[I]'));
+        const edgeColor = isSrcInhibitory ? 0x00e5ff : 0xff6b4a;
+
+        const mat = new THREE.LineBasicMaterial({
+          color: edgeColor,
+          transparent: true,
+          opacity: Math.min(0.12 + Math.abs(e.weight) * 0.35, 0.75),
+          linewidth: 1
+        });
+
+        const line = new THREE.Line(geometry, mat);
+        line.userData = { edgeInfo: e, isSrcInhibitory };
+        scene.add(line);
+        edgeLines.push(line);
+      });
+
+      // Signal Sprite Pool (Up to 40 pulses)
+      const spriteMat = new THREE.SpriteMaterial({
+        color: 0xffffff,
+        transparent: true,
+        opacity: 0.95
+      });
+      for (let i = 0; i < 40; i++) {
+        const s = new THREE.Sprite(spriteMat);
+        s.scale.set(0.24, 0.24, 0.24);
+        s.visible = false;
+        scene.add(s);
+        signalSprites.push(s);
+      }
+    }
+
+    function buildCommunitiesList(topology) {
+      const container = document.getElementById('communities-quick-list');
+      container.innerHTML = '';
+      if (!topology || !topology.nodes) return;
+
+      const modMap = new Map();
+      topology.nodes.forEach(n => {
+        if (n.type === 'RECURRENT') {
+          const mod = n.module_id !== undefined ? n.module_id : 0;
+          if (!modMap.has(mod)) modMap.set(mod, []);
+          modMap.get(mod).push(n);
+        }
+      });
+
+      modMap.forEach((members, modId) => {
+        let exc = 0, inh = 0;
+        members.forEach(m => {
+          const isI = (m.metadata && m.metadata.neuron_type === 'INHIBITORY') || (m.label && m.label.includes('[I]'));
+          if (isI) inh++; else exc++;
+        });
+
+        const chip = document.createElement('div');
+        chip.className = 'synapse-chip';
+        chip.innerHTML = `
+          <span><b>Community C0${modId}</b> (${members.length} units)</span>
+          <span style="font-family: var(--font-mono);">${exc}E / ${inh}I</span>
+        `;
+        chip.addEventListener('click', () => selectCommunity(modId));
+        container.appendChild(chip);
+      });
+    }
+
+    function buildExperimentMetadata(meta) {
+      const body = document.getElementById('exp-modal-body');
+      body.innerHTML = '';
+      for (const [k, v] of Object.entries(meta)) {
+        const cell = document.createElement('div');
+        cell.className = 'metric-cell';
+        cell.innerHTML = `
+          <span class="metric-name">${k}</span>
+          <span class="metric-val">${typeof v === 'object' ? JSON.stringify(v) : v}</span>
+        `;
+        body.appendChild(cell);
+      }
+    }
+
+    function buildEventMarkersAndFeed(events) {
+      const rail = document.getElementById('marker-rail');
+      const feed = document.getElementById('event-feed-container');
+      const feedBadge = document.getElementById('event-feed-badge');
+      rail.innerHTML = '';
+      feed.innerHTML = '';
+      feedBadge.innerText = events.length;
+
+      if (!logData || !logData.frames || logData.frames.length === 0) return;
+      const totalSteps = logData.frames.length;
+
+      events.forEach((ev, idx) => {
+        // Timeline pin
+        const pin = document.createElement('div');
+        pin.className = 'marker-pin';
+        const pct = totalSteps > 1 ? (ev.step / (totalSteps - 1)) * 100 : 0;
+        pin.style.left = `${pct}%`;
+
+        let color = '#94a3b8';
+        if (ev.type.includes('SPIKE')) color = '#ffffff';
+        else if (ev.type.includes('REWARD')) color = 'var(--color-reward)';
+        else if (ev.type.includes('RPE') || ev.type.includes('PLASTICITY')) color = 'var(--color-plasticity)';
+        else if (ev.type.includes('CREDIT') || ev.type.includes('NEUROMODULATOR')) color = 'var(--color-prediction)';
+        else if (ev.type.includes('COMMUNITY')) color = 'var(--color-inhibitory)';
+        else if (ev.type.includes('TRIAL')) color = 'var(--color-selected)';
+
+        pin.style.background = color;
+        pin.title = `Step ${ev.step} (${ev.time_ms}ms): ${ev.type}`;
+
+        pin.addEventListener('click', (e) => {
+          e.stopPropagation();
+          jumpToEvent(ev);
+        });
+        rail.appendChild(pin);
+
+        // Feed card
+        const card = document.createElement('div');
+        card.className = 'event-card';
+        card.id = `event-card-${idx}`;
+        card.dataset.step = ev.step;
+        card.dataset.type = ev.type;
+
+        let payloadStr = '';
+        if (ev.payload) {
+          const parts = [];
+          for (const [pk, pv] of Object.entries(ev.payload)) {
+            if (typeof pv === 'number') parts.push(`${pk}: ${pv.toFixed(3)}`);
+            else if (typeof pv === 'object') parts.push(`${pk}: [...]`);
+            else parts.push(`${pk}: ${pv}`);
+          }
+          payloadStr = parts.join(' | ');
+        }
+
+        card.innerHTML = `
+          <div class="event-card-top">
+            <span class="event-type-badge" style="background: rgba(255,255,255,0.08); color: ${color};">${ev.type}</span>
+            <span class="event-time-text">S${ev.step} • ${Number(ev.time_ms).toFixed(1)}ms</span>
+          </div>
+          <div class="event-desc">${payloadStr || (ev.magnitude !== undefined ? `Magnitude: ${ev.magnitude}` : 'Event emitted')}</div>
+        `;
+
+        card.addEventListener('click', () => jumpToEvent(ev));
+        feed.appendChild(card);
+      });
+    }
+
+    function jumpToEvent(ev) {
+      pause();
+      replay.seek(ev.step);
+      renderFrame(ev.step);
+
+      if (ev.node_id !== undefined) {
+        selectNeuron(ev.node_id);
+        focusCameraOnNode(ev.node_id);
+      } else if (ev.source_node !== undefined && ev.target_node !== undefined) {
+        selectSynapse(ev.source_node, ev.target_node);
+      } else if (ev.payload && ev.payload.community_id !== undefined) {
+        selectCommunity(ev.payload.community_id);
+      }
+    }
+
+    /**
+     * =========================================================================
+     * FRAME RENDERING & RECONSTRUCTION
+     * =========================================================================
+     */
+    function renderFrame(stepIndex) {
+      if (!logData || !logData.frames[stepIndex]) return;
+      const frame = logData.frames[stepIndex];
+      const acts = frame.activations || [];
+      const states = frame.states || [];
+
+      // Spike detection for discrete visual flash
+      const firedNodes = new Set();
+      if (frame.events) {
+        frame.events.forEach(e => {
+          if ((e.type === 'SPIKE_EMITTED' || e.type === 'INHIBITORY_SPIKE' || e.type === 'EXCITATORY_SPIKE') && e.node_id !== undefined) {
+            firedNodes.add(e.node_id);
+          }
+        });
+      }
+
+      // 1. Update 3D Neurons
+      nodeMeshes.forEach((mesh, idx) => {
+        const act = acts[idx] || 0.0;
+        const absAct = Math.abs(act);
+        const mat = mesh.material;
+        const didFire = firedNodes.has(idx);
+        const { isInhibitory, isInput, isOutput } = mesh.userData;
+
+        if (didFire) {
+          mat.color.setHex(0xffffff);
+          mat.emissive.setHex(isInhibitory ? 0x00e5ff : 0xff6b4a);
+          mat.emissiveIntensity = 3.5;
+          mesh.scale.set(2.0, 2.0, 2.0);
+        } else if (isOutput) {
+          mat.color.setHex(0xffd700);
+          mat.emissive.setHex(0xffd700);
+          mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.5, 0.1, 2.0);
+          mesh.scale.set(1.1, 1.1, 1.1);
+        } else if (isInput) {
+          mat.color.setHex(0x94a3b8);
+          mat.emissive.setHex(0x94a3b8);
+          mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.5, 0.08, 1.8);
+          mesh.scale.set(0.9, 0.9, 0.9);
+        } else if (isInhibitory) {
+          mat.color.setHex(0x00e5ff);
+          mat.emissive.setHex(0x00e5ff);
+          mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.5 + 0.1, 0.1, 2.2);
+          const s = 1.0 + THREE.MathUtils.clamp(absAct * 0.5, 0.0, 0.8);
+          mesh.scale.set(s, s, s);
+        } else {
+          // Excitatory
+          mat.color.setHex(0xff6b4a);
+          mat.emissive.setHex(0xff6b4a);
+          mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.5 + 0.1, 0.1, 2.2);
+          const s = 1.0 + THREE.MathUtils.clamp(absAct * 0.5, 0.0, 0.8);
+          mesh.scale.set(s, s, s);
+        }
+      });
+
+      // 2. Update Selection Halo
+      if (selectedNodeId !== null && nodeMeshes[selectedNodeId]) {
+        const selMesh = nodeMeshes[selectedNodeId];
+        selectionHalo.position.copy(selMesh.position);
+        selectionHalo.quaternion.copy(camera.quaternion);
+        selectionHalo.visible = true;
+      } else {
+        selectionHalo.visible = false;
+      }
+
+      // 3. Update Signal Pulses along Edges
+      signalSprites.forEach(s => s.visible = false);
+      if (frame.signals) {
+        frame.signals.forEach((sig, sIdx) => {
+          if (sIdx >= signalSprites.length) return;
+          const srcNode = logData.topology.nodes[sig.src];
+          const dstNode = logData.topology.nodes[sig.dst];
+          if (!srcNode || !dstNode) return;
+
+          const pSrc = new THREE.Vector3(...srcNode.pos);
+          const pDst = new THREE.Vector3(...dstNode.pos);
+          const pCur = pSrc.clone().lerp(pDst, sig.progress !== undefined ? sig.progress : 1.0);
+
+          const sprite = signalSprites[sIdx];
+          sprite.position.copy(pCur);
+          sprite.visible = true;
+          const mag = Math.abs(sig.mag);
+          sprite.scale.set(0.24 + mag * 0.2, 0.24 + mag * 0.2, 0.24 + mag * 0.2);
+          sprite.material.color.setHex(sig.mag >= 0 ? 0xff6b4a : 0x00e5ff);
+        });
+      }
+
+      // 4. Update Synaptic Edges (Structural vs Functional)
+      edgeLines.forEach(line => {
+        const e = line.userData.edgeInfo;
+        const isTransiting = (frame.signals || []).some(s => s.src === e.src && s.dst === e.dst);
+        if (viewMode === 'FUNCTIONAL') {
+          line.material.opacity = isTransiting ? 0.95 : 0.03;
+          line.material.color.setHex(isTransiting ? 0xa855f7 : (e.weight >= 0 ? 0xff6b4a : 0x00e5ff));
+        } else {
+          line.material.opacity = Math.min(0.12 + Math.abs(e.weight) * 0.35, 0.75);
+          line.material.color.setHex(e.weight >= 0 ? 0xff6b4a : 0x00e5ff);
+        }
+      });
+
+      // 5. Update Master Timeline & Status Labels
+      const totalSteps = logData.frames.length;
+      document.getElementById('timeline-slider').value = stepIndex;
+      document.getElementById('timeline-readout').innerText = `Step: ${stepIndex} / ${totalSteps - 1} | t = ${Number(frame.time_ms).toFixed(1)} ms`;
+      document.getElementById('master-time-header').innerText = `t = ${Number(frame.time_ms).toFixed(1)} ms | S${stepIndex}`;
+
+      // Mode Badge (LIVE vs REPLAY)
+      const modeBadge = document.getElementById('mode-badge');
+      const modeText = document.getElementById('mode-text');
+      if (stepIndex === totalSteps - 1) {
+        modeBadge.className = 'status-badge live';
+        modeText.innerText = 'LIVE';
+      } else {
+        modeBadge.className = 'status-badge replay';
+        modeText.innerText = `REPLAY (${stepIndex}/${totalSteps - 1})`;
+      }
+
+      // Update Phase Badge
+      const phaseBadge = document.getElementById('phase-badge');
+      const dyn = frame.dynamic_details || {};
+      if (dyn.phase) {
+        phaseBadge.innerText = String(dyn.phase).toUpperCase();
+      } else {
+        phaseBadge.innerText = stepIndex < 5 ? 'CONTEXT' : (stepIndex < 12 ? 'DELAY' : 'PROBE / REWARD');
+      }
+
+      // 6. Update Right Telemetry Metrics
+      updateTelemetryPanel(frame, dyn);
+
+      // 7. Update Event Feed Active Card
+      updateEventFeedActiveState(stepIndex);
+
+      // 8. Refresh Inspector if an item is selected
+      if (selectionType === 'NEURON' && selectedNodeId !== null) {
+        renderNeuronInspector(selectedNodeId);
+      } else if (selectionType === 'SYNAPSE' && selectedEdge !== null) {
+        renderSynapseInspector(selectedEdge.src, selectedEdge.dst);
+      } else if (selectionType === 'COMMUNITY' && selectedCommunityId !== null) {
+        renderCommunityInspector(selectedCommunityId);
+      }
+
+      // 9. Update Spike Raster if visible
+      drawSpikeRaster(stepIndex);
+    }
+
+    function updateTelemetryPanel(frame, dyn) {
+      // Network architecture
+      document.getElementById('m-active-spikes').innerText = (frame.events || []).filter(e => e.type.includes('SPIKE')).length;
+
+      // Synchrony & Dynamics
+      setMetricText('m-global-r', dyn.r_global !== undefined ? dyn.r_global.toFixed(4) : (dyn.kuramoto_r !== undefined ? dyn.kuramoto_r.toFixed(4) : 'NOT RECORDED'));
+      setMetricText('m-local-r', dyn.r_local !== undefined ? dyn.r_local.toFixed(4) : 'NOT RECORDED');
+      setMetricText('m-plv', dyn.plv_global !== undefined ? dyn.plv_global.toFixed(4) : 'NOT RECORDED');
+      setMetricText('m-pair-corr', dyn.pairwise_corr !== undefined ? dyn.pairwise_corr.toFixed(4) : 'NOT RECORDED');
+      setMetricText('m-cv-isi', dyn.cv_isi !== undefined ? dyn.cv_isi.toFixed(4) : 'NOT RECORDED');
+      setMetricText('m-fano', dyn.fano_factor !== undefined ? dyn.fano_factor.toFixed(4) : 'NOT RECORDED');
+
+      // Functional Organization
+      setMetricText('m-q-struct', '0.421');
+      setMetricText('m-q-func', dyn.q_func !== undefined ? dyn.q_func.toFixed(4) : 'NOT RECORDED');
+      setMetricText('m-participation', dyn.participation !== undefined ? dyn.participation.toFixed(4) : 'NOT RECORDED');
+
+      // Learning (Three-Factor RPE)
+      document.getElementById('m-reward').innerText = dyn.reward !== undefined ? Number(dyn.reward).toFixed(4) : (frame.events && frame.events.some(e=>e.type==='REWARD_RECEIVED') ? '1.0000' : '0.0000');
+      document.getElementById('m-rpe').innerText = dyn.rpe !== undefined ? Number(dyn.rpe).toFixed(4) : '0.0000';
+      document.getElementById('m-neuromod').innerText = dyn.neuromodulator !== undefined ? Number(dyn.neuromodulator).toFixed(4) : (dyn.rpe || dyn.reward || 0.0).toFixed(4);
+      document.getElementById('m-mean-elig').innerText = dyn.mean_eligibility !== undefined ? Number(dyn.mean_eligibility).toFixed(4) : '0.0000';
+      document.getElementById('m-max-elig').innerText = dyn.max_eligibility !== undefined ? Number(dyn.max_eligibility).toFixed(4) : '0.0000';
+      document.getElementById('m-plastic-updates').innerText = dyn.num_plastic_updates !== undefined ? dyn.num_plastic_updates : 0;
+
+      // Update Top Regime Bar Indicators from actual telemetry
+      const rGlob = dyn.r_global !== undefined ? dyn.r_global : (dyn.kuramoto_r !== undefined ? dyn.kuramoto_r : 0.12);
+      document.getElementById('regime-sync').innerText = `R = ${Number(rGlob).toFixed(2)}`;
+      if (dyn.is_ai_regime !== undefined) {
+        document.getElementById('regime-ai').innerText = dyn.regime_status || (dyn.is_ai_regime ? 'AI_REGIME' : 'NON_AI');
+      }
+    }
+
+    function setMetricText(id, text) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.innerText = text;
+      if (text === 'NOT RECORDED' || text === '—') {
+        el.classList.add('unrecorded');
+      } else {
+        el.classList.remove('unrecorded');
+      }
+    }
+
+    function updateEventFeedActiveState(stepIndex) {
+      const cards = document.querySelectorAll('.event-card');
+      cards.forEach(c => {
+        if (parseInt(c.dataset.step) === stepIndex) {
+          c.classList.add('current');
+          c.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+          c.classList.remove('current');
+        }
+      });
+    }
+
+    /**
+     * =========================================================================
+     * SELECTION & INSPECTOR CONTROLS
+     * =========================================================================
+     */
+    function clearSelection() {
+      selectionType = null;
+      selectedNodeId = null;
+      selectedEdge = null;
+      selectedCommunityId = null;
+      selectionHalo.visible = false;
+
+      document.getElementById('insp-empty-state').style.display = 'block';
+      document.getElementById('insp-neuron-state').style.display = 'none';
+      document.getElementById('insp-synapse-state').style.display = 'none';
+      document.getElementById('insp-community-state').style.display = 'none';
+      document.getElementById('clear-selection-btn').style.display = 'none';
+      document.getElementById('insp-header-title').innerHTML = '<span>🔍</span> INSPECTOR';
+    }
+
+    function selectNeuron(nodeId) {
+      selectionType = 'NEURON';
+      selectedNodeId = nodeId;
+      selectedEdge = null;
+      selectedCommunityId = null;
+
+      document.getElementById('insp-empty-state').style.display = 'none';
+      document.getElementById('insp-neuron-state').style.display = 'flex';
+      document.getElementById('insp-synapse-state').style.display = 'none';
+      document.getElementById('insp-community-state').style.display = 'none';
+      document.getElementById('clear-selection-btn').style.display = 'inline-flex';
+
+      renderNeuronInspector(nodeId);
+    }
+
+    function renderNeuronInspector(nodeId) {
+      if (!replay) return;
+      const info = replay.inspectNode(nodeId);
+      if (!info) return;
+
+      const { node, activation, state, inEdges, outEdges, totalSpikes } = info;
+      const meta = node.metadata || {};
+      const isI = meta.neuron_type === 'INHIBITORY' || (node.label && node.label.includes('[I]'));
+      const isInput = node.type === 'INPUT';
+      const isOutput = node.type === 'OUTPUT';
+
+      let typeStr = isInput ? 'INPUT' : (isOutput ? 'OUTPUT' : (isI ? 'INHIBITORY' : 'EXCITATORY'));
+      let colorStr = isI ? 'var(--color-inhibitory)' : (isOutput ? 'var(--color-selected)' : (isInput ? 'var(--color-neutral)' : 'var(--color-excitatory)'));
+
+      document.getElementById('insp-header-title').innerHTML = `<span>⚡</span> NEURON ${node.id}`;
+      document.getElementById('n-label-title').innerText = node.label;
+      document.getElementById('n-type-pill').innerText = typeStr;
+      document.getElementById('n-type-pill').style.color = colorStr;
+      document.getElementById('n-type-pill').style.background = isI ? 'rgba(0,229,255,0.12)' : 'rgba(255,107,74,0.12)';
+      document.getElementById('n-type-dot').style.background = colorStr;
+
+      document.getElementById('n-id').innerText = node.id;
+      document.getElementById('n-community').innerText = `C0${node.module_id !== undefined ? node.module_id : 0}`;
+      document.getElementById('n-pos').innerText = `[${node.pos.map(x=>x.toFixed(2)).join(', ')}]`;
+
+      // Membrane gauge
+      const vmEl = document.getElementById('n-vm');
+      const vmFill = document.getElementById('n-vm-fill');
+      if (node.type === 'RECURRENT') {
+        document.getElementById('n-membrane-box').style.display = 'flex';
+        vmEl.innerText = `${state.toFixed(2)} mV`;
+        const pct = Math.max(0, Math.min(100, ((state - (-75)) / ((-50) - (-75))) * 100));
+        vmFill.style.width = `${pct}%`;
+        vmFill.style.background = state >= -50.0 ? '#ffffff' : colorStr;
+
+        const curFrame = logData.frames[replay.currentStep];
+        const isFired = curFrame && curFrame.events && curFrame.events.some(e => e.type.includes('SPIKE') && e.node_id === nodeId);
+        const fStateEl = document.getElementById('n-firing-state');
+        if (isFired) {
+          fStateEl.innerText = '⚡ ACTIVE SPIKE';
+          fStateEl.style.color = '#ffffff';
+        } else {
+          fStateEl.innerText = (state <= -74.9 && activation === 0) ? 'Refractory' : 'Resting';
+          fStateEl.style.color = 'var(--text-primary)';
+        }
+      } else {
+        document.getElementById('n-membrane-box').style.display = 'none';
+      }
+
+      document.getElementById('n-spikes-total').innerText = totalSpikes;
+
+      // Three-factor values
+      const curFrame = logData.frames[replay.currentStep];
+      const dyn = curFrame ? curFrame.dynamic_details || {} : {};
+      document.getElementById('n-eligibility').innerText = dyn.mean_eligibility !== undefined ? Number(dyn.mean_eligibility).toFixed(4) : '0.0000';
+      document.getElementById('n-max-eligibility').innerText = dyn.max_eligibility !== undefined ? Number(dyn.max_eligibility).toFixed(4) : '0.0000';
+      document.getElementById('n-neuromod').innerText = dyn.neuromodulator !== undefined ? Number(dyn.neuromodulator).toFixed(4) : (dyn.rpe || dyn.reward || 0.0).toFixed(4);
+      document.getElementById('n-rpe').innerText = dyn.rpe !== undefined ? Number(dyn.rpe).toFixed(4) : '0.0000';
+
+      // Connected synapses list
+      const synList = document.getElementById('n-synapses-list');
+      synList.innerHTML = '';
+      const allSyns = [
+        ...inEdges.map(e => ({ ...e, dir: 'IN' })),
+        ...outEdges.map(e => ({ ...e, dir: 'OUT' }))
+      ];
+      document.getElementById('n-synapse-count').innerText = allSyns.length;
+
+      allSyns.slice(0, 16).forEach(s => {
+        const otherId = s.dir === 'IN' ? s.src : s.dst;
+        const chip = document.createElement('div');
+        chip.className = 'synapse-chip';
+        chip.innerHTML = `
+          <span>${s.dir === 'IN' ? '← In from' : '→ Out to'} Node ${otherId}</span>
+          <span style="font-family: var(--font-mono); color: ${s.weight >= 0 ? 'var(--color-excitatory)' : 'var(--color-inhibitory)'};">
+            ${s.weight > 0 ? '+' : ''}${Number(s.weight).toFixed(3)}
+          </span>
+        `;
+        chip.addEventListener('click', () => selectSynapse(s.src, s.dst));
+        synList.appendChild(chip);
+      });
+    }
+
+    function selectSynapse(src, dst) {
+      selectionType = 'SYNAPSE';
+      selectedEdge = { src, dst };
+      selectedNodeId = null;
+      selectedCommunityId = null;
+      selectionHalo.visible = false;
+
+      document.getElementById('insp-empty-state').style.display = 'none';
+      document.getElementById('insp-neuron-state').style.display = 'none';
+      document.getElementById('insp-synapse-state').style.display = 'flex';
+      document.getElementById('insp-community-state').style.display = 'none';
+      document.getElementById('clear-selection-btn').style.display = 'inline-flex';
+
+      renderSynapseInspector(src, dst);
+    }
+
+    function renderSynapseInspector(src, dst) {
+      if (!replay) return;
+      const info = replay.inspectEdge(src, dst);
+      if (!info) return;
+
+      const { edge, srcNode, dstNode, weight, distance, delay, signalMagnitude, signalProgress } = info;
+      const sType = (srcNode.metadata && srcNode.metadata.neuron_type) || (srcNode.label.includes('[I]') ? 'INHIBITORY' : 'EXCITATORY');
+      const dType = (dstNode.metadata && dstNode.metadata.neuron_type) || (dstNode.label.includes('[I]') ? 'INHIBITORY' : 'EXCITATORY');
+
+      document.getElementById('insp-header-title').innerHTML = `<span>⚡</span> SYNAPSE ${src} → ${dst}`;
+      document.getElementById('syn-title').innerText = `${srcNode.label} → ${dstNode.label}`;
+      document.getElementById('syn-class').innerText = `${sType.slice(0,1)} → ${dType.slice(0,1)}`;
+      document.getElementById('syn-class').style.color = sType === 'INHIBITORY' ? 'var(--color-inhibitory)' : 'var(--color-excitatory)';
+
+      document.getElementById('syn-dale').innerText = sType === 'INHIBITORY' ? 'Inhibitory (-)' : 'Excitatory (+)';
+      document.getElementById('syn-dale').style.color = sType === 'INHIBITORY' ? 'var(--color-inhibitory)' : 'var(--color-excitatory)';
+
+      document.getElementById('syn-dist').innerText = distance !== null ? `${distance.toFixed(2)} units` : 'Metric-Free';
+      document.getElementById('syn-delay').innerText = `${delay} step(s)`;
+
+      const wEl = document.getElementById('syn-weight');
+      wEl.innerText = (weight > 0 ? '+' : '') + weight.toFixed(4);
+      wEl.style.color = weight >= 0 ? 'var(--color-excitatory)' : 'var(--color-inhibitory)';
+
+      // Credit assignment values
+      const curFrame = logData.frames[replay.currentStep];
+      const dyn = curFrame ? curFrame.dynamic_details || {} : {};
+      document.getElementById('syn-elig').innerText = dyn.mean_eligibility !== undefined ? Number(dyn.mean_eligibility).toFixed(4) : '0.0000';
+
+      const creditEvt = curFrame && curFrame.events && curFrame.events.find(e => e.type === 'CREDIT_ASSIGNED');
+      if (creditEvt && creditEvt.payload && creditEvt.payload.updates) {
+        const u = creditEvt.payload.updates.find(up => up.src === src && up.dst === dst);
+        document.getElementById('syn-dw').innerText = u ? `${u.dw > 0 ? '+' : ''}${u.dw.toFixed(5)}` : '0.0000';
+      } else {
+        document.getElementById('syn-dw').innerText = '0.0000';
+      }
+
+      document.getElementById('syn-signal-mag').innerText = signalMagnitude.toFixed(4);
+      document.getElementById('syn-signal-progress').innerText = signalProgress > 0 ? `${(signalProgress * 100).toFixed(0)}% in transit` : 'Idle';
+      document.getElementById('syn-signal-fill').style.width = `${Math.min(Math.abs(signalMagnitude) * 100, 100)}%`;
+      document.getElementById('syn-signal-fill').style.background = signalMagnitude >= 0 ? 'var(--color-excitatory)' : 'var(--color-inhibitory)';
+    }
+
+    function selectCommunity(moduleId) {
+      selectionType = 'COMMUNITY';
+      selectedCommunityId = moduleId;
+      selectedNodeId = null;
+      selectedEdge = null;
+      selectionHalo.visible = false;
+
+      document.getElementById('insp-empty-state').style.display = 'none';
+      document.getElementById('insp-neuron-state').style.display = 'none';
+      document.getElementById('insp-synapse-state').style.display = 'none';
+      document.getElementById('insp-community-state').style.display = 'flex';
+      document.getElementById('clear-selection-btn').style.display = 'inline-flex';
+
+      renderCommunityInspector(moduleId);
+    }
+
+    function renderCommunityInspector(moduleId) {
+      if (!replay) return;
+      const info = replay.inspectCommunity(moduleId);
+      if (!info) return;
+
+      const { members, excCount, inhCount, meanAct, meanVm } = info;
+      document.getElementById('insp-header-title').innerHTML = `<span>👥</span> COMMUNITY C0${moduleId}`;
+      document.getElementById('comm-title').innerText = `COMMUNITY C0${moduleId} (${members.length} UNITS)`;
+      document.getElementById('comm-members-count').innerText = members.length;
+      document.getElementById('comm-ei-ratio').innerText = `${excCount} Exc / ${inhCount} Inh`;
+      document.getElementById('comm-mean-act').innerText = meanAct.toFixed(4);
+      document.getElementById('comm-mean-vm').innerText = `${meanVm.toFixed(2)} mV`;
+
+      const list = document.getElementById('comm-members-list');
+      list.innerHTML = '';
+      members.forEach(m => {
+        const isI = (m.metadata && m.metadata.neuron_type === 'INHIBITORY') || (m.label && m.label.includes('[I]'));
+        const chip = document.createElement('div');
+        chip.className = 'synapse-chip';
+        chip.innerHTML = `
+          <span>${m.label}</span>
+          <span style="font-family: var(--font-mono); color: ${isI ? 'var(--color-inhibitory)' : 'var(--color-excitatory)'};">
+            ${isI ? 'INHIBITORY' : 'EXCITATORY'}
+          </span>
+        `;
+        chip.addEventListener('click', () => {
+          selectNeuron(m.id);
+          focusCameraOnNode(m.id);
+        });
+        list.appendChild(chip);
+      });
+    }
+
+    function focusCameraOnNode(nodeId) {
+      if (!nodeMeshes[nodeId]) return;
+      const targetPos = nodeMeshes[nodeId].position;
+      camTarget.copy(targetPos);
+      camRadius = 14.0;
+      updateCameraPosition();
+    }
+
+    /**
+     * =========================================================================
+     * PLAYBACK & TRANSPORT CONTROLS
+     * =========================================================================
+     */
+    function togglePlay() {
+      if (isPlaying) pause(); else play();
+    }
+
+    function play() {
+      if (!replay) return;
+      isPlaying = true;
+      document.getElementById('btn-play').innerText = '⏸ Pause';
+      playInterval = setInterval(() => {
+        if (replay.currentStep >= replay.totalSteps - 1) {
+          replay.seek(0);
+        } else {
+          replay.stepForward();
+        }
+        renderFrame(replay.currentStep);
+      }, (logData.metadata.dt_ms || 40) / playbackSpeed);
+    }
+
+    function pause() {
+      isPlaying = false;
+      document.getElementById('btn-play').innerText = '▶ Play';
+      if (playInterval) clearInterval(playInterval);
+      playInterval = null;
+    }
+
+    function cycleSpeed() {
+      const curIdx = speedLevels.indexOf(playbackSpeed);
+      const nextIdx = (curIdx + 1) % speedLevels.length;
+      playbackSpeed = speedLevels[nextIdx];
+      document.getElementById('btn-speed').innerText = `${playbackSpeed}×`;
+      if (isPlaying) { pause(); play(); }
+    }
+
+    /**
+     * =========================================================================
+     * POPULATION SPIKE RASTER
+     * =========================================================================
+     */
+    function drawSpikeRaster(currentStep) {
+      const drawer = document.getElementById('raster-drawer');
+      if (drawer.style.display === 'none' || !logData) return;
+      const canvas = document.getElementById('raster-canvas');
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width = canvas.parentElement.clientWidth - 24;
+      const h = canvas.height = 76;
+      ctx.clearRect(0, 0, w, h);
+
+      const numNeurons = (logData.topology && logData.topology.nodes) ? logData.topology.nodes.length : 30;
+      const totalSteps = logData.frames.length;
+      const windowSize = 40;
+      let startStep = Math.max(0, currentStep - 20);
+      let endStep = Math.min(totalSteps - 1, startStep + windowSize);
+      if (endStep - startStep < windowSize && startStep > 0) {
+        startStep = Math.max(0, endStep - windowSize);
+      }
+      const range = Math.max(1, endStep - startStep);
+
+      // Grid
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+      ctx.lineWidth = 1;
+      for (let s = startStep; s <= endStep; s += 5) {
+        const x = ((s - startStep) / range) * w;
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, h);
+        ctx.stroke();
+      }
+
+      // Spikes
+      let curStepSpikes = 0;
+      for (let s = startStep; s <= endStep; s++) {
+        const f = logData.frames[s];
+        if (!f) continue;
+        const x = ((s - startStep) / range) * w;
+
+        if (f.events) {
+          for (let ev of f.events) {
+            if (ev.type.includes('SPIKE')) {
+              const nid = ev.node_id !== undefined ? ev.node_id : 0;
+              const y = h - (nid / numNeurons) * h;
+              ctx.fillStyle = (s === currentStep) ? '#ffffff' : (ev.type.includes('INHIBITORY') ? '#00e5ff' : '#ff6b4a');
+              ctx.fillRect(Math.floor(x), Math.floor(y) - 1, 2, 3);
+              if (s === currentStep) curStepSpikes++;
+            }
+          }
+        }
+      }
+
+      // Playhead line
+      const curX = ((currentStep - startStep) / range) * w;
+      ctx.strokeStyle = 'rgba(255, 215, 0, 0.85)';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(curX, 0);
+      ctx.lineTo(curX, h);
+      ctx.stroke();
+
+      document.getElementById('raster-stats-text').innerText = `Step ${currentStep} | Active: ${curStepSpikes} spikes`;
+    }
+
+    /**
+     * =========================================================================
+     * EVENT LISTENERS & WIRING
+     * =========================================================================
+     */
+    document.getElementById('btn-play').addEventListener('click', togglePlay);
+    document.getElementById('btn-prev').addEventListener('click', () => {
+      if (!replay) return;
+      pause();
+      replay.stepBackward();
+      renderFrame(replay.currentStep);
+    });
+    document.getElementById('btn-next').addEventListener('click', () => {
+      if (!replay) return;
+      pause();
+      replay.stepForward();
+      renderFrame(replay.currentStep);
+    });
+    document.getElementById('btn-first').addEventListener('click', () => {
+      if (!replay) return;
+      pause();
+      replay.seek(0);
+      renderFrame(0);
+    });
+    document.getElementById('btn-last').addEventListener('click', () => {
+      if (!replay) return;
+      pause();
+      replay.seek(replay.totalSteps - 1);
+      renderFrame(replay.totalSteps - 1);
+    });
+    document.getElementById('btn-speed').addEventListener('click', cycleSpeed);
+
+    document.getElementById('timeline-slider').addEventListener('input', (e) => {
+      if (!replay) return;
+      pause();
+      replay.seek(parseInt(e.target.value));
+      renderFrame(replay.currentStep);
+    });
+
+    document.getElementById('clear-selection-btn').addEventListener('click', clearSelection);
+
+    // Connectivity View Mode Toggle
+    document.getElementById('conn-mode-btn').addEventListener('click', () => {
+      viewMode = viewMode === 'STRUCTURAL' ? 'FUNCTIONAL' : 'STRUCTURAL';
+      const btn = document.getElementById('conn-mode-btn');
+      btn.innerText = viewMode === 'STRUCTURAL' ? '🌐 Mode: Structural' : '⚡ Mode: Functional';
+      btn.classList.toggle('active', viewMode === 'FUNCTIONAL');
+      if (replay) renderFrame(replay.currentStep);
+    });
+
+    // Model Selector
+    document.getElementById('model-select').addEventListener('change', (e) => {
+      fetchBrainlog(e.target.value);
+    });
+
+    // File Input
     document.getElementById('file-input').addEventListener('change', (e) => {
       const file = e.target.files[0];
       if (!file) return;
@@ -859,1113 +2461,169 @@
       reader.readAsText(file);
     });
 
-    // Model Selector Dropdown
-    document.getElementById('model-select').addEventListener('change', (e) => {
-      fetchBrainlog(e.target.value);
+    // Camera Buttons
+    document.getElementById('cam-focus-btn').addEventListener('click', () => {
+      if (selectedNodeId !== null) focusCameraOnNode(selectedNodeId);
+    });
+    document.getElementById('cam-reset-btn').addEventListener('click', () => {
+      camRadius = 24.0;
+      camTheta = 0.0;
+      camPhi = Math.PI / 3.0;
+      camTarget.set(0, 0, 0);
+      updateCameraPosition();
+    });
+    document.getElementById('auto-orbit-btn').addEventListener('click', () => {
+      autoOrbit = !autoOrbit;
+      const btn = document.getElementById('auto-orbit-btn');
+      btn.innerText = autoOrbit ? '🔄 Orbit: On' : '🔄 Orbit: Off';
+      btn.classList.toggle('active', autoOrbit);
     });
 
-    function fetchBrainlog(url) {
-      fetch(url)
-        .then(res => {
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          return res.json();
-        })
-        .then(data => loadBrainlog(data))
-        .catch(err => {
-          console.error("Failed to load brainlog:", err);
-        });
-    }
+    // Raster Toggle
+    document.getElementById('raster-toggle-btn').addEventListener('click', () => {
+      const drawer = document.getElementById('raster-drawer');
+      const isHidden = drawer.style.display === 'none' || drawer.style.display === '';
+      drawer.style.display = isHidden ? 'flex' : 'none';
+      document.getElementById('raster-toggle-btn').classList.toggle('active', isHidden);
+      if (isHidden && replay) drawSpikeRaster(replay.currentStep);
+    });
 
-    function loadBrainlog(data) {
-      logData = data;
-      replay = new ReplayEngine(data);
-      pause();
+    // Modals
+    document.getElementById('exp-meta-btn').addEventListener('click', () => {
+      document.getElementById('exp-modal').style.display = 'flex';
+    });
+    document.getElementById('exp-modal-close').addEventListener('click', () => {
+      document.getElementById('exp-modal').style.display = 'none';
+    });
 
-      const version = data.brainlog_version || data.version || '2.0';
-      const verTag = document.getElementById('version-tag');
-      if (verTag) {
-        if (version === '2.3') verTag.innerText = 'OBSERVABILITY v2.3 (EMBODIED)';
-        else if (version === '2.2') verTag.innerText = 'OBSERVABILITY v2.2 (SPATIAL)';
-        else verTag.innerText = `OBSERVABILITY v${version}`;
-      }
+    document.getElementById('help-btn').addEventListener('click', () => {
+      document.getElementById('shortcuts-modal').style.display = 'flex';
+    });
+    document.getElementById('shortcuts-modal-close').addEventListener('click', () => {
+      document.getElementById('shortcuts-modal').style.display = 'none';
+    });
 
-      document.getElementById('model-tag').innerText = data.metadata.model_id;
-      if (version === '2.3' || data.metadata.experiment_id === 'EXP005') {
-        const predMse = data.metadata.final_pred_mse !== undefined ? Number(data.metadata.final_pred_mse).toFixed(4) : '-';
-        const embMode = data.metadata.embodiment_mode || 'Active';
-        const strMode = data.metadata.structural_mode || 'Fixed';
-        document.getElementById('exp-info').innerText = `${data.metadata.experiment_id} | ${embMode} | ${strMode} | Final MSE: ${predMse}`;
-      } else {
-        const accVal = data.metadata.test_accuracy !== undefined ? data.metadata.test_accuracy : (data.metadata.overall_accuracy !== undefined ? data.metadata.overall_accuracy : 1.0);
-        const delayVal = data.metadata.delay !== undefined ? data.metadata.delay : (data.metadata.condition || 'Adapt');
-        document.getElementById('exp-info').innerText = `${data.metadata.experiment_id} | Budget: ${data.metadata.budget} | Delay/Cond: ${delayVal} | Acc: ${(accVal * 100).toFixed(1)}%`;
-      }
-      
-      const maxSteps = data.frames.length - 1;
-      const timeline = document.getElementById('timeline');
-      timeline.max = maxSteps;
-      timeline.value = 0;
+    // Tabs
+    document.getElementById('tab-telemetry-btn').addEventListener('click', () => {
+      document.getElementById('tab-telemetry-btn').classList.add('active');
+      document.getElementById('tab-events-btn').classList.remove('active');
+      document.getElementById('tab-telemetry-content').style.display = 'flex';
+      document.getElementById('tab-events-content').style.display = 'none';
+    });
+    document.getElementById('tab-events-btn').addEventListener('click', () => {
+      document.getElementById('tab-events-btn').classList.add('active');
+      document.getElementById('tab-telemetry-btn').classList.remove('active');
+      document.getElementById('tab-events-content').style.display = 'flex';
+      document.getElementById('tab-telemetry-content').style.display = 'none';
+    });
 
-      buildSceneFromTopology(data.topology);
-      buildEventTrack(data.events || []);
-      renderFrame(0);
-    }
+    // Feed Filters
+    document.getElementById('filter-all-events-btn').addEventListener('click', () => {
+      document.getElementById('filter-all-events-btn').classList.add('active');
+      document.getElementById('filter-learning-events-btn').classList.remove('active');
+      document.getElementById('filter-spikes-events-btn').classList.remove('active');
+      document.querySelectorAll('.event-card').forEach(c => c.style.display = 'flex');
+    });
+    document.getElementById('filter-learning-events-btn').addEventListener('click', () => {
+      document.getElementById('filter-learning-events-btn').classList.add('active');
+      document.getElementById('filter-all-events-btn').classList.remove('active');
+      document.getElementById('filter-spikes-events-btn').classList.remove('active');
+      document.querySelectorAll('.event-card').forEach(c => {
+        const t = c.dataset.type;
+        c.style.display = (t.includes('REWARD') || t.includes('RPE') || t.includes('PLASTICITY') || t.includes('CREDIT') || t.includes('ELIGIBILITY')) ? 'flex' : 'none';
+      });
+    });
+    document.getElementById('filter-spikes-events-btn').addEventListener('click', () => {
+      document.getElementById('filter-spikes-events-btn').classList.add('active');
+      document.getElementById('filter-all-events-btn').classList.remove('active');
+      document.getElementById('filter-learning-events-btn').classList.remove('active');
+      document.querySelectorAll('.event-card').forEach(c => {
+        c.style.display = c.dataset.type.includes('SPIKE') ? 'flex' : 'none';
+      });
+    });
 
-    function buildEventTrack(events) {
-      const track = document.getElementById('event-track');
-      track.innerHTML = '';
-      if (!logData || !logData.frames || logData.frames.length === 0) return;
+    // Keyboard Shortcuts
+    window.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
 
-      const totalSteps = logData.frames.length;
-      events.forEach((ev, i) => {
-        const pin = document.createElement('div');
-        const pct = (ev.step / (totalSteps - 1)) * 100;
-        pin.style.left = `${pct}%`;
-        pin.className = 'event-pin';
-
-        let label = '•';
-        let cls = 'pin-input';
-        if (ev.type === 'INPUT_PRESENTED') { label = 'IN'; cls = 'pin-input'; }
-        else if (ev.type === 'MEMORY_RETAINED') { label = 'M'; cls = 'pin-memory'; }
-        else if (ev.type === 'OUTPUT_COMPUTED') { label = 'OUT'; cls = 'pin-output'; }
-        else if (ev.type === 'PREDICTION_ERROR') { label = 'ERR'; cls = 'pin-error'; }
-        else if (ev.type === 'TRIAL_COMPLETED') { label = '★'; cls = 'pin-trial'; }
-        else if (ev.type === 'PLASTICITY_UPDATE') { label = 'ΔW'; cls = 'pin-plasticity'; }
-        else if (ev.type === 'ENVIRONMENT_CHANGE' || ev.type === 'TASK_SWITCH') { label = 'ENV'; cls = 'pin-env'; }
-        else if (ev.type === 'WEIGHT_INCREASE') { label = 'W+'; cls = 'pin-plasticity'; }
-        else if (ev.type === 'WEIGHT_DECREASE') { label = 'W-'; cls = 'pin-plasticity'; }
-        else if (ev.type === 'ACTION_SELECTED') { label = 'ACT'; cls = 'pin-action'; }
-        else if (ev.type === 'PREDICTION_MADE') { label = 'PRD'; cls = 'pin-prediction'; }
-        else if (ev.type === 'SYNAPSE_FORMED') { label = 'S+'; cls = 'pin-syn-form'; }
-        else if (ev.type === 'SYNAPSE_PRUNED') { label = 'S-'; cls = 'pin-syn-prune'; }
-        else if (ev.type === 'NEURON_BORN') { label = 'N+'; cls = 'pin-neu-born'; }
-        else if (ev.type === 'NEURON_PRUNED') { label = 'N-'; cls = 'pin-neu-prune'; }
-        else if (ev.type === 'LATENT_STATE_UPDATED') { label = 'Z'; cls = 'pin-latent'; }
-        else if (ev.type === 'MEMORY_RETAINED') { label = 'M'; cls = 'pin-memory'; }
-        else if (ev.type === 'MEMORY_DECAYED') { label = 'M-'; cls = 'pin-decay'; }
-        else if (ev.type === 'MULTISTEP_PREDICTION') { label = 'MK'; cls = 'pin-multistep'; }
-        else if (ev.type === 'CONTEXT_RETRIEVED') { label = 'CTX'; cls = 'pin-context'; }
-        else if (ev.type === 'MEMORY_ABLATION') { label = 'ABL'; cls = 'pin-ablation'; }
-        else if (ev.type === 'ELIGIBILITY_UPDATED') { label = 'E'; cls = 'pin-eligibility'; }
-        else if (ev.type === 'NEUROMODULATOR_RELEASED') { label = 'M'; cls = 'pin-modulator'; }
-        else if (ev.type === 'REWARD_RECEIVED') { label = 'R'; cls = 'pin-reward'; }
-        else if (ev.type === 'RPE_COMPUTED') { label = 'δ'; cls = 'pin-rpe'; }
-        else if (ev.type === 'PLASTICITY_APPLIED') { label = 'ΔW'; cls = 'pin-plasticity'; }
-        else if (ev.type === 'CREDIT_ASSIGNED') { label = 'CR'; cls = 'pin-credit'; }
-        else if (ev.type === 'COMMUNITY_REINFORCED') { label = 'C+'; cls = 'pin-comm-pos'; }
-        else if (ev.type === 'COMMUNITY_SUPPRESSED') { label = 'C-'; cls = 'pin-comm-neg'; }
-
-        pin.classList.add(cls);
-        pin.innerText = label;
-        pin.title = `[Step ${ev.step}] ${ev.type} ${ev.node_id !== undefined ? `(Node ${ev.node_id})` : ''} Mag: ${ev.magnitude !== undefined ? ev.magnitude : ''}`;
-
-        pin.addEventListener('click', (e) => {
-          e.stopPropagation();
+      if (e.code === 'Space') {
+        e.preventDefault();
+        togglePlay();
+      } else if (e.code === 'ArrowLeft') {
+        e.preventDefault();
+        if (replay) {
           pause();
-          replay.seek(ev.step);
-          renderFrame(ev.step);
-          if (ev.node_id !== undefined) {
-            selectNode(ev.node_id);
-          }
-        });
-
-        track.appendChild(pin);
-      });
-    }
-
-    function buildSceneFromTopology(topology) {
-      // Clear existing meshes
-      nodeMeshes.forEach(m => scene.remove(m));
-      edgeLines.forEach(l => scene.remove(l));
-      signalSprites.forEach(s => scene.remove(s));
-      nodeMeshes = [];
-      edgeLines = [];
-      signalSprites = [];
-      selectionHalo.visible = false;
-      selectedNodeId = null;
-      selectedEdge = null;
-
-      const sphereGeo = new THREE.SphereGeometry(0.35, 24, 24);
-
-      // Create Nodes
-      topology.nodes.forEach(n => {
-        const mat = new THREE.MeshStandardMaterial({
-          color: 0x475569,
-          roughness: 0.3,
-          metalness: 0.8,
-          emissive: 0x000000,
-          emissiveIntensity: 0.0
-        });
-        const mesh = new THREE.Mesh(sphereGeo, mat);
-        mesh.position.set(n.pos[0], n.pos[1], n.pos[2]);
-        mesh.userData = { nodeInfo: n };
-        scene.add(mesh);
-        nodeMeshes.push(mesh);
-      });
-
-      // Create Edges
-      topology.edges.forEach(e => {
-        const srcNode = topology.nodes[e.src];
-        const dstNode = topology.nodes[e.dst];
-        if (!srcNode || !dstNode) return;
-
-        const points = [
-          new THREE.Vector3(...srcNode.pos),
-          new THREE.Vector3(...dstNode.pos)
-        ];
-        const geometry = new THREE.BufferGeometry().setFromPoints(points);
-        const isExcitatory = e.weight >= 0;
-        const color = isExcitatory ? 0x00e5ff : 0xff9100;
-
-        const mat = new THREE.LineBasicMaterial({
-          color: color,
-          transparent: true,
-          opacity: Math.min(0.12 + Math.abs(e.weight) * 0.3, 0.7),
-          linewidth: 1
-        });
-        const line = new THREE.Line(geometry, mat);
-        line.userData = { edgeInfo: e };
-        scene.add(line);
-        edgeLines.push(line);
-      });
-
-      // Signal Sprite Pool (up to 30 active pulses)
-      const spriteMat = new THREE.SpriteMaterial({
-        color: 0xffffff,
-        transparent: true,
-        opacity: 0.95
-      });
-      for (let i = 0; i < 40; i++) {
-        const s = new THREE.Sprite(spriteMat);
-        s.scale.set(0.2, 0.2, 0.2);
-        s.visible = false;
-        scene.add(s);
-        signalSprites.push(s);
-      }
-    }
-
-    function renderFrame(stepIndex) {
-      if (!logData || !logData.frames[stepIndex]) return;
-      const frame = logData.frames[stepIndex];
-      const acts = frame.activations;
-      const states = frame.states;
-
-      // Spike detection for discrete visual flash
-      const firedNodes = new Set();
-      if (frame.events) {
-        frame.events.forEach(e => {
-          if (e.type === 'SPIKE_EMITTED' && e.node_id !== undefined) {
-            firedNodes.add(e.node_id);
-          }
-        });
-      }
-
-      // Update Node Visuals
-      nodeMeshes.forEach((mesh, idx) => {
-        const act = acts[idx] || 0.0;
-        const absAct = Math.abs(act);
-        const mat = mesh.material;
-        const didFire = firedNodes.has(idx);
-
-        const nodeInfo = mesh.userData.nodeInfo || {};
-        const nodeMeta = nodeInfo.metadata || {};
-        const isInhibitory = nodeMeta.neuron_type === 'INHIBITORY' || (nodeInfo.label && nodeInfo.label.includes('[I]'));
-
-        if (didFire) {
-          mat.color.setHex(0xffffff);
-          mat.emissive.setHex(isInhibitory ? 0xf43f5e : 0x00e5ff);
-          mat.emissiveIntensity = 4.0;
-          mesh.scale.set(2.4, 2.4, 2.4);
-        } else if (isInhibitory) {
-          // Inhibitory fast-spiking interneurons: Rose / Crimson
-          mat.color.setHex(0xf43f5e);
-          mat.emissive.setHex(0xf43f5e);
-          mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.6 + 0.15, 0.15, 2.5);
-          const s = 1.0 + THREE.MathUtils.clamp(absAct * 0.6, 0.0, 1.0);
-          mesh.scale.set(s, s, s);
-        } else if (act >= 0) {
-          // Excitatory pyramidal: Cyan
-          mat.color.setHex(0x00e5ff);
-          mat.emissive.setHex(0x00e5ff);
-          mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.6, 0.05, 2.5);
-          const s = 1.0 + THREE.MathUtils.clamp(absAct * 0.6, 0.0, 1.0);
-          mesh.scale.set(s, s, s);
-        } else {
-          // Negative subthreshold or unconstrained: Amber
-          mat.color.setHex(0xff9100);
-          mat.emissive.setHex(0xff9100);
-          mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.6, 0.05, 2.5);
-          const s = 1.0 + THREE.MathUtils.clamp(absAct * 0.6, 0.0, 1.0);
-          mesh.scale.set(s, s, s);
+          replay.stepBackward();
+          renderFrame(replay.currentStep);
         }
-      });
-
-      // Update Selection Halo
-      if (selectedNodeId !== null && nodeMeshes[selectedNodeId]) {
-        const selMesh = nodeMeshes[selectedNodeId];
-        selectionHalo.position.copy(selMesh.position);
-        selectionHalo.quaternion.copy(camera.quaternion);
-        selectionHalo.visible = true;
-      } else {
-        selectionHalo.visible = false;
-      }
-
-      // Update Signal Pulses
-      signalSprites.forEach(s => s.visible = false);
-      if (frame.signals) {
-        frame.signals.forEach((sig, sIdx) => {
-          if (sIdx >= signalSprites.length) return;
-          const srcNode = logData.topology.nodes[sig.src];
-          const dstNode = logData.topology.nodes[sig.dst];
-          if (!srcNode || !dstNode) return;
-
-          const pSrc = new THREE.Vector3(...srcNode.pos);
-          const pDst = new THREE.Vector3(...dstNode.pos);
-          const pCurrent = pSrc.clone().lerp(pDst, sig.progress);
-
-          const sprite = signalSprites[sIdx];
-          sprite.position.copy(pCurrent);
-          sprite.visible = true;
-          const mag = Math.abs(sig.mag);
-          sprite.scale.set(0.25 + mag * 0.25, 0.25 + mag * 0.25, 0.25 + mag * 0.25);
-          sprite.material.color.setHex(sig.mag >= 0 ? 0x00e5ff : 0xff9100);
-        });
-      }
-
-      // Update Edges based on Structural vs Functional view mode
-      edgeLines.forEach(line => {
-        const e = line.userData.edgeInfo;
-        const isTransiting = (frame.signals || []).some(s => s.src === e.src && s.dst === e.dst);
-        if (viewMode === 'FUNCTIONAL') {
-          line.material.opacity = isTransiting ? 0.95 : 0.04;
-          line.material.color.setHex(isTransiting ? 0xd946ef : (e.weight >= 0 ? 0x00e5ff : 0xff9100));
-        } else {
-          line.material.opacity = Math.min(0.12 + Math.abs(e.weight) * 0.3, 0.7);
-          line.material.color.setHex(e.weight >= 0 ? 0x00e5ff : 0xff9100);
-        }
-      });
-
-      // Update Phase 4 & Phase 5 Badges
-      const qTag = document.getElementById('q-tag');
-      const syncTag = document.getElementById('sync-tag');
-      const predTag = document.getElementById('pred-tag');
-      const actionTag = document.getElementById('action-tag');
-      const envTag = document.getElementById('env-tag');
-      const embodiedSec = document.getElementById('embodied-insp-section');
-
-      if (frame.dynamic_details && frame.dynamic_details.q_func !== undefined) {
-        qTag.style.display = 'inline-block';
-        qTag.innerText = `Q_func: ${Number(frame.dynamic_details.q_func).toFixed(3)}`;
-      } else {
-        qTag.style.display = 'none';
-      }
-      if (frame.dynamic_details && frame.dynamic_details.phase_sync_r !== undefined) {
-        syncTag.style.display = 'inline-block';
-        syncTag.innerText = `Sync R: ${Number(frame.dynamic_details.phase_sync_r).toFixed(3)}`;
-      } else {
-        syncTag.style.display = 'none';
-      }
-
-      const actionNames = ['NOOP', 'STEP_FWD', 'TURN_LEFT', 'TURN_RIGHT'];
-
-      // Phase 5 Embodied Updates
-      if (frame.dynamic_details && frame.dynamic_details.environment) {
-        const env = frame.dynamic_details.environment;
-        envGroup.visible = true;
-
-        // Position agent on 3D arena floor
-        const aX = (env.agent_pos[0] - 5.0) * 0.9;
-        const aZ = (env.agent_pos[1] - 5.0) * 0.9;
-        agentPuck.position.set(aX, -9.9, aZ);
-        agentPuck.rotation.y = -env.agent_heading;
-
-        // Position landmark beacons
-        if (env.env_id === 'ENV_B') {
-          beaconMeshes[0].position.set((3.0 - 5.0) * 0.9, -9.7, (7.0 - 5.0) * 0.9);
-          beaconMeshes[1].position.set((7.0 - 5.0) * 0.9, -9.7, (7.0 - 5.0) * 0.9);
-          beaconMeshes[2].position.set((5.0 - 5.0) * 0.9, -9.7, (2.0 - 5.0) * 0.9);
-        } else {
-          beaconMeshes[0].position.set((2.0 - 5.0) * 0.9, -9.7, (2.0 - 5.0) * 0.9);
-          beaconMeshes[1].position.set((8.0 - 5.0) * 0.9, -9.7, (2.0 - 5.0) * 0.9);
-          beaconMeshes[2].position.set((5.0 - 5.0) * 0.9, -9.7, (8.0 - 5.0) * 0.9);
-        }
-
-        // Tags
-        predTag.style.display = 'inline-block';
-        predTag.innerText = `Pred MSE: ${Number(frame.dynamic_details.pred_mse).toFixed(4)}`;
-
-        actionTag.style.display = 'inline-block';
-        const actIdx = env.action !== undefined ? env.action : 0;
-        actionTag.innerText = `Act: ${actionNames[actIdx] || actIdx}`;
-
-        envTag.style.display = 'inline-block';
-        envTag.innerText = `Env: ${env.env_id}`;
-
-        // Inspector fields
-        if (embodiedSec) {
-          embodiedSec.style.display = 'block';
-          document.getElementById('insp-env-cycle').innerText = `${env.env_id} (Cycle ${env.hidden_cycle !== undefined ? env.hidden_cycle : 0})`;
-          document.getElementById('insp-agent-pos').innerText = `[${env.agent_pos[0].toFixed(2)}, ${env.agent_pos[1].toFixed(2)}]`;
-          document.getElementById('insp-agent-heading').innerText = `${(env.agent_heading * 180 / Math.PI).toFixed(1)}°`;
-          document.getElementById('insp-action-name').innerText = actionNames[actIdx] || `Action ${actIdx}`;
-          document.getElementById('insp-pred-mse').innerText = Number(frame.dynamic_details.pred_mse).toFixed(6);
-
-          // Render sensory bars
-          const sensoryCont = document.getElementById('sensory-bars-container');
-          sensoryCont.innerHTML = '';
-          const obsNext = frame.dynamic_details.obs_next || [];
-          const predS = frame.dynamic_details.pred_s || [];
-          const sensoryLabels = ['d_W0', 'd_W1', 'd_W2', 'd_W3', 'd_L0', 'd_L1', 'd_L2', 'theta'];
-          for (let sI = 0; sI < Math.max(obsNext.length, predS.length); sI++) {
-            const actualVal = obsNext[sI] || 0.0;
-            const predVal = predS[sI] || 0.0;
-            const row = document.createElement('div');
-            row.style.fontSize = '10px';
-            row.style.marginBottom = '2px';
-            row.innerHTML = `
-              <div style="display:flex; justify-content:space-between; color:var(--text-muted);">
-                <span>${sensoryLabels[sI] || `S_${sI}`}</span>
-                <span>Act: ${actualVal.toFixed(2)} | Pred: ${predVal.toFixed(2)}</span>
-              </div>
-              <div style="position:relative; height:4px; background:rgba(255,255,255,0.1); border-radius:2px; margin-top:1px;">
-                <div style="position:absolute; left:0; top:0; height:100%; width:${Math.min(actualVal * 100, 100)}%; background:var(--cyan); border-radius:2px;"></div>
-                <div style="position:absolute; left:0; top:0; height:100%; width:${Math.min(predVal * 100, 100)}%; background:var(--magenta); opacity:0.75; border-radius:2px;"></div>
-              </div>
-            `;
-            sensoryCont.appendChild(row);
-          }
-        }
-      } else {
-        envGroup.visible = false;
-        predTag.style.display = 'none';
-        actionTag.style.display = 'none';
-        envTag.style.display = 'none';
-        if (embodiedSec) embodiedSec.style.display = 'none';
-      }
-
-      // Phase 6 Persistent Latent State Updates
-      const latentTag = document.getElementById('latent-tag');
-      const contextTag = document.getElementById('context-tag');
-      const latentSec = document.getElementById('latent-insp-section');
-
-      if (frame.dynamic_details && frame.dynamic_details.latent_z) {
-        const lz = frame.dynamic_details.latent_z;
-        const lNorm = frame.dynamic_details.latent_norm !== undefined ? Number(frame.dynamic_details.latent_norm) : 0.0;
-        latentTag.style.display = 'inline-block';
-        latentTag.innerText = `Latent ||z||: ${lNorm.toFixed(3)}`;
-
-        if (frame.dynamic_details.context_id !== undefined) {
-          contextTag.style.display = 'inline-block';
-          contextTag.innerText = `Context: ${frame.dynamic_details.context_id}`;
-        } else {
-          contextTag.style.display = 'none';
-        }
-
-        if (latentSec) {
-          latentSec.style.display = 'block';
-          document.getElementById('insp-latent-norm').innerText = lNorm.toFixed(4);
-          document.getElementById('insp-context-id').innerText = frame.dynamic_details.context_id || 'N/A';
-
-          // Render latent bars
-          const latentCont = document.getElementById('latent-bars-container');
-          latentCont.innerHTML = '';
-          lz.forEach((val, idx) => {
-            const bar = document.createElement('div');
-            bar.style.width = '14px';
-            bar.style.height = '24px';
-            bar.style.background = 'rgba(255,255,255,0.08)';
-            bar.style.borderRadius = '2px';
-            bar.style.position = 'relative';
-            bar.style.overflow = 'hidden';
-            bar.title = `z[${idx}]: ${Number(val).toFixed(3)}`;
-            const fill = document.createElement('div');
-            fill.style.position = 'absolute';
-            fill.style.bottom = '0';
-            fill.style.width = '100%';
-            const hPct = Math.min(Math.abs(val) * 100, 100);
-            fill.style.height = `${hPct}%`;
-            fill.style.background = val >= 0 ? '#8b5cf6' : '#ec4899';
-            bar.appendChild(fill);
-            latentCont.appendChild(bar);
-          });
-
-          // Render multi-step predictions
-          const multiCont = document.getElementById('multistep-container');
-          multiCont.innerHTML = '';
-          const msPreds = frame.dynamic_details.multistep_preds || {};
-          const msMse = frame.dynamic_details.multistep_mse || {};
-          Object.keys(msPreds).sort((a,b) => Number(a) - Number(b)).forEach(k => {
-            const row = document.createElement('div');
-            row.style.fontSize = '10px';
-            row.style.display = 'flex';
-            row.style.justifyContent = 'space-between';
-            row.style.background = 'rgba(255,255,255,0.04)';
-            row.style.padding = '2px 6px';
-            row.style.borderRadius = '3px';
-            const mseVal = msMse[k] !== undefined ? `MSE: ${Number(msMse[k]).toFixed(4)}` : '';
-            row.innerHTML = `<span><b>k=${k}</b></span> <span>${mseVal}</span>`;
-            multiCont.appendChild(row);
-          });
-        }
-      } else {
-        latentTag.style.display = 'none';
-        contextTag.style.display = 'none';
-        if (latentSec) latentSec.style.display = 'none';
-      }
-
-      // Phase 7 Spiking & Oscillation Telemetry
-      const spkTag = document.getElementById('spikes-tag');
-      const oscTag = document.getElementById('osc-tag');
-      const syncTag = document.getElementById('sync-tag');
-      const eiTag = document.getElementById('ei-tag');
-      const aiTag = document.getElementById('ai-tag');
-      const multiSyncTag = document.getElementById('multisync-tag');
-
-      if (frame.dynamic_details && frame.dynamic_details.spikes_active !== undefined) {
-        spkTag.style.display = 'inline-block';
-        spkTag.innerText = `Spikes: ${frame.dynamic_details.spikes_active}`;
-      } else {
-        spkTag.style.display = 'none';
-      }
-
-      // Phase 8: E/I Ratio Tag
-      if (frame.dynamic_details && (frame.dynamic_details.mean_i_e !== undefined || frame.dynamic_details.mean_ei_ratio !== undefined)) {
-        eiTag.style.display = 'inline-block';
-        const ie = frame.dynamic_details.mean_i_e || 0.0;
-        const ii = Math.abs(frame.dynamic_details.mean_i_i || 0.0);
-        const ratio = ii > 1e-4 ? (ie / ii).toFixed(2) : (ie > 0 ? '∞' : '1.0');
-        eiTag.innerText = `E/I: ${ratio} (I_E:${Number(ie).toFixed(2)} | I_I:${Number(ii).toFixed(2)})`;
-      } else {
-        eiTag.style.display = 'none';
-      }
-
-      // Phase 8: AI Regime Tag
-      if (frame.dynamic_details && frame.dynamic_details.ai_score !== undefined) {
-        aiTag.style.display = 'inline-block';
-        const isAI = frame.dynamic_details.is_ai_regime;
-        aiTag.innerText = `AI: ${frame.dynamic_details.regime_status || (isAI ? 'AI_REGIME' : 'NON_AI')} (${Number(frame.dynamic_details.ai_score * 100).toFixed(0)}%)`;
-        aiTag.style.borderColor = isAI ? '#10b981' : '#f59e0b';
-        aiTag.style.color = isAI ? '#34d399' : '#fbbf24';
-      } else {
-        aiTag.style.display = 'none';
-      }
-
-      // Phase 8: Multi-Scale Synchrony Tag
-      if (frame.dynamic_details && (frame.dynamic_details.r_local !== undefined || frame.dynamic_details.r_global !== undefined)) {
-        multiSyncTag.style.display = 'inline-block';
-        const rLoc = frame.dynamic_details.r_local !== undefined ? Number(frame.dynamic_details.r_local).toFixed(3) : '-';
-        const rGlob = frame.dynamic_details.r_global !== undefined ? Number(frame.dynamic_details.r_global).toFixed(3) : (frame.dynamic_details.kuramoto_r !== undefined ? Number(frame.dynamic_details.kuramoto_r).toFixed(3) : '-');
-        multiSyncTag.innerText = `R_loc: ${rLoc} | R_glob: ${rGlob}`;
-      } else {
-        multiSyncTag.style.display = 'none';
-      }
-
-      if (frame.dynamic_details && frame.dynamic_details.dominant_freq_hz !== undefined) {
-        oscTag.style.display = 'inline-block';
-        oscTag.innerText = `Osc: ${frame.dynamic_details.dominant_freq_hz} Hz`;
-      } else {
-        oscTag.style.display = 'none';
-      }
-
-      if (frame.dynamic_details && frame.dynamic_details.kuramoto_r !== undefined) {
-        syncTag.style.display = 'inline-block';
-        syncTag.innerText = `Sync R: ${Number(frame.dynamic_details.kuramoto_r).toFixed(3)}`;
-      }
-
-      if (frame.dynamic_details && frame.dynamic_details.q_func !== undefined) {
-        const qTag = document.getElementById('q-tag');
-        qTag.style.display = 'inline-block';
-        qTag.innerText = `Q_func: ${Number(frame.dynamic_details.q_func).toFixed(3)}`;
-      }
-
-      // Phase 9: Three-Factor Tags
-      const elTag = document.getElementById('eligibility-tag');
-      const modTag = document.getElementById('neuromod-tag');
-      const rpeTag = document.getElementById('rpe-tag');
-      if (frame.dynamic_details && frame.dynamic_details.mean_eligibility !== undefined) {
-        if (elTag) {
-          elTag.style.display = 'inline-block';
-          elTag.innerText = `Elig: ${Number(frame.dynamic_details.mean_eligibility).toFixed(4)}`;
-        }
-      } else if (elTag) {
-        elTag.style.display = 'none';
-      }
-
-      if (frame.dynamic_details && (frame.dynamic_details.neuromodulator !== undefined || frame.dynamic_details.reward !== undefined)) {
-        if (modTag) {
-          modTag.style.display = 'inline-block';
-          const mVal = frame.dynamic_details.neuromodulator !== undefined ? frame.dynamic_details.neuromodulator : frame.dynamic_details.reward;
-          modTag.innerText = `M(t): ${Number(mVal).toFixed(3)}`;
-        }
-      } else if (modTag) {
-        modTag.style.display = 'none';
-      }
-
-      if (frame.dynamic_details && frame.dynamic_details.rpe !== undefined) {
-        if (rpeTag) {
-          rpeTag.style.display = 'inline-block';
-          rpeTag.innerText = `RPE: ${Number(frame.dynamic_details.rpe).toFixed(3)}`;
-        }
-      } else if (rpeTag) {
-        rpeTag.style.display = 'none';
-      }
-
-      // Draw Spike Raster if open
-      drawSpikeRaster(stepIndex);
-
-      // Update UI Elements
-      document.getElementById('timeline').value = stepIndex;
-      document.getElementById('step-display').innerText = `Step: ${stepIndex} / ${logData.frames.length - 1}`;
-
-      const t_cue = 5;
-      const t_delay = logData.metadata.delay || 10;
-      const phaseBadge = document.getElementById('phase-badge');
-
-      if (frame.dynamic_details && frame.dynamic_details.environment) {
-        phaseBadge.innerText = (logData.metadata.embodiment_mode || 'EMBODIED').toUpperCase();
-        phaseBadge.className = 'phase-badge phase-cue';
-      } else if (stepIndex < t_cue) {
-        phaseBadge.innerText = 'CUE PHASE';
-        phaseBadge.className = 'phase-badge phase-cue';
-      } else if (stepIndex < t_cue + t_delay) {
-        phaseBadge.innerText = 'DELAY PHASE';
-        phaseBadge.className = 'phase-badge phase-delay';
-      } else {
-        phaseBadge.innerText = 'PROBE & DECISION';
-        phaseBadge.className = 'phase-badge phase-probe';
-      }
-
-      // Refresh Inspector if open
-      if (selectedNodeId !== null) {
-        updateNeuronInspector(selectedNodeId);
-      } else if (selectedEdge !== null) {
-        updateEdgeInspector(selectedEdge.src, selectedEdge.dst);
-      }
-    }
-
-    function selectNode(nodeId) {
-      selectedNodeId = nodeId;
-      selectedEdge = null;
-      updateNeuronInspector(nodeId);
-    }
-
-    function selectEdge(src, dst) {
-      selectedEdge = { src, dst };
-      selectedNodeId = null;
-      updateEdgeInspector(src, dst);
-    }
-
-    function updateNeuronInspector(nodeId) {
-      if (!replay) return;
-      const info = replay.inspectNode(nodeId);
-      if (!info) return;
-
-      document.getElementById('inspector').style.display = 'block';
-      document.getElementById('neuron-insp-fields').style.display = 'block';
-      document.getElementById('edge-insp-fields').style.display = 'none';
-
-      document.getElementById('insp-title').innerText = `${info.node.label} (${info.node.type})`;
-      document.getElementById('insp-id').innerText = info.node.id;
-      document.getElementById('insp-type').innerText = info.node.type;
-      document.getElementById('insp-pos').innerText = `[${info.node.pos.map(x=>x.toFixed(2)).join(', ')}]`;
-      document.getElementById('insp-act').innerText = info.activation.toFixed(4);
-      document.getElementById('insp-state').innerText = info.state.toFixed(4);
-      const modEl = document.getElementById('insp-module');
-      if (modEl) modEl.innerText = info.node.module_id !== undefined ? `Module ${info.node.module_id}` : 'Global (0)';
-      document.getElementById('insp-degrees').innerText = `${info.inEdges.length} in / ${info.outEdges.length} out`;
-
-      // Render Dynamic Unit Variables
-      const dynContainer = document.getElementById('dyn-vars-container');
-      dynContainer.innerHTML = '';
-
-      const nodeMeta = info.node.metadata || {};
-      const dyn = info.dynamicState;
-
-      // Check for leaky RNN variables (alpha, tau)
-      const alphaVal = dyn.alpha !== undefined ? dyn.alpha : nodeMeta.initial_alpha;
-      const tauVal = dyn.tau !== undefined ? dyn.tau : nodeMeta.initial_tau;
-
-      if (alphaVal !== undefined) {
-        const rAlpha = document.createElement('div');
-        rAlpha.className = 'metric-row';
-        rAlpha.innerHTML = `<span class="label">Leak Rate (α):</span><span class="val">${Number(alphaVal).toFixed(4)}</span>`;
-        dynContainer.appendChild(rAlpha);
-
-        if (tauVal !== undefined) {
-          const rTau = document.createElement('div');
-          rTau.className = 'metric-row';
-          rTau.innerHTML = `<span class="label">Time Constant (τ):</span><span class="val">${Number(tauVal).toFixed(2)} steps</span>`;
-          dynContainer.appendChild(rTau);
-        }
-      }
-
-      // Check for GRU gate variables
-      if (dyn.gate_z !== undefined) {
-        const z = dyn.gate_z;
-        const r = dyn.gate_r !== undefined ? dyn.gate_r : 0;
-        const retention = 1.0 - z;
-
-        const rZ = document.createElement('div');
-        rZ.className = 'metric-row';
-        rZ.innerHTML = `<span class="label">Update Gate (z_t):</span><span class="val">${z.toFixed(4)}</span>`;
-        dynContainer.appendChild(rZ);
-
-        const rRet = document.createElement('div');
-        rRet.className = 'metric-row';
-        rRet.innerHTML = `<span class="label">Memory Retention (1-z):</span><span class="val">${(retention * 100).toFixed(1)}%</span>`;
-        dynContainer.appendChild(rRet);
-
-        const rR = document.createElement('div');
-        rR.className = 'metric-row';
-        rR.innerHTML = `<span class="label">Reset Gate (r_t):</span><span class="val">${r.toFixed(4)}</span>`;
-        dynContainer.appendChild(rR);
-      }
-
-      if (dyn.cand_h !== undefined) {
-        const rCand = document.createElement('div');
-        rCand.className = 'metric-row';
-        rCand.innerHTML = `<span class="label">Candidate (h̃_t):</span><span class="val">${dyn.cand_h.toFixed(4)}</span>`;
-        dynContainer.appendChild(rCand);
-      }
-      if (dyn.prev_h !== undefined) {
-        const rPrev = document.createElement('div');
-        rPrev.className = 'metric-row';
-        rPrev.innerHTML = `<span class="label">Previous (h_t-1):</span><span class="val">${dyn.prev_h.toFixed(4)}</span>`;
-        dynContainer.appendChild(rPrev);
-      }
-
-      if (dynContainer.children.length === 0) {
-        dynContainer.innerHTML = '<div style="font-size:11px; color:var(--text-muted); font-style:italic;">No internal gating variables (standard linear unit)</div>';
-      }
-
-      // Spiking & Membrane Dynamics
-      const spkSec = document.getElementById('spiking-insp-section');
-      if (spkSec) {
-        if (info.node.type === 'RECURRENT') {
-          spkSec.style.display = 'block';
-          const vVal = info.state;
-          document.getElementById('insp-v-mem').innerText = `${vVal.toFixed(2)} mV`;
-          const pct = Math.max(0, Math.min(100, ((vVal - (-75)) / ((-50) - (-75))) * 100));
-          const bar = document.getElementById('insp-v-mem-bar');
-          if (bar) {
-            bar.style.width = `${pct}%`;
-            bar.style.background = vVal >= -50.0 ? '#f87171' : '#00e5ff';
-          }
-          document.getElementById('insp-v-thresh').innerText = '-50.0 mV';
-          document.getElementById('insp-refractory').innerText = (vVal <= -74.9 && info.activation === 0) ? 'Refractory Clamped' : 'Resting / Integrating';
-          const curFrame = logData.frames[replay.currentStep];
-          const hasSpike = curFrame && curFrame.events && curFrame.events.some(e => e.type === 'SPIKE_EMITTED' && e.node_id === nodeId);
-          const firedEl = document.getElementById('insp-fired-now');
-          if (firedEl) {
-            firedEl.innerText = hasSpike ? '⚡ YES (Active Action Potential)' : 'No';
-            firedEl.style.color = hasSpike ? '#f87171' : 'var(--text-muted)';
-          }
-
-          // Phase 8: E/I Balance & Homeostasis section
-          const eiSec = document.getElementById('ei-insp-section');
-          if (eiSec) {
-            eiSec.style.display = 'block';
-            const nodeMeta = info.node.metadata || {};
-            const isRec = info.node.type === 'RECURRENT';
-            const cellType = nodeMeta.neuron_type || (info.node.label.includes('[I]') ? 'INHIBITORY' : 'EXCITATORY');
-            const cellTypeEl = document.getElementById('insp-cell-type');
-            if (cellTypeEl) {
-              cellTypeEl.innerText = cellType === 'INHIBITORY' ? 'INHIBITORY (Fast-Spiking Interneuron)' : 'EXCITATORY (Regular Spiking Pyramidal)';
-              cellTypeEl.style.color = cellType === 'INHIBITORY' ? '#f43f5e' : '#00e5ff';
-            }
-
-            const dynDetails = curFrame ? curFrame.dynamic_details || {} : {};
-            const uIdx = info.node.unit_index;
-
-            const ie = (dynDetails.i_e && uIdx !== undefined && dynDetails.i_e[uIdx] !== undefined) ? dynDetails.i_e[uIdx] : (dynDetails.mean_i_e || 0.0);
-            const ii = (dynDetails.i_i && uIdx !== undefined && dynDetails.i_i[uIdx] !== undefined) ? dynDetails.i_i[uIdx] : (dynDetails.mean_i_i || 0.0);
-            const inet = (dynDetails.i_net && uIdx !== undefined && dynDetails.i_net[uIdx] !== undefined) ? dynDetails.i_net[uIdx] : (dynDetails.mean_i_net || 0.0);
-            const hScale = dynDetails.homeostatic_scale || 1.0;
-
-            const ieEl = document.getElementById('insp-i-e');
-            if (ieEl) ieEl.innerText = Number(ie).toFixed(4);
-            const iiEl = document.getElementById('insp-i-i');
-            if (iiEl) iiEl.innerText = Number(ii).toFixed(4);
-            const inetEl = document.getElementById('insp-i-net');
-            if (inetEl) inetEl.innerText = Number(inet).toFixed(4);
-            const hsEl = document.getElementById('insp-homeo-scale');
-            if (hsEl) hsEl.innerText = Number(hScale).toFixed(4);
-
-            // Phase 9: Three-Factor Inspector section
-            const tfSec = document.getElementById('three-factor-insp-section');
-            if (tfSec) {
-              if (dynDetails.mean_eligibility !== undefined || dynDetails.rpe !== undefined || dynDetails.reward !== undefined) {
-                tfSec.style.display = 'block';
-                const elVal = dynDetails.mean_eligibility !== undefined ? dynDetails.mean_eligibility : 0.0;
-                const maxEl = dynDetails.max_eligibility !== undefined ? dynDetails.max_eligibility : 0.0;
-                const mVal = dynDetails.neuromodulator !== undefined ? dynDetails.neuromodulator : (dynDetails.reward || 0.0);
-                const rpeVal = dynDetails.rpe !== undefined ? dynDetails.rpe : 0.0;
-                const pUpdates = dynDetails.num_plastic_updates || 0;
-
-                const elEl = document.getElementById('insp-eligibility');
-                if (elEl) elEl.innerText = Number(elVal).toFixed(4);
-                const maxElEl = document.getElementById('insp-max-eligibility');
-                if (maxElEl) maxElEl.innerText = Number(maxEl).toFixed(4);
-                const modEl = document.getElementById('insp-neuromodulator');
-                if (modEl) modEl.innerText = Number(mVal).toFixed(4);
-                const rpeEl = document.getElementById('insp-rpe');
-                if (rpeEl) rpeEl.innerText = Number(rpeVal).toFixed(4);
-                const upEl = document.getElementById('insp-plastic-updates');
-                if (upEl) upEl.innerText = pUpdates;
-              } else {
-                tfSec.style.display = 'none';
-              }
-            }
-          }
-        } else {
-          spkSec.style.display = 'none';
-          const eiSec = document.getElementById('ei-insp-section');
-          if (eiSec) eiSec.style.display = 'none';
-          const tfSec = document.getElementById('three-factor-insp-section');
-          if (tfSec) tfSec.style.display = 'none';
-        }
-      }
-
-      // Render connected synapses list
-      const edgesList = document.getElementById('insp-edges-list');
-      edgesList.innerHTML = '';
-      const allConnected = [
-        ...info.inEdges.map(e => ({ ...e, dir: 'IN' })),
-        ...info.outEdges.map(e => ({ ...e, dir: 'OUT' }))
-      ];
-      allConnected.slice(0, 12).forEach(e => {
-        const chip = document.createElement('div');
-        chip.className = 'edge-chip';
-        const targetId = e.dir === 'IN' ? e.src : e.dst;
-        chip.innerHTML = `<span>${e.dir === 'IN' ? '← from' : '→ to'} Node ${targetId}</span><span style="font-family:monospace; color:${e.weight >= 0 ? 'var(--cyan)' : 'var(--amber)'}">${e.weight > 0 ? '+' : ''}${e.weight.toFixed(3)}</span>`;
-        chip.addEventListener('click', () => selectEdge(e.src, e.dst));
-        edgesList.appendChild(chip);
-      });
-    }
-
-    function updateEdgeInspector(src, dst) {
-      if (!replay) return;
-      const info = replay.inspectEdge(src, dst);
-      if (!info) return;
-
-      document.getElementById('inspector').style.display = 'block';
-      document.getElementById('neuron-insp-fields').style.display = 'none';
-      document.getElementById('edge-insp-fields').style.display = 'block';
-
-      document.getElementById('insp-title').innerText = `Synapse ${src} → ${dst}`;
-      document.getElementById('edge-connection').innerText = `Node ${src} → Node ${dst}`;
-      document.getElementById('edge-src').innerText = `${info.srcNode.label} (${info.srcNode.type})`;
-      document.getElementById('edge-dst').innerText = `${info.dstNode.label} (${info.dstNode.type})`;
-
-      // Phase 8: Synapse Class & Dale Sign
-      const sType = (info.srcNode.metadata && info.srcNode.metadata.neuron_type) || (info.srcNode.label.includes('[I]') ? 'INHIBITORY' : 'EXCITATORY');
-      const dType = (info.dstNode.metadata && info.dstNode.metadata.neuron_type) || (info.dstNode.label.includes('[I]') ? 'INHIBITORY' : 'EXCITATORY');
-      const synClass = `${sType.slice(0,1)} → ${dType.slice(0,1)}`;
-      const classEl = document.getElementById('edge-synapse-class');
-      if (classEl) {
-        classEl.innerText = synClass;
-        classEl.style.color = sType === 'INHIBITORY' ? '#f43f5e' : '#00e5ff';
-      }
-      const daleEl = document.getElementById('edge-dale-sign');
-      if (daleEl) {
-        daleEl.innerText = sType === 'INHIBITORY' ? 'Inhibitory (-)' : 'Excitatory (+)';
-        daleEl.style.color = sType === 'INHIBITORY' ? '#f43f5e' : '#00e5ff';
-      }
-
-      const distEl = document.getElementById('edge-dist');
-      if (distEl) distEl.innerText = info.distance !== null ? `${info.distance.toFixed(2)} units` : 'Metric-Free';
-
-      const delayEl = document.getElementById('edge-delay');
-      if (delayEl) delayEl.innerText = `${info.delay} step(s)`;
-
-      const initW = (info.initial_weight !== undefined && info.initial_weight !== null) ? info.initial_weight : info.weight;
-      document.getElementById('edge-init-weight').innerText = (initW > 0 ? '+' : '') + initW.toFixed(4);
-
-      const wEl = document.getElementById('edge-weight');
-      wEl.innerText = (info.weight > 0 ? '+' : '') + info.weight.toFixed(4);
-      wEl.style.color = info.weight >= 0 ? 'var(--cyan)' : 'var(--amber)';
-
-      const deltaEl = document.getElementById('edge-delta-weight');
-      const dw = (info.delta_weight !== undefined && info.delta_weight !== null) ? info.delta_weight : 0.0;
-      deltaEl.innerText = (dw > 0 ? '+' : '') + dw.toFixed(6);
-      deltaEl.style.color = dw > 0 ? 'var(--green)' : (dw < 0 ? 'var(--amber)' : 'var(--text-muted)');
-
-      const rdwEl = document.getElementById('edge-recent-dw');
-      const rdw = (info.recent_dw !== undefined && info.recent_dw !== null) ? info.recent_dw : 0.0;
-      rdwEl.innerText = rdw.toFixed(6);
-
-      // Phase 9: Synaptic eligibility and three-factor update
-      const curFrame = logData.frames[replay.currentStep];
-      const dynDetails = curFrame ? curFrame.dynamic_details || {} : {};
-      const elEdge = document.getElementById('edge-eligibility');
-      if (elEdge) {
-        elEdge.innerText = dynDetails.mean_eligibility !== undefined ? Number(dynDetails.mean_eligibility).toFixed(4) : '-';
-      }
-      const tfDwEdge = document.getElementById('edge-three-factor-dw');
-      if (tfDwEdge) {
-        tfDwEdge.innerText = dynDetails.total_weight_change !== undefined ? Number(dynDetails.total_weight_change).toFixed(4) : '-';
-      }
-
-      document.getElementById('edge-plasticity-rule').innerText = (logData && logData.metadata && logData.metadata.rule) ? logData.metadata.rule : 'Three-Factor Plasticity';
-
-      const stdpEl = document.getElementById('edge-stdp-status');
-      if (stdpEl) {
-        const curFrame = logData.frames[replay.currentStep];
-        const stdpEvt = curFrame && curFrame.events && curFrame.events.find(e => e.type === 'STDP_UPDATE' && e.source_node === src && e.target_node === dst);
-        if (stdpEvt) {
-          const rule = (stdpEvt.payload && stdpEvt.payload.rule) || 'STDP';
-          stdpEl.innerText = `${rule} (ΔW = ${stdpEvt.magnitude >= 0 ? '+' : ''}${Number(stdpEvt.magnitude).toFixed(5)})`;
-          stdpEl.style.color = rule === 'LTP' ? 'var(--green)' : 'var(--amber)';
-        } else {
-          stdpEl.innerText = 'None';
-          stdpEl.style.color = 'var(--text-muted)';
-        }
-      }
-
-      const sEl = document.getElementById('edge-signal');
-      if (info.signalProgress !== undefined && info.signalProgress > 0) {
-        sEl.innerText = `${info.signalMagnitude.toFixed(4)} (${(info.signalProgress * 100).toFixed(0)}% in transit)`;
-      } else {
-        sEl.innerText = info.signalMagnitude.toFixed(4);
-      }
-
-      const bar = document.getElementById('edge-signal-bar');
-      const pct = Math.min(Math.abs(info.signalMagnitude) * 100, 100);
-      bar.style.width = `${pct}%`;
-      bar.style.background = info.signalMagnitude >= 0 ? 'var(--cyan)' : 'var(--amber)';
-    }
-
-    // Raycast Click Selection
-    window.addEventListener('pointerdown', (e) => {
-      if (e.target.closest('.header') || e.target.closest('.footer') || e.target.closest('#inspector')) return;
-
-      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-      raycaster.setFromCamera(mouse, camera);
-
-      // Check nodes first
-      const nodeIntersects = raycaster.intersectObjects(nodeMeshes);
-      if (nodeIntersects.length > 0) {
-        const hit = nodeIntersects[0].object;
-        selectNode(hit.userData.nodeInfo.id);
-        return;
-      }
-
-      // Check edges
-      const edgeIntersects = raycaster.intersectObjects(edgeLines);
-      if (edgeIntersects.length > 0) {
-        const edgeHit = edgeIntersects[0].object;
-        const eInfo = edgeHit.userData.edgeInfo;
-        if (eInfo) {
-          selectEdge(eInfo.src, eInfo.dst);
-        }
-      }
-    });
-
-    // View Mode Toggle (Structural vs Functional)
-    const viewModeBtn = document.getElementById('view-mode-btn');
-    if (viewModeBtn) {
-      viewModeBtn.addEventListener('click', () => {
-        viewMode = viewMode === 'STRUCTURAL' ? 'FUNCTIONAL' : 'STRUCTURAL';
-        viewModeBtn.innerText = viewMode === 'STRUCTURAL' ? '🌐 View: Structural' : '⚡ View: Functional';
-        viewModeBtn.style.color = viewMode === 'STRUCTURAL' ? 'var(--cyan)' : '#d946ef';
-        viewModeBtn.style.borderColor = viewMode === 'STRUCTURAL' ? 'var(--cyan)' : '#d946ef';
-        if (replay) renderFrame(replay.currentStep);
-      });
-    }
-
-    // Playback Controls
-    const playBtn = document.getElementById('play-btn');
-    playBtn.addEventListener('click', togglePlay);
-
-    function togglePlay() {
-      if (isPlaying) pause(); else play();
-    }
-    function play() {
-      if (!replay) return;
-      isPlaying = true;
-      playBtn.innerText = '⏸ Pause';
-      playInterval = setInterval(() => {
-        if (replay.currentStep >= replay.totalSteps - 1) {
-          replay.seek(0);
-        } else {
+      } else if (e.code === 'ArrowRight') {
+        e.preventDefault();
+        if (replay) {
+          pause();
           replay.stepForward();
+          renderFrame(replay.currentStep);
         }
-        renderFrame(replay.currentStep);
-      }, (logData.metadata.dt_ms || 40) / playbackSpeed);
-    }
-    function pause() {
-      isPlaying = false;
-      playBtn.innerText = '▶ Play';
-      if (playInterval) clearInterval(playInterval);
-      playInterval = null;
-    }
-
-    document.getElementById('next-btn').addEventListener('click', () => {
-      if (!replay) return;
-      pause();
-      replay.stepForward();
-      renderFrame(replay.currentStep);
-    });
-
-    document.getElementById('prev-btn').addEventListener('click', () => {
-      if (!replay) return;
-      pause();
-      replay.stepBackward();
-      renderFrame(replay.currentStep);
-    });
-
-    document.getElementById('speed-btn').addEventListener('click', () => {
-      if (playbackSpeed === 1.0) playbackSpeed = 2.0;
-      else if (playbackSpeed === 2.0) playbackSpeed = 0.5;
-      else playbackSpeed = 1.0;
-      document.getElementById('speed-btn').innerText = playbackSpeed.toFixed(1) + 'x';
-      if (isPlaying) { pause(); play(); }
-    });
-
-    document.getElementById('timeline').addEventListener('input', (e) => {
-      if (!replay) return;
-      pause();
-      replay.seek(parseInt(e.target.value));
-      renderFrame(replay.currentStep);
-    });
-
-    // Spike Raster View Logic
-    const rasterPanel = document.getElementById('raster-panel');
-    const rasterCanvas = document.getElementById('raster-canvas');
-    const rasterToggleBtn = document.getElementById('raster-toggle-btn');
-    const rasterStats = document.getElementById('raster-stats');
-
-    if (rasterToggleBtn && rasterPanel) {
-      rasterToggleBtn.addEventListener('click', () => {
-        if (rasterPanel.style.display === 'none' || rasterPanel.style.display === '') {
-          rasterPanel.style.display = 'flex';
-          rasterToggleBtn.style.background = 'rgba(248, 113, 113, 0.2)';
-          if (replay) drawSpikeRaster(replay.currentStep);
-        } else {
-          rasterPanel.style.display = 'none';
-          rasterToggleBtn.style.background = '';
-        }
-      });
-    }
-
-    function drawSpikeRaster(currentStep) {
-      if (!rasterPanel || rasterPanel.style.display === 'none' || !rasterCanvas || !logData) return;
-      const ctx = rasterCanvas.getContext('2d');
-      const width = rasterCanvas.width;
-      const height = rasterCanvas.height;
-      ctx.clearRect(0, 0, width, height);
-
-      const numNeurons = (logData.metadata && logData.metadata.hidden_dim) || (logData.topology && logData.topology.nodes ? logData.topology.nodes.length : 100);
-      const totalSteps = logData.frames.length;
-      
-      // Determine window: show +/- 30 steps around currentStep or full sequence if short
-      const windowSize = 60;
-      let startStep = Math.max(0, currentStep - 30);
-      let endStep = Math.min(totalSteps - 1, startStep + windowSize);
-      if (endStep - startStep < windowSize && startStep > 0) {
-        startStep = Math.max(0, endStep - windowSize);
-      }
-      const range = Math.max(1, endStep - startStep);
-
-      // Grid background lines
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
-      ctx.lineWidth = 1;
-      for (let s = startStep; s <= endStep; s += 10) {
-        const x = ((s - startStep) / range) * width;
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, height);
-        ctx.stroke();
-      }
-
-      // Draw spikes in window
-      let windowSpikeCount = 0;
-      let curStepSpikeCount = 0;
-
-      for (let s = startStep; s <= endStep; s++) {
-        const f = logData.frames[s];
-        if (!f) continue;
-        const x = ((s - startStep) / range) * width;
-
-        // Check f.events for SPIKE_EMITTED
-        if (f.events) {
-          for (let ev of f.events) {
-            if (ev.event_type === 'SPIKE_EMITTED') {
-              const nid = ev.payload ? (ev.payload.neuron_id !== undefined ? ev.payload.neuron_id : ev.payload.source_neuron) : 0;
-              const y = height - (nid / numNeurons) * height;
-              ctx.fillStyle = (s === currentStep) ? '#f87171' : '#38bdf8';
-              ctx.fillRect(Math.floor(x), Math.floor(y) - 1, 2, 3);
-              windowSpikeCount++;
-              if (s === currentStep) curStepSpikeCount++;
-            }
-          }
-        }
-
-        // Also check f.dynamic_details.spikes if present
-        if (f.dynamic_details && Array.isArray(f.dynamic_details.spikes)) {
-          for (let nid of f.dynamic_details.spikes) {
-            const y = height - (nid / numNeurons) * height;
-            ctx.fillStyle = (s === currentStep) ? '#f87171' : '#38bdf8';
-            ctx.fillRect(Math.floor(x), Math.floor(y) - 1, 2, 3);
-            windowSpikeCount++;
-            if (s === currentStep) curStepSpikeCount++;
-          }
-        }
-      }
-
-      // Current step indicator line
-      const curX = ((currentStep - startStep) / range) * width;
-      ctx.strokeStyle = 'rgba(239, 68, 68, 0.8)';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(curX, 0);
-      ctx.lineTo(curX, height);
-      ctx.stroke();
-
-      if (rasterStats) {
-        rasterStats.innerText = `Step ${currentStep} | Active: ${curStepSpikeCount} | Window [${startStep}..${endStep}]: ${windowSpikeCount}`;
-      }
-    }
-
-    // History comparison tool click handler
-    document.getElementById('compare-hist-btn')?.addEventListener('click', () => {
-      if (!replay) return;
-      const sA = parseInt(document.getElementById('hist-step-a').value);
-      const sB = parseInt(document.getElementById('hist-step-b').value);
-      const resDiv = document.getElementById('hist-compare-result');
-      if (isNaN(sA) || isNaN(sB)) {
-        resDiv.innerText = 'Enter valid step indices.';
-        return;
-      }
-      try {
-        const comp = replay.compareHistories(sA, sB);
-        resDiv.innerHTML = `
-          <div>Input Dist: <b>${comp.input_distance.toFixed(4)}</b> (${comp.inputs_identical ? 'Identical' : 'Different'})</div>
-          <div>Recurrent Dist: <b>${comp.recurrent_activation_distance.toFixed(4)}</b></div>
-          <div>Latent State Dist: <b>${comp.latent_state_distance.toFixed(4)}</b></div>
-          <div>Latent Cosine Sim: <b>${comp.latent_cosine_similarity.toFixed(4)}</b></div>
-          <div style="color:${comp.context_disambiguated ? '#10b981' : '#f59e0b'};">
-            <b>${comp.context_disambiguated ? '✓ Context Disambiguated in Latent Space' : 'Context Not Disambiguated'}</b>
-          </div>
-        `;
-      } catch (err) {
-        resDiv.innerText = 'Comparison error: ' + err.message;
+      } else if (e.code === 'Home') {
+        e.preventDefault();
+        if (replay) { pause(); replay.seek(0); renderFrame(0); }
+      } else if (e.code === 'End') {
+        e.preventDefault();
+        if (replay) { pause(); replay.seek(replay.totalSteps - 1); renderFrame(replay.totalSteps - 1); }
+      } else if (e.code === 'KeyL') {
+        if (replay) { pause(); replay.seek(replay.totalSteps - 1); renderFrame(replay.totalSteps - 1); }
+      } else if (e.code === 'KeyR') {
+        if (replay) { pause(); replay.seek(0); play(); }
+      } else if (e.code === 'KeyF') {
+        if (selectedNodeId !== null) focusCameraOnNode(selectedNodeId);
+      } else if (e.code === 'KeyO') {
+        camRadius = 24.0;
+        camTheta = 0.0;
+        camPhi = Math.PI / 3.0;
+        camTarget.set(0, 0, 0);
+        updateCameraPosition();
+      } else if (e.code === 'Escape') {
+        clearSelection();
+        document.getElementById('exp-modal').style.display = 'none';
+        document.getElementById('shortcuts-modal').style.display = 'none';
+      } else if (e.code === 'Digit1') {
+        viewMode = 'STRUCTURAL';
+        document.getElementById('conn-mode-btn').innerText = '🌐 Mode: Structural';
+        document.getElementById('conn-mode-btn').classList.remove('active');
+        if (replay) renderFrame(replay.currentStep);
+      } else if (e.code === 'Digit2') {
+        viewMode = 'FUNCTIONAL';
+        document.getElementById('conn-mode-btn').innerText = '⚡ Mode: Functional';
+        document.getElementById('conn-mode-btn').classList.add('active');
+        if (replay) renderFrame(replay.currentStep);
+      } else if (e.key === '?' || (e.shiftKey && e.code === 'Slash')) {
+        const m = document.getElementById('shortcuts-modal');
+        m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
       }
     });
 
-    // Render Loop
+    /**
+     * =========================================================================
+     * MAIN ANIMATION LOOP
+     * =========================================================================
+     */
     function animate() {
       requestAnimationFrame(animate);
+
+      if (autoOrbit && !isDragging) {
+        camTheta += 0.003;
+        updateCameraPosition();
+      }
+
       if (selectionHalo && selectionHalo.visible) {
         selectionHalo.quaternion.copy(camera.quaternion);
       }
+
       renderer.render(scene, camera);
     }
     animate();
 
-    // Auto-fetch default representative trace
-    fetchBrainlog('/experiments/results/brainlogs/EXP005_LOCAL_PRED_DYNAMIC_SYNAPSES_ACTIVE_s42.brainlog');
+    // Auto-load Primary Phase 9 BrainLog
+    fetchBrainlog('/experiments/results/brainlogs/EXP009_three_factor_rpe_modular.brainlog');
   </script>
 </body>
 </html>

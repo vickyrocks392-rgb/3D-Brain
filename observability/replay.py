@@ -93,6 +93,10 @@ class ReplayEngine:
     def topology(self) -> dict:
         return self.data["topology"] if self.data else {}
 
+    @property
+    def events(self) -> List[dict]:
+        return self.get_all_events()
+
     def seek(self, step: int) -> dict:
         """Seek to an exact simulation time step."""
         if not self.data:

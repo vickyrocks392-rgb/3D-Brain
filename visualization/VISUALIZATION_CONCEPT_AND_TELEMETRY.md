@@ -164,3 +164,70 @@ To fulfill the vision of a native-feeling macOS application without premature fr
 1. Maintain strict separation via the **Telemetry Data Contract**.
 2. The computational engine emits standard telemetry files and streaming web sockets/shared memory.
 3. This allows building the initial interactive visualizer using the fastest, highest-fidelity prototype container (e.g. WebGPU / Three.js / Canvas in Tauri or native Webview) while retaining the exact same telemetry stream for a pure native Swift/Metal port when final performance optimization is required.
+
+---
+
+## 7. Phase 9 Neural Observatory Console Architecture
+
+The Phase 9 Remediation transformed the research player into a high-fidelity **Neural Observatory Console** adhering to strict scientific dark instrumentation aesthetics.
+
+```text
+┌─────────────────────────────────────────────────────────────┐
+│  TOP BAR — Brain Identity / Mode / Time / System Status    │
+├───────────────┬───────────────────────────────┬─────────────┤
+│               │                               │             │
+│  LEFT         │                               │   RIGHT     │
+│  INSPECTOR    │         3D BRAIN              │   TELEMETRY │
+│               │                               │             │
+│  selected     │      live computational       │   metrics   │
+│  neuron       │           substrate           │   events    │
+│  community    │                               │   learning  │
+│  synapse      │                               │             │
+│               │                               │             │
+├───────────────┴───────────────────────────────┴─────────────┤
+│ TIMELINE / REPLAY / EVENT SCRUBBER                          │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### 7.1 Visual Design System & Palette
+- **Void & Surfaces**: Near-black void (`#05070b`), glassmorphic panels (`rgba(11, 15, 23, 0.85)` with blur), thin high-contrast borders (`rgba(255, 255, 255, 0.08)`).
+- **Excitatory**: Warm Coral / Orange family (`#ff6b4a`).
+- **Inhibitory**: Electric Cyan / Blue family (`#00e5ff`).
+- **Reward**: Emerald Green (`#10b981`).
+- **Plasticity / Credit**: Amber (`#f59e0b`).
+- **Prediction / Neuromodulation**: Violet / Purple (`#a855f7`).
+- **Selected Entity**: Bright Gold (`#ffd700`).
+
+### 7.2 Panel Hierarchy & Interaction Model
+1. **Top Bar**: Real-time status (`● LIVE` vs `◉ REPLAY`), master simulation time ($t$ in ms), step count, model selector (defaulting to Phase 9 `EXP009_three_factor_rpe_modular.brainlog`), regime indicators (E/I ratio, Dale law, AI regime status, Kuramoto $R$, active plasticity rule), and camera controls.
+2. **Left Inspector**:
+   - **Empty State**: Displays `NO SELECTION` with interactive community list (`C00`, `C01`, `C02`, `C03`).
+   - **Neuron Inspector**: Cell type (`EXCITATORY` vs `INHIBITORY`), module cluster, 3D Euclidean coordinates, instantaneous membrane potential $V_m$ with progress bar to spike threshold ($-50.0\text{ mV}$), firing status (`⚡ ACTIVE SPIKE` vs `Resting`), eligibility trace, and connected synapses list.
+   - **Synapse Inspector**: Directional pair $u \to v$, class (`E → E`, `E → I`, `I → E`, `I → I`), Dale constraint sign, 3D Euclidean distance, propagation latency, current weight $W_t$, eligibility $e_{ij}$, and Three-Factor weight update $\Delta w$.
+   - **Community Inspector**: Module ID, member count, E/I ratio, mean population activation, and member unit chips.
+3. **Right Telemetry & Event Feed Panel**:
+   - **Telemetry Tab**: Network size, synchrony metrics (Global $R$, Local $R$, PLV, Pair correlation, CV-ISI, Fano Factor — displaying `NOT RECORDED` when absent), modularity ($Q_{\text{struct}}$, $Q_{\text{func}}$), Three-Factor learning variables ($R(t)$, $V(t)$, $\text{RPE } \delta$, $M(t)$, mean/max eligibility, plastic updates count, $\sum |\Delta w|$), and predictive state ($MSE$, context accuracy).
+   - **Events Tab**: Chronological feed of verifiable computational events (`REWARD_RECEIVED`, `RPE_COMPUTED`, `PLASTICITY_APPLIED`, `CREDIT_ASSIGNED`, `INHIBITORY_SPIKE`, `TRIAL_STARTED`). Clicking an event seeks the master timeline to that step, highlights the entity, and focuses the camera.
+4. **Bottom Timeline / Scrubber**:
+   - Color-coded event marker rail.
+   - Scrub slider synchronized with 3D nodes, telemetry, inspector, and events feed.
+   - Playback controls: `⏮ First`, `◀ Step`, `▶ Play / ⏸ Pause`, `Step ▶`, `⏭ End`, speed cycle (`0.25×`, `0.5×`, `1.0×`, `2.0×`, `5.0×`, `10.0×`).
+   - Phase badge (`CONTEXT`, `DELAY`, `PROBE / REWARD`).
+
+### 7.3 Structural vs Functional Connectivity
+- **Structural Mode**: Renders actual anatomical synaptic wiring with opacity proportional to $|w_{ij}|$.
+- **Functional Mode**: Dims quiescent connections to 3% opacity and illuminates active traveling signal pulses and co-firing synchrony pathways.
+
+### 7.4 Keyboard Shortcuts
+- `Space`: Play / Pause
+- `← / →`: Step Backward / Step Forward
+- `Home / End`: Seek to Start / End
+- `L`: Jump to LIVE edge-of-time
+- `R`: Restart REPLAY
+- `F`: Focus camera on selected object
+- `O`: Reset camera position
+- `Esc`: Clear selection
+- `1`: Structural connectivity mode
+- `2`: Functional connectivity mode
+- `?`: Toggle keyboard shortcuts modal
+

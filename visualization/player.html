@@ -268,6 +268,12 @@
     .pin-trial { background: var(--gold); }
     .pin-plasticity { background: #b388ff; color: #000; }
     .pin-env { background: #ff5722; color: #fff; }
+    .pin-action { background: #38bdf8; color: #000; }
+    .pin-prediction { background: #06b6d4; color: #000; }
+    .pin-syn-form { background: #10b981; color: #000; }
+    .pin-syn-prune { background: #f43f5e; color: #fff; }
+    .pin-neu-born { background: #a855f7; color: #fff; }
+    .pin-neu-prune { background: #f59e0b; color: #000; }
 
 
     .scrubber-container {
@@ -359,9 +365,12 @@
     <div class="badge-group">
       <div class="badge">
         <h1>3D-Brain</h1>
-        <span class="tag gold" id="version-tag">OBSERVABILITY v2.2 (SPATIAL)</span>
-        <span class="tag" id="model-tag">SPATIAL_PLASTIC</span>
-        <span id="exp-info" style="font-size: 12px; color: var(--text-muted);">EXP004 Spatialized Topology</span>
+        <span class="tag gold" id="version-tag">OBSERVABILITY v2.3 (EMBODIED)</span>
+        <span class="tag" id="model-tag">LOCAL_PRED_ACTIVE</span>
+        <span id="exp-info" style="font-size: 12px; color: var(--text-muted);">EXP005 Embodied World Model</span>
+        <span class="tag" id="pred-tag" style="display: none; background: rgba(0, 229, 255, 0.15); color: var(--cyan); border-color: var(--cyan);">Pred MSE: -</span>
+        <span class="tag" id="action-tag" style="display: none; background: rgba(56, 189, 248, 0.15); color: #38bdf8; border-color: #38bdf8;">Act: -</span>
+        <span class="tag" id="env-tag" style="display: none; background: rgba(255, 87, 34, 0.15); color: #ff5722; border-color: #ff5722;">Env: -</span>
         <span class="tag" id="q-tag" style="display: none; background: rgba(0, 229, 255, 0.15); color: var(--cyan); border-color: var(--cyan);">Q_func: -</span>
         <span class="tag" id="sync-tag" style="display: none; background: rgba(217, 70, 239, 0.15); color: #d946ef; border-color: #d946ef;">Sync R: -</span>
       </div>
@@ -371,6 +380,11 @@
         🌐 View: Structural
       </button>
       <select id="model-select" class="select-model">
+        <option value="/experiments/results/brainlogs/EXP005_LOCAL_PRED_DYNAMIC_SYNAPSES_ACTIVE_s42.brainlog">EXP005: Local Pred + Dynamic Synapses (Active Embodied)</option>
+        <option value="/experiments/results/brainlogs/EXP005_NEURO_PRED_DYNAMIC_SYNAPSES_ACTIVE_s42.brainlog">EXP005: Neuromodulated Pred + Dynamic Synapses (Active Embodied)</option>
+        <option value="/experiments/results/brainlogs/EXP005_NEURO_PRED_DYNAMIC_GROWTH_ACTIVE_s42.brainlog">EXP005: Neuromodulated Pred + Dynamic Growth (Active Embodied)</option>
+        <option value="/experiments/results/brainlogs/EXP005_LOCAL_PRED_DYNAMIC_SYNAPSES_PASSIVE_s42.brainlog">EXP005: Local Pred + Dynamic Synapses (Passive Observer)</option>
+        <option value="/experiments/results/brainlogs/EXP005_FROZEN_ACTIVE_FIXED_s42.brainlog">EXP005: Frozen Control Baseline (Active Embodied)</option>
         <option value="/experiments/results/brainlogs/EXP004_SmallWorld_rep.brainlog">EXP004: Small-World Spatial Topology (3D)</option>
         <option value="/experiments/results/brainlogs/EXP004_Modular_rep.brainlog">EXP004: Modular Spatial Clustering (3D)</option>
         <option value="/experiments/results/brainlogs/EXP004_Local_rep.brainlog">EXP004: Local Metric Receptive Fields (3D)</option>
@@ -419,6 +433,17 @@
       <div class="section-title">Connected Synapses</div>
       <div class="connected-edges" id="insp-edges-list">
         <!-- Injected list of connected edges -->
+      </div>
+
+      <div id="embodied-insp-section" style="display: none;">
+        <div class="section-title">Embodied Sensory & Predictive State</div>
+        <div class="metric-row"><span class="label">Env / Cycle:</span><span class="val" id="insp-env-cycle">-</span></div>
+        <div class="metric-row"><span class="label">Agent Position:</span><span class="val" id="insp-agent-pos">-</span></div>
+        <div class="metric-row"><span class="label">Agent Heading:</span><span class="val" id="insp-agent-heading">-</span></div>
+        <div class="metric-row"><span class="label">Chosen Action:</span><span class="val" id="insp-action-name">-</span></div>
+        <div class="metric-row"><span class="label">Prediction MSE:</span><span class="val" id="insp-pred-mse">-</span></div>
+        <div class="section-title">Sensory State vs Prediction</div>
+        <div id="sensory-bars-container" style="display: flex; flex-direction: column; gap: 4px; margin-top: 6px;"></div>
       </div>
     </div>
 
@@ -645,6 +670,45 @@
     selectionHalo.visible = false;
     scene.add(selectionHalo);
 
+    // Embodied 3D Arena Group at Y = -10.0
+    const envGroup = new THREE.Group();
+    scene.add(envGroup);
+
+    const arenaGrid = new THREE.GridHelper(10, 10, 0x00e5ff, 0x1e293b);
+    arenaGrid.position.y = -10.0;
+    envGroup.add(arenaGrid);
+
+    const ringGeo = new THREE.RingGeometry(4.95, 5.05, 48);
+    const ringMat = new THREE.MeshBasicMaterial({ color: 0x334155, side: THREE.DoubleSide });
+    const arenaRing = new THREE.Mesh(ringGeo, ringMat);
+    arenaRing.rotation.x = -Math.PI / 2;
+    arenaRing.position.y = -9.99;
+    envGroup.add(arenaRing);
+
+    const beaconColors = [0x00e5ff, 0xff9100, 0xe040fb];
+    const beaconMeshes = [];
+    for (let i = 0; i < 3; i++) {
+      const bGeo = new THREE.CylinderGeometry(0.18, 0.22, 0.6, 16);
+      const bMat = new THREE.MeshStandardMaterial({ color: beaconColors[i], emissive: beaconColors[i], emissiveIntensity: 0.7, roughness: 0.3 });
+      const bMesh = new THREE.Mesh(bGeo, bMat);
+      bMesh.position.set(0, -9.7, 0);
+      envGroup.add(bMesh);
+      beaconMeshes.push(bMesh);
+    }
+
+    const puckGeo = new THREE.CylinderGeometry(0.32, 0.32, 0.18, 24);
+    const puckMat = new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x0284c7, emissiveIntensity: 0.8, roughness: 0.2 });
+    const agentPuck = new THREE.Mesh(puckGeo, puckMat);
+    agentPuck.position.set(0, -9.9, 0);
+
+    const pointerGeo = new THREE.ConeGeometry(0.12, 0.35, 12);
+    pointerGeo.rotateX(Math.PI / 2);
+    const pointerMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const agentPointer = new THREE.Mesh(pointerGeo, pointerMat);
+    agentPointer.position.set(0, 0.1, 0.25);
+    agentPuck.add(agentPointer);
+    envGroup.add(agentPuck);
+
     const raycaster = new THREE.Raycaster();
     raycaster.params.Line.threshold = 0.25;
     const mouse = new THREE.Vector2();
@@ -701,10 +765,25 @@
       replay = new ReplayEngine(data);
       pause();
 
+      const version = data.brainlog_version || data.version || '2.0';
+      const verTag = document.getElementById('version-tag');
+      if (verTag) {
+        if (version === '2.3') verTag.innerText = 'OBSERVABILITY v2.3 (EMBODIED)';
+        else if (version === '2.2') verTag.innerText = 'OBSERVABILITY v2.2 (SPATIAL)';
+        else verTag.innerText = `OBSERVABILITY v${version}`;
+      }
+
       document.getElementById('model-tag').innerText = data.metadata.model_id;
-      const accVal = data.metadata.test_accuracy !== undefined ? data.metadata.test_accuracy : (data.metadata.overall_accuracy !== undefined ? data.metadata.overall_accuracy : 1.0);
-      const delayVal = data.metadata.delay !== undefined ? data.metadata.delay : (data.metadata.condition || 'Adapt');
-      document.getElementById('exp-info').innerText = `${data.metadata.experiment_id} | Budget: ${data.metadata.budget} | Delay/Cond: ${delayVal} | Acc: ${(accVal * 100).toFixed(1)}%`;
+      if (version === '2.3' || data.metadata.experiment_id === 'EXP005') {
+        const predMse = data.metadata.final_pred_mse !== undefined ? Number(data.metadata.final_pred_mse).toFixed(4) : '-';
+        const embMode = data.metadata.embodiment_mode || 'Active';
+        const strMode = data.metadata.structural_mode || 'Fixed';
+        document.getElementById('exp-info').innerText = `${data.metadata.experiment_id} | ${embMode} | ${strMode} | Final MSE: ${predMse}`;
+      } else {
+        const accVal = data.metadata.test_accuracy !== undefined ? data.metadata.test_accuracy : (data.metadata.overall_accuracy !== undefined ? data.metadata.overall_accuracy : 1.0);
+        const delayVal = data.metadata.delay !== undefined ? data.metadata.delay : (data.metadata.condition || 'Adapt');
+        document.getElementById('exp-info').innerText = `${data.metadata.experiment_id} | Budget: ${data.metadata.budget} | Delay/Cond: ${delayVal} | Acc: ${(accVal * 100).toFixed(1)}%`;
+      }
       
       const maxSteps = data.frames.length - 1;
       const timeline = document.getElementById('timeline');
@@ -739,6 +818,12 @@
         else if (ev.type === 'ENVIRONMENT_CHANGE' || ev.type === 'TASK_SWITCH') { label = 'ENV'; cls = 'pin-env'; }
         else if (ev.type === 'WEIGHT_INCREASE') { label = 'W+'; cls = 'pin-plasticity'; }
         else if (ev.type === 'WEIGHT_DECREASE') { label = 'W-'; cls = 'pin-plasticity'; }
+        else if (ev.type === 'ACTION_SELECTED') { label = 'ACT'; cls = 'pin-action'; }
+        else if (ev.type === 'PREDICTION_MADE') { label = 'PRD'; cls = 'pin-prediction'; }
+        else if (ev.type === 'SYNAPSE_FORMED') { label = 'S+'; cls = 'pin-syn-form'; }
+        else if (ev.type === 'SYNAPSE_PRUNED') { label = 'S-'; cls = 'pin-syn-prune'; }
+        else if (ev.type === 'NEURON_BORN') { label = 'N+'; cls = 'pin-neu-born'; }
+        else if (ev.type === 'NEURON_PRUNED') { label = 'N-'; cls = 'pin-neu-prune'; }
 
         pin.classList.add(cls);
         pin.innerText = label;
@@ -898,9 +983,14 @@
         }
       });
 
-      // Update Phase 4 Metric Badges
+      // Update Phase 4 & Phase 5 Badges
       const qTag = document.getElementById('q-tag');
       const syncTag = document.getElementById('sync-tag');
+      const predTag = document.getElementById('pred-tag');
+      const actionTag = document.getElementById('action-tag');
+      const envTag = document.getElementById('env-tag');
+      const embodiedSec = document.getElementById('embodied-insp-section');
+
       if (frame.dynamic_details && frame.dynamic_details.q_func !== undefined) {
         qTag.style.display = 'inline-block';
         qTag.innerText = `Q_func: ${Number(frame.dynamic_details.q_func).toFixed(3)}`;
@@ -914,6 +1004,83 @@
         syncTag.style.display = 'none';
       }
 
+      const actionNames = ['NOOP', 'STEP_FWD', 'TURN_LEFT', 'TURN_RIGHT'];
+
+      // Phase 5 Embodied Updates
+      if (frame.dynamic_details && frame.dynamic_details.environment) {
+        const env = frame.dynamic_details.environment;
+        envGroup.visible = true;
+
+        // Position agent on 3D arena floor
+        const aX = (env.agent_pos[0] - 5.0) * 0.9;
+        const aZ = (env.agent_pos[1] - 5.0) * 0.9;
+        agentPuck.position.set(aX, -9.9, aZ);
+        agentPuck.rotation.y = -env.agent_heading;
+
+        // Position landmark beacons
+        if (env.env_id === 'ENV_B') {
+          beaconMeshes[0].position.set((3.0 - 5.0) * 0.9, -9.7, (7.0 - 5.0) * 0.9);
+          beaconMeshes[1].position.set((7.0 - 5.0) * 0.9, -9.7, (7.0 - 5.0) * 0.9);
+          beaconMeshes[2].position.set((5.0 - 5.0) * 0.9, -9.7, (2.0 - 5.0) * 0.9);
+        } else {
+          beaconMeshes[0].position.set((2.0 - 5.0) * 0.9, -9.7, (2.0 - 5.0) * 0.9);
+          beaconMeshes[1].position.set((8.0 - 5.0) * 0.9, -9.7, (2.0 - 5.0) * 0.9);
+          beaconMeshes[2].position.set((5.0 - 5.0) * 0.9, -9.7, (8.0 - 5.0) * 0.9);
+        }
+
+        // Tags
+        predTag.style.display = 'inline-block';
+        predTag.innerText = `Pred MSE: ${Number(frame.dynamic_details.pred_mse).toFixed(4)}`;
+
+        actionTag.style.display = 'inline-block';
+        const actIdx = env.action !== undefined ? env.action : 0;
+        actionTag.innerText = `Act: ${actionNames[actIdx] || actIdx}`;
+
+        envTag.style.display = 'inline-block';
+        envTag.innerText = `Env: ${env.env_id}`;
+
+        // Inspector fields
+        if (embodiedSec) {
+          embodiedSec.style.display = 'block';
+          document.getElementById('insp-env-cycle').innerText = `${env.env_id} (Cycle ${env.hidden_cycle !== undefined ? env.hidden_cycle : 0})`;
+          document.getElementById('insp-agent-pos').innerText = `[${env.agent_pos[0].toFixed(2)}, ${env.agent_pos[1].toFixed(2)}]`;
+          document.getElementById('insp-agent-heading').innerText = `${(env.agent_heading * 180 / Math.PI).toFixed(1)}°`;
+          document.getElementById('insp-action-name').innerText = actionNames[actIdx] || `Action ${actIdx}`;
+          document.getElementById('insp-pred-mse').innerText = Number(frame.dynamic_details.pred_mse).toFixed(6);
+
+          // Render sensory bars
+          const sensoryCont = document.getElementById('sensory-bars-container');
+          sensoryCont.innerHTML = '';
+          const obsNext = frame.dynamic_details.obs_next || [];
+          const predS = frame.dynamic_details.pred_s || [];
+          const sensoryLabels = ['d_W0', 'd_W1', 'd_W2', 'd_W3', 'd_L0', 'd_L1', 'd_L2', 'theta'];
+          for (let sI = 0; sI < Math.max(obsNext.length, predS.length); sI++) {
+            const actualVal = obsNext[sI] || 0.0;
+            const predVal = predS[sI] || 0.0;
+            const row = document.createElement('div');
+            row.style.fontSize = '10px';
+            row.style.marginBottom = '2px';
+            row.innerHTML = `
+              <div style="display:flex; justify-content:space-between; color:var(--text-muted);">
+                <span>${sensoryLabels[sI] || `S_${sI}`}</span>
+                <span>Act: ${actualVal.toFixed(2)} | Pred: ${predVal.toFixed(2)}</span>
+              </div>
+              <div style="position:relative; height:4px; background:rgba(255,255,255,0.1); border-radius:2px; margin-top:1px;">
+                <div style="position:absolute; left:0; top:0; height:100%; width:${Math.min(actualVal * 100, 100)}%; background:var(--cyan); border-radius:2px;"></div>
+                <div style="position:absolute; left:0; top:0; height:100%; width:${Math.min(predVal * 100, 100)}%; background:var(--magenta); opacity:0.75; border-radius:2px;"></div>
+              </div>
+            `;
+            sensoryCont.appendChild(row);
+          }
+        }
+      } else {
+        envGroup.visible = false;
+        predTag.style.display = 'none';
+        actionTag.style.display = 'none';
+        envTag.style.display = 'none';
+        if (embodiedSec) embodiedSec.style.display = 'none';
+      }
+
       // Update UI Elements
       document.getElementById('timeline').value = stepIndex;
       document.getElementById('step-display').innerText = `Step: ${stepIndex} / ${logData.frames.length - 1}`;
@@ -922,7 +1089,10 @@
       const t_delay = logData.metadata.delay || 10;
       const phaseBadge = document.getElementById('phase-badge');
 
-      if (stepIndex < t_cue) {
+      if (frame.dynamic_details && frame.dynamic_details.environment) {
+        phaseBadge.innerText = (logData.metadata.embodiment_mode || 'EMBODIED').toUpperCase();
+        phaseBadge.className = 'phase-badge phase-cue';
+      } else if (stepIndex < t_cue) {
         phaseBadge.innerText = 'CUE PHASE';
         phaseBadge.className = 'phase-badge phase-cue';
       } else if (stepIndex < t_cue + t_delay) {
@@ -1210,7 +1380,7 @@
     animate();
 
     // Auto-fetch default representative trace
-    fetchBrainlog('/experiments/results/brainlogs/EXP003_Modulated_rep.brainlog');
+    fetchBrainlog('/experiments/results/brainlogs/EXP005_LOCAL_PRED_DYNAMIC_SYNAPSES_ACTIVE_s42.brainlog');
   </script>
 </body>
 </html>

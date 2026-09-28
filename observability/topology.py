@@ -107,60 +107,22 @@ class TopologyExtractor:
         edges: List[TopologyEdge] = []
 
         # 1. Sensory Input Cluster (Z = -8.0)
-        if model.input_dim == 3:
-            nodes.append(
-                TopologyNode(
-                    id=0,
-                    type="INPUT",
-                    label="Stimulus_Left",
-                    pos=[-3.5, 0.0, -8.0],
-                    unit_index=-1,
-                    module_id=0,
-                )
-            )
-            nodes.append(
-                TopologyNode(
-                    id=1,
-                    type="INPUT",
-                    label="Stimulus_Right",
-                    pos=[3.5, 0.0, -8.0],
-                    unit_index=-1,
-                    module_id=1,
-                )
-            )
-            nodes.append(
-                TopologyNode(
-                    id=2,
-                    type="INPUT",
-                    label="Phase_Gate",
-                    pos=[0.0, 0.0, -8.0],
-                    unit_index=-1,
-                    module_id=0,
-                )
-            )
+        in_dim = model.input_dim
+        if in_dim == 3:
+            nodes.append(TopologyNode(id=0, type="INPUT", label="Stimulus_Left", pos=[-3.5, 0.0, -8.0], unit_index=-1, module_id=0))
+            nodes.append(TopologyNode(id=1, type="INPUT", label="Stimulus_Right", pos=[3.5, 0.0, -8.0], unit_index=-1, module_id=1))
+            nodes.append(TopologyNode(id=2, type="INPUT", label="Phase_Gate", pos=[0.0, 0.0, -8.0], unit_index=-1, module_id=0))
             recurrent_id_offset = 3
-        else:
-            nodes.append(
-                TopologyNode(
-                    id=0,
-                    type="INPUT",
-                    label="Stimulus_Input",
-                    pos=[-2.5, 0.0, -8.0],
-                    unit_index=-1,
-                    module_id=0,
-                )
-            )
-            nodes.append(
-                TopologyNode(
-                    id=1,
-                    type="INPUT",
-                    label="Phase_Gate",
-                    pos=[2.5, 0.0, -8.0],
-                    unit_index=-1,
-                    module_id=0,
-                )
-            )
+        elif in_dim == 2:
+            nodes.append(TopologyNode(id=0, type="INPUT", label="Stimulus_Input", pos=[-2.5, 0.0, -8.0], unit_index=-1, module_id=0))
+            nodes.append(TopologyNode(id=1, type="INPUT", label="Phase_Gate", pos=[2.5, 0.0, -8.0], unit_index=-1, module_id=0))
             recurrent_id_offset = 2
+        else:
+            # Multi-channel sensory inputs (e.g. 8-channel embodied environment)
+            recurrent_id_offset = in_dim
+            for j in range(in_dim):
+                x_pos = -4.0 + (8.0 * j / max(1, in_dim - 1))
+                nodes.append(TopologyNode(id=j, type="INPUT", label=f"Sensor_{j}", pos=[round(x_pos, 3), 0.0, -8.0], unit_index=-1, module_id=j % 4))
 
         # 2. Recurrent Memory Population
         H = model.hidden_dim
@@ -195,18 +157,33 @@ class TopologyExtractor:
                 )
             )
 
-        # 3. Decision Readout Cluster (Z = +8.0)
-        output_id = recurrent_id_offset + H
-        nodes.append(
-            TopologyNode(
-                id=output_id,
-                type="OUTPUT",
-                label="Decision_Readout",
-                pos=[0.0, 0.0, 8.0],
-                unit_index=-1,
-                module_id=0,
+        # 3. Decision / Predictive Readout Cluster (Z = +8.0)
+        out_dim = getattr(model, "output_dim", 1)
+        output_start_id = recurrent_id_offset + H
+        if out_dim == 1:
+            nodes.append(
+                TopologyNode(
+                    id=output_start_id,
+                    type="OUTPUT",
+                    label="Decision_Readout",
+                    pos=[0.0, 0.0, 8.0],
+                    unit_index=-1,
+                    module_id=0,
+                )
             )
-        )
+        else:
+            for k in range(out_dim):
+                x_pos = -4.0 + (8.0 * k / max(1, out_dim - 1))
+                nodes.append(
+                    TopologyNode(
+                        id=output_start_id + k,
+                        type="OUTPUT",
+                        label=f"Pred_{k}",
+                        pos=[round(x_pos, 3), 0.0, 8.0],
+                        unit_index=-1,
+                        module_id=k % 4,
+                    )
+                )
 
         # Extract connections
         W_xh = weights.get("W_xh")
@@ -218,6 +195,9 @@ class TopologyExtractor:
             W_hh = weights["W_hz"]
 
         W_hy = weights.get("W_hy")
+        if W_hy is None and "W_pred" in weights:
+            # Predictive head: weights from hidden to output
+            W_hy = weights["W_pred"][:H, :]
 
         dist_mat = getattr(model, "distance_matrix", None)
         delay_mat = getattr(model, "delay_matrix", None)
@@ -269,22 +249,24 @@ class TopologyExtractor:
 
         # Hidden -> Output edges
         if W_hy is not None:
-            p_out = np.array(nodes[output_id].pos, dtype=np.float32)
-            for h_i in range(H):
-                w = float(W_hy[h_i, 0])
-                if abs(w) >= self.edge_weight_threshold:
-                    p_h = np.array(nodes[recurrent_id_offset + h_i].pos, dtype=np.float32)
-                    d = float(np.linalg.norm(p_h - p_out))
-                    edges.append(
-                        TopologyEdge(
-                            src=recurrent_id_offset + h_i,
-                            dst=output_id,
-                            weight=w,
-                            latency_steps=1,
-                            distance=d,
-                            propagation_delay=1,
+            for out_k in range(out_dim):
+                out_node_id = output_start_id + out_k
+                p_out = np.array(nodes[out_node_id].pos, dtype=np.float32)
+                for h_i in range(H):
+                    w = float(W_hy[h_i, out_k if W_hy.ndim > 1 else 0])
+                    if abs(w) >= self.edge_weight_threshold:
+                        p_h = np.array(nodes[recurrent_id_offset + h_i].pos, dtype=np.float32)
+                        d = float(np.linalg.norm(p_h - p_out))
+                        edges.append(
+                            TopologyEdge(
+                                src=recurrent_id_offset + h_i,
+                                dst=out_node_id,
+                                weight=w,
+                                latency_steps=1,
+                                distance=d,
+                                propagation_delay=1,
+                            )
                         )
-                    )
 
         topology_id = f"{model_id}_{H}units"
         return BrainTopology(

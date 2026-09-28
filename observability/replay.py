@@ -264,3 +264,98 @@ class ReplayEngine:
         frame = self.data["frames"][s]
         return frame.get("dynamic_details", {})
 
+    def get_environment_state(self, step: Optional[int] = None) -> Optional[dict]:
+        """Return embodied environment state at step (agent_pos, heading, env_id, hidden_cycle)."""
+        if not self.data:
+            return None
+        s = self.current_step if step is None else step
+        frame = self.data["frames"][s]
+        return frame.get("dynamic_details", {}).get("environment")
+
+    def get_action(self, step: Optional[int] = None) -> Optional[int]:
+        """Return action executed at step."""
+        env_state = self.get_environment_state(step)
+        if env_state and "action" in env_state:
+            return int(env_state["action"])
+        events = self.get_events_at_step(step)
+        for e in events:
+            if e.get("type") == "ACTION_SELECTED":
+                return int(e.get("payload", {}).get("action", e.get("magnitude", 0)))
+        return None
+
+    def get_prediction(self, step: Optional[int] = None) -> Optional[dict]:
+        """Return prediction details at step: pred_s, obs_next, pred_mse."""
+        if not self.data:
+            return None
+        s = self.current_step if step is None else step
+        frame = self.data["frames"][s]
+        dyn = frame.get("dynamic_details", {})
+        if "pred_s" in dyn and "obs_next" in dyn:
+            return {
+                "pred_s": dyn["pred_s"],
+                "obs_next": dyn["obs_next"],
+                "pred_mse": dyn.get("pred_mse", frame.get("error", 0.0)),
+            }
+        return None
+
+    def get_structural_events(self, step: Optional[int] = None) -> List[dict]:
+        """Return structural plasticity events (SYNAPSE_FORMED, SYNAPSE_PRUNED, NEURON_BORN)."""
+        struct_types = {"SYNAPSE_FORMED", "SYNAPSE_PRUNED", "NEURON_BORN", "NEURON_PRUNED"}
+        if step is not None:
+            return [e for e in self.get_events_at_step(step) if e.get("type") in struct_types]
+        all_events = self.get_all_events()
+        return [e for e in all_events if e.get("type") in struct_types]
+
+    def get_active_topology_at_step(self, step: Optional[int] = None) -> dict:
+        """Compute active topology accounting for synaptogenesis and pruning up to step."""
+        if not self.data:
+            return {}
+        target_step = self.current_step if step is None else step
+        base_topo = self.data["topology"]
+        nodes = [dict(n) for n in base_topo["nodes"]]
+        edges = {(e["src"], e["dst"]): dict(e) for e in base_topo["edges"]}
+
+        all_events = self.get_all_events()
+        for evt in all_events:
+            if evt.get("step", 0) > target_step:
+                break
+            etype = evt.get("type")
+            payload = evt.get("payload", {})
+            if etype == "SYNAPSE_FORMED":
+                src = payload.get("src")
+                dst = payload.get("dst")
+                if src is not None and dst is not None:
+                    edges[(src, dst)] = {
+                        "src": src,
+                        "dst": dst,
+                        "weight": payload.get("weight", 0.1),
+                        "distance": payload.get("distance", 1.0),
+                        "propagation_delay": payload.get("delay", 1),
+                    }
+            elif etype == "SYNAPSE_PRUNED":
+                src = payload.get("src")
+                dst = payload.get("dst")
+                if (src, dst) in edges:
+                    del edges[(src, dst)]
+            elif etype == "NEURON_BORN":
+                nid = payload.get("neuron_id")
+                pos = payload.get("pos", [0.0, 0.0, 0.0])
+                if nid is not None and nid >= len(nodes):
+                    nodes.append({
+                        "id": nid,
+                        "type": "RECURRENT",
+                        "label": f"Unit_{nid:02d}",
+                        "pos": pos,
+                        "unit_index": nid,
+                        "module_id": 0,
+                    })
+
+        return {
+            "step": target_step,
+            "node_count": len(nodes),
+            "edge_count": len(edges),
+            "nodes": nodes,
+            "edges": list(edges.values()),
+        }
+
+

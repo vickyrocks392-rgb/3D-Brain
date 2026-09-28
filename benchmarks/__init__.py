@@ -7,11 +7,23 @@ from benchmarks.continual_adaptation import (
     ContinualCondition,
 )
 
+from benchmarks.embodied_environment import (
+    MinimalEmbodiedEnvironment,
+    Action,
+    Landmark,
+    EnvState,
+)
+
 __all__ = [
     "DelayedMatchTask",
     "TaskConfig",
     "ContinualDelayedAssociationTask",
     "ContinualConfig",
     "ContinualCondition",
+    "MinimalEmbodiedEnvironment",
+    "Action",
+    "Landmark",
+    "EnvState",
 ]
+
 

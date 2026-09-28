@@ -100,19 +100,33 @@ Phase 6: Causal Query Layer & Interactive Explanations
 
 ---
 
-## Phase 5: Cognitive Time Travel & Causal Replay Engine
-* **Goal**: Enable frictionless bidirectional scrubbing and causal debugging.
-* **Workstreams**:
-  * Implement keyframe checkpointing and delta-log playback.
-  * Build UI timeline scrubber with bookmarkable cognitive event markers.
-  * Backward causal attribution: click an error burst, trace backward to identify contributing upstream activations.
-* **Exit Gate**: User can pause any run, scrub back 500 steps, and inspect the causal synaptic path that led to a decision.
+## Phase 5: Self-Supervised Embodied World Model & Dynamic Brain Growth
+* **Status**: **COMPLETE (WITH NEGATIVE RESULTS NOTED)**
+* **Goal**: Determine whether a spatial recurrent neural substrate develops useful internal predictive structure through self-supervised sensorimotor interaction, while dynamically modifying its own structural connectivity.
+* **Key Deliverables**:
+  * [x] Minimal 2D embodied metric environment with continuous landmarks, obstacles, heading, and hidden periodic dynamics (`benchmarks/embodied_environment.py`).
+  * [x] Closed-loop sensorimotor spatial RNN substrate with forward predictive projection head and real-time prediction error telemetry (`brain/predictive_spatial.py`).
+  * [x] Local Hebbian predictive plasticity with feedback alignment, neuromodulated error-gated eligibility traces, and BPTT control baseline (`brain/predictive_plasticity.py`).
+  * [x] Dynamic structural plasticity with distance-constrained synaptogenesis, activity pruning, degree bounds, and dynamic population growth (`brain/structural_plasticity.py`).
+  * [x] `.brainlog` v2.3 schema evolution capturing environment state, actions, sensory predictions, prediction errors, and structural events (`observability/brainlog.py`).
+  * [x] Standalone Embodied Replay Engine with multi-step causal querying of predictions, actions, and active topology (`observability/replay.py`).
+  * [x] 3D Observability Console v2.3 with embodied arena floor grid, moving agent puck, landmark beacons, sensory prediction HUD, and structural event pins (`visualization/player.html`).
+  * [x] Full Experiment 005 execution across 102 conditions (learning, embodiment, structure, environment regimes, ablations, scale ladder up to 100,000 units) (`experiments/run_exp005.py`, `experiments/results/exp005_results.json`).
+  * [x] Literature Review ([PHASE_5_LITERATURE_REVIEW.md](file:///Users/kalachanddash/Documents/3D-Brain/research/PHASE_5_LITERATURE_REVIEW.md)), Design Audit ([PHASE_5_DESIGN_AUDIT.md](file:///Users/kalachanddash/Documents/3D-Brain/docs/PHASE_5_DESIGN_AUDIT.md)), Experiment Results ([EXPERIMENT_005_RESULTS.md](file:///Users/kalachanddash/Documents/3D-Brain/experiments/EXPERIMENT_005_RESULTS.md)), and Implementation Report ([PHASE_5_IMPLEMENTATION_REPORT.md](file:///Users/kalachanddash/Documents/3D-Brain/docs/PHASE_5_IMPLEMENTATION_REPORT.md)).
+* **Exit Gate Evaluation**:
+  * Self-Supervised Prediction: **SUPPORTED** ($>98\%$ error reduction vs. frozen baseline).
+  * Active Embodiment Advantage: **SUPPORTED** ($6.1\times$ lower prediction error vs. passive observation, $p < 0.001$).
+  * Dynamic Structural Plasticity: **SUPPORTED** ($3.8\times$ improvement in internal state spatial decodability; $Q_{\text{struct}}$ rises to $0.620$).
+  * Dynamic Neuron Growth: **PARTIALLY SUPPORTED / INCONCLUSIVE** (functional in capacity adaptation, but synaptic rewiring alone was sufficient).
+  * Scaling (100K units / 2M synapses): **PASSED** ($10,228$ steps/s, $<30$ MB RAM).
+  * Functional Modularity: **NOT SUPPORTED (NEGATIVE RESULT)** ($Q_{\text{func}} \approx -0.004$ to $-0.015$; rate-coded continuous recurrent activations do not spontaneously form functional modules).
 
 ---
 
-## Phase 6: Human-Facing Explanatory Layer (JARVIS)
-* **Goal**: Provide an interactive query interface that explains observable computational state transitions.
+## Phase 6: Autonomous Oscillatory Dynamics & Spiking Phase Processing
+* **Goal**: Address the persistent negative result of Phase 4 and Phase 5 ($Q_{\text{func}} \approx 0$) by transitioning the computational substrate to leaky integrate-and-fire / spiking phase-locking dynamics capable of sustaining autonomous limit cycles and functional synchronization.
 * **Workstreams**:
-  * Implement cognitive query engine: translates natural language queries ("Why did unit 42 activate?") into graph traversal queries over telemetry history.
-  * Visual camera directors: automatically fly the 3D camera to highlight the active neural sub-network responsible for an event.
-* **Exit Gate**: Interactive natural language query highlights verified, observable computational history without fabricating ungrounded explanations.
+  * Spiking neuron dynamics (LIF, Izhikevich, or adaptive exponential leaky integrate-and-fire).
+  * Spike-timing-dependent plasticity (STDP) and phase-coupled synaptogenesis.
+  * Kuramoto phase coherence and functional community detection on spike-train correlation matrices.
+* **Exit Gate**: Measurable emergence of non-zero functional modularity ($Q_{\text{func}} > 0.3$) and spontaneous oscillatory phase synchronization ($R > 0.6$).

@@ -305,6 +305,187 @@ class StateCapture:
 
         return frame
 
+    def capture_embodied_step(
+        self,
+        step: int,
+        obs_t: np.ndarray,
+        action: int,
+        obs_next: np.ndarray,
+        pred_s: np.ndarray,
+        pred_error: float,
+        model: BrainModel,
+        env_info: Optional[Dict[str, Any]] = None,
+        structural_events: Optional[List[Any]] = None,
+    ) -> TelemetryFrame:
+        """Capture a single embodied sensorimotor step with forward predictions and structural plasticity."""
+        time_ms = step * self.dt_ms
+        obs = model.observable_state()
+
+        h_vec = obs["state"][0]
+        a_vec = obs["activation"][0]
+
+        in_acts = [float(x) for x in obs_t]
+        h_acts = [float(a) for a in a_vec]
+        out_acts = [float(p) for p in pred_s]
+        all_acts = in_acts + h_acts + out_acts
+
+        in_states = [float(x) for x in obs_t]
+        h_states = [float(h) for h in h_vec]
+        all_states = in_states + h_states + out_acts
+
+        # Signals actively propagating along synaptic connections
+        signals: List[TelemetrySignal] = []
+        if hasattr(model, "queue") and model.queue is not None and len(model.queue.active_signals) > 0:
+            offset = len(in_acts)
+            for sig in model.queue.active_signals:
+                s_id = offset + sig.source
+                d_id = offset + sig.target
+                prog = sig.progress(step)
+                signals.append(
+                    TelemetrySignal(
+                        src=s_id,
+                        dst=d_id,
+                        progress=prog,
+                        magnitude=sig.magnitude,
+                        distance=sig.distance,
+                        delay=sig.delay,
+                    )
+                )
+        signals = signals[: self.max_active_signals]
+
+        # Computational Events
+        step_events: List[ComputationalEvent] = []
+
+        # 1. Action Event
+        step_events.append(
+            ComputationalEvent(
+                event_type=EventType.ACTION_SELECTED,
+                step=step,
+                time_ms=time_ms,
+                magnitude=float(action),
+                payload={"action": int(action)},
+            )
+        )
+
+        # 2. Prediction Event
+        step_events.append(
+            ComputationalEvent(
+                event_type=EventType.PREDICTION_MADE,
+                step=step,
+                time_ms=time_ms,
+                magnitude=float(pred_error),
+                payload={
+                    "pred_s": [round(float(p), 4) for p in pred_s],
+                    "obs_next": [round(float(s), 4) for s in obs_next],
+                    "pred_error": round(float(pred_error), 4),
+                },
+            )
+        )
+
+        if pred_error >= 0.25:
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.PREDICTION_ERROR,
+                    step=step,
+                    time_ms=time_ms,
+                    magnitude=float(pred_error),
+                    payload={"pred_error": round(float(pred_error), 4)},
+                )
+            )
+
+        # 3. Environment Change Event if env_id switched
+        if env_info and "env_switched" in env_info and env_info["env_switched"]:
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.ENVIRONMENT_CHANGE,
+                    step=step,
+                    time_ms=time_ms,
+                    magnitude=1.0,
+                    payload={"env_id": env_info.get("env_id", "")},
+                )
+            )
+
+        # 4. Structural Plasticity Events
+        if structural_events:
+            for se in structural_events:
+                se_dict = se.to_dict() if hasattr(se, "to_dict") else se
+                evt_type_str = se_dict.get("type", "")
+                if evt_type_str == "SYNAPSE_FORMED":
+                    evt_type = EventType.SYNAPSE_FORMED
+                elif evt_type_str == "SYNAPSE_PRUNED":
+                    evt_type = EventType.SYNAPSE_PRUNED
+                elif evt_type_str == "NEURON_BORN":
+                    evt_type = EventType.NEURON_BORN
+                else:
+                    evt_type = EventType.PLASTICITY_UPDATE
+
+                offset = len(in_acts)
+                s_node = offset + se_dict["src"] if "src" in se_dict else None
+                d_node = offset + se_dict["dst"] if "dst" in se_dict else None
+                n_node = offset + se_dict["neuron_id"] if "neuron_id" in se_dict else None
+
+                step_events.append(
+                    ComputationalEvent(
+                        event_type=evt_type,
+                        step=step,
+                        time_ms=time_ms,
+                        node_id=n_node,
+                        source_node=s_node,
+                        target_node=d_node,
+                        magnitude=se_dict.get("weight", 1.0),
+                        payload=se_dict,
+                    )
+                )
+
+        # Dynamic Details
+        dynamic_details: Dict[str, Any] = {
+            "pred_mse": round(float(pred_error), 6),
+            "pred_s": [round(float(p), 4) for p in pred_s],
+            "obs_next": [round(float(s), 4) for s in obs_next],
+        }
+        if env_info:
+            dynamic_details["environment"] = env_info
+        if "alpha" in obs:
+            dynamic_details["alpha"] = [round(float(v), 4) for v in obs["alpha"]]
+        if "tau" in obs:
+            dynamic_details["tau"] = [round(float(v), 2) for v in obs["tau"]]
+        if "cand_h" in obs:
+            dynamic_details["cand_h"] = [round(float(v), 4) for v in obs["cand_h"][0]]
+        if "prev_h" in obs:
+            dynamic_details["prev_h"] = [round(float(v), 4) for v in obs["prev_h"][0]]
+        if structural_events:
+            dynamic_details["structural_events"] = [
+                se.to_dict() if hasattr(se, "to_dict") else se for se in structural_events
+            ]
+
+        frame = TelemetryFrame(
+            step=step,
+            time_ms=time_ms,
+            inputs=in_acts,
+            activations=all_acts,
+            states=all_states,
+            output=float(pred_s[0]),
+            target=float(obs_next[0]),
+            error=float(pred_error),
+            mask=1.0,
+            signals=signals,
+            events=step_events,
+            dynamic_details=dynamic_details,
+        )
+
+        self.frames.append(frame)
+        self.all_events.extend(step_events)
+
+        if step % 10 == 0:
+            self.snapshots[step] = {
+                "step": step,
+                "states": all_states,
+                "activations": all_acts,
+                "weights_digest": len(self.topology.edges),
+            }
+
+        return frame
+
     def complete_trial(self, final_acc: float) -> None:
         """Mark trial completion and emit final event."""
         if len(self.frames) > 0:
@@ -317,3 +498,4 @@ class StateCapture:
             )
             last_frame.events.append(completion_event)
             self.all_events.append(completion_event)
+

@@ -13,6 +13,16 @@ from brain.plasticity import (
     HomeostaticPlasticity,
 )
 
+from brain.predictive_plasticity import (
+    PredictiveLearningRule,
+    FrozenPredictive,
+    LocalPredictivePlasticity,
+    NeuromodulatedPredictivePlasticity,
+    GradientPredictiveBaseline,
+)
+from brain.structural_plasticity import StructuralPlasticity, StructuralEvent
+from brain.predictive_spatial import PredictiveSpatialRNN
+
 __all__ = [
     "BrainModel",
     "AdamWOptimizer",
@@ -28,4 +38,13 @@ __all__ = [
     "OjaPlasticity",
     "ModulatedPlasticity",
     "HomeostaticPlasticity",
+    "PredictiveSpatialRNN",
+    "PredictiveLearningRule",
+    "FrozenPredictive",
+    "LocalPredictivePlasticity",
+    "NeuromodulatedPredictivePlasticity",
+    "GradientPredictiveBaseline",
+    "StructuralPlasticity",
+    "StructuralEvent",
 ]
+

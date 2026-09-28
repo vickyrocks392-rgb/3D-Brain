@@ -1366,6 +1366,242 @@ class StateCapture:
 
         return frame
 
+    def capture_phase11_step(
+        self,
+        step: int,
+        input_vec: np.ndarray,
+        model: Any,
+        y_val: Union[float, List[float], np.ndarray],
+        target_val: float,
+        mask_val: float,
+        reward: float = 0.0,
+        m_vector: Optional[np.ndarray] = None,
+        targeted_updates: Optional[List[Any]] = None,
+        metrics: Optional[Dict[str, Any]] = None,
+        context_id: Optional[int] = None,
+        phase_label: str = "PHASE11",
+    ) -> TelemetryFrame:
+        """Capture a Phase 11 predictive disinhibition, recurrent attractor, and action routing step."""
+        time_ms = step * self.dt_ms
+        obs = model.observable_state() if hasattr(model, "observable_state") else {}
+
+        # 1. Inputs & Hidden Activations
+        in_acts = [float(x) for x in input_vec]
+        if "activations" in obs:
+            h_acts = [float(a) for a in obs["activations"]]
+        elif "activation" in obs:
+            h_acts = [float(a) for a in obs["activation"][0]]
+        else:
+            h_acts = [0.0] * self.topology.hidden_count
+
+        out_nodes = [n for n in self.topology.nodes if n.type == "OUTPUT"]
+        num_out = len(out_nodes) if len(out_nodes) > 0 else 2
+        if isinstance(y_val, (list, tuple, np.ndarray)):
+            out_acts = [float(v) for v in y_val]
+        else:
+            out_acts = [float(y_val)]
+        if len(out_acts) < num_out:
+            out_acts = out_acts + [0.0] * (num_out - len(out_acts))
+        elif len(out_acts) > num_out:
+            out_acts = out_acts[:num_out]
+
+        all_acts = in_acts + h_acts + out_acts
+
+        v_soma = obs.get("v_soma", h_acts)
+        in_states = [float(x) for x in input_vec]
+        h_states = [float(v) for v in v_soma]
+        all_states = in_states + h_states + out_acts
+
+        err = abs(float(out_acts[0]) - float(target_val)) if mask_val > 0 else 0.0
+
+        # Signals actively in-transit along axons
+        signals: List[TelemetrySignal] = []
+        offset = len(in_acts)
+
+        if hasattr(model, "queue") and model.queue is not None:
+            if hasattr(model.queue, "active_spikes") and len(model.queue.active_spikes) > 0:
+                for spk in model.queue.active_spikes:
+                    s_id = offset + spk.source
+                    d_id = offset + spk.target
+                    prog = spk.progress(step)
+                    signals.append(
+                        TelemetrySignal(
+                            src=s_id,
+                            dst=d_id,
+                            progress=prog,
+                            magnitude=spk.weight,
+                            distance=spk.distance,
+                            delay=spk.delay,
+                        )
+                    )
+        signals = signals[: self.max_active_signals]
+
+        # Computational Events
+        step_events: List[ComputationalEvent] = []
+
+        if step == 0:
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.TRIAL_STARTED,
+                    step=step,
+                    time_ms=time_ms,
+                    payload={"context_id": context_id if context_id is not None else 0},
+                )
+            )
+
+        # Spikes
+        fired_mask = np.array(model.last_spikes if hasattr(model, "last_spikes") else [], dtype=bool)
+        neuron_types = getattr(model, "neuron_types", [])
+        if len(fired_mask) > 0:
+            for j in np.where(fired_mask)[0]:
+                is_inh = bool(model.is_inhibitory[j]) if hasattr(model, "is_inhibitory") and len(model.is_inhibitory) > j else False
+                evt_type = EventType.INHIBITORY_SPIKE if is_inh else EventType.EXCITATORY_SPIKE
+                step_events.append(
+                    ComputationalEvent(
+                        event_type=evt_type,
+                        step=step,
+                        time_ms=time_ms,
+                        node_id=int(offset + j),
+                        magnitude=1.0,
+                    )
+                )
+
+        # Predictive Gating & Dendritic Disinhibition Event
+        gate_vec = obs.get("gate_vector", [])
+        if len(gate_vec) > 0 and np.mean(gate_vec) > 0.01:
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.PREDICTIVE_GATE_UPDATED,
+                    step=step,
+                    time_ms=time_ms,
+                    magnitude=float(np.mean(gate_vec)),
+                    payload={
+                        "gate_selectivity": float(metrics.get("gate_selectivity", 0.0)) if metrics else 0.0,
+                    },
+                )
+            )
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.DENDRITIC_DISINHIBITION,
+                    step=step,
+                    time_ms=time_ms,
+                    magnitude=float(1.0 - np.min(obs.get("disinhibition_factor", [1.0]))),
+                )
+            )
+
+        # Attractor State Event
+        active_attractor = obs.get("active_attractor", -1)
+        if active_attractor >= 0:
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.ATTRACTOR_MAINTAINED,
+                    step=step,
+                    time_ms=time_ms,
+                    magnitude=float(active_attractor),
+                    payload={"attractor_id": int(active_attractor)},
+                )
+            )
+
+        # Action Selection Event
+        if mask_val > 0:
+            sel_act = obs.get("selected_action", 0)
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.ACTION_POPULATION_ACTIVATED,
+                    step=step,
+                    time_ms=time_ms,
+                    node_id=int(self.topology.node_count - 1),
+                    magnitude=float(sel_act),
+                    payload={
+                        "selected_action": int(sel_act),
+                        "target_action": int(target_val) if target_val is not None else 0,
+                        "winner_margin": float(metrics.get("winner_margin", 0.0)) if metrics else 0.0,
+                    },
+                )
+            )
+
+        # Plasticity & Credit Assignment Events
+        if reward != 0.0:
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.REWARD_RECEIVED,
+                    step=step,
+                    time_ms=time_ms,
+                    magnitude=float(reward),
+                )
+            )
+
+        if targeted_updates and len(targeted_updates) > 0:
+            prec = float(metrics.get("precision", 0.0)) if metrics else 0.0
+            leak = float(metrics.get("leakage", 0.0)) if metrics else 0.0
+            csi = float(metrics.get("csi", 0.0)) if metrics else 0.0
+
+            step_events.append(
+                ComputationalEvent(
+                    event_type=EventType.CREDIT_PATH_REINFORCED,
+                    step=step,
+                    time_ms=time_ms,
+                    magnitude=prec,
+                    payload={"precision": prec, "csi": csi},
+                )
+            )
+            if leak > 0.40:
+                step_events.append(
+                    ComputationalEvent(
+                        event_type=EventType.CREDIT_LEAKAGE_DETECTED,
+                        step=step,
+                        time_ms=time_ms,
+                        magnitude=leak,
+                        payload={"leakage": leak},
+                    )
+                )
+
+        # Dynamic Details for Observatory Console
+        dynamic_details = {
+            "v_soma": [round(float(v), 2) for v in obs.get("v_soma", [])],
+            "v_dend": [round(float(v), 2) for v in obs.get("v_dend", [])],
+            "g_nmda": [round(float(g), 3) for g in obs.get("g_nmda", [])],
+            "gate_vector": [round(float(g), 3) for g in obs.get("gate_vector", [])],
+            "disinhibition_factor": [round(float(f), 3) for f in obs.get("disinhibition_factor", [])],
+            "active_attractor": int(obs.get("active_attractor", -1)),
+            "action_values": [round(float(v), 3) for v in obs.get("action_values", [])],
+            "selected_action": int(obs.get("selected_action", 0)),
+        }
+        if metrics:
+            dynamic_details["csi"] = round(float(metrics.get("csi", 0.0)), 4)
+            dynamic_details["precision"] = round(float(metrics.get("precision", 0.0)), 4)
+            dynamic_details["leakage"] = round(float(metrics.get("leakage", 0.0)), 4)
+            dynamic_details["gate_selectivity"] = round(float(metrics.get("gate_selectivity", 0.0)), 4)
+            dynamic_details["action_selectivity"] = round(float(metrics.get("action_selectivity", 0.0)), 4)
+
+        frame = TelemetryFrame(
+            step=step,
+            time_ms=time_ms,
+            inputs=in_acts,
+            activations=all_acts,
+            states=all_states,
+            output=float(out_acts[0]),
+            target=float(target_val),
+            error=float(err),
+            mask=float(mask_val),
+            signals=signals,
+            events=step_events,
+            dynamic_details=dynamic_details,
+        )
+
+        self.frames.append(frame)
+        self.all_events.extend(step_events)
+
+        if step % 10 == 0:
+            self.snapshots[step] = {
+                "step": step,
+                "states": all_states,
+                "activations": all_acts,
+                "weights_digest": len(self.topology.edges),
+            }
+
+        return frame
+
     def complete_trial(self, final_acc: float) -> None:
         """Mark trial completion and emit final event."""
         if len(self.frames) > 0:

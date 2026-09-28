@@ -17,7 +17,7 @@
       "t_delay": 10.0
     },
     "test_accuracy": 0.4333,
-    "timestamp": "2026-09-28T21:50:14.078482+00:00"
+    "timestamp": "2026-09-28T22:16:52.410067+00:00"
   },
   "topology": {
     "topology_id": "CAND-LI_15units",

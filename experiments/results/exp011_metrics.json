@@ -1,0 +1,491 @@
+{
+  "conditions": {
+    "COND_01_PHASE10_TWO_COMP_BASELINE": {
+      "accuracy_mean": 0.25,
+      "accuracy_std": 0.22298480267099421,
+      "csi_mean": -0.37895472281658515,
+      "precision_mean": 0.15104828716613944,
+      "leakage_mean": 0.8489517077568207,
+      "gate_selectivity_mean": 0.0
+    },
+    "COND_02_TWO_COMP_NMDA_ONLY": {
+      "accuracy_mean": 0.21666666666666667,
+      "accuracy_std": 0.20749832663314555,
+      "csi_mean": 0.0,
+      "precision_mean": 0.0,
+      "leakage_mean": 0.0,
+      "gate_selectivity_mean": 0.0
+    },
+    "COND_03_TWO_COMP_RECURRENT_ATTRACTOR": {
+      "accuracy_mean": 0.24166666666666667,
+      "accuracy_std": 0.20733092174374546,
+      "csi_mean": 0.0,
+      "precision_mean": 0.0,
+      "leakage_mean": 0.0,
+      "gate_selectivity_mean": 0.0
+    },
+    "COND_04_TWO_COMP_PREDICTIVE_GATING": {
+      "accuracy_mean": 0.25,
+      "accuracy_std": 0.21147629234082532,
+      "csi_mean": 0.0,
+      "precision_mean": 0.0,
+      "leakage_mean": 0.0,
+      "gate_selectivity_mean": 0.0013870908138186103
+    },
+    "COND_05_TWO_COMP_GATING_AND_ATTRACTOR": {
+      "accuracy_mean": 0.24166666666666667,
+      "accuracy_std": 0.20733092174374546,
+      "csi_mean": 0.0,
+      "precision_mean": 0.0,
+      "leakage_mean": 0.0,
+      "gate_selectivity_mean": 0.003454753094879158
+    },
+    "ABL_06_GATE_SHUFFLED": {
+      "accuracy_mean": 0.24166666666666667,
+      "accuracy_std": 0.20733092174374546,
+      "csi_mean": -0.44667470697817874,
+      "precision_mean": 0.13267697513303645,
+      "leakage_mean": 0.8673230249945691,
+      "gate_selectivity_mean": -0.02909336586670095
+    },
+    "ABL_07_GATE_DELAYED": {
+      "accuracy_mean": 0.24166666666666667,
+      "accuracy_std": 0.20733092174374546,
+      "csi_mean": -0.44667470697817874,
+      "precision_mean": 0.13267697513303645,
+      "leakage_mean": 0.8673230249945691,
+      "gate_selectivity_mean": -0.03672445323644035
+    },
+    "ABL_08_GATE_REVERSED": {
+      "accuracy_mean": 0.24166666666666667,
+      "accuracy_std": 0.20733092174374546,
+      "csi_mean": -0.44667470697817874,
+      "precision_mean": 0.13267697513303645,
+      "leakage_mean": 0.8673230249945691,
+      "gate_selectivity_mean": -0.01360921806482142
+    },
+    "ABL_09_NO_DISINHIBITION": {
+      "accuracy_mean": 0.24166666666666667,
+      "accuracy_std": 0.20733092174374546,
+      "csi_mean": -0.44667470697817874,
+      "precision_mean": 0.13267697513303645,
+      "leakage_mean": 0.8673230249945691,
+      "gate_selectivity_mean": 0.0
+    },
+    "ABL_10_NO_RECURRENT_EXCITATION": {
+      "accuracy_mean": 0.21666666666666667,
+      "accuracy_std": 0.20749832663314555,
+      "csi_mean": 0.0,
+      "precision_mean": 0.0,
+      "leakage_mean": 0.0,
+      "gate_selectivity_mean": -0.008225706955857975
+    },
+    "ABL_11_NO_RECURRENT_INHIBITION": {
+      "accuracy_mean": 0.24166666666666667,
+      "accuracy_std": 0.20733092174374546,
+      "csi_mean": -0.556283225729817,
+      "precision_mean": 0.1326769753637517,
+      "leakage_mean": 0.8673230244155562,
+      "gate_selectivity_mean": 0.0010741310356870218
+    },
+    "ABL_12_REDUCED_RECURRENT_COUPLING": {
+      "accuracy_mean": 0.25,
+      "accuracy_std": 0.22298480267099421,
+      "csi_mean": -0.37895472281658515,
+      "precision_mean": 0.15104828716613944,
+      "leakage_mean": 0.8489517077568207,
+      "gate_selectivity_mean": -0.0022076125017595483
+    },
+    "ABL_13_EXCESSIVE_RECURRENT_COUPLING": {
+      "accuracy_mean": 0.175,
+      "accuracy_std": 0.21262251370288457,
+      "csi_mean": -0.29531652937664293,
+      "precision_mean": 0.16170013059245497,
+      "leakage_mean": 0.8382998622762612,
+      "gate_selectivity_mean": 0.008045328437894253
+    },
+    "COND_14_GLOBAL_REWARD": {
+      "accuracy_mean": 0.24166666666666664,
+      "accuracy_std": 0.21778557242286634,
+      "csi_mean": -0.46727590583983103,
+      "precision_mean": 0.11778681537491044,
+      "leakage_mean": 0.8822131880864639,
+      "gate_selectivity_mean": 0.007792245176436282
+    },
+    "COND_15_PHASE10_TARGETED_FEEDBACK": {
+      "accuracy_mean": 0.25,
+      "accuracy_std": 0.22298480267099421,
+      "csi_mean": -0.37895472281658515,
+      "precision_mean": 0.15104828716613944,
+      "leakage_mean": 0.8489517077568207,
+      "gate_selectivity_mean": 0.0
+    },
+    "COND_16_TARGETED_FEEDBACK_AND_GATE": {
+      "accuracy_mean": 0.25,
+      "accuracy_std": 0.22298480267099421,
+      "csi_mean": -0.37895472281658515,
+      "precision_mean": 0.15104828716613944,
+      "leakage_mean": 0.8489517077568207,
+      "gate_selectivity_mean": -0.0022076125017595483
+    },
+    "COND_17_TARGETED_FEEDBACK_GATE_ATTRACTOR": {
+      "accuracy_mean": 0.24166666666666667,
+      "accuracy_std": 0.20733092174374546,
+      "csi_mean": -0.44667470697817874,
+      "precision_mean": 0.13267697513303645,
+      "leakage_mean": 0.8673230249945691,
+      "gate_selectivity_mean": 0.0010741310356870218
+    },
+    "REF_18_BPTT_GRADIENT_BASELINE": {
+      "accuracy_mean": 0.5833333333333333,
+      "accuracy_std": 0.05527707983925666,
+      "csi_mean": 0.0,
+      "precision_mean": 0.0,
+      "leakage_mean": 0.0,
+      "gate_selectivity_mean": 0.0
+    }
+  },
+  "delay_sweep": {
+    "COND_01_PHASE10_TWO_COMP_BASELINE": [
+      {
+        "delay_ms": 10,
+        "accuracy": 0.7,
+        "csi": -0.8923,
+        "precision": 0.0207,
+        "leakage": 0.9793
+      },
+      {
+        "delay_ms": 25,
+        "accuracy": 0.7,
+        "csi": 0.2264,
+        "precision": 0.363,
+        "leakage": 0.637
+      },
+      {
+        "delay_ms": 50,
+        "accuracy": 0.7,
+        "csi": 0.2325,
+        "precision": 0.3431,
+        "leakage": 0.6569
+      },
+      {
+        "delay_ms": 100,
+        "accuracy": 0.3,
+        "csi": -0.1429,
+        "precision": 0.2073,
+        "leakage": 0.7927
+      },
+      {
+        "delay_ms": 250,
+        "accuracy": 0.2,
+        "csi": -0.3368,
+        "precision": 0.1389,
+        "leakage": 0.8611
+      },
+      {
+        "delay_ms": 500,
+        "accuracy": 0.2,
+        "csi": -0.3088,
+        "precision": 0.1462,
+        "leakage": 0.8538
+      },
+      {
+        "delay_ms": 1000,
+        "accuracy": 0.0,
+        "csi": -0.27,
+        "precision": 0.1605,
+        "leakage": 0.8395
+      },
+      {
+        "delay_ms": 2000,
+        "accuracy": 0.0,
+        "csi": -0.2811,
+        "precision": 0.1572,
+        "leakage": 0.8428
+      }
+    ],
+    "COND_17_TARGETED_FEEDBACK_GATE_ATTRACTOR": [
+      {
+        "delay_ms": 10,
+        "accuracy": 0.7,
+        "csi": -0.9028,
+        "precision": 0.0185,
+        "leakage": 0.9815
+      },
+      {
+        "delay_ms": 25,
+        "accuracy": 0.7,
+        "csi": 0.1829,
+        "precision": 0.3265,
+        "leakage": 0.6735
+      },
+      {
+        "delay_ms": 50,
+        "accuracy": 0.7,
+        "csi": 0.0599,
+        "precision": 0.2689,
+        "leakage": 0.7311
+      },
+      {
+        "delay_ms": 100,
+        "accuracy": 0.3,
+        "csi": -0.1239,
+        "precision": 0.2085,
+        "leakage": 0.7915
+      },
+      {
+        "delay_ms": 250,
+        "accuracy": 0.2,
+        "csi": -0.3076,
+        "precision": 0.1486,
+        "leakage": 0.8514
+      },
+      {
+        "delay_ms": 500,
+        "accuracy": 0.0,
+        "csi": -0.2867,
+        "precision": 0.153,
+        "leakage": 0.847
+      },
+      {
+        "delay_ms": 1000,
+        "accuracy": 0.2,
+        "csi": -0.3128,
+        "precision": 0.146,
+        "leakage": 0.854
+      },
+      {
+        "delay_ms": 2000,
+        "accuracy": 0.2,
+        "csi": -0.3134,
+        "precision": 0.1459,
+        "leakage": 0.8541
+      }
+    ],
+    "ABL_06_GATE_SHUFFLED": [
+      {
+        "delay_ms": 10,
+        "accuracy": 0.7,
+        "csi": -0.9028,
+        "precision": 0.0185,
+        "leakage": 0.9815
+      },
+      {
+        "delay_ms": 25,
+        "accuracy": 0.7,
+        "csi": 0.1829,
+        "precision": 0.3265,
+        "leakage": 0.6735
+      },
+      {
+        "delay_ms": 50,
+        "accuracy": 0.7,
+        "csi": 0.065,
+        "precision": 0.2695,
+        "leakage": 0.7305
+      },
+      {
+        "delay_ms": 100,
+        "accuracy": 0.3,
+        "csi": -0.1303,
+        "precision": 0.2079,
+        "leakage": 0.7921
+      },
+      {
+        "delay_ms": 250,
+        "accuracy": 0.2,
+        "csi": -0.3758,
+        "precision": 0.1284,
+        "leakage": 0.8716
+      },
+      {
+        "delay_ms": 500,
+        "accuracy": 0.2,
+        "csi": -0.2283,
+        "precision": 0.1696,
+        "leakage": 0.8304
+      },
+      {
+        "delay_ms": 1000,
+        "accuracy": 0.2,
+        "csi": -0.2519,
+        "precision": 0.1625,
+        "leakage": 0.8375
+      },
+      {
+        "delay_ms": 2000,
+        "accuracy": 0.2,
+        "csi": -0.2833,
+        "precision": 0.155,
+        "leakage": 0.845
+      }
+    ],
+    "ABL_10_NO_RECURRENT_EXCITATION": [
+      {
+        "delay_ms": 10,
+        "accuracy": 0.7,
+        "csi": 0.0,
+        "precision": 0.0,
+        "leakage": 0.0
+      },
+      {
+        "delay_ms": 25,
+        "accuracy": 0.7,
+        "csi": -0.1,
+        "precision": 0.0,
+        "leakage": 0.1
+      },
+      {
+        "delay_ms": 50,
+        "accuracy": 0.7,
+        "csi": -1.0,
+        "precision": 0.0,
+        "leakage": 1.0
+      },
+      {
+        "delay_ms": 100,
+        "accuracy": 0.6,
+        "csi": -1.0,
+        "precision": 0.0,
+        "leakage": 1.0
+      },
+      {
+        "delay_ms": 250,
+        "accuracy": 0.4,
+        "csi": -1.0,
+        "precision": 0.0,
+        "leakage": 1.0
+      },
+      {
+        "delay_ms": 500,
+        "accuracy": 0.4,
+        "csi": -1.0,
+        "precision": 0.0,
+        "leakage": 1.0
+      },
+      {
+        "delay_ms": 1000,
+        "accuracy": 0.4,
+        "csi": -1.0,
+        "precision": 0.0,
+        "leakage": 1.0
+      },
+      {
+        "delay_ms": 2000,
+        "accuracy": 0.4,
+        "csi": -1.0,
+        "precision": 0.0,
+        "leakage": 1.0
+      }
+    ]
+  },
+  "attractor_diagnostics": {
+    "mean_state_drift": 19.411,
+    "attractor_radius_a": 35.1506,
+    "attractor_radius_b": 30.902,
+    "mean_attractor_radius": 33.0263,
+    "between_attractor_distance": 31.7751,
+    "attractor_separation_ratio": 0.9621,
+    "spontaneous_switches": 99,
+    "spontaneous_switching_rate": 0.99,
+    "effective_dimensionality": 10.62,
+    "jacobian_spectral_radius": 5.5023,
+    "is_stable_attractor": false
+  },
+  "causal_lesions": {
+    "intact_accuracy": 0.3333,
+    "relevant_lesion_accuracy": 0.7,
+    "irrelevant_lesion_accuracy": 0.0,
+    "degradation_relevant": -0.3667,
+    "degradation_irrelevant": 0.3333,
+    "is_causally_specific": false
+  },
+  "continual_learning": {
+    "STATIONARY": {
+      "accuracy": 0.2667,
+      "csi": -0.4081,
+      "precision": 0.1295
+    },
+    "ABRUPT_REVERSAL": {
+      "accuracy": 0.2667,
+      "csi": -0.4081,
+      "precision": 0.1295
+    },
+    "GRADUAL_DRIFT": {
+      "accuracy": 0.2667,
+      "csi": -0.4081,
+      "precision": 0.1295
+    },
+    "RECURRING": {
+      "accuracy": 0.2667,
+      "csi": -0.4081,
+      "precision": 0.1295
+    }
+  },
+  "spatial_topologies": {
+    "RANDOM": {
+      "accuracy": 0.2333,
+      "csi": -0.3717,
+      "precision": 0.1447,
+      "gate_selectivity": 0.0493
+    },
+    "SPATIAL_LOCAL": {
+      "accuracy": 0.2667,
+      "csi": -0.4081,
+      "precision": 0.1295,
+      "gate_selectivity": 0.0646
+    },
+    "MODULAR": {
+      "accuracy": 0.2667,
+      "csi": -0.4081,
+      "precision": 0.1295,
+      "gate_selectivity": 0.0646
+    },
+    "SMALL_WORLD": {
+      "accuracy": 0.2333,
+      "csi": -0.3717,
+      "precision": 0.1447,
+      "gate_selectivity": 0.0493
+    }
+  },
+  "scale_ladder": {
+    "scale_ladder": [
+      {
+        "neurons": 100,
+        "steps_per_sec": 935.8,
+        "spikes_per_sec_m": 0.013,
+        "synaptic_ops_per_sec_m": 1.27,
+        "memory_mb": 0.05
+      },
+      {
+        "neurons": 1000,
+        "steps_per_sec": 8.1,
+        "spikes_per_sec_m": 0.001,
+        "synaptic_ops_per_sec_m": 0.15,
+        "memory_mb": 3.91
+      },
+      {
+        "neurons": 10000,
+        "steps_per_sec": 2586.4,
+        "spikes_per_sec_m": 7.501,
+        "synaptic_ops_per_sec_m": 750.12,
+        "memory_mb": 1.07
+      },
+      {
+        "neurons": 50000,
+        "steps_per_sec": 505.6,
+        "spikes_per_sec_m": 7.382,
+        "synaptic_ops_per_sec_m": 738.16,
+        "memory_mb": 5.34
+      },
+      {
+        "neurons": 100000,
+        "steps_per_sec": 237.9,
+        "spikes_per_sec_m": 6.945,
+        "synaptic_ops_per_sec_m": 694.51,
+        "memory_mb": 10.68
+      }
+    ]
+  },
+  "brainlog_path": "experiments/results/brainlogs/EXP011_predictive_gating_attractor.brainlog"
+}

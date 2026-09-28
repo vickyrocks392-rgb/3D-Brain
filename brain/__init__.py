@@ -126,5 +126,23 @@ from brain.targeted_feedback import (
     TargetedSpatialFeedbackEngine,
 )
 from brain.two_compartment_spatial import TwoCompartmentSpatialNetwork
+from brain.predictive_gating import GateMode, PredictiveDendriticGating
+from brain.attractor_network import AttractorCouplingMode, RecurrentAttractorCircuit
+from brain.action_routing import ActionSelectionCircuit
+from brain.phase11_network import Phase11SpatialNetwork
+
+__all__.extend([
+    "TwoCompartmentPopulation",
+    "FeedbackMode",
+    "DendriticEligibilityMode",
+    "TargetedSpatialFeedbackEngine",
+    "TwoCompartmentSpatialNetwork",
+    "GateMode",
+    "PredictiveDendriticGating",
+    "AttractorCouplingMode",
+    "RecurrentAttractorCircuit",
+    "ActionSelectionCircuit",
+    "Phase11SpatialNetwork",
+])
 
 

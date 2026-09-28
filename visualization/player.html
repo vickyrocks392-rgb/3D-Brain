@@ -745,8 +745,21 @@
         🌊 Credit Flow: Off
       </button>
 
+      <button class="btn" id="attractor-mode-btn" title="Toggle Attractor Pool Visualization [A]">
+        🌀 Attractor: Off
+      </button>
+
+      <button class="btn" id="gate-mode-btn" title="Toggle Predictive Gate Visualization [G]">
+        🛡️ Gate: Off
+      </button>
+
+      <button class="btn" id="action-routing-btn" title="Toggle Action Routing Visualization [R]">
+        🎯 Routing: Off
+      </button>
+
       <select id="model-select" class="select-model" title="Select .brainlog Trace">
-        <option value="/experiments/results/brainlogs/EXP010_two_compartment_targeted_credit.brainlog" selected>EXP010: Two-Compartment & Targeted Credit</option>
+        <option value="/experiments/results/brainlogs/EXP011_predictive_gating_attractor.brainlog" selected>EXP011: Predictive Gating & Recurrent Attractor</option>
+        <option value="/experiments/results/brainlogs/EXP010_two_compartment_targeted_credit.brainlog">EXP010: Two-Compartment & Targeted Credit</option>
         <option value="/experiments/results/brainlogs/EXP009_three_factor_rpe_modular.brainlog">EXP009: Three-Factor RPE (Modular 3D)</option>
         <option value="/experiments/results/brainlogs/EXP009_three_factor_global_reward.brainlog">EXP009: Global Reward Modulation</option>
         <option value="/experiments/results/brainlogs/exp008_phase8_ei_full_system.brainlog">EXP008: E/I Balanced Dale + STDP</option>
@@ -901,6 +914,29 @@
             <div class="metric-cell">
               <span class="metric-name">Targeted Mod M_j(t)</span>
               <span class="metric-val" id="n-targeted-mod" style="color: #f472b6;">-</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 11: Predictive Gating & Attractor Routing -->
+        <div class="section-box" id="n-phase11-box">
+          <span class="section-header-label">Phase 11 Gating & Attractor</span>
+          <div class="metric-grid">
+            <div class="metric-cell">
+              <span class="metric-name">Predictive Gate G_j</span>
+              <span class="metric-val" id="n-gate-vec" style="color: #38bdf8;">-</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Disinhibition Factor</span>
+              <span class="metric-val" id="n-disinhib" style="color: #4ade80;">-</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Attractor Pool</span>
+              <span class="metric-val" id="n-attractor-pool" style="color: #fbbf24;">-</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Action Selected</span>
+              <span class="metric-val" id="n-action-sel" style="color: #f472b6;">-</span>
             </div>
           </div>
         </div>
@@ -1919,6 +1955,10 @@
       const gNmdas = dyn.g_nmda || [];
       const plateaus = dyn.plateau_active || [];
 
+      const gVecs = dyn.gating_vector || [];
+      const disinhibs = dyn.disinhibition_factor || [];
+      const curAttractor = dyn.current_attractor || 'None';
+
       // 1. Update 3D Neurons
       nodeMeshes.forEach((mesh, idx) => {
         const act = acts[idx] || 0.0;
@@ -1929,6 +1969,7 @@
         const recIdx = idx - 2;
         const isPlateau = (recIdx >= 0 && plateaus[recIdx]) || false;
         const gNmda = (recIdx >= 0 && gNmdas[recIdx] !== undefined) ? gNmdas[recIdx] : 0.0;
+        const disFactor = (recIdx >= 0 && disinhibs[recIdx] !== undefined) ? disinhibs[recIdx] : 1.0;
 
         if (didFire) {
           mat.color.setHex(0xffffff);
@@ -1941,15 +1982,34 @@
           mat.emissiveIntensity = 3.0;
           mesh.scale.set(1.6, 1.6, 1.6);
         } else if (isOutput) {
-          mat.color.setHex(0xffd700);
-          mat.emissive.setHex(0xffd700);
-          mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.5, 0.1, 2.0);
-          mesh.scale.set(1.1, 1.1, 1.1);
+          const outCol = actionRoutingActive ? (idx % 2 === 0 ? 0x38bdf8 : 0xf43f5e) : 0xffd700;
+          mat.color.setHex(outCol);
+          mat.emissive.setHex(outCol);
+          mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 2.0 + 0.2, 0.2, 3.0);
+          mesh.scale.set(1.2, 1.2, 1.2);
         } else if (isInput) {
           mat.color.setHex(creditFlowActive ? 0xf59e0b : 0x94a3b8);
           mat.emissive.setHex(creditFlowActive ? 0xf59e0b : 0x94a3b8);
           mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.5, 0.08, 1.8);
           mesh.scale.set(0.9, 0.9, 0.9);
+        } else if (attractorModeActive && recIdx >= 0) {
+          // Attractor Mode: color by attractor pool membership
+          const isPoolA = recIdx < 32;
+          const poolCol = isPoolA ? 0x38bdf8 : 0xc084fc;
+          mat.color.setHex(poolCol);
+          mat.emissive.setHex(poolCol);
+          mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.8 + 0.2, 0.1, 2.5);
+          const s = 1.0 + THREE.MathUtils.clamp(absAct * 0.6, 0.0, 1.0);
+          mesh.scale.set(s, s, s);
+        } else if (gateModeActive && recIdx >= 0) {
+          // Predictive Gate Mode: highlight disinhibited vs inhibited dendritic branches
+          const isDisinhibited = disFactor < 0.95;
+          const gateCol = isDisinhibited ? 0x34d399 : 0x64748b;
+          mat.color.setHex(gateCol);
+          mat.emissive.setHex(gateCol);
+          mat.emissiveIntensity = isDisinhibited ? 2.2 : 0.2;
+          const s = isDisinhibited ? 1.4 : 0.8;
+          mesh.scale.set(s, s, s);
         } else if (isInhibitory) {
           mat.color.setHex(0x00e5ff);
           mat.emissive.setHex(0x00e5ff);
@@ -2203,7 +2263,8 @@
         vmFill.style.width = `${pct}%`;
         vmFill.style.background = state >= -50.0 ? '#ffffff' : colorStr;
 
-        const curFrame = logData.frames[replay.currentStep];
+        const curFrame = (logData && logData.frames) ? logData.frames[replay.currentStep] : null;
+        const dyn = (curFrame && curFrame.dynamic_details) ? curFrame.dynamic_details : {};
         const isFired = curFrame && curFrame.events && curFrame.events.some(e => e.type.includes('SPIKE') && e.node_id === nodeId);
         const fStateEl = document.getElementById('n-firing-state');
         if (isFired) {
@@ -2216,6 +2277,9 @@
       } else {
         document.getElementById('n-membrane-box').style.display = 'none';
       }
+
+      const curFrame = (logData && logData.frames) ? logData.frames[replay.currentStep] : null;
+      const dyn = (curFrame && curFrame.dynamic_details) ? curFrame.dynamic_details : {};
 
       // Two-compartment biophysics values
       const recurrentIdx = nodeId - 2;
@@ -2237,9 +2301,30 @@
         platEl.innerText = isPlateau ? '⚡ CALCIUM PLATEAU' : 'Resting';
         platEl.style.color = isPlateau ? '#f472b6' : 'var(--text-muted)';
         document.getElementById('n-targeted-mod').innerText = Number(targMod).toFixed(4);
+
+        // Phase 11 predictive gating & attractor fields
+        const p11Box = document.getElementById('n-phase11-box');
+        if (p11Box) {
+          p11Box.style.display = 'flex';
+          const gVec = (dyn.gating_vector && dyn.gating_vector[recurrentIdx] !== undefined) ? dyn.gating_vector[recurrentIdx] : 0.0;
+          const disinhib = (dyn.disinhibition_factor && dyn.disinhibition_factor[recurrentIdx] !== undefined) ? dyn.disinhibition_factor[recurrentIdx] : 1.0;
+          const curAttractor = dyn.current_attractor !== undefined ? dyn.current_attractor : 'None';
+          const actSel = dyn.action_selectivity !== undefined ? dyn.action_selectivity : 0.0;
+
+          const gVecEl = document.getElementById('n-gate-vec');
+          if (gVecEl) gVecEl.innerText = Number(gVec).toFixed(4);
+          const disEl = document.getElementById('n-disinhib');
+          if (disEl) disEl.innerText = Number(disinhib).toFixed(4);
+          const attEl = document.getElementById('n-attractor-pool');
+          if (attEl) attEl.innerText = curAttractor;
+          const actSelEl = document.getElementById('n-action-sel');
+          if (actSelEl) actSelEl.innerText = Number(actSel).toFixed(4);
+        }
       } else {
         const tcBox = document.getElementById('n-twocomp-box');
         if (tcBox) tcBox.style.display = 'none';
+        const p11Box = document.getElementById('n-phase11-box');
+        if (p11Box) p11Box.style.display = 'none';
       }
 
       // Three-factor values
@@ -2565,6 +2650,40 @@
         creditFlowBtn.classList.toggle('active', creditFlowActive);
         if (replay) renderFrame(replay.currentStep);
       });
+    // Attractor Mode Toggle
+    let attractorModeActive = false;
+    const attractorModeBtn = document.getElementById('attractor-mode-btn');
+    if (attractorModeBtn) {
+      attractorModeBtn.addEventListener('click', () => {
+        attractorModeActive = !attractorModeActive;
+        attractorModeBtn.innerText = `🌀 Attractor: ${attractorModeActive ? 'On' : 'Off'}`;
+        attractorModeBtn.classList.toggle('active', attractorModeActive);
+        if (replay) renderFrame(replay.currentStep);
+      });
+    }
+
+    // Predictive Gate Mode Toggle
+    let gateModeActive = false;
+    const gateModeBtn = document.getElementById('gate-mode-btn');
+    if (gateModeBtn) {
+      gateModeBtn.addEventListener('click', () => {
+        gateModeActive = !gateModeActive;
+        gateModeBtn.innerText = `🛡️ Gate: ${gateModeActive ? 'On' : 'Off'}`;
+        gateModeBtn.classList.toggle('active', gateModeActive);
+        if (replay) renderFrame(replay.currentStep);
+      });
+    }
+
+    // Action Routing Mode Toggle
+    let actionRoutingActive = false;
+    const actionRoutingBtn = document.getElementById('action-routing-btn');
+    if (actionRoutingBtn) {
+      actionRoutingBtn.addEventListener('click', () => {
+        actionRoutingActive = !actionRoutingActive;
+        actionRoutingBtn.innerText = `🎯 Routing: ${actionRoutingActive ? 'On' : 'Off'}`;
+        actionRoutingBtn.classList.toggle('active', actionRoutingActive);
+        if (replay) renderFrame(replay.currentStep);
+      });
     }
 
     // Model Selector
@@ -2704,6 +2823,15 @@
         if (selectedNodeId !== null) focusCameraOnNode(selectedNodeId);
       } else if (e.code === 'KeyC') {
         if (creditFlowBtn) creditFlowBtn.click();
+      } else if (e.code === 'KeyA') {
+        const btn = document.getElementById('attractor-mode-btn');
+        if (btn) btn.click();
+      } else if (e.code === 'KeyG') {
+        const btn = document.getElementById('gate-mode-btn');
+        if (btn) btn.click();
+      } else if (e.code === 'KeyT') {
+        const btn = document.getElementById('action-routing-btn');
+        if (btn) btn.click();
       } else if (e.code === 'KeyO') {
         camRadius = 24.0;
         camTheta = 0.0;

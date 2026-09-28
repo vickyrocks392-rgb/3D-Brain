@@ -82,6 +82,13 @@ class BrainModel(ABC):
         """Return current activation vector."""
         return self.a.copy()
 
+    def observable_state(self) -> Dict[str, np.ndarray]:
+        """Return dictionary of actual internal computational variables for observability."""
+        return {
+            "state": self.get_state(),
+            "activation": self.get_activation(),
+        }
+
 
 class AdamWOptimizer:
     """Deterministic, self-contained AdamW optimizer with gradient clipping."""

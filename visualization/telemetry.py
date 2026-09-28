@@ -205,47 +205,6 @@ def export_brainlog(
 
 def validate_brainlog(filepath_or_dict: Union[str, Path, dict]) -> Tuple[bool, str]:
     """Validate that a .brainlog file or dictionary conforms strictly to the specification."""
-    if isinstance(filepath_or_dict, (str, Path)):
-        p = Path(filepath_or_dict)
-        if not p.exists():
-            return False, f"File not found: {p}"
-        try:
-            with open(p, "r", encoding="utf-8") as f:
-                data = json.load(f)
-        except Exception as e:
-            return False, f"JSON parse error: {e}"
-    else:
-        data = filepath_or_dict
+    from observability.brainlog import BrainLogValidator
+    return BrainLogValidator.validate(filepath_or_dict)
 
-    if data.get("brainlog_version") != "1.0":
-        return False, "Missing or incompatible 'brainlog_version' (expected '1.0')"
-
-    if "metadata" not in data or not isinstance(data["metadata"], dict):
-        return False, "Missing or invalid 'metadata' block"
-
-    if "topology" not in data or not isinstance(data["topology"], dict):
-        return False, "Missing or invalid 'topology' block"
-
-    topology = data["topology"]
-    if "nodes" not in topology or not isinstance(topology["nodes"], list):
-        return False, "Topology missing 'nodes' list"
-    if "edges" not in topology or not isinstance(topology["edges"], list):
-        return False, "Topology missing 'edges' list"
-
-    if "frames" not in data or not isinstance(data["frames"], list) or len(data["frames"]) == 0:
-        return False, "Missing or empty 'frames' sequence"
-
-    first_frame = data["frames"][0]
-    required_keys = ["step", "time_ms", "inputs", "activations", "states", "output", "target"]
-    for k in required_keys:
-        if k not in first_frame:
-            return False, f"Frame missing required field '{k}'"
-
-    node_count = len(topology["nodes"])
-    if len(first_frame["activations"]) != node_count:
-        return (
-            False,
-            f"Activation count mismatch: frame has {len(first_frame['activations'])} but topology has {node_count} nodes",
-        )
-
-    return True, "Valid .brainlog trace"

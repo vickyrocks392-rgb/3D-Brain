@@ -1,8 +1,15 @@
-"""Core computational substrate models for 3D-Brain."""
-
 from brain.base import BrainModel, AdamWOptimizer
 from brain.rnn import BaseRNN
-from brain.gru import BaseGRU
+from brain.gru import BaseGRU, BaseGRUMemBias
 from brain.liquid import CandLiquid
+from brain.discrete_leaky_rnn import DiscreteLeakyRNN
 
-__all__ = ["BrainModel", "AdamWOptimizer", "BaseRNN", "BaseGRU", "CandLiquid"]
+__all__ = [
+    "BrainModel",
+    "AdamWOptimizer",
+    "BaseRNN",
+    "BaseGRU",
+    "BaseGRUMemBias",
+    "CandLiquid",
+    "DiscreteLeakyRNN",
+]

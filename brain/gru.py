@@ -16,9 +16,15 @@ class BaseGRU(BrainModel):
     """Gated Recurrent Unit (Cho et al., 2014) with exact analytical gradients."""
 
     def __init__(
-        self, input_dim: int, hidden_dim: int, output_dim: int, seed: int = 42
+        self,
+        input_dim: int,
+        hidden_dim: int,
+        output_dim: int,
+        seed: int = 42,
+        init_b_z: float = 1.0,
     ):
         super().__init__(input_dim, hidden_dim, output_dim, seed)
+        self.init_b_z = init_b_z
 
         scale_x = np.sqrt(2.0 / (input_dim + hidden_dim))
         scale_h = np.sqrt(2.0 / (hidden_dim + hidden_dim))
@@ -29,10 +35,10 @@ class BaseGRU(BrainModel):
         self.W_hr = self.rng.normal(0.0, scale_h, (hidden_dim, hidden_dim)).astype(np.float32)
         self.b_r = np.zeros(hidden_dim, dtype=np.float32)
 
-        # Update gate (bias initialized to 1.0 to encourage initial memory retention)
+        # Update gate
         self.W_xz = self.rng.normal(0.0, scale_x, (input_dim, hidden_dim)).astype(np.float32)
         self.W_hz = self.rng.normal(0.0, scale_h, (hidden_dim, hidden_dim)).astype(np.float32)
-        self.b_z = np.ones(hidden_dim, dtype=np.float32)
+        self.b_z = (np.ones(hidden_dim, dtype=np.float32) * init_b_z).astype(np.float32)
 
         # Candidate state
         self.W_xh = self.rng.normal(0.0, scale_x, (input_dim, hidden_dim)).astype(np.float32)
@@ -43,18 +49,34 @@ class BaseGRU(BrainModel):
         self.W_hy = self.rng.normal(0.0, scale_y, (hidden_dim, output_dim)).astype(np.float32)
         self.b_y = np.zeros(output_dim, dtype=np.float32)
 
+        # Observable dynamic variables
+        self.last_r = np.zeros((1, hidden_dim), dtype=np.float32)
+        self.last_z = np.zeros((1, hidden_dim), dtype=np.float32)
+        self.last_cand = np.zeros((1, hidden_dim), dtype=np.float32)
+        self.last_prev = np.zeros((1, hidden_dim), dtype=np.float32)
+
         self.reset()
 
     def reset(self, batch_size: int = 1) -> None:
         self.h = np.zeros((batch_size, self.hidden_dim), dtype=np.float32)
         self.a = np.zeros((batch_size, self.hidden_dim), dtype=np.float32)
+        self.last_r = np.zeros((batch_size, self.hidden_dim), dtype=np.float32)
+        self.last_z = np.zeros((batch_size, self.hidden_dim), dtype=np.float32)
+        self.last_cand = np.zeros((batch_size, self.hidden_dim), dtype=np.float32)
+        self.last_prev = np.zeros((batch_size, self.hidden_dim), dtype=np.float32)
 
     def step(self, x: np.ndarray) -> np.ndarray:
-        r = sigmoid(x @ self.W_xr + self.h @ self.W_hr + self.b_r)
-        z = sigmoid(x @ self.W_xz + self.h @ self.W_hz + self.b_z)
-        h_cand = np.tanh(x @ self.W_xh + (r * self.h) @ self.W_hh + self.b_h)
-        self.h = (1.0 - z) * self.h + z * h_cand
+        self.last_prev = self.h.copy()
+        r = sigmoid(x @ self.W_xr + self.last_prev @ self.W_hr + self.b_r)
+        z = sigmoid(x @ self.W_xz + self.last_prev @ self.W_hz + self.b_z)
+        h_cand = np.tanh(x @ self.W_xh + (r * self.last_prev) @ self.W_hh + self.b_h)
+        self.h = (1.0 - z) * self.last_prev + z * h_cand
         self.a = self.h
+
+        self.last_r = r
+        self.last_z = z
+        self.last_cand = h_cand
+
         y = self.a @ self.W_hy + self.b_y
         return y
 
@@ -232,3 +254,32 @@ class BaseGRU(BrainModel):
     def set_weights(self, weights: Dict[str, np.ndarray]) -> None:
         for k, v in weights.items():
             setattr(self, k, v.astype(np.float32))
+
+    def observable_state(self) -> Dict[str, np.ndarray]:
+        """Return actual internal computational variables for observability."""
+        return {
+            "state": self.get_state(),
+            "activation": self.get_activation(),
+            "previous_state": self.last_prev.copy(),
+            "candidate_state": self.last_cand.copy(),
+            "gate_z": self.last_z.copy(),
+            "gate_r": self.last_r.copy(),
+        }
+
+
+class BaseGRUMemBias(BaseGRU):
+    """Memory-biased GRU variant with update gate bias b_z initialized to -2.0.
+
+    Rationale:
+    In Cho et al. (2014) GRU, the state update is h_t = (1 - z_t) h_(t-1) + z_t h_cand.
+    When b_z = -2.0, initial z_t ~= sigmoid(-2.0) = 0.119.
+    The retention factor is (1 - z_t) ~= 0.881 (88.1% memory preservation per step).
+    This protects historical working memory from sensory distractor noise without
+    altering any other computational mechanisms.
+    """
+
+    def __init__(
+        self, input_dim: int, hidden_dim: int, output_dim: int, seed: int = 42
+    ):
+        super().__init__(input_dim, hidden_dim, output_dim, seed=seed, init_b_z=-2.0)
+

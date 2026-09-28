@@ -3,18 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>3D-Brain Observability Console</title>
+  <title>3D-Brain Observability & Causal Replay Console</title>
   <style>
     :root {
-      --bg: #090b10;
-      --panel-bg: rgba(15, 20, 30, 0.85);
+      --bg: #07090e;
+      --panel-bg: rgba(13, 17, 26, 0.88);
       --border: rgba(255, 255, 255, 0.12);
+      --border-focus: rgba(0, 229, 255, 0.4);
       --text: #e2e8f0;
       --text-muted: #8492a6;
       --cyan: #00e5ff;
       --amber: #ff9100;
       --magenta: #e040fb;
       --green: #00e676;
+      --gold: #ffd700;
+      --purple: #7c4dff;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -34,6 +37,7 @@
       left: 0;
       z-index: 1;
     }
+
     /* Top Bar HUD */
     .header {
       position: absolute;
@@ -46,20 +50,25 @@
       align-items: center;
       pointer-events: none;
     }
-    .badge {
-      background: var(--panel-bg);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px 18px;
-      pointer-events: auto;
+    .badge-group {
       display: flex;
       align-items: center;
       gap: 12px;
+      pointer-events: auto;
+    }
+    .badge {
+      background: var(--panel-bg);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
     .badge h1 {
-      font-size: 15px;
-      letter-spacing: 0.5px;
+      font-size: 14px;
+      letter-spacing: 0.8px;
       font-weight: 700;
       color: #fff;
     }
@@ -72,11 +81,34 @@
       background: rgba(0, 229, 255, 0.15);
       color: var(--cyan);
       font-weight: 600;
+      border: 1px solid rgba(0, 229, 255, 0.3);
     }
+    .tag.gold {
+      background: rgba(255, 215, 0, 0.15);
+      color: var(--gold);
+      border-color: rgba(255, 215, 0, 0.3);
+    }
+
     .controls-top {
       display: flex;
+      align-items: center;
       gap: 10px;
       pointer-events: auto;
+    }
+    .select-model {
+      background: var(--panel-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      outline: none;
+    }
+    .select-model option {
+      background: #0d111a;
+      color: var(--text);
     }
     .btn {
       background: var(--panel-bg);
@@ -105,9 +137,11 @@
     /* Inspector Drawer */
     #inspector {
       position: absolute;
-      top: 80px;
+      top: 76px;
       right: 20px;
-      width: 320px;
+      width: 340px;
+      max-height: calc(100vh - 220px);
+      overflow-y: auto;
       background: var(--panel-bg);
       backdrop-filter: blur(16px);
       border: 1px solid var(--border);
@@ -115,7 +149,7 @@
       padding: 18px;
       z-index: 10;
       display: none;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
     }
     #inspector h2 {
       font-size: 14px;
@@ -123,19 +157,62 @@
       margin-bottom: 12px;
       display: flex;
       justify-content: space-between;
+      align-items: center;
       color: var(--cyan);
+    }
+    .section-title {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--text-muted);
+      margin-top: 12px;
+      margin-bottom: 6px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 3px;
     }
     .metric-row {
       display: flex;
       justify-content: space-between;
       font-size: 12px;
-      padding: 6px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
     }
     .metric-row span.label { color: var(--text-muted); }
-    .metric-row span.val { font-family: monospace; font-weight: 600; }
+    .metric-row span.val { font-family: monospace; font-weight: 600; color: #fff; }
+    .bar-container {
+      margin-top: 6px;
+      height: 6px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 3px;
+      overflow: hidden;
+      display: flex;
+    }
+    .bar-fill {
+      height: 100%;
+      background: var(--cyan);
+      transition: width 0.15s ease;
+    }
+    .connected-edges {
+      margin-top: 8px;
+      max-height: 110px;
+      overflow-y: auto;
+      font-size: 11px;
+    }
+    .edge-chip {
+      padding: 3px 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 4px;
+      margin-bottom: 4px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      transition: background 0.2s;
+    }
+    .edge-chip:hover {
+      background: rgba(0, 229, 255, 0.2);
+    }
 
-    /* Bottom Scrubber & Playback Controls */
+    /* Bottom Scrubber & Event Track */
     .footer {
       position: absolute;
       bottom: 20px;
@@ -150,8 +227,46 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
     }
+
+    /* Event Track */
+    .event-track-container {
+      position: relative;
+      width: 100%;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+    }
+    .event-pin {
+      position: absolute;
+      top: 2px;
+      width: 14px;
+      height: 16px;
+      transform: translateX(-50%);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 700;
+      border-radius: 3px;
+      color: #000;
+      transition: transform 0.15s, filter 0.15s;
+    }
+    .event-pin:hover {
+      transform: translateX(-50%) scale(1.3);
+      z-index: 5;
+      filter: brightness(1.2);
+    }
+    .pin-input { background: var(--cyan); }
+    .pin-memory { background: var(--green); }
+    .pin-output { background: var(--magenta); }
+    .pin-error { background: var(--amber); }
+    .pin-trial { background: var(--gold); }
+
     .scrubber-container {
       display: flex;
       align-items: center;
@@ -179,7 +294,7 @@
       font-family: monospace;
       font-size: 13px;
       color: var(--text);
-      min-width: 90px;
+      min-width: 100px;
       text-align: right;
     }
     .playback-bar {
@@ -216,19 +331,44 @@
     .dot-cyan { background: var(--cyan); box-shadow: 0 0 6px var(--cyan); }
     .dot-amber { background: var(--amber); box-shadow: 0 0 6px var(--amber); }
     .dot-edge { background: rgba(255,255,255,0.4); }
+
+    /* Tooltip */
+    #tooltip {
+      position: absolute;
+      background: rgba(0, 0, 0, 0.85);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 11px;
+      color: #fff;
+      pointer-events: none;
+      z-index: 100;
+      display: none;
+    }
   </style>
 </head>
 <body>
   <div id="viewport"></div>
+  <div id="tooltip"></div>
 
   <!-- Header -->
   <div class="header">
-    <div class="badge">
-      <h1>3D-Brain</h1>
-      <span class="tag" id="model-tag">BASE-RNN</span>
-      <span id="exp-info" style="font-size: 12px; color: var(--text-muted);">Exp 001: Delayed Comparison</span>
+    <div class="badge-group">
+      <div class="badge">
+        <h1>3D-Brain</h1>
+        <span class="tag gold" id="version-tag">OBSERVABILITY v2.0</span>
+        <span class="tag" id="model-tag">DISC-LRNN</span>
+        <span id="exp-info" style="font-size: 12px; color: var(--text-muted);">EXP002 Matrix Trace</span>
+      </div>
     </div>
     <div class="controls-top">
+      <select id="model-select" class="select-model">
+        <option value="/experiments/results/brainlogs/EXP002_DISC-LRNN_rep.brainlog">EXP002: DISC-LRNN (Discrete Leaky)</option>
+        <option value="/experiments/results/brainlogs/EXP002_CAND-LI_rep.brainlog">EXP002: CAND-LI (Forward Euler)</option>
+        <option value="/experiments/results/brainlogs/EXP002_BASE-GRU-MemBias_rep.brainlog">EXP002: BASE-GRU-MemBias (Memory-Biased)</option>
+        <option value="/experiments/results/brainlogs/EXP002_BASE-RNN_rep.brainlog">EXP002: BASE-RNN (Vanilla RNN)</option>
+        <option value="/experiments/results/brainlogs/EXP001_default.brainlog">EXP001: Default Sample Trace</option>
+      </select>
       <input type="file" id="file-input" accept=".brainlog,.json" style="display: none;">
       <button class="btn" onclick="document.getElementById('file-input').click()">
         📁 Open .brainlog
@@ -240,24 +380,57 @@
   <!-- Inspector HUD -->
   <div id="inspector">
     <h2>
-      <span id="insp-name">Neuron Inspection</span>
-      <button onclick="document.getElementById('inspector').style.display='none'" style="background:none; border:none; color:var(--text-muted); cursor:pointer;">✕</button>
+      <span id="insp-title">Inspector</span>
+      <button onclick="document.getElementById('inspector').style.display='none'" style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:16px;">✕</button>
     </h2>
-    <div class="metric-row"><span class="label">Node ID:</span><span class="val" id="insp-id">-</span></div>
-    <div class="metric-row"><span class="label">Type:</span><span class="val" id="insp-type">-</span></div>
-    <div class="metric-row"><span class="label">Coordinates:</span><span class="val" id="insp-pos">-</span></div>
-    <div class="metric-row"><span class="label">Activation:</span><span class="val" id="insp-act">-</span></div>
-    <div class="metric-row"><span class="label">State Variable:</span><span class="val" id="insp-state">-</span></div>
-    <div class="metric-row"><span class="label">In Connections:</span><span class="val" id="insp-in-deg">-</span></div>
-    <div class="metric-row"><span class="label">Out Connections:</span><span class="val" id="insp-out-deg">-</span></div>
+
+    <div id="neuron-insp-fields">
+      <div class="section-title">Neuron Properties</div>
+      <div class="metric-row"><span class="label">Node ID:</span><span class="val" id="insp-id">-</span></div>
+      <div class="metric-row"><span class="label">Type:</span><span class="val" id="insp-type">-</span></div>
+      <div class="metric-row"><span class="label">Coordinates:</span><span class="val" id="insp-pos">-</span></div>
+      <div class="metric-row"><span class="label">Activation:</span><span class="val" id="insp-act">-</span></div>
+      <div class="metric-row"><span class="label">State Variable:</span><span class="val" id="insp-state">-</span></div>
+      <div class="metric-row"><span class="label">In / Out Degree:</span><span class="val" id="insp-degrees">-</span></div>
+
+      <div class="section-title" id="dyn-sec-title">Dynamic Unit Variables</div>
+      <div id="dyn-vars-container">
+        <!-- Injected dynamically based on model type -->
+      </div>
+
+      <div class="section-title">Connected Synapses</div>
+      <div class="connected-edges" id="insp-edges-list">
+        <!-- Injected list of connected edges -->
+      </div>
+    </div>
+
+    <div id="edge-insp-fields" style="display: none;">
+      <div class="section-title">Synaptic Edge Properties</div>
+      <div class="metric-row"><span class="label">Connection:</span><span class="val" id="edge-connection">-</span></div>
+      <div class="metric-row"><span class="label">Source:</span><span class="val" id="edge-src">-</span></div>
+      <div class="metric-row"><span class="label">Destination:</span><span class="val" id="edge-dst">-</span></div>
+      <div class="metric-row"><span class="label">Synaptic Weight:</span><span class="val" id="edge-weight">-</span></div>
+      <div class="metric-row"><span class="label">Live Signal:</span><span class="val" id="edge-signal">-</span></div>
+      <div class="bar-container">
+        <div class="bar-fill" id="edge-signal-bar" style="width: 0%;"></div>
+      </div>
+    </div>
   </div>
 
   <!-- Footer Controls -->
   <div class="footer">
+    <!-- Event Timeline Track -->
+    <div class="event-track-container" id="event-track" title="Computational Events Timeline">
+      <!-- Injected event pins -->
+    </div>
+
+    <!-- Scrubber -->
     <div class="scrubber-container">
       <input type="range" id="timeline" class="timeline-slider" min="0" max="0" value="0">
       <div class="time-label" id="step-display">Step: 0 / 0</div>
     </div>
+
+    <!-- Playback Controls -->
     <div class="playback-bar">
       <div class="btn-group">
         <button class="btn primary" id="play-btn">▶ Play</button>
@@ -280,18 +453,94 @@
   <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
 
   <script>
-    // State management
+    /**
+     * Standalone Replay Engine implementation for in-browser causal replay.
+     */
+    class ReplayEngine {
+      constructor(logData) {
+        this.log = logData;
+        this.currentStep = 0;
+        this.totalSteps = logData.frames ? logData.frames.length : 0;
+        this.events = logData.events || [];
+      }
+
+      seek(step) {
+        this.currentStep = Math.max(0, Math.min(step, this.totalSteps - 1));
+        return this.log.frames[this.currentStep];
+      }
+
+      stepForward() {
+        if (this.currentStep < this.totalSteps - 1) {
+          this.currentStep++;
+        }
+        return this.log.frames[this.currentStep];
+      }
+
+      stepBackward() {
+        if (this.currentStep > 0) {
+          this.currentStep--;
+        }
+        return this.log.frames[this.currentStep];
+      }
+
+      inspectNode(nodeId) {
+        if (!this.log.topology || !this.log.topology.nodes[nodeId]) return null;
+        const node = this.log.topology.nodes[nodeId];
+        const frame = this.log.frames[this.currentStep];
+        const inEdges = (this.log.topology.edges || []).filter(e => e.dst === nodeId);
+        const outEdges = (this.log.topology.edges || []).filter(e => e.src === nodeId);
+        
+        let dyn = {};
+        if (frame.observable_state) {
+          const uIdx = node.unit_index;
+          if (uIdx !== undefined && uIdx >= 0) {
+            for (const [k, v] of Object.entries(frame.observable_state)) {
+              if (Array.isArray(v) && v.length > uIdx) {
+                dyn[k] = v[uIdx];
+              }
+            }
+          }
+        }
+
+        return {
+          node,
+          activation: frame.activations ? frame.activations[nodeId] : 0.0,
+          state: frame.states ? frame.states[nodeId] : 0.0,
+          inEdges,
+          outEdges,
+          dynamicState: dyn
+        };
+      }
+
+      inspectEdge(src, dst) {
+        const edge = (this.log.topology.edges || []).find(e => e.src === src && e.dst === dst);
+        if (!edge) return null;
+        const frame = this.log.frames[this.currentStep];
+        const signal = (frame.signals || []).find(s => s.src === src && s.dst === dst);
+        return {
+          edge,
+          srcNode: this.log.topology.nodes[src],
+          dstNode: this.log.topology.nodes[dst],
+          weight: edge.weight,
+          signalMagnitude: signal ? signal.mag : 0.0,
+          signalProgress: signal ? signal.progress : 0.0
+        };
+      }
+    }
+
+    // App State
+    let replay = null;
     let logData = null;
-    let currentStep = 0;
     let isPlaying = false;
     let playbackSpeed = 1.0;
     let playInterval = null;
     let selectedNodeId = null;
+    let selectedEdge = null; // {src, dst}
 
     // Three.js Scene Setup
     const container = document.getElementById('viewport');
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x090b10, 0.025);
+    scene.fog = new THREE.FogExp2(0x07090e, 0.025);
 
     const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
 
@@ -345,13 +594,13 @@
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0x090b10, 1.0);
+    renderer.setClearColor(0x07090e, 1.0);
     container.appendChild(renderer.domElement);
 
-    // Ambient and Directional Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+    // Lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
     scene.add(ambientLight);
-    const dirLight = new THREE.DirectionalLight(0x00e5ff, 1.2);
+    const dirLight = new THREE.DirectionalLight(0x00e5ff, 1.3);
     dirLight.position.set(10, 15, 10);
     scene.add(dirLight);
 
@@ -359,8 +608,17 @@
     let nodeMeshes = [];
     let edgeLines = [];
     let signalSprites = [];
+    let selectionHalo = null;
+
+    // Selection Halo Mesh
+    const haloGeo = new THREE.RingGeometry(0.5, 0.62, 32);
+    const haloMat = new THREE.MeshBasicMaterial({ color: 0xffd700, side: THREE.DoubleSide, transparent: true, opacity: 0.85 });
+    selectionHalo = new THREE.Mesh(haloGeo, haloMat);
+    selectionHalo.visible = false;
+    scene.add(selectionHalo);
 
     const raycaster = new THREE.Raycaster();
+    raycaster.params.Line.threshold = 0.25;
     const mouse = new THREE.Vector2();
 
     window.addEventListener('resize', () => {
@@ -393,13 +651,30 @@
       reader.readAsText(file);
     });
 
+    // Model Selector Dropdown
+    document.getElementById('model-select').addEventListener('change', (e) => {
+      fetchBrainlog(e.target.value);
+    });
+
+    function fetchBrainlog(url) {
+      fetch(url)
+        .then(res => {
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          return res.json();
+        })
+        .then(data => loadBrainlog(data))
+        .catch(err => {
+          console.error("Failed to load brainlog:", err);
+        });
+    }
+
     function loadBrainlog(data) {
       logData = data;
-      currentStep = 0;
+      replay = new ReplayEngine(data);
       pause();
 
       document.getElementById('model-tag').innerText = data.metadata.model_id;
-      document.getElementById('exp-info').innerText = `${data.metadata.experiment_id} | Budget: ${data.metadata.budget} | Delay: ${data.metadata.delay}`;
+      document.getElementById('exp-info').innerText = `${data.metadata.experiment_id} | Budget: ${data.metadata.budget} | Delay: ${data.metadata.delay} | Acc: ${(data.metadata.test_accuracy * 100).toFixed(1)}%`;
       
       const maxSteps = data.frames.length - 1;
       const timeline = document.getElementById('timeline');
@@ -407,7 +682,46 @@
       timeline.value = 0;
 
       buildSceneFromTopology(data.topology);
+      buildEventTrack(data.events || []);
       renderFrame(0);
+    }
+
+    function buildEventTrack(events) {
+      const track = document.getElementById('event-track');
+      track.innerHTML = '';
+      if (!logData || !logData.frames || logData.frames.length === 0) return;
+
+      const totalSteps = logData.frames.length;
+      events.forEach((ev, i) => {
+        const pin = document.createElement('div');
+        const pct = (ev.step / (totalSteps - 1)) * 100;
+        pin.style.left = `${pct}%`;
+        pin.className = 'event-pin';
+
+        let label = '•';
+        let cls = 'pin-input';
+        if (ev.type === 'INPUT_PRESENTED') { label = 'IN'; cls = 'pin-input'; }
+        else if (ev.type === 'MEMORY_RETAINED') { label = 'M'; cls = 'pin-memory'; }
+        else if (ev.type === 'OUTPUT_COMPUTED') { label = 'OUT'; cls = 'pin-output'; }
+        else if (ev.type === 'PREDICTION_ERROR') { label = 'ERR'; cls = 'pin-error'; }
+        else if (ev.type === 'TRIAL_COMPLETED') { label = '★'; cls = 'pin-trial'; }
+
+        pin.classList.add(cls);
+        pin.innerText = label;
+        pin.title = `[Step ${ev.step}] ${ev.type} ${ev.node_id !== undefined ? `(Node ${ev.node_id})` : ''} Mag: ${ev.magnitude || ''}`;
+
+        pin.addEventListener('click', (e) => {
+          e.stopPropagation();
+          pause();
+          replay.seek(ev.step);
+          renderFrame(ev.step);
+          if (ev.node_id !== undefined) {
+            selectNode(ev.node_id);
+          }
+        });
+
+        track.appendChild(pin);
+      });
     }
 
     function buildSceneFromTopology(topology) {
@@ -418,6 +732,9 @@
       nodeMeshes = [];
       edgeLines = [];
       signalSprites = [];
+      selectionHalo.visible = false;
+      selectedNodeId = null;
+      selectedEdge = null;
 
       const sphereGeo = new THREE.SphereGeometry(0.35, 24, 24);
 
@@ -458,6 +775,7 @@
           linewidth: 1
         });
         const line = new THREE.Line(geometry, mat);
+        line.userData = { edgeInfo: e };
         scene.add(line);
         edgeLines.push(line);
       });
@@ -466,9 +784,9 @@
       const spriteMat = new THREE.SpriteMaterial({
         color: 0xffffff,
         transparent: true,
-        opacity: 0.9
+        opacity: 0.95
       });
-      for (let i = 0; i < 30; i++) {
+      for (let i = 0; i < 40; i++) {
         const s = new THREE.Sprite(spriteMat);
         s.scale.set(0.2, 0.2, 0.2);
         s.visible = false;
@@ -496,10 +814,20 @@
           mat.color.setHex(0xff9100);
           mat.emissive.setHex(0xff9100);
         }
-        mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.5, 0.05, 2.5);
+        mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.6, 0.05, 2.5);
         const s = 1.0 + THREE.MathUtils.clamp(absAct * 0.6, 0.0, 1.0);
         mesh.scale.set(s, s, s);
       });
+
+      // Update Selection Halo
+      if (selectedNodeId !== null && nodeMeshes[selectedNodeId]) {
+        const selMesh = nodeMeshes[selectedNodeId];
+        selectionHalo.position.copy(selMesh.position);
+        selectionHalo.quaternion.copy(camera.quaternion);
+        selectionHalo.visible = true;
+      } else {
+        selectionHalo.visible = false;
+      }
 
       // Update Signal Pulses
       signalSprites.forEach(s => s.visible = false);
@@ -518,7 +846,7 @@
           sprite.position.copy(pCurrent);
           sprite.visible = true;
           const mag = Math.abs(sig.mag);
-          sprite.scale.set(0.25 + mag * 0.2, 0.25 + mag * 0.2, 0.25 + mag * 0.2);
+          sprite.scale.set(0.25 + mag * 0.25, 0.25 + mag * 0.25, 0.25 + mag * 0.25);
           sprite.material.color.setHex(sig.mag >= 0 ? 0x00e5ff : 0xff9100);
         });
       }
@@ -528,7 +856,7 @@
       document.getElementById('step-display').innerText = `Step: ${stepIndex} / ${logData.frames.length - 1}`;
 
       const t_cue = 5;
-      const t_delay = logData.metadata.delay;
+      const t_delay = logData.metadata.delay || 10;
       const phaseBadge = document.getElementById('phase-badge');
 
       if (stepIndex < t_cue) {
@@ -542,46 +870,175 @@
         phaseBadge.className = 'phase-badge phase-probe';
       }
 
-      // Update Inspector if open
+      // Refresh Inspector if open
       if (selectedNodeId !== null) {
-        updateInspectorHUD(selectedNodeId);
+        updateNeuronInspector(selectedNodeId);
+      } else if (selectedEdge !== null) {
+        updateEdgeInspector(selectedEdge.src, selectedEdge.dst);
       }
     }
 
-    function updateInspectorHUD(nodeId) {
-      if (!logData || !logData.topology.nodes[nodeId]) return;
-      const node = logData.topology.nodes[nodeId];
-      const frame = logData.frames[currentStep];
-
-      document.getElementById('inspector').style.display = 'block';
-      document.getElementById('insp-name').innerText = node.label;
-      document.getElementById('insp-id').innerText = node.id;
-      document.getElementById('insp-type').innerText = node.type;
-      document.getElementById('insp-pos').innerText = `[${node.pos.join(', ')}]`;
-      document.getElementById('insp-act').innerText = (frame.activations[nodeId] || 0.0).toFixed(4);
-      document.getElementById('insp-state').innerText = (frame.states[nodeId] || 0.0).toFixed(4);
-
-      // In/Out Degree
-      const inEdges = logData.topology.edges.filter(e => e.dst === nodeId).length;
-      const outEdges = logData.topology.edges.filter(e => e.src === nodeId).length;
-      document.getElementById('insp-in-deg').innerText = inEdges;
-      document.getElementById('insp-out-deg').innerText = outEdges;
+    function selectNode(nodeId) {
+      selectedNodeId = nodeId;
+      selectedEdge = null;
+      updateNeuronInspector(nodeId);
     }
 
-    // Click Detection
+    function selectEdge(src, dst) {
+      selectedEdge = { src, dst };
+      selectedNodeId = null;
+      updateEdgeInspector(src, dst);
+    }
+
+    function updateNeuronInspector(nodeId) {
+      if (!replay) return;
+      const info = replay.inspectNode(nodeId);
+      if (!info) return;
+
+      document.getElementById('inspector').style.display = 'block';
+      document.getElementById('neuron-insp-fields').style.display = 'block';
+      document.getElementById('edge-insp-fields').style.display = 'none';
+
+      document.getElementById('insp-title').innerText = `${info.node.label} (${info.node.type})`;
+      document.getElementById('insp-id').innerText = info.node.id;
+      document.getElementById('insp-type').innerText = info.node.type;
+      document.getElementById('insp-pos').innerText = `[${info.node.pos.map(x=>x.toFixed(2)).join(', ')}]`;
+      document.getElementById('insp-act').innerText = info.activation.toFixed(4);
+      document.getElementById('insp-state').innerText = info.state.toFixed(4);
+      document.getElementById('insp-degrees').innerText = `${info.inEdges.length} in / ${info.outEdges.length} out`;
+
+      // Render Dynamic Unit Variables
+      const dynContainer = document.getElementById('dyn-vars-container');
+      dynContainer.innerHTML = '';
+
+      const nodeMeta = info.node.metadata || {};
+      const dyn = info.dynamicState;
+
+      // Check for leaky RNN variables (alpha, tau)
+      const alphaVal = dyn.alpha !== undefined ? dyn.alpha : nodeMeta.initial_alpha;
+      const tauVal = dyn.tau !== undefined ? dyn.tau : nodeMeta.initial_tau;
+
+      if (alphaVal !== undefined) {
+        const rAlpha = document.createElement('div');
+        rAlpha.className = 'metric-row';
+        rAlpha.innerHTML = `<span class="label">Leak Rate (α):</span><span class="val">${Number(alphaVal).toFixed(4)}</span>`;
+        dynContainer.appendChild(rAlpha);
+
+        if (tauVal !== undefined) {
+          const rTau = document.createElement('div');
+          rTau.className = 'metric-row';
+          rTau.innerHTML = `<span class="label">Time Constant (τ):</span><span class="val">${Number(tauVal).toFixed(2)} steps</span>`;
+          dynContainer.appendChild(rTau);
+        }
+      }
+
+      // Check for GRU gate variables
+      if (dyn.gate_z !== undefined) {
+        const z = dyn.gate_z;
+        const r = dyn.gate_r !== undefined ? dyn.gate_r : 0;
+        const retention = 1.0 - z;
+
+        const rZ = document.createElement('div');
+        rZ.className = 'metric-row';
+        rZ.innerHTML = `<span class="label">Update Gate (z_t):</span><span class="val">${z.toFixed(4)}</span>`;
+        dynContainer.appendChild(rZ);
+
+        const rRet = document.createElement('div');
+        rRet.className = 'metric-row';
+        rRet.innerHTML = `<span class="label">Memory Retention (1-z):</span><span class="val">${(retention * 100).toFixed(1)}%</span>`;
+        dynContainer.appendChild(rRet);
+
+        const rR = document.createElement('div');
+        rR.className = 'metric-row';
+        rR.innerHTML = `<span class="label">Reset Gate (r_t):</span><span class="val">${r.toFixed(4)}</span>`;
+        dynContainer.appendChild(rR);
+      }
+
+      if (dyn.cand_h !== undefined) {
+        const rCand = document.createElement('div');
+        rCand.className = 'metric-row';
+        rCand.innerHTML = `<span class="label">Candidate (h̃_t):</span><span class="val">${dyn.cand_h.toFixed(4)}</span>`;
+        dynContainer.appendChild(rCand);
+      }
+      if (dyn.prev_h !== undefined) {
+        const rPrev = document.createElement('div');
+        rPrev.className = 'metric-row';
+        rPrev.innerHTML = `<span class="label">Previous (h_t-1):</span><span class="val">${dyn.prev_h.toFixed(4)}</span>`;
+        dynContainer.appendChild(rPrev);
+      }
+
+      if (dynContainer.children.length === 0) {
+        dynContainer.innerHTML = '<div style="font-size:11px; color:var(--text-muted); font-style:italic;">No internal gating variables (standard linear unit)</div>';
+      }
+
+      // Render connected synapses list
+      const edgesList = document.getElementById('insp-edges-list');
+      edgesList.innerHTML = '';
+      const allConnected = [
+        ...info.inEdges.map(e => ({ ...e, dir: 'IN' })),
+        ...info.outEdges.map(e => ({ ...e, dir: 'OUT' }))
+      ];
+      allConnected.slice(0, 12).forEach(e => {
+        const chip = document.createElement('div');
+        chip.className = 'edge-chip';
+        const targetId = e.dir === 'IN' ? e.src : e.dst;
+        chip.innerHTML = `<span>${e.dir === 'IN' ? '← from' : '→ to'} Node ${targetId}</span><span style="font-family:monospace; color:${e.weight >= 0 ? 'var(--cyan)' : 'var(--amber)'}">${e.weight > 0 ? '+' : ''}${e.weight.toFixed(3)}</span>`;
+        chip.addEventListener('click', () => selectEdge(e.src, e.dst));
+        edgesList.appendChild(chip);
+      });
+    }
+
+    function updateEdgeInspector(src, dst) {
+      if (!replay) return;
+      const info = replay.inspectEdge(src, dst);
+      if (!info) return;
+
+      document.getElementById('inspector').style.display = 'block';
+      document.getElementById('neuron-insp-fields').style.display = 'none';
+      document.getElementById('edge-insp-fields').style.display = 'block';
+
+      document.getElementById('insp-title').innerText = `Synapse ${src} → ${dst}`;
+      document.getElementById('edge-connection').innerText = `Node ${src} → Node ${dst}`;
+      document.getElementById('edge-src').innerText = `${info.srcNode.label} (${info.srcNode.type})`;
+      document.getElementById('edge-dst').innerText = `${info.dstNode.label} (${info.dstNode.type})`;
+      
+      const wEl = document.getElementById('edge-weight');
+      wEl.innerText = (info.weight > 0 ? '+' : '') + info.weight.toFixed(4);
+      wEl.style.color = info.weight >= 0 ? 'var(--cyan)' : 'var(--amber)';
+
+      const sEl = document.getElementById('edge-signal');
+      sEl.innerText = info.signalMagnitude.toFixed(4);
+
+      const bar = document.getElementById('edge-signal-bar');
+      const pct = Math.min(Math.abs(info.signalMagnitude) * 100, 100);
+      bar.style.width = `${pct}%`;
+      bar.style.background = info.signalMagnitude >= 0 ? 'var(--cyan)' : 'var(--amber)';
+    }
+
+    // Raycast Click Selection
     window.addEventListener('pointerdown', (e) => {
-      // Ignore if clicking on UI panels
       if (e.target.closest('.header') || e.target.closest('.footer') || e.target.closest('#inspector')) return;
 
       mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
       mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
       raycaster.setFromCamera(mouse, camera);
 
-      const intersects = raycaster.intersectObjects(nodeMeshes);
-      if (intersects.length > 0) {
-        const hit = intersects[0].object;
-        selectedNodeId = hit.userData.nodeInfo.id;
-        updateInspectorHUD(selectedNodeId);
+      // Check nodes first
+      const nodeIntersects = raycaster.intersectObjects(nodeMeshes);
+      if (nodeIntersects.length > 0) {
+        const hit = nodeIntersects[0].object;
+        selectNode(hit.userData.nodeInfo.id);
+        return;
+      }
+
+      // Check edges
+      const edgeIntersects = raycaster.intersectObjects(edgeLines);
+      if (edgeIntersects.length > 0) {
+        const edgeHit = edgeIntersects[0].object;
+        const eInfo = edgeHit.userData.edgeInfo;
+        if (eInfo) {
+          selectEdge(eInfo.src, eInfo.dst);
+        }
       }
     });
 
@@ -593,16 +1050,16 @@
       if (isPlaying) pause(); else play();
     }
     function play() {
-      if (!logData) return;
+      if (!replay) return;
       isPlaying = true;
       playBtn.innerText = '⏸ Pause';
       playInterval = setInterval(() => {
-        if (currentStep >= logData.frames.length - 1) {
-          currentStep = 0;
+        if (replay.currentStep >= replay.totalSteps - 1) {
+          replay.seek(0);
         } else {
-          currentStep++;
+          replay.stepForward();
         }
-        renderFrame(currentStep);
+        renderFrame(replay.currentStep);
       }, (logData.metadata.dt_ms || 40) / playbackSpeed);
     }
     function pause() {
@@ -613,21 +1070,17 @@
     }
 
     document.getElementById('next-btn').addEventListener('click', () => {
-      if (!logData) return;
+      if (!replay) return;
       pause();
-      if (currentStep < logData.frames.length - 1) {
-        currentStep++;
-        renderFrame(currentStep);
-      }
+      replay.stepForward();
+      renderFrame(replay.currentStep);
     });
 
     document.getElementById('prev-btn').addEventListener('click', () => {
-      if (!logData) return;
+      if (!replay) return;
       pause();
-      if (currentStep > 0) {
-        currentStep--;
-        renderFrame(currentStep);
-      }
+      replay.stepBackward();
+      renderFrame(replay.currentStep);
     });
 
     document.getElementById('speed-btn').addEventListener('click', () => {
@@ -639,25 +1092,24 @@
     });
 
     document.getElementById('timeline').addEventListener('input', (e) => {
+      if (!replay) return;
       pause();
-      currentStep = parseInt(e.target.value);
-      renderFrame(currentStep);
+      replay.seek(parseInt(e.target.value));
+      renderFrame(replay.currentStep);
     });
 
     // Render Loop
     function animate() {
       requestAnimationFrame(animate);
+      if (selectionHalo && selectionHalo.visible) {
+        selectionHalo.quaternion.copy(camera.quaternion);
+      }
       renderer.render(scene, camera);
     }
     animate();
 
-    // Auto-fetch default brainlog if hosted
-    fetch('/experiments/results/brainlogs/EXP001_default.brainlog')
-      .then(res => res.json())
-      .then(data => loadBrainlog(data))
-      .catch(() => {
-        console.log("Awaiting manual .brainlog load");
-      });
+    // Auto-fetch default representative trace
+    fetchBrainlog('/experiments/results/brainlogs/EXP002_DISC-LRNN_rep.brainlog');
   </script>
 </body>
 </html>

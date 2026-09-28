@@ -15,28 +15,24 @@ import numpy as np
 
 from benchmarks.delayed_match import DelayedMatchTask, TaskConfig
 from brain.base import AdamWOptimizer, BrainModel
-from brain.gru import BaseGRU
+from brain.gru import BaseGRU, BaseGRUMemBias
 from brain.liquid import CandLiquid
 from brain.rnn import BaseRNN
-from visualization.telemetry import (
-    build_frame,
-    build_topology,
-    export_brainlog,
-    validate_brainlog,
-)
+from brain.discrete_leaky_rnn import DiscreteLeakyRNN
+from observability import BrainLogSerializer, StateCapture, TopologyExtractor
 
 
 @dataclass
 class ExperimentConfig:
     experiment_id: str = "EXP001"
-    model_type: str = "BASE-RNN"  # "BASE-RNN", "BASE-GRU", "CAND-LI"
+    model_type: str = "BASE-RNN"  # "BASE-RNN", "DISC-LRNN", "CAND-LI", "BASE-GRU", "BASE-GRU-MemBias"
     target_budget: int = 300  # 300, 1000, 3000
     t_delay: int = 25
     distractor_sigma: float = 0.1
     seed: int = 42
     epochs: int = 80
     batch_size: int = 32
-    num_train_batches: int = 15  # 15 * 32 = 480 trials/epoch
+    num_train_batches: int = 15
     num_val_samples: int = 120
     num_test_samples: int = 200
     lr: float = 0.005
@@ -48,21 +44,29 @@ BUDGET_MAP = {
     # target ~300
     ("BASE-RNN", 300): 16,
     ("BASE-GRU", 300): 9,
+    ("BASE-GRU-MemBias", 300): 9,
     ("CAND-LI", 300): 15,
+    ("DISC-LRNN", 300): 15,
     # target ~1000
     ("BASE-RNN", 1000): 30,
     ("BASE-GRU", 1000): 16,
+    ("BASE-GRU-MemBias", 1000): 16,
     ("CAND-LI", 1000): 29,
+    ("DISC-LRNN", 1000): 29,
     # target ~3000
     ("BASE-RNN", 3000): 52,
     ("BASE-GRU", 3000): 30,
+    ("BASE-GRU-MemBias", 3000): 30,
     ("CAND-LI", 3000): 51,
+    ("DISC-LRNN", 3000): 51,
 }
 
 MODEL_CLASSES: Dict[str, Type[BrainModel]] = {
     "BASE-RNN": BaseRNN,
     "BASE-GRU": BaseGRU,
+    "BASE-GRU-MemBias": BaseGRUMemBias,
     "CAND-LI": CandLiquid,
+    "DISC-LRNN": DiscreteLeakyRNN,
 }
 
 
@@ -246,7 +250,7 @@ def export_sample_brainlog(
     config: ExperimentConfig,
     test_metrics: dict,
 ) -> Path:
-    """Generate and serialize a complete .brainlog trajectory for visual inspection."""
+    """Generate and serialize a complete .brainlog (v2.0) trajectory via the Observability Engine."""
     rng = np.random.default_rng(config.seed + 999)
 
     # Generate 1 match trial and 1 mismatch trial
@@ -260,51 +264,38 @@ def export_sample_brainlog(
 
     # Pick the match trial as canonical representation
     X_single, Y_single, mask_single, meta_single = trials[0]
-    X_in = X_single[np.newaxis, :, :]  # [1, T, 2]
-
-    Y_pred, H, A, _ = model.forward_sequence(X_in)
     T = X_single.shape[0]
 
-    topology = build_topology(model, config.model_type)
-    frames = []
+    # Initialize Observability Engine components
+    topology = TopologyExtractor().extract(model, config.model_type)
+    capture = StateCapture(topology, dt_ms=40.0)
 
-    dt_ms = 40.0  # 25 fps virtual timeline
+    # Reset model and step through sequence passively
+    model.reset(batch_size=1)
     for t in range(T):
-        inp = X_single[t]
-        h_vec = H[0, t]
-        a_vec = A[0, t]
-        y_val = float(Y_pred[0, t, 0])
+        inp = X_single[t : t + 1]  # [1, 2]
+        y_step = model.step(inp)
+        y_val = float(y_step[0, 0])
         target_val = float(Y_single[t, 0])
         m_val = float(mask_single[t, 0])
 
-        event = None
-        if t == 0:
-            event = {"type": "CUE_START", "node_id": 0, "val": float(inp[0])}
-        elif t == task.config.t_cue:
-            event = {"type": "DELAY_START"}
+        phase_label = "RUNNING"
+        if t == task.config.t_cue:
+            phase_label = "DELAY_START"
         elif t == task.config.t_cue + task.config.t_delay:
-            event = {"type": "PROBE_START", "node_id": 0, "val": float(inp[0])}
-        elif t == T - 1:
-            event = {
-                "type": "DECISION_COMMITTED",
-                "node_id": len(topology["nodes"]) - 1,
-                "prediction": round(y_val, 3),
-                "target": round(target_val, 3),
-            }
+            phase_label = "PROBE_START"
 
-        frame = build_frame(
+        capture.capture_step(
             step=t,
-            time_ms=t * dt_ms,
-            input_vec=inp,
-            h_vec=h_vec,
-            a_vec=a_vec,
+            input_vec=X_single[t],
+            model=model,
             y_val=y_val,
             target_val=target_val,
             mask_val=m_val,
-            edges=topology["edges"],
-            event=event,
+            phase_label=phase_label,
         )
-        frames.append(frame)
+
+    capture.complete_trial(final_acc=test_metrics["accuracy"])
 
     metadata = {
         "experiment_id": config.experiment_id,
@@ -314,7 +305,7 @@ def export_sample_brainlog(
         "seed": config.seed,
         "delay": config.t_delay,
         "total_steps": T,
-        "dt_ms": dt_ms,
+        "dt_ms": 40.0,
         "trial_metadata": meta_single,
         "test_accuracy": test_metrics["accuracy"],
         "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
@@ -323,11 +314,14 @@ def export_sample_brainlog(
     log_filename = f"{config.experiment_id}_{config.model_type}_b{config.target_budget}_d{config.t_delay}_s{config.seed}.brainlog"
     out_dir = Path("experiments/results/brainlogs")
     out_path = out_dir / log_filename
-    export_brainlog(out_path, metadata, topology, frames)
 
-    # Validate generated brainlog
-    valid, reason = validate_brainlog(out_path)
-    if not valid:
-        raise ValueError(f"Generated brainlog failed validation: {reason}")
-
+    BrainLogSerializer.save(
+        filepath=out_path,
+        metadata=metadata,
+        topology=topology,
+        frames=capture.frames,
+        events=capture.all_events,
+        snapshots=capture.snapshots,
+    )
     return out_path
+

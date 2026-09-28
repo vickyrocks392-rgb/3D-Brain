@@ -198,3 +198,13 @@ class CandLiquid(BrainModel):
     def set_weights(self, weights: Dict[str, np.ndarray]) -> None:
         for k, v in weights.items():
             setattr(self, k, v.astype(np.float32))
+
+    def observable_state(self) -> Dict[str, np.ndarray]:
+        """Return actual internal computational variables for observability."""
+        return {
+            "state": self.get_state(),
+            "activation": self.get_activation(),
+            "alpha": self.alpha.copy(),
+            "tau": self.tau.copy(),
+        }
+

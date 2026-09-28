@@ -5,24 +5,24 @@
 The development of 3D-Brain proceeds through empirical phases. Each phase gates the next through measurable acceptance criteria.
 
 ```text
-Phase 0: Foundations & Conceptual Model (CURRENT)
+Phase 0: Foundations & Conceptual Model (COMPLETE)
    ↓
-Phase 1: Minimal Adaptive Substrate & Benchmark Engine (Exp-001)
+Phase 1: Minimal Adaptive Substrate & Benchmark Engine (Exp-001) (COMPLETE)
    ↓
-Phase 2: Observability Engine & macOS Desktop Shell
+Phase 2: Observability Engine & Causal Ablation (Exp-002) (COMPLETE)
    ↓
-Phase 3: Online Plasticity & Continual Adaptation
+Phase 3: Online Plasticity & Continual Adaptation (NEXT)
    ↓
 Phase 4: Spatialized 3D Topology & Parameter Scaling
    ↓
-Phase 5: Cognitive Time Travel & Causal Replay Engine
+Phase 5: Cognitive Time Travel & Native Desktop Shell
    ↓
-Phase 6: Causal Query Layer & JARVIS Integration
+Phase 6: Causal Query Layer & Interactive Explanations
 ```
 
 ---
 
-## Phase 0: Foundations, Survey & Specifications (Current)
+## Phase 0: Foundations, Survey & Specifications (Complete)
 * **Goal**: Establish rigorous theoretical foundations, research taxonomy, and architectural specifications before writing speculative code.
 * **Deliverables**:
   * [x] Project Charter ([PROJECT_CHARTER.md](file:///Users/kalachanddash/Documents/3D-Brain/docs/PROJECT_CHARTER.md))
@@ -38,25 +38,29 @@ Phase 6: Causal Query Layer & JARVIS Integration
 
 ---
 
-## Phase 1: Minimal Adaptive Substrate & First Benchmark
+## Phase 1: Minimal Adaptive Substrate & Benchmark Engine (Complete)
 * **Goal**: Implement the headless computational core and execute Experiment 001 (Delayed Comparison Benchmark).
-* **Workstreams**:
-  * Implement baseline substrates (Elman RNN, GRU, Liquid Time-Constant leaky integrator).
-  * Build a deterministic benchmark runner with seeded PRNGs.
-  * Execute parameter scaling ablation (e.g. 500 params vs. 2K vs. 10K).
-  * Export structured telemetry packets (`.brainlog` format) from actual runs.
-* **Exit Gate**: Quantitative baseline comparison showing which architecture solves delayed comparison with the fewest parameters; deterministic telemetry file generated.
+* **Deliverables**:
+  * [x] Three initial comparison systems (`BASE-RNN`, `BASE-GRU`, `CAND-LI`).
+  * [x] Continuous Delayed Match-to-Sample benchmark engine.
+  * [x] Telemetry pipeline generating `.brainlog` v1.0 traces.
+  * [x] Phase 1 Implementation Report ([PHASE_1_IMPLEMENTATION_REPORT.md](file:///Users/kalachanddash/Documents/3D-Brain/docs/PHASE_1_IMPLEMENTATION_REPORT.md)).
+  * [x] Phase 1.1 Scientific Reproducibility & Claim Audit ([PHASE_1_1_SCIENTIFIC_AUDIT.md](file:///Users/kalachanddash/Documents/3D-Brain/docs/PHASE_1_1_SCIENTIFIC_AUDIT.md)).
+* **Exit Gate**: Quantitative baseline comparison showing which architecture solves delayed comparison with the fewest parameters; deterministic telemetry file generated (PASSED).
 
 ---
 
-## Phase 2: Observability Engine & macOS Desktop Shell
-* **Goal**: Render the telemetry generated in Phase 1 inside an interactive 3D spatial window on macOS.
-* **Workstreams**:
-  * Evaluate native macOS graphics options (Swift/Metal vs. WebGPU/Rust/Wasm desktop container).
-  * Implement 3D spatial layout of the Phase 1 network nodes and edges.
-  * Render activation glow, signal propagation along connection splines, and error flashes.
-  * Implement interactive camera controls (pan, zoom, orbit, node selection).
-* **Exit Gate**: 60 FPS rendering of a recorded Phase 1 run, with node click inspector displaying real state variables.
+## Phase 2: Brain Observability Engine & Causal Ablation (Complete)
+* **Goal**: Transform the telemetry prototype into a robust Brain Observability Engine, resolve Phase 1.1 scientific confounds via Experiment 002, and build bidirectional cognitive replay.
+* **Deliverables**:
+  * [x] Confound resolution: `DISC-LRNN` and `BASE-GRU-MemBias` substrates.
+  * [x] Dedicated `observability/` engine package (`capture.py`, `events.py`, `topology.py`, `brainlog.py`, `replay.py`).
+  * [x] `.brainlog` v2.0 schema with first-class computational events and periodic state snapshots.
+  * [x] Standalone `ReplayEngine` with bidirectional scrubbing, causal stepping, and dynamic state inspection.
+  * [x] Complete Experiment 002 matrix execution across 96 conditions with machine-readable results (`exp002_results.json`).
+  * [x] Upgraded 3D WebGL Observability Console v2.0 with interactive timeline event track, neuron dynamic variable inspector, and synaptic connection inspector.
+  * [x] Phase 2 Implementation & Scientific Report ([PHASE_2_IMPLEMENTATION_REPORT.md](file:///Users/kalachanddash/Documents/3D-Brain/docs/PHASE_2_IMPLEMENTATION_REPORT.md)).
+* **Exit Gate**: Full bidirectional causal replay, dynamic state variable inspection, Experiment 002 matrix executed, and scientific claims audited (PASSED).
 
 ---
 

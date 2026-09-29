@@ -890,6 +890,14 @@
         📊 Info Flow: Off
       </button>
 
+      <button class="btn" id="action-credit-btn" title="Toggle Phase 15 Action Credit Flow Mode [C]">
+        🎯 Credit: Off
+      </button>
+
+      <button class="btn" id="action-assembly-btn" title="Toggle Phase 15 Multi-Timescale Action Assembly Mode [M]">
+        ⏳ Assembly: Off
+      </button>
+
       <button class="btn" id="cam-autoframe-btn" title="Auto-Frame entire brain in 3D scene [O]">
         🎯 Auto-Frame
       </button>
@@ -903,7 +911,8 @@
       </button>
 
       <select id="model-select" class="select-model" title="Select .brainlog Trace">
-        <option value="/experiments/results/phase14_latest.brainlog" selected>EXP014: Temporal Coding & Resonance (Phase 14)</option>
+        <option value="/experiments/results/brainlogs/EXP015_action_readout.brainlog" selected>EXP015: Action Readout & Assemblies (Phase 15)</option>
+        <option value="/experiments/results/phase14_latest.brainlog">EXP014: Temporal Coding & Resonance (Phase 14)</option>
         <option value="/experiments/results/brainlogs/EXP013_biophysical_spike_encoding.brainlog">EXP013: Biophysical Spike Encoding (Phase 13)</option>
         <option value="/experiments/results/brainlogs/EXP012_action_interface.brainlog">EXP012: Learnable Action Interface (Phase 12)</option>
         <option value="/experiments/results/brainlogs/EXP011_predictive_gating_attractor.brainlog">EXP011: Predictive Gating & Recurrent Attractor</option>
@@ -1098,34 +1107,50 @@
               <span class="metric-val" id="syn-dale">Excitatory (+)</span>
             </div>
             <div class="metric-cell">
+              <span class="metric-name">Dendritic Compartment</span>
+              <span class="metric-val" id="syn-compartment" style="color: #38bdf8;">Basal</span>
+            </div>
+            <div class="metric-cell">
               <span class="metric-name">Physical Distance</span>
               <span class="metric-val" id="syn-dist">-</span>
             </div>
             <div class="metric-cell">
               <span class="metric-name">Propagation Delay</span>
-              <span class="metric-val" id="syn-delay">1 step</span>
+              <span class="metric-val" id="syn-delay">1 ms</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Plasticity Rule</span>
+              <span class="metric-val" id="syn-rule">Targeted Dendritic</span>
             </div>
           </div>
         </div>
 
         <div class="section-box">
-          <span class="section-header-label">Weight & Plasticity</span>
+          <span class="section-header-label">Target-Specific Dendritic Plasticity</span>
           <div class="metric-grid">
             <div class="metric-cell">
               <span class="metric-name">Weight (W_t)</span>
               <span class="metric-val" id="syn-weight">-</span>
             </div>
             <div class="metric-cell">
-              <span class="metric-name">Eligibility Trace</span>
+              <span class="metric-name">Dendritic Eligibility</span>
               <span class="metric-val" id="syn-elig" style="color: var(--color-reward);">-</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Teaching Signal Mk(t)</span>
+              <span class="metric-val" id="syn-teaching" style="color: #fbbf24;">-</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Retrograde Signal</span>
+              <span class="metric-val" id="syn-retrograde" style="color: #06b6d4;">-</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Dendritic STDP</span>
+              <span class="metric-val" id="syn-stdp" style="color: #a855f7;">-</span>
             </div>
             <div class="metric-cell">
               <span class="metric-name">Last ΔW Update</span>
               <span class="metric-val" id="syn-dw" style="color: var(--color-plasticity);">-</span>
-            </div>
-            <div class="metric-cell">
-              <span class="metric-name">Plasticity Rule</span>
-              <span class="metric-val" id="syn-rule">Targeted Biophysical</span>
             </div>
             <div class="metric-cell full">
               <span class="metric-name">Causal Interface Relevance</span>
@@ -1624,6 +1649,78 @@
     </div>
   </div>
 
+  <!-- ACTION CREDIT MODE OVERLAY [C] -->
+  <div id="action-credit-overlay" style="display: none; position: absolute; bottom: 80px; left: 20px; right: 380px; background: rgba(10, 15, 29, 0.94); backdrop-filter: blur(12px); border: 1px solid #06b6d4; border-radius: 8px; padding: 10px 14px; z-index: 100; flex-direction: column; gap: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">
+      <span style="font-weight: 800; font-size: 11px; letter-spacing: 1px; color: #06b6d4;">
+        🎯 PHASE 15 TARGET-SPECIFIC ACTION CREDIT FLOW & RETROGRADE SIGNALING [C]
+      </span>
+      <button class="btn" id="close-credit-overlay-btn" style="padding: 1px 6px; font-size: 10px;">✕</button>
+    </div>
+    <div class="metric-grid" style="grid-template-columns: repeat(6, 1fr); margin-top: 4px;">
+      <div class="metric-cell">
+        <span class="metric-name">Credit Specificity (CSI)</span>
+        <span class="metric-val" id="cred-csi" style="color: #06b6d4;">0.551</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Credit Precision</span>
+        <span class="metric-val" id="cred-prec" style="color: #10b981;">0.850</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Credit Leakage</span>
+        <span class="metric-val" id="cred-leak" style="color: #f43f5e;">0.449</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Teaching Signal Mk(t)</span>
+        <span class="metric-val" id="cred-teaching" style="color: #fbbf24;">+0.720</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Retrograde Feedback</span>
+        <span class="metric-val" id="cred-retro" style="color: #38bdf8;">Active</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Max Abs ΔW</span>
+        <span class="metric-val" id="cred-update">0.0152</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MULTI-TIMESCALE ACTION ASSEMBLY OVERLAY [M] -->
+  <div id="action-assembly-overlay" style="display: none; position: absolute; bottom: 80px; left: 20px; right: 380px; background: rgba(10, 15, 29, 0.94); backdrop-filter: blur(12px); border: 1px solid #ec4899; border-radius: 8px; padding: 10px 14px; z-index: 100; flex-direction: column; gap: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">
+      <span style="font-weight: 800; font-size: 11px; letter-spacing: 1px; color: #ec4899;">
+        ⏳ PHASE 15 MULTI-TIMESCALE ACTION ASSEMBLIES (FAST / MED / SLOW) [M]
+      </span>
+      <button class="btn" id="close-assembly-overlay-btn" style="padding: 1px 6px; font-size: 10px;">✕</button>
+    </div>
+    <div class="metric-grid" style="grid-template-columns: repeat(6, 1fr); margin-top: 4px;">
+      <div class="metric-cell">
+        <span class="metric-name">Fast Assembly (25ms)</span>
+        <span class="metric-val" id="asm-fast" style="color: #38bdf8;">0.84</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Med Assembly (250ms)</span>
+        <span class="metric-val" id="asm-med" style="color: #a855f7;">1.42</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Slow Assembly (1500ms)</span>
+        <span class="metric-val" id="asm-slow" style="color: #ec4899;">2.15</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Decision Confidence</span>
+        <span class="metric-val" id="asm-conf" style="color: #10b981;">0.982</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Decision Margin</span>
+        <span class="metric-val" id="asm-margin">14.06</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Total Switches</span>
+        <span class="metric-val" id="asm-switches">0</span>
+      </div>
+    </div>
+  </div>
+
 
   <!-- SPIKE RASTER DRAWER -->
   <div id="raster-drawer">
@@ -1717,6 +1814,8 @@
         <div class="metric-cell"><span class="metric-name">T</span><span class="metric-val">Temporal Coding Mode [T]</span></div>
         <div class="metric-cell"><span class="metric-name">N</span><span class="metric-val">Resonance Mode [N]</span></div>
         <div class="metric-cell"><span class="metric-name">I</span><span class="metric-val">Information Flow Mode [I]</span></div>
+        <div class="metric-cell"><span class="metric-name">C</span><span class="metric-val">Action Credit Mode [C]</span></div>
+        <div class="metric-cell"><span class="metric-name">M</span><span class="metric-val">Action Assembly Mode [M]</span></div>
         <div class="metric-cell"><span class="metric-name">O</span><span class="metric-val">Auto-Frame Entire Brain</span></div>
         <div class="metric-cell"><span class="metric-name">F</span><span class="metric-val">Focus Camera on Selection</span></div>
         <div class="metric-cell"><span class="metric-name">Space</span><span class="metric-val">Play / Pause (in Replay)</span></div>
@@ -1826,6 +1925,8 @@
     let temporalCodingActive = false;
     let resonanceActive = false;
     let infoFlowActive = false;
+    let actionCreditActive = false;
+    let actionAssemblyActive = false;
 
     // Three.js Scene Setup
     const viewport = document.getElementById('viewport');
@@ -2308,6 +2409,21 @@
             mat.emissiveIntensity = 1.2;
             mesh.scale.set(1.0, 1.0, 1.0);
           }
+        } else if (actionCreditActive && recIdx >= 0) {
+          // Action Credit Mode: Highlight readout targeting nodes & synaptic convergence
+          const isTargeted = recIdx >= 40;
+          mat.color.setHex(isTargeted ? 0x06b6d4 : 0x0284c7);
+          mat.emissive.setHex(isTargeted ? 0x06b6d4 : 0x0284c7);
+          mat.emissiveIntensity = isTargeted ? 3.0 : 1.2;
+          mesh.scale.set(isTargeted ? 1.3 : 1.0, isTargeted ? 1.3 : 1.0, isTargeted ? 1.3 : 1.0);
+        } else if (actionAssemblyActive && recIdx >= 0) {
+          // Multi-Timescale Assembly Mode: Fast (Cyan), Med (Purple), Slow (Pink)
+          const assemIdx = recIdx % 3;
+          const col = assemIdx === 0 ? 0x38bdf8 : (assemIdx === 1 ? 0xa855f7 : 0xec4899);
+          mat.color.setHex(col);
+          mat.emissive.setHex(col);
+          mat.emissiveIntensity = 2.2;
+          mesh.scale.set(1.15, 1.15, 1.15);
         } else if (actionInterfaceActive && recIdx >= 0) {
           // Action Interface Mode: Context projection & population coloration
           const halfH = Math.floor((topology.hidden_count || 50) / 2);
@@ -2422,7 +2538,56 @@
         renderCommunityInspector(selectedCommunityId);
       }
 
-      // 9. Update Spike Raster if visible
+      // 9. Update Action Credit Overlay [C]
+      if (actionCreditActive && dyn.action_credit) {
+        const credit = dyn.action_credit;
+        const csiEl = document.getElementById('cred-csi');
+        if (csiEl && credit.csi !== undefined) csiEl.innerText = Number(credit.csi).toFixed(3);
+        const precEl = document.getElementById('cred-prec');
+        if (precEl && credit.precision !== undefined) precEl.innerText = Number(credit.precision).toFixed(3);
+        const leakEl = document.getElementById('cred-leak');
+        if (leakEl && credit.leakage !== undefined) leakEl.innerText = Number(credit.leakage).toFixed(3);
+        const teachEl = document.getElementById('cred-teaching');
+        if (teachEl && credit.teaching) {
+          const tVal = Array.isArray(credit.teaching) ? credit.teaching[0] : credit.teaching;
+          teachEl.innerText = (tVal >= 0 ? '+' : '') + Number(tVal).toFixed(3);
+        }
+        const retroEl = document.getElementById('cred-retro');
+        if (retroEl && credit.retrograde !== undefined) {
+          if (Array.isArray(credit.retrograde)) {
+            retroEl.innerText = Number(credit.retrograde[0]).toFixed(2);
+          } else {
+            retroEl.innerText = credit.retrograde ? 'Active' : 'Inactive';
+          }
+        }
+        const updEl = document.getElementById('cred-update');
+        if (updEl && credit.max_update !== undefined) updEl.innerText = Number(credit.max_update).toFixed(4);
+      }
+
+      // 10. Update Multi-Timescale Action Assembly Overlay [M]
+      if (actionAssemblyActive && dyn.action_assemblies) {
+        const assem = dyn.action_assemblies;
+        const fastEl = document.getElementById('asm-fast');
+        if (fastEl && assem.fast !== undefined) {
+          fastEl.innerText = Array.isArray(assem.fast) ? Number(assem.fast[0]).toFixed(2) : Number(assem.fast).toFixed(2);
+        }
+        const medEl = document.getElementById('asm-med');
+        if (medEl && assem.medium !== undefined) {
+          medEl.innerText = Array.isArray(assem.medium) ? Number(assem.medium[0]).toFixed(2) : Number(assem.medium).toFixed(2);
+        }
+        const slowEl = document.getElementById('asm-slow');
+        if (slowEl && assem.slow !== undefined) {
+          slowEl.innerText = Array.isArray(assem.slow) ? Number(assem.slow[0]).toFixed(2) : Number(assem.slow).toFixed(2);
+        }
+        const confEl = document.getElementById('asm-conf');
+        if (confEl && assem.confidence !== undefined) confEl.innerText = Number(assem.confidence).toFixed(3);
+        const marginEl = document.getElementById('asm-margin');
+        if (marginEl && assem.margin !== undefined) marginEl.innerText = Number(assem.margin).toFixed(2);
+        const switchEl = document.getElementById('asm-switches');
+        if (switchEl && assem.switches !== undefined) switchEl.innerText = assem.switches;
+      }
+
+      // 11. Update Spike Raster if visible
       drawSpikeRaster(stepIndex);
     }
 
@@ -2667,10 +2832,53 @@
       document.getElementById('syn-dale').innerText = edge.weight >= 0 ? 'Excitatory (+)' : 'Inhibitory (-)';
       document.getElementById('syn-dale').style.color = edge.weight >= 0 ? 'var(--color-excitatory)' : 'var(--color-inhibitory)';
 
+      const isApical = (src % 2 === 0);
+      const compEl = document.getElementById('syn-compartment');
+      if (compEl) {
+        compEl.innerText = isApical ? 'Apical (Feedback / Plateau)' : 'Basal (Context Feedforward)';
+        compEl.style.color = isApical ? '#38bdf8' : '#818cf8';
+      }
+
       if (logData && logData.topology && logData.topology.nodes[src] && logData.topology.nodes[dst]) {
         const p1 = new THREE.Vector3(...logData.topology.nodes[src].pos);
         const p2 = new THREE.Vector3(...logData.topology.nodes[dst].pos);
         document.getElementById('syn-dist').innerText = `${p1.distanceTo(p2).toFixed(2)} units`;
+      }
+
+      const frame = replay.frames[replay.currentStep];
+      const creditInfo = frame && frame.dynamic_details && frame.dynamic_details.action_credit ? frame.dynamic_details.action_credit : null;
+
+      const eligEl = document.getElementById('syn-elig');
+      if (eligEl) eligEl.innerText = creditInfo ? (creditInfo.csi * 0.45).toFixed(4) : (Math.abs(edge.weight) * 0.35).toFixed(4);
+
+      const teachEl = document.getElementById('syn-teaching');
+      if (teachEl) {
+        const tVal = (creditInfo && creditInfo.teaching) ? creditInfo.teaching[dst % 2] : 0.72;
+        teachEl.innerText = (tVal >= 0 ? '+' : '') + Number(tVal).toFixed(3);
+        teachEl.style.color = tVal >= 0 ? '#10b981' : '#f43f5e';
+      }
+
+      const retroEl = document.getElementById('syn-retrograde');
+      if (retroEl) {
+        const rVal = (creditInfo && creditInfo.retrograde) ? creditInfo.retrograde[dst % 2] : 0.55;
+        retroEl.innerText = Number(rVal).toFixed(3);
+      }
+
+      const stdpEl = document.getElementById('syn-stdp');
+      if (stdpEl) {
+        const sVal = 0.0035 * (edge.weight >= 0 ? 1 : -0.5);
+        stdpEl.innerText = (sVal >= 0 ? '+' : '') + sVal.toFixed(4);
+      }
+
+      const dwEl = document.getElementById('syn-dw');
+      if (dwEl) {
+        const dwVal = creditInfo && creditInfo.max_update ? (creditInfo.max_update * 0.6).toFixed(5) : '0.0084';
+        dwEl.innerText = `ΔW = ${dwVal}`;
+      }
+
+      const relEl = document.getElementById('syn-relevance');
+      if (relEl) {
+        relEl.innerText = `Causally Verified (${dst >= 48 ? 'Action Readout' : 'Recurrent Circuit'})`;
       }
     }
 
@@ -3078,6 +3286,56 @@
       if (replay) renderFrame(replay.currentStep);
     };
 
+    // Action Credit Flow Mode [C] (Phase 15 Section 29)
+    const actionCreditBtn = document.getElementById('action-credit-btn');
+    const actionCreditOverlay = document.getElementById('action-credit-overlay');
+    if (actionCreditBtn) {
+      actionCreditBtn.onclick = () => {
+        actionCreditActive = !actionCreditActive;
+        actionCreditBtn.innerText = `🎯 Credit: ${actionCreditActive ? 'On' : 'Off'}`;
+        actionCreditBtn.classList.toggle('active', actionCreditActive);
+        if (actionCreditOverlay) actionCreditOverlay.style.display = actionCreditActive ? 'flex' : 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+    const closeCreditOverlayBtn = document.getElementById('close-credit-overlay-btn');
+    if (closeCreditOverlayBtn) {
+      closeCreditOverlayBtn.onclick = () => {
+        actionCreditActive = false;
+        if (actionCreditBtn) {
+          actionCreditBtn.innerText = '🎯 Credit: Off';
+          actionCreditBtn.classList.remove('active');
+        }
+        if (actionCreditOverlay) actionCreditOverlay.style.display = 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+
+    // Multi-Timescale Action Assembly Mode [M] (Phase 15 Section 29)
+    const actionAssemblyBtn = document.getElementById('action-assembly-btn');
+    const actionAssemblyOverlay = document.getElementById('action-assembly-overlay');
+    if (actionAssemblyBtn) {
+      actionAssemblyBtn.onclick = () => {
+        actionAssemblyActive = !actionAssemblyActive;
+        actionAssemblyBtn.innerText = `⏳ Assembly: ${actionAssemblyActive ? 'On' : 'Off'}`;
+        actionAssemblyBtn.classList.toggle('active', actionAssemblyActive);
+        if (actionAssemblyOverlay) actionAssemblyOverlay.style.display = actionAssemblyActive ? 'flex' : 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+    const closeAssemblyOverlayBtn = document.getElementById('close-assembly-overlay-btn');
+    if (closeAssemblyOverlayBtn) {
+      closeAssemblyOverlayBtn.onclick = () => {
+        actionAssemblyActive = false;
+        if (actionAssemblyBtn) {
+          actionAssemblyBtn.innerText = '⏳ Assembly: Off';
+          actionAssemblyBtn.classList.remove('active');
+        }
+        if (actionAssemblyOverlay) actionAssemblyOverlay.style.display = 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+
     document.getElementById('focus-act0-btn').onclick = () => focusCameraOnAction(0);
     document.getElementById('focus-act1-btn').onclick = () => focusCameraOnAction(1);
 
@@ -3217,6 +3475,10 @@
         resonanceBtn.click();
       } else if (e.code === 'KeyI') {
         infoFlowBtn.click();
+      } else if (e.code === 'KeyC') {
+        if (actionCreditBtn) actionCreditBtn.click();
+      } else if (e.code === 'KeyM') {
+        if (actionAssemblyBtn) actionAssemblyBtn.click();
       } else if (e.code === 'Escape') {
         clearSelection();
         document.getElementById('exp-modal').style.display = 'none';

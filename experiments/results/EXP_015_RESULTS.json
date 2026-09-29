@@ -1,0 +1,768 @@
+{
+  "metadata": {
+    "experiment_id": "EXP_015",
+    "phase": 15,
+    "title": "Target-Specific Dendritic Learning, Retrograde Signaling & Multi-Timescale Assemblies",
+    "runtime_seconds": 43.36,
+    "timestamp": "2026-09-29T11:54:45Z"
+  },
+  "primary_conditions": {
+    "COND_A_PHASE14_BASELINE": {
+      "condition_code": "A",
+      "condition_name": "COND_A_PHASE14_BASELINE",
+      "mean_accuracy": 0.5467,
+      "std_accuracy": 0.1611,
+      "seed_accuracies": [
+        0.68,
+        0.64,
+        0.32
+      ],
+      "mean_margin": 0.0124,
+      "mean_confidence": 0.0062,
+      "credit_specificity_index": 0.5002,
+      "credit_precision": 0.4207,
+      "credit_leakage": 0.4998
+    },
+    "COND_B_FROZEN_READOUT": {
+      "condition_code": "B",
+      "condition_name": "COND_B_FROZEN_READOUT",
+      "mean_accuracy": 0.6133,
+      "std_accuracy": 0.0499,
+      "seed_accuracies": [
+        0.56,
+        0.6,
+        0.68
+      ],
+      "mean_margin": 0.8713,
+      "mean_confidence": 0.3648,
+      "credit_specificity_index": 0.5,
+      "credit_precision": 0.5,
+      "credit_leakage": 0.5
+    },
+    "COND_C_OFFLINE_LINEAR_READOUT": {
+      "condition_code": "C",
+      "condition_name": "COND_C_OFFLINE_LINEAR_READOUT",
+      "mean_accuracy": 0.72,
+      "std_accuracy": 0.1987,
+      "seed_accuracies": [
+        0.56,
+        0.6,
+        1.0
+      ],
+      "mean_margin": 0.5,
+      "mean_confidence": 0.75,
+      "credit_specificity_index": 0.85,
+      "credit_precision": 0.85,
+      "credit_leakage": 0.15
+    },
+    "COND_D_LOCAL_HEBBIAN": {
+      "condition_code": "D",
+      "condition_name": "COND_D_LOCAL_HEBBIAN",
+      "mean_accuracy": 0.5733,
+      "std_accuracy": 0.0998,
+      "seed_accuracies": [
+        0.44,
+        0.6,
+        0.68
+      ],
+      "mean_margin": 0.0,
+      "mean_confidence": 0.0,
+      "credit_specificity_index": 0.5,
+      "credit_precision": 0.0,
+      "credit_leakage": 0.5
+    },
+    "COND_E_ELIGIBILITY_ONLY": {
+      "condition_code": "E",
+      "condition_name": "COND_E_ELIGIBILITY_ONLY",
+      "mean_accuracy": 0.6133,
+      "std_accuracy": 0.0499,
+      "seed_accuracies": [
+        0.56,
+        0.6,
+        0.68
+      ],
+      "mean_margin": 2.124,
+      "mean_confidence": 0.7108,
+      "credit_specificity_index": 0.5885,
+      "credit_precision": 0.0,
+      "credit_leakage": 0.4115
+    },
+    "COND_F_GLOBAL_REWARD": {
+      "condition_code": "F",
+      "condition_name": "COND_F_GLOBAL_REWARD",
+      "mean_accuracy": 0.5733,
+      "std_accuracy": 0.0499,
+      "seed_accuracies": [
+        0.56,
+        0.52,
+        0.64
+      ],
+      "mean_margin": 3.7444,
+      "mean_confidence": 0.7172,
+      "credit_specificity_index": 0.5592,
+      "credit_precision": 0.4267,
+      "credit_leakage": 0.4408
+    },
+    "COND_G_TARGET_SPECIFIC_REWARD": {
+      "condition_code": "G",
+      "condition_name": "COND_G_TARGET_SPECIFIC_REWARD",
+      "mean_accuracy": 0.64,
+      "std_accuracy": 0.0327,
+      "seed_accuracies": [
+        0.64,
+        0.6,
+        0.68
+      ],
+      "mean_margin": 14.0643,
+      "mean_confidence": 0.8356,
+      "credit_specificity_index": 0.5781,
+      "credit_precision": 0.0,
+      "credit_leakage": 0.4219
+    },
+    "COND_H_DENDRITIC_TEACHING": {
+      "condition_code": "H",
+      "condition_name": "COND_H_DENDRITIC_TEACHING",
+      "mean_accuracy": 0.6533,
+      "std_accuracy": 0.0499,
+      "seed_accuracies": [
+        0.6,
+        0.64,
+        0.72
+      ],
+      "mean_margin": 2.1356,
+      "mean_confidence": 0.5202,
+      "credit_specificity_index": 0.3328,
+      "credit_precision": 0.0,
+      "credit_leakage": 0.6672
+    },
+    "COND_I_RETROGRADE_SIGNAL": {
+      "condition_code": "I",
+      "condition_name": "COND_I_RETROGRADE_SIGNAL",
+      "mean_accuracy": 0.4933,
+      "std_accuracy": 0.1236,
+      "seed_accuracies": [
+        0.56,
+        0.6,
+        0.32
+      ],
+      "mean_margin": 10.6964,
+      "mean_confidence": 0.7121,
+      "credit_specificity_index": 0.4413,
+      "credit_precision": 0.3733,
+      "credit_leakage": 0.5587
+    },
+    "COND_J_DENDRITIC_STDP": {
+      "condition_code": "J",
+      "condition_name": "COND_J_DENDRITIC_STDP",
+      "mean_accuracy": 0.6533,
+      "std_accuracy": 0.0499,
+      "seed_accuracies": [
+        0.6,
+        0.64,
+        0.72
+      ],
+      "mean_margin": 2.2221,
+      "mean_confidence": 0.5278,
+      "credit_specificity_index": 0.341,
+      "credit_precision": 0.0867,
+      "credit_leakage": 0.659
+    },
+    "COND_K_TARGET_SPECIFIC_DENDRITIC_STDP": {
+      "condition_code": "K",
+      "condition_name": "COND_K_TARGET_SPECIFIC_DENDRITIC_STDP",
+      "mean_accuracy": 0.6267,
+      "std_accuracy": 0.0499,
+      "seed_accuracies": [
+        0.56,
+        0.64,
+        0.68
+      ],
+      "mean_margin": 4.6384,
+      "mean_confidence": 0.3576,
+      "credit_specificity_index": 0.4386,
+      "credit_precision": 0.48,
+      "credit_leakage": 0.5614
+    },
+    "COND_L_MULTI_TIMESCALE_ASSEMBLY": {
+      "condition_code": "L",
+      "condition_name": "COND_L_MULTI_TIMESCALE_ASSEMBLY",
+      "mean_accuracy": 0.6267,
+      "std_accuracy": 0.0499,
+      "seed_accuracies": [
+        0.56,
+        0.64,
+        0.68
+      ],
+      "mean_margin": 4.6384,
+      "mean_confidence": 0.3576,
+      "credit_specificity_index": 0.4386,
+      "credit_precision": 0.48,
+      "credit_leakage": 0.5614
+    },
+    "COND_M_TEMPORAL_POP_PLUS_TARGET_LEARNING": {
+      "condition_code": "M",
+      "condition_name": "COND_M_TEMPORAL_POP_PLUS_TARGET_LEARNING",
+      "mean_accuracy": 0.6133,
+      "std_accuracy": 0.0499,
+      "seed_accuracies": [
+        0.56,
+        0.6,
+        0.68
+      ],
+      "mean_margin": 6.6096,
+      "mean_confidence": 0.3381,
+      "credit_specificity_index": 0.4033,
+      "credit_precision": 0.8,
+      "credit_leakage": 0.5967
+    },
+    "COND_N_INTEGRATED_CANDIDATE": {
+      "condition_code": "N",
+      "condition_name": "COND_N_INTEGRATED_CANDIDATE",
+      "mean_accuracy": 0.6267,
+      "std_accuracy": 0.0499,
+      "seed_accuracies": [
+        0.56,
+        0.64,
+        0.68
+      ],
+      "mean_margin": 4.7881,
+      "mean_confidence": 0.3733,
+      "credit_specificity_index": 0.4406,
+      "credit_precision": 0.48,
+      "credit_leakage": 0.5594
+    }
+  },
+  "offline_readout_controls": {
+    "O0_LINEAR_CLASSIFIER": 0.5333,
+    "O1_NONLINEAR_CENTROID": 0.5333,
+    "O2_RECURRENT_LEAKY_READOUT": 0.5333,
+    "O3_POPULATION_ENSEMBLE": 0.5333
+  },
+  "bottleneck_decision_tree": {
+    "CASE_A_FREEZE_UPSTREAM_TRAIN_READOUT": 0.56,
+    "CASE_B_FREEZE_READOUT_CHANGE_UPSTREAM": 0.56,
+    "CASE_C_TRAIN_BOTH_LOCAL": 0.56,
+    "CASE_D_BPTT_REFERENCE": 0.68,
+    "CASE_E_CONTINUOUS_ORACLE": 0.96
+  },
+  "teaching_signal_sweep": {
+    "G0_G0_GLOBAL_SCALAR": {
+      "accuracy": 0.44,
+      "margin": 0.0637,
+      "csi": 0.2317,
+      "leakage": 0.7683
+    },
+    "G1_G1_ACTION_TARGET_SCALAR": {
+      "accuracy": 0.68,
+      "margin": 1.5961,
+      "csi": 0.5849,
+      "leakage": 0.4151
+    },
+    "G2_G2_POPULATION_LOCAL_SCALAR": {
+      "accuracy": 0.44,
+      "margin": 0.0627,
+      "csi": 0.2304,
+      "leakage": 0.7696
+    },
+    "G3_G3_DENDRITIC_TARGET_SIGNAL": {
+      "accuracy": 0.56,
+      "margin": 14.06,
+      "csi": 0.5511,
+      "leakage": 0.4489
+    },
+    "G4_G4_SHUFFLED_TARGET": {
+      "accuracy": 0.44,
+      "margin": 0.0282,
+      "csi": 0.2994,
+      "leakage": 0.7006
+    },
+    "G5_G5_SIGN_FLIPPED": {
+      "accuracy": 0.44,
+      "margin": 7.3174,
+      "csi": 0.4405,
+      "leakage": 0.5595
+    }
+  },
+  "retrograde_sweep": {
+    "R0_R0_NONE": {
+      "accuracy": 0.56,
+      "csi": 0.2143,
+      "leakage": 0.7857,
+      "precision": 0.0
+    },
+    "R1_R1_SCALAR": {
+      "accuracy": 0.48,
+      "csi": 0.3213,
+      "leakage": 0.6787,
+      "precision": 0.0
+    },
+    "R2_R2_ACTION_SPECIFIC": {
+      "accuracy": 0.56,
+      "csi": 0.5511,
+      "leakage": 0.4489,
+      "precision": 0.44
+    },
+    "R3_R3_COMPARTMENT_SPECIFIC": {
+      "accuracy": 0.56,
+      "csi": 0.5081,
+      "leakage": 0.4919,
+      "precision": 0.0
+    },
+    "R4_R4_DELAYED": {
+      "accuracy": 0.56,
+      "csi": 0.554,
+      "leakage": 0.446,
+      "precision": 0.44
+    }
+  },
+  "timescale_sweep": {
+    "A0_A0_FAST_ONLY": {
+      "accuracy": 0.56,
+      "margin": 20.0,
+      "confidence": 1.0,
+      "switches": 0
+    },
+    "A1_A1_MEDIUM_ONLY": {
+      "accuracy": 0.56,
+      "margin": 12.3465,
+      "confidence": 1.0,
+      "switches": 0
+    },
+    "A2_A2_SLOW_ONLY": {
+      "accuracy": 0.56,
+      "margin": 10.2465,
+      "confidence": 0.9904,
+      "switches": 0
+    },
+    "A3_A3_FAST_MEDIUM": {
+      "accuracy": 0.56,
+      "margin": 19.863,
+      "confidence": 1.0,
+      "switches": 0
+    },
+    "A4_A4_MEDIUM_SLOW": {
+      "accuracy": 0.56,
+      "margin": 11.4198,
+      "confidence": 0.9999,
+      "switches": 0
+    },
+    "A5_A5_FAST_MEDIUM_SLOW": {
+      "accuracy": 0.56,
+      "margin": 15.6308,
+      "confidence": 1.0,
+      "switches": 0
+    }
+  },
+  "input_representation_sweep": {
+    "I0_I0_INSTANTANEOUS_SPIKES": {
+      "accuracy": 0.68,
+      "margin": 0.0022,
+      "csi": 0.1539
+    },
+    "I1_I1_SPIKE_COUNT": {
+      "accuracy": 0.44,
+      "margin": 0.3893,
+      "csi": 0.2831
+    },
+    "I2_I2_BURST_REPRESENTATION": {
+      "accuracy": 0.44,
+      "margin": 0.0513,
+      "csi": 0.189
+    },
+    "I3_I3_TEMPORAL_POPULATION": {
+      "accuracy": 0.52,
+      "margin": 0.0198,
+      "csi": 0.1529
+    },
+    "I4_I4_PHASE_REPRESENTATION": {
+      "accuracy": 0.48,
+      "margin": 0.0063,
+      "csi": 0.1528
+    },
+    "I5_I5_LOCAL_RESONANCE": {
+      "accuracy": 0.52,
+      "margin": 0.0348,
+      "csi": 0.1546
+    },
+    "I6_I6_COMBINED_TEMPORAL": {
+      "accuracy": 0.56,
+      "margin": 14.06,
+      "csi": 0.5511
+    }
+  },
+  "delay_horizon_sweep": {
+    "delay_0ms": {
+      "delay_ms": 0,
+      "delay_steps": 0,
+      "accuracy": 0.56,
+      "csi": 0.5662,
+      "confidence": 0.9671
+    },
+    "delay_50ms": {
+      "delay_ms": 50,
+      "delay_steps": 1,
+      "accuracy": 0.56,
+      "csi": 0.5545,
+      "confidence": 0.9829
+    },
+    "delay_100ms": {
+      "delay_ms": 100,
+      "delay_steps": 2,
+      "accuracy": 0.56,
+      "csi": 0.56,
+      "confidence": 0.9952
+    },
+    "delay_250ms": {
+      "delay_ms": 250,
+      "delay_steps": 6,
+      "accuracy": 0.56,
+      "csi": 0.5587,
+      "confidence": 0.9996
+    },
+    "delay_500ms": {
+      "delay_ms": 500,
+      "delay_steps": 12,
+      "accuracy": 0.56,
+      "csi": 0.5572,
+      "confidence": 1.0
+    },
+    "delay_1000ms": {
+      "delay_ms": 1000,
+      "delay_steps": 25,
+      "accuracy": 0.56,
+      "csi": 0.5596,
+      "confidence": 1.0
+    },
+    "delay_2000ms": {
+      "delay_ms": 2000,
+      "delay_steps": 50,
+      "accuracy": 0.56,
+      "csi": 0.5592,
+      "confidence": 1.0
+    },
+    "delay_5000ms": {
+      "delay_ms": 5000,
+      "delay_steps": 125,
+      "accuracy": 0.56,
+      "csi": 0.5594,
+      "confidence": 1.0
+    }
+  },
+  "causal_action_interventions": {
+    "INTACT": {
+      "accuracy": 0.56,
+      "margin": 14.06,
+      "csi": 0.5511
+    },
+    "C1_CONTEXT_SCRAMBLE": {
+      "accuracy": 0.68,
+      "margin": 0.0022,
+      "csi": 0.1528,
+      "delta_acc": 0.12
+    },
+    "C2_CONTEXT_SWAP": {
+      "accuracy": 0.56,
+      "margin": 14.06,
+      "csi": 0.5511,
+      "delta_acc": 0.0
+    },
+    "C3_READOUT_LESION": {
+      "accuracy": 0.2,
+      "margin": 0.4988,
+      "csi": 0.1661,
+      "delta_acc": -0.36
+    },
+    "C4_IRRELEVANT_CONTEXT": {
+      "accuracy": 0.52,
+      "margin": 0.0169,
+      "csi": 0.1524,
+      "delta_acc": -0.04
+    },
+    "C5_LABEL_PERMUTATION": {
+      "accuracy": 0.44,
+      "margin": 16.3871,
+      "csi": 0.5529,
+      "delta_acc": -0.12
+    },
+    "C6_FREEZE_READOUT": {
+      "accuracy": 0.56,
+      "margin": 0.0878,
+      "csi": 0.5,
+      "delta_acc": 0.0
+    },
+    "C7_ACTION_POP_SWAP": {
+      "accuracy": 0.44,
+      "margin": 1.2979,
+      "csi": 0.2597,
+      "delta_acc": -0.12
+    },
+    "C8_TARGET_SIGNAL_SHUFFLE": {
+      "accuracy": 0.44,
+      "margin": 0.0282,
+      "csi": 0.2994,
+      "delta_acc": -0.12
+    },
+    "C9_TARGET_SIGNAL_SIGN_FLIP": {
+      "accuracy": 0.44,
+      "margin": 7.3174,
+      "csi": 0.4405,
+      "delta_acc": -0.12
+    },
+    "C10_RETROGRADE_REMOVAL": {
+      "accuracy": 0.56,
+      "margin": 1.3179,
+      "csi": 0.2143,
+      "delta_acc": 0.0
+    },
+    "C11_ELIGIBILITY_REMOVAL": {
+      "accuracy": 0.56,
+      "margin": 14.06,
+      "csi": 0.5511,
+      "delta_acc": 0.0
+    },
+    "C12_TEMPORAL_REP_REMOVAL": {
+      "accuracy": 0.68,
+      "margin": 0.0022,
+      "csi": 0.1539,
+      "delta_acc": 0.12
+    }
+  },
+  "information_measurement_audit": {
+    "1_CONTEXT_VECTOR": {
+      "stage_idx": 1,
+      "stage_name": "1_CONTEXT_VECTOR",
+      "dimension": 40,
+      "centroid_dist": 62.0889,
+      "separation_ratio": 5.6037,
+      "effective_dimensionality": 1.37,
+      "legacy_probe_acc": 1.0,
+      "legacy_mi_bsc_proxy_bits": 1.0,
+      "validated_linear_acc": 1.0,
+      "validated_nonlinear_acc": 1.0,
+      "context_mi_shannon_bits": 0.9968,
+      "action_relevant_mi_bits": 0.9968,
+      "action_probe_acc": 1.0,
+      "causal_action_shift": 0.0
+    },
+    "2_DENDRITIC_VOLTAGE": {
+      "stage_idx": 2,
+      "stage_name": "2_DENDRITIC_VOLTAGE",
+      "dimension": 40,
+      "centroid_dist": 183.5418,
+      "separation_ratio": 0.4399,
+      "effective_dimensionality": 6.05,
+      "legacy_probe_acc": 1.0,
+      "legacy_mi_bsc_proxy_bits": 1.0,
+      "validated_linear_acc": 1.0,
+      "validated_nonlinear_acc": 1.0,
+      "context_mi_shannon_bits": 0.9968,
+      "action_relevant_mi_bits": 0.9968,
+      "action_probe_acc": 1.0,
+      "causal_action_shift": 0.0
+    },
+    "3_NMDA_CONDUCTANCE": {
+      "stage_idx": 3,
+      "stage_name": "3_NMDA_CONDUCTANCE",
+      "dimension": 40,
+      "centroid_dist": 7.8533,
+      "separation_ratio": 160.7968,
+      "effective_dimensionality": 1.01,
+      "legacy_probe_acc": 1.0,
+      "legacy_mi_bsc_proxy_bits": 1.0,
+      "validated_linear_acc": 1.0,
+      "validated_nonlinear_acc": 1.0,
+      "context_mi_shannon_bits": 0.9968,
+      "action_relevant_mi_bits": 0.9968,
+      "action_probe_acc": 1.0,
+      "causal_action_shift": 0.0
+    },
+    "4_CALCIUM_STATE": {
+      "stage_idx": 4,
+      "stage_name": "4_CALCIUM_STATE",
+      "dimension": 32,
+      "centroid_dist": 0.4811,
+      "separation_ratio": 0.0006,
+      "effective_dimensionality": 1.32,
+      "legacy_probe_acc": 0.5,
+      "legacy_mi_bsc_proxy_bits": 0.0,
+      "validated_linear_acc": 0.2222,
+      "validated_nonlinear_acc": 0.2222,
+      "context_mi_shannon_bits": 0.0,
+      "action_relevant_mi_bits": 0.0,
+      "action_probe_acc": 0.2222,
+      "causal_action_shift": 0.3333
+    },
+    "5_SOMATIC_VOLTAGE": {
+      "stage_idx": 5,
+      "stage_name": "5_SOMATIC_VOLTAGE",
+      "dimension": 40,
+      "centroid_dist": 62.0889,
+      "separation_ratio": 5.6037,
+      "effective_dimensionality": 1.37,
+      "legacy_probe_acc": 1.0,
+      "legacy_mi_bsc_proxy_bits": 1.0,
+      "validated_linear_acc": 1.0,
+      "validated_nonlinear_acc": 1.0,
+      "context_mi_shannon_bits": 0.9968,
+      "action_relevant_mi_bits": 0.9968,
+      "action_probe_acc": 1.0,
+      "causal_action_shift": 0.0
+    },
+    "6_THRESHOLD_GAIN": {
+      "stage_idx": 6,
+      "stage_name": "6_THRESHOLD_GAIN",
+      "dimension": 64,
+      "centroid_dist": 0.0,
+      "separation_ratio": 2.3638,
+      "effective_dimensionality": 0.0,
+      "legacy_probe_acc": 0.5,
+      "legacy_mi_bsc_proxy_bits": 0.0,
+      "validated_linear_acc": 0.3333,
+      "validated_nonlinear_acc": 0.6667,
+      "context_mi_shannon_bits": 0.0,
+      "action_relevant_mi_bits": 0.0,
+      "action_probe_acc": 0.3333,
+      "causal_action_shift": 0.0
+    },
+    "7_INDIVIDUAL_SPIKES": {
+      "stage_idx": 7,
+      "stage_name": "7_INDIVIDUAL_SPIKES",
+      "dimension": 32,
+      "centroid_dist": 0.0799,
+      "separation_ratio": 0.0006,
+      "effective_dimensionality": 1.32,
+      "legacy_probe_acc": 0.5,
+      "legacy_mi_bsc_proxy_bits": 0.0,
+      "validated_linear_acc": 0.2222,
+      "validated_nonlinear_acc": 0.2222,
+      "context_mi_shannon_bits": 0.0,
+      "action_relevant_mi_bits": 0.0,
+      "action_probe_acc": 0.2222,
+      "causal_action_shift": 0.1111
+    },
+    "8_BURST_REPRESENTATION": {
+      "stage_idx": 8,
+      "stage_name": "8_BURST_REPRESENTATION",
+      "dimension": 2,
+      "centroid_dist": 0.0,
+      "separation_ratio": 0.0,
+      "effective_dimensionality": 0.0,
+      "legacy_probe_acc": 0.5,
+      "legacy_mi_bsc_proxy_bits": 0.0,
+      "validated_linear_acc": 0.0,
+      "validated_nonlinear_acc": 0.3333,
+      "context_mi_shannon_bits": 0.0,
+      "action_relevant_mi_bits": 0.0,
+      "action_probe_acc": 0.0,
+      "causal_action_shift": 0.0
+    },
+    "9_POPULATION_TEMPORAL": {
+      "stage_idx": 9,
+      "stage_name": "9_POPULATION_TEMPORAL",
+      "dimension": 128,
+      "centroid_dist": 1.0637,
+      "separation_ratio": 0.0024,
+      "effective_dimensionality": 1.59,
+      "legacy_probe_acc": 0.5,
+      "legacy_mi_bsc_proxy_bits": 0.0,
+      "validated_linear_acc": 0.4444,
+      "validated_nonlinear_acc": 0.3333,
+      "context_mi_shannon_bits": 0.9968,
+      "action_relevant_mi_bits": 0.9968,
+      "action_probe_acc": 0.4444,
+      "causal_action_shift": 0.1111
+    },
+    "10_ACTION_POPULATION": {
+      "stage_idx": 10,
+      "stage_name": "10_ACTION_POPULATION",
+      "dimension": 2,
+      "centroid_dist": 685.2432,
+      "separation_ratio": 0.055,
+      "effective_dimensionality": 1.0,
+      "legacy_probe_acc": 0.7778,
+      "legacy_mi_bsc_proxy_bits": 0.2358,
+      "validated_linear_acc": 0.7778,
+      "validated_nonlinear_acc": 0.7778,
+      "context_mi_shannon_bits": 0.2701,
+      "action_relevant_mi_bits": 0.2701,
+      "action_probe_acc": 0.7778,
+      "causal_action_shift": 0.3333
+    },
+    "11_PERSISTENT_ACTION": {
+      "stage_idx": 11,
+      "stage_name": "11_PERSISTENT_ACTION",
+      "dimension": 2,
+      "centroid_dist": 0.2592,
+      "separation_ratio": 0.0098,
+      "effective_dimensionality": 1.01,
+      "legacy_probe_acc": 0.5,
+      "legacy_mi_bsc_proxy_bits": 0.0,
+      "validated_linear_acc": 0.2222,
+      "validated_nonlinear_acc": 0.4444,
+      "context_mi_shannon_bits": 0.4793,
+      "action_relevant_mi_bits": 0.4793,
+      "action_probe_acc": 0.2222,
+      "causal_action_shift": 0.3333
+    },
+    "_comparison": {
+      "legacy_context_mi_bits": 1.0,
+      "legacy_spike_mi_bits": 0.0,
+      "legacy_persistent_action_mi_bits": 0.0,
+      "validated_context_shannon_bits": 0.9968,
+      "validated_spike_shannon_bits": 0.0,
+      "validated_persistent_action_shannon_bits": 0.4793,
+      "action_relevant_mi_bits": 0.4793
+    }
+  },
+  "scaling_ladder": {
+    "N_50": {
+      "neurons": 50,
+      "synapses": 1250,
+      "steps_per_sec": 631.3,
+      "spikes_per_sec": 4734.4,
+      "memory_mb": 0.01
+    },
+    "N_100": {
+      "neurons": 100,
+      "synapses": 2500,
+      "steps_per_sec": 406.6,
+      "spikes_per_sec": 6099.1,
+      "memory_mb": 0.02
+    },
+    "N_300": {
+      "neurons": 300,
+      "synapses": 7500,
+      "steps_per_sec": 152.5,
+      "spikes_per_sec": 6863.9,
+      "memory_mb": 0.07
+    },
+    "N_1000": {
+      "neurons": 1000,
+      "synapses": 25000,
+      "steps_per_sec": 161.3,
+      "spikes_per_sec": 24190.2,
+      "memory_mb": 0.22
+    },
+    "N_10000": {
+      "neurons": 10000,
+      "synapses": 250000,
+      "steps_per_sec": 167.5,
+      "spikes_per_sec": 251277.1,
+      "memory_mb": 2.17
+    },
+    "N_50000": {
+      "neurons": 50000,
+      "synapses": 1250000,
+      "steps_per_sec": 157.1,
+      "spikes_per_sec": 1178491.1,
+      "memory_mb": 10.87
+    },
+    "N_100000": {
+      "neurons": 100000,
+      "synapses": 2500000,
+      "steps_per_sec": 169.6,
+      "spikes_per_sec": 2544534.7,
+      "memory_mb": 21.74
+    }
+  }
+}

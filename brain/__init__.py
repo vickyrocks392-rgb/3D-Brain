@@ -131,6 +131,28 @@ from brain.attractor_network import AttractorCouplingMode, RecurrentAttractorCir
 from brain.action_routing import ActionSelectionCircuit
 from brain.phase11_network import Phase11SpatialNetwork
 
+from brain.context_action_interface import (
+    ContextActionInterface,
+    RepresentationSource,
+    ReadoutArchitecture,
+    ActionCompetitionMode,
+)
+from brain.phase12_network import Phase12Network
+from brain.spike_encoding import (
+    BiophysicalSpikeEncoder,
+    SpikeEncodingStrategy,
+    HomeostasisMode,
+)
+from brain.action_persistence import (
+    ActionPersistenceController,
+    ActionPersistenceState,
+)
+from brain.biophysical_audit import (
+    BiophysicalPathwayAuditor,
+    StageMetrics,
+)
+from brain.phase13_network import Phase13Network
+
 __all__.extend([
     "TwoCompartmentPopulation",
     "FeedbackMode",
@@ -143,6 +165,20 @@ __all__.extend([
     "RecurrentAttractorCircuit",
     "ActionSelectionCircuit",
     "Phase11SpatialNetwork",
+    "ContextActionInterface",
+    "RepresentationSource",
+    "ReadoutArchitecture",
+    "ActionCompetitionMode",
+    "Phase12Network",
+    "BiophysicalSpikeEncoder",
+    "SpikeEncodingStrategy",
+    "HomeostasisMode",
+    "ActionPersistenceController",
+    "ActionPersistenceState",
+    "BiophysicalPathwayAuditor",
+    "StageMetrics",
+    "Phase13Network",
 ])
+
 
 

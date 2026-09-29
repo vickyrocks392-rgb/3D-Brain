@@ -1,0 +1,661 @@
+{
+  "metadata": {
+    "experiment": "EXP013",
+    "phase": 13,
+    "title": "Biophysical Spike Encoding, Action Persistence & Information Preservation",
+    "git_commit": "HEAD",
+    "python_version": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+    "total_elapsed_seconds": 14.32,
+    "seeds": [
+      42,
+      43,
+      44
+    ]
+  },
+  "primary_conditions": {
+    "COND_S0_PHASE12_BASELINE": {
+      "strategy": "S0_BASELINE",
+      "accuracy_mean": 0.5333333333333333,
+      "accuracy_std": 0.09977753031397177,
+      "winner_margin_mean": 435.6831,
+      "persistence_stability_mean": 0.0,
+      "chatter_ratio_mean": 0.0,
+      "recurrent_leakage": 0.0,
+      "seed_accuracies": [
+        0.4,
+        0.56,
+        0.64
+      ],
+      "elapsed_seconds": 0.19
+    },
+    "COND_S1_ADAPTIVE_THRESHOLD": {
+      "strategy": "S1_ADAPTIVE_THRESHOLD",
+      "accuracy_mean": 0.39999999999999997,
+      "accuracy_std": 0.14236104336041747,
+      "winner_margin_mean": 18.7258,
+      "persistence_stability_mean": 0.0,
+      "chatter_ratio_mean": 0.0,
+      "recurrent_leakage": 0.0,
+      "seed_accuracies": [
+        0.32,
+        0.6,
+        0.28
+      ],
+      "elapsed_seconds": 0.19
+    },
+    "COND_S2_ADAPTIVE_GAIN": {
+      "strategy": "S2_ADAPTIVE_GAIN",
+      "accuracy_mean": 0.39999999999999997,
+      "accuracy_std": 0.14236104336041747,
+      "winner_margin_mean": 18.7258,
+      "persistence_stability_mean": 0.0,
+      "chatter_ratio_mean": 0.0,
+      "recurrent_leakage": 0.0,
+      "seed_accuracies": [
+        0.32,
+        0.6,
+        0.28
+      ],
+      "elapsed_seconds": 0.2
+    },
+    "COND_S3_THRESHOLD_PLUS_GAIN": {
+      "strategy": "S3_THRESHOLD_PLUS_GAIN",
+      "accuracy_mean": 0.39999999999999997,
+      "accuracy_std": 0.14236104336041747,
+      "winner_margin_mean": 18.7258,
+      "persistence_stability_mean": 0.0,
+      "chatter_ratio_mean": 0.0,
+      "recurrent_leakage": 0.0,
+      "seed_accuracies": [
+        0.32,
+        0.6,
+        0.28
+      ],
+      "elapsed_seconds": 0.19
+    },
+    "COND_S4_RATE_POPULATION": {
+      "strategy": "S4_RATE_POPULATION",
+      "accuracy_mean": 0.39999999999999997,
+      "accuracy_std": 0.14236104336041747,
+      "winner_margin_mean": 18.7258,
+      "persistence_stability_mean": 0.0,
+      "chatter_ratio_mean": 0.0,
+      "recurrent_leakage": 0.0,
+      "seed_accuracies": [
+        0.32,
+        0.6,
+        0.28
+      ],
+      "elapsed_seconds": 0.18
+    },
+    "COND_S5_TEMPORAL_CODING": {
+      "strategy": "S5_TEMPORAL_CODING",
+      "accuracy_mean": 0.44,
+      "accuracy_std": 0.13063945294843615,
+      "winner_margin_mean": 0.2507,
+      "persistence_stability_mean": 0.0,
+      "chatter_ratio_mean": 0.0,
+      "recurrent_leakage": 0.0,
+      "seed_accuracies": [
+        0.44,
+        0.6,
+        0.28
+      ],
+      "elapsed_seconds": 0.19
+    },
+    "COND_S6_POPULATION_TEMPORAL": {
+      "strategy": "S6_POPULATION_TEMPORAL",
+      "accuracy_mean": 0.45333333333333337,
+      "accuracy_std": 0.14727148022916348,
+      "winner_margin_mean": 0.4863,
+      "persistence_stability_mean": 0.0,
+      "chatter_ratio_mean": 0.0,
+      "recurrent_leakage": 0.0,
+      "seed_accuracies": [
+        0.44,
+        0.64,
+        0.28
+      ],
+      "elapsed_seconds": 0.2
+    },
+    "COND_S7_WTA_COMPETITION": {
+      "strategy": "S7_WTA_COMPETITION",
+      "accuracy_mean": 0.39999999999999997,
+      "accuracy_std": 0.14236104336041747,
+      "winner_margin_mean": 18.7258,
+      "persistence_stability_mean": 0.0,
+      "chatter_ratio_mean": 0.0,
+      "recurrent_leakage": 0.0,
+      "seed_accuracies": [
+        0.32,
+        0.6,
+        0.28
+      ],
+      "elapsed_seconds": 0.19
+    },
+    "COND_S8_PERSISTENT_ATTRACTOR": {
+      "strategy": "S8_PERSISTENT_ATTRACTOR",
+      "accuracy_mean": 0.39999999999999997,
+      "accuracy_std": 0.14236104336041747,
+      "winner_margin_mean": 18.7258,
+      "persistence_stability_mean": 0.0,
+      "chatter_ratio_mean": 0.0,
+      "recurrent_leakage": 0.0,
+      "seed_accuracies": [
+        0.32,
+        0.6,
+        0.28
+      ],
+      "elapsed_seconds": 0.19
+    },
+    "COND_S9_FULL_BIOPHYSICAL": {
+      "strategy": "S9_FULL_BIOPHYSICAL",
+      "accuracy_mean": 0.45333333333333337,
+      "accuracy_std": 0.14727148022916348,
+      "winner_margin_mean": 0.4863,
+      "persistence_stability_mean": 0.0,
+      "chatter_ratio_mean": 0.0,
+      "recurrent_leakage": 0.0,
+      "seed_accuracies": [
+        0.44,
+        0.64,
+        0.28
+      ],
+      "elapsed_seconds": 0.21
+    }
+  },
+  "delay_sweeps": {
+    "Phase 12 Baseline (S0)": {
+      "0ms": 0.5,
+      "50ms": 0.5,
+      "100ms": 0.5,
+      "250ms": 0.4833,
+      "500ms": 0.4833,
+      "1000ms": 0.5,
+      "2000ms": 0.5
+    },
+    "Adaptive Threshold (S1)": {
+      "0ms": 0.4167,
+      "50ms": 0.4167,
+      "100ms": 0.4167,
+      "250ms": 0.4333,
+      "500ms": 0.4333,
+      "1000ms": 0.3167,
+      "2000ms": 0.4
+    },
+    "Rate Population (S4)": {
+      "0ms": 0.4167,
+      "50ms": 0.4167,
+      "100ms": 0.4167,
+      "250ms": 0.4333,
+      "500ms": 0.4333,
+      "1000ms": 0.35,
+      "2000ms": 0.4
+    },
+    "Temporal Coding (S5)": {
+      "0ms": 0.45,
+      "50ms": 0.4667,
+      "100ms": 0.4667,
+      "250ms": 0.4333,
+      "500ms": 0.4333,
+      "1000ms": 0.3833,
+      "2000ms": 0.4
+    },
+    "Persistent Attractor (S8)": {
+      "0ms": 0.4167,
+      "50ms": 0.4167,
+      "100ms": 0.4167,
+      "250ms": 0.4333,
+      "500ms": 0.4333,
+      "1000ms": 0.3167,
+      "2000ms": 0.4
+    },
+    "Full Biophysical (S9)": {
+      "0ms": 0.45,
+      "50ms": 0.4667,
+      "100ms": 0.4167,
+      "250ms": 0.4333,
+      "500ms": 0.4333,
+      "1000ms": 0.3833,
+      "2000ms": 0.4
+    }
+  },
+  "coding_schemes_comparison": {
+    "Rate Coding": {
+      "accuracy": 0.32,
+      "energy_proxy_spikes_per_trial": 0.0,
+      "persistence_stability": 0.0,
+      "chatter_ratio": 0.0
+    },
+    "Temporal Coding": {
+      "accuracy": 0.44,
+      "energy_proxy_spikes_per_trial": 23.0,
+      "persistence_stability": 0.0,
+      "chatter_ratio": 0.0
+    },
+    "Population Coding": {
+      "accuracy": 0.32,
+      "energy_proxy_spikes_per_trial": 0.0,
+      "persistence_stability": 0.0,
+      "chatter_ratio": 0.0
+    },
+    "Population + Temporal": {
+      "accuracy": 0.44,
+      "energy_proxy_spikes_per_trial": 23.0,
+      "persistence_stability": 0.0,
+      "chatter_ratio": 0.0
+    }
+  },
+  "action_competition_ablations": {
+    "INH_0.00_EXC_0.00": {
+      "w_inh": 0.0,
+      "w_exc": 0.0,
+      "accuracy": 0.35,
+      "margin": 0.7956,
+      "stability": 0.0,
+      "chatter": 0.0
+    },
+    "INH_0.00_EXC_0.20": {
+      "w_inh": 0.0,
+      "w_exc": 0.2,
+      "accuracy": 0.35,
+      "margin": 0.7956,
+      "stability": 0.0,
+      "chatter": 0.0
+    },
+    "INH_0.00_EXC_0.40": {
+      "w_inh": 0.0,
+      "w_exc": 0.4,
+      "accuracy": 0.35,
+      "margin": 0.7956,
+      "stability": 0.0,
+      "chatter": 0.0
+    },
+    "INH_0.00_EXC_0.80": {
+      "w_inh": 0.0,
+      "w_exc": 0.8,
+      "accuracy": 0.35,
+      "margin": 0.7956,
+      "stability": 0.0,
+      "chatter": 0.0
+    },
+    "INH_0.20_EXC_0.00": {
+      "w_inh": 0.2,
+      "w_exc": 0.0,
+      "accuracy": 0.35,
+      "margin": 0.7956,
+      "stability": 0.0,
+      "chatter": 0.0
+    },
+    "INH_0.20_EXC_0.20": {
+      "w_inh": 0.2,
+      "w_exc": 0.2,
+      "accuracy": 0.35,
+      "margin": 0.7956,
+      "stability": 0.0,
+      "chatter": 0.0
+    },
+    "INH_0.20_EXC_0.40": {
+      "w_inh": 0.2,
+      "w_exc": 0.4,
+      "accuracy": 0.35,
+      "margin": 0.7956,
+      "stability": 0.0,
+      "chatter": 0.0
+    },
+    "INH_0.20_EXC_0.80": {
+      "w_inh": 0.2,
+      "w_exc": 0.8,
+      "accuracy": 0.35,
+      "margin": 0.7956,
+      "stability": 0.0,
+      "chatter": 0.0
+    },
+    "INH_0.55_EXC_0.00": {
+      "w_inh": 0.55,
+      "w_exc": 0.0,
+      "accuracy": 0.35,
+      "margin": 0.7956,
+      "stability": 0.0,
+      "chatter": 0.0
+    },
+    "INH_0.55_EXC_0.20": {
+      "w_inh": 0.55,
+      "w_exc": 0.2,
+      "accuracy": 0.35,
+      "margin": 0.7956,
+      "stability": 0.0,
+      "chatter": 0.0
+    },
+    "INH_0.55_EXC_0.40": {
+      "w_inh": 0.55,
+      "w_exc": 0.4,
+      "accuracy": 0.35,
+      "margin": 0.7956,
+      "stability": 0.0,
+      "chatter": 0.0
+    },
+    "INH_0.55_EXC_0.80": {
+      "w_inh": 0.55,
+      "w_exc": 0.8,
+      "accuracy": 0.35,
+      "margin": 0.7956,
+      "stability": 0.0,
+      "chatter": 0.0
+    },
+    "INH_1.00_EXC_0.00": {
+      "w_inh": 1.0,
+      "w_exc": 0.0,
+      "accuracy": 0.35,
+      "margin": 0.7956,
+      "stability": 0.0,
+      "chatter": 0.0
+    },
+    "INH_1.00_EXC_0.20": {
+      "w_inh": 1.0,
+      "w_exc": 0.2,
+      "accuracy": 0.35,
+      "margin": 0.7956,
+      "stability": 0.0,
+      "chatter": 0.0
+    },
+    "INH_1.00_EXC_0.40": {
+      "w_inh": 1.0,
+      "w_exc": 0.4,
+      "accuracy": 0.35,
+      "margin": 0.7956,
+      "stability": 0.0,
+      "chatter": 0.0
+    },
+    "INH_1.00_EXC_0.80": {
+      "w_inh": 1.0,
+      "w_exc": 0.8,
+      "accuracy": 0.35,
+      "margin": 0.7956,
+      "stability": 0.0,
+      "chatter": 0.0
+    }
+  },
+  "homeostasis_comparison": {
+    "H0_NONE": {
+      "mode": "H0_NONE",
+      "accuracy": 0.44,
+      "mean_theta": -49.9,
+      "mean_gain": 0.874,
+      "stability": 0.0
+    },
+    "H1_FIRING_RATE": {
+      "mode": "H1_FIRING_RATE",
+      "accuracy": 0.44,
+      "mean_theta": -36.19,
+      "mean_gain": 0.874,
+      "stability": 0.0
+    },
+    "H2_THRESHOLD": {
+      "mode": "H2_THRESHOLD",
+      "accuracy": 0.44,
+      "mean_theta": -36.19,
+      "mean_gain": 0.874,
+      "stability": 0.0
+    },
+    "H3_GAIN": {
+      "mode": "H3_GAIN",
+      "accuracy": 0.44,
+      "mean_theta": -49.9,
+      "mean_gain": 0.673,
+      "stability": 0.0
+    },
+    "H4_COMBINED": {
+      "mode": "H4_COMBINED",
+      "accuracy": 0.44,
+      "mean_theta": -36.19,
+      "mean_gain": 0.673,
+      "stability": 0.0
+    }
+  },
+  "causal_interventions": {
+    "INTACT_TRAINED": {
+      "accuracy": 0.44,
+      "margin": 0.7889,
+      "entropy": 0.6931
+    },
+    "C1_CONTEXT_SCRAMBLE": {
+      "accuracy": 0.44,
+      "margin": 0.7889,
+      "entropy": 0.6931
+    },
+    "C2_CONTEXT_SWAP": {
+      "accuracy": 0.44,
+      "margin": 0.7889,
+      "entropy": 0.6931
+    },
+    "C3_LESION_25_PCT": {
+      "accuracy": 0.44,
+      "margin": 0.7889,
+      "entropy": 0.6931
+    },
+    "C3_LESION_50_PCT": {
+      "accuracy": 0.52,
+      "margin": 0.6635,
+      "entropy": 0.6931
+    },
+    "C3_LESION_100_PCT": {
+      "accuracy": 0.44,
+      "margin": 0.7889,
+      "entropy": 0.6931
+    },
+    "C4_IRRELEVANT_CONTEXT": {
+      "accuracy": 0.56,
+      "margin": 0.0,
+      "entropy": 0.6931
+    },
+    "C5_LABEL_PERMUTATION": {
+      "accuracy": 0.44,
+      "margin": 0.7889,
+      "entropy": 0.6931
+    },
+    "C6_FREEZE_PLASTICITY": {
+      "accuracy": 0.56,
+      "margin": 0.0,
+      "entropy": 0.6931
+    },
+    "C7_SPIKE_TIMING_SHUFFLE": {
+      "accuracy": 0.48,
+      "margin": 0.6635,
+      "entropy": 0.6931
+    },
+    "C8_SPIKE_COUNT_SHUFFLE": {
+      "accuracy": 0.52,
+      "margin": 0.6635,
+      "entropy": 0.6931
+    },
+    "C9_THRESHOLD_RANDOMIZATION": {
+      "accuracy": 0.44,
+      "margin": 0.7889,
+      "entropy": 0.6931
+    },
+    "C10_GAIN_RANDOMIZATION": {
+      "accuracy": 0.44,
+      "margin": 0.7874,
+      "entropy": 0.6931
+    },
+    "C11_COMPETITION_DISABLED": {
+      "accuracy": 0.44,
+      "margin": 0.7889,
+      "entropy": 0.6931
+    },
+    "C12_PERSISTENCE_DISABLED": {
+      "accuracy": 0.44,
+      "margin": 0.7889,
+      "entropy": 0.6931
+    }
+  },
+  "biophysical_information_audit": {
+    "1_CONTEXT_VECTOR": {
+      "stage": "1_CONTEXT_VECTOR",
+      "dimension": 40,
+      "centroid_dist": 19.2342,
+      "within_class_var": 64.5058,
+      "between_class_var": 92.3861,
+      "separation_ratio": 1.4322,
+      "linear_probe_acc": 1.0,
+      "nonlinear_probe_acc": 1.0,
+      "mutual_info_bits": 1.0,
+      "information_loss_bits": 0.0
+    },
+    "2_DENDRITIC_POTENTIAL": {
+      "stage": "2_DENDRITIC_POTENTIAL",
+      "dimension": 40,
+      "centroid_dist": 31.3841,
+      "within_class_var": 161.9143,
+      "between_class_var": 245.9671,
+      "separation_ratio": 1.5191,
+      "linear_probe_acc": 1.0,
+      "nonlinear_probe_acc": 1.0,
+      "mutual_info_bits": 1.0,
+      "information_loss_bits": 0.0
+    },
+    "3_NMDA_CONDUCTANCE": {
+      "stage": "3_NMDA_CONDUCTANCE",
+      "dimension": 40,
+      "centroid_dist": 2.5574,
+      "within_class_var": 0.0026,
+      "between_class_var": 1.6332,
+      "separation_ratio": 622.6294,
+      "linear_probe_acc": 1.0,
+      "nonlinear_probe_acc": 1.0,
+      "mutual_info_bits": 1.0,
+      "information_loss_bits": 0.0
+    },
+    "4_SOMATIC_INTEGRATION": {
+      "stage": "4_SOMATIC_INTEGRATION",
+      "dimension": 40,
+      "centroid_dist": 19.2342,
+      "within_class_var": 64.5058,
+      "between_class_var": 92.3861,
+      "separation_ratio": 1.4322,
+      "linear_probe_acc": 1.0,
+      "nonlinear_probe_acc": 1.0,
+      "mutual_info_bits": 1.0,
+      "information_loss_bits": 0.0
+    },
+    "5_ADAPTIVE_THRESHOLD": {
+      "stage": "5_ADAPTIVE_THRESHOLD",
+      "dimension": 32,
+      "centroid_dist": 28.9144,
+      "within_class_var": 20279.4208,
+      "between_class_var": 208.7779,
+      "separation_ratio": 0.0103,
+      "linear_probe_acc": 0.5,
+      "nonlinear_probe_acc": 0.4667,
+      "mutual_info_bits": 0.0,
+      "information_loss_bits": 1.0
+    },
+    "6_SPIKE_ENCODING": {
+      "stage": "6_SPIKE_ENCODING",
+      "dimension": 32,
+      "centroid_dist": 0.4425,
+      "within_class_var": 7.9442,
+      "between_class_var": 0.0489,
+      "separation_ratio": 0.0062,
+      "linear_probe_acc": 0.5,
+      "nonlinear_probe_acc": 0.6,
+      "mutual_info_bits": 0.0,
+      "information_loss_bits": 0.0
+    },
+    "7_ACTION_POPULATION_RATES": {
+      "stage": "7_ACTION_POPULATION_RATES",
+      "dimension": 2,
+      "centroid_dist": 65.7429,
+      "within_class_var": 110290.3667,
+      "between_class_var": 1079.3303,
+      "separation_ratio": 0.0098,
+      "linear_probe_acc": 0.6,
+      "nonlinear_probe_acc": 0.6,
+      "mutual_info_bits": 0.029,
+      "information_loss_bits": 0.0
+    },
+    "8_PERSISTENT_ACTION": {
+      "stage": "8_PERSISTENT_ACTION",
+      "dimension": 2,
+      "centroid_dist": 0.0585,
+      "within_class_var": 0.1038,
+      "between_class_var": 0.0009,
+      "separation_ratio": 0.0082,
+      "linear_probe_acc": 0.6667,
+      "nonlinear_probe_acc": 0.6667,
+      "mutual_info_bits": 0.0817,
+      "information_loss_bits": 0.0
+    },
+    "_summary": {
+      "continuous_soma_mi_bits": 1.0,
+      "spike_encoding_mi_bits": 0.0,
+      "action_selection_mi_bits": 0.0817,
+      "loss_continuous_to_spike_bits": 1.0,
+      "loss_spike_to_action_bits": 0.0,
+      "total_pathway_loss_bits": 0.9183,
+      "retention_percentage": 8.17
+    }
+  },
+  "scaling_ladder": {
+    "N_30": {
+      "neurons": 30,
+      "params": 2100,
+      "ram_mb": 0.008,
+      "steps_per_sec": 5232.2,
+      "spikes_per_sec": 20091.5
+    },
+    "N_50": {
+      "neurons": 50,
+      "params": 5500,
+      "ram_mb": 0.021,
+      "steps_per_sec": 3081.8,
+      "spikes_per_sec": 23051.7
+    },
+    "N_100": {
+      "neurons": 100,
+      "params": 21000,
+      "ram_mb": 0.08,
+      "steps_per_sec": 1057.5,
+      "spikes_per_sec": 16877.4
+    },
+    "N_300": {
+      "neurons": 300,
+      "params": 183000,
+      "ram_mb": 0.698,
+      "steps_per_sec": 80.5,
+      "spikes_per_sec": 4618.1
+    },
+    "N_1000": {
+      "neurons": 1000,
+      "params": 102100,
+      "ram_mb": 0.428,
+      "steps_per_sec": 6308.7,
+      "spikes_per_sec": 608667.4
+    },
+    "N_10000": {
+      "neurons": 10000,
+      "params": 1020100,
+      "ram_mb": 4.273,
+      "steps_per_sec": 1913.7,
+      "spikes_per_sec": 1853886.3
+    }
+  },
+  "reference_baselines": {
+    "Phase_12_Baseline": {
+      "accuracy": 0.48
+    },
+    "Random_Action_Interface": {
+      "accuracy": 0.44
+    },
+    "Supervised_Linear_Readout": {
+      "accuracy": 0.6
+    },
+    "Analytical_BPTT_Reference": {
+      "accuracy": 0.64
+    },
+    "Small_Transformer_Reference": {
+      "accuracy": 0.72
+    }
+  }
+}

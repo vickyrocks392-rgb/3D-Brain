@@ -169,6 +169,7 @@ class ContextActionInterface:
         self._lesion_mask: Optional[np.ndarray] = None
         self._context_scramble = False
         self._context_swap = False
+        self._irrelevant_context = False
         self._label_permuted = False
         self._label_perm: Optional[np.ndarray] = None
 
@@ -289,7 +290,9 @@ class ContextActionInterface:
             ctx = act.copy()
 
         # Apply active causal interventions if requested
-        if self._context_scramble:
+        if self._irrelevant_context:
+            ctx = self.rng.normal(0.0, 1.0, len(ctx)).astype(np.float32)
+        elif self._context_scramble:
             perm = self.rng.permutation(len(ctx))
             ctx = ctx[perm]
         elif self._context_swap:
@@ -569,7 +572,12 @@ class ContextActionInterface:
         self._lesion_mask = None
         self._context_scramble = False
         self._context_swap = False
+        self._irrelevant_context = False
         self._label_permuted = False
+
+    def apply_irrelevant_context(self, enabled: bool = True) -> None:
+        """C4: Replace context with uncorrelated noise."""
+        self._irrelevant_context = enabled
 
     def apply_label_permutation(self, enabled: bool = True) -> None:
         """C5: Permute context-to-action contingency mapping."""

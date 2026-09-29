@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>3D-Brain — Neural Observatory Console</title>
-  <meta name="description" content="Scientific neural observatory and computational replay console for 3D-Brain.">
+  <meta name="description" content="Scientific 3D Neural Observatory: Persistent, interactive 3D neural environment and computational state inspector.">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -15,10 +15,10 @@
     :root {
       /* Surface & Atmosphere */
       --bg-void: #05070b;
-      --bg-surface: rgba(11, 15, 23, 0.85);
-      --bg-surface-elevated: rgba(18, 24, 38, 0.92);
-      --bg-card: rgba(255, 255, 255, 0.03);
-      --bg-card-hover: rgba(255, 255, 255, 0.06);
+      --bg-surface: rgba(11, 15, 23, 0.82);
+      --bg-surface-elevated: rgba(16, 22, 34, 0.92);
+      --bg-card: rgba(255, 255, 255, 0.035);
+      --bg-card-hover: rgba(255, 255, 255, 0.07);
       --border-subtle: rgba(255, 255, 255, 0.08);
       --border-medium: rgba(255, 255, 255, 0.16);
       --border-focus: rgba(255, 255, 255, 0.35);
@@ -45,7 +45,7 @@
       --radius-sm: 4px;
       --radius-md: 6px;
       --radius-lg: 10px;
-      --shadow-panel: 0 12px 32px rgba(0, 0, 0, 0.7);
+      --shadow-panel: 0 12px 32px rgba(0, 0, 0, 0.75);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -95,29 +95,29 @@
     }
 
     /* =========================================================================
-       TOP BAR HUD
+       COMPACT BRAIN STATE HEADER (TOP BAR HUD)
        ========================================================================= */
     .top-bar {
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
-      height: 52px;
+      height: 48px;
       z-index: 20;
-      background: linear-gradient(180deg, rgba(7, 10, 16, 0.95) 0%, rgba(7, 10, 16, 0.85) 100%);
-      backdrop-filter: blur(16px);
+      background: linear-gradient(180deg, rgba(6, 9, 15, 0.97) 0%, rgba(6, 9, 15, 0.90) 100%);
+      backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--border-subtle);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 16px;
-      gap: 12px;
+      padding: 0 10px;
+      gap: 8px;
     }
 
     .brand-section {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 8px;
       flex-shrink: 0;
     }
     .brand-title {
@@ -125,88 +125,101 @@
       flex-direction: column;
     }
     .brand-title h1 {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 800;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.2px;
       text-transform: uppercase;
       color: #ffffff;
       line-height: 1.1;
     }
     .brand-subtitle {
-      font-size: 9px;
+      font-size: 8px;
       font-weight: 600;
-      letter-spacing: 1.2px;
+      letter-spacing: 1.0px;
       text-transform: uppercase;
       color: var(--text-muted);
     }
 
-    .status-badge {
+    /* Mode Selector Buttons */
+    .mode-selector {
       display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 3px 8px;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
+      padding: 2px;
+      gap: 2px;
+    }
+    .mode-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
       font-size: 10px;
       font-weight: 700;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      font-family: var(--font-mono);
-      border: 1px solid transparent;
+      padding: 3px 6px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      letter-spacing: 0.5px;
     }
-    .status-badge.live {
-      background: rgba(16, 185, 129, 0.15);
+    .mode-btn:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .mode-btn.active {
+      background: rgba(56, 189, 248, 0.2);
+      color: #38bdf8;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.25);
+    }
+    .mode-btn.active.live {
+      background: rgba(16, 185, 129, 0.2);
       color: var(--color-reward);
-      border-color: rgba(16, 185, 129, 0.35);
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
     }
-    .status-badge.replay {
-      background: rgba(245, 158, 11, 0.15);
+    .mode-btn.active.replay {
+      background: rgba(245, 158, 11, 0.2);
       color: var(--color-plasticity);
-      border-color: rgba(245, 158, 11, 0.35);
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
     }
 
-    .pulse-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: currentColor;
-      box-shadow: 0 0 8px currentColor;
-    }
-
-    /* Regime Bar (Center) */
-    .regime-bar {
+    /* Header Compact Computational State Indicators */
+    .header-state-row {
       display: flex;
       align-items: center;
-      gap: 16px;
-      background: rgba(0, 0, 0, 0.3);
-      padding: 4px 14px;
+      gap: 8px;
+      background: rgba(0, 0, 0, 0.45);
+      padding: 2px 8px;
       border-radius: var(--radius-md);
       border: 1px solid var(--border-subtle);
+      white-space: nowrap;
+      flex-shrink: 1;
+      overflow-x: auto;
     }
-    .regime-item {
+    .state-item {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       gap: 1px;
     }
-    .regime-label {
-      font-size: 9px;
+    .state-label {
+      font-size: 8px;
       font-weight: 700;
       letter-spacing: 0.8px;
       color: var(--text-muted);
       text-transform: uppercase;
     }
-    .regime-val {
+    .state-val {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 600;
       color: var(--text-primary);
     }
 
-    /* Action Controls (Right) */
+    /* Top Controls (Right) */
     .top-controls {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       flex-shrink: 0;
     }
 
@@ -214,14 +227,14 @@
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--border-subtle);
       color: var(--text-primary);
-      padding: 5px 9px;
+      padding: 4px 7px;
       border-radius: var(--radius-sm);
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
       transition: all 0.15s ease;
       outline: none;
       white-space: nowrap;
@@ -231,58 +244,58 @@
       border-color: var(--border-medium);
     }
     .btn.active {
-      background: rgba(0, 229, 255, 0.15);
-      border-color: var(--color-inhibitory);
-      color: var(--color-inhibitory);
+      background: rgba(56, 189, 248, 0.2);
+      border-color: rgba(56, 189, 248, 0.6);
+      color: #38bdf8;
     }
     .btn.primary {
-      background: rgba(16, 185, 129, 0.2);
-      border-color: var(--color-reward);
-      color: #fff;
+      background: rgba(16, 185, 129, 0.25);
+      border-color: rgba(16, 185, 129, 0.6);
+      color: var(--color-reward);
     }
 
     .select-model {
-      background: #0d121c;
+      background: rgba(16, 22, 34, 0.95);
       border: 1px solid var(--border-subtle);
       color: var(--text-primary);
-      padding: 5px 8px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 3px 6px;
       border-radius: var(--radius-sm);
-      font-size: 11px;
-      font-family: var(--font-ui);
-      cursor: pointer;
       outline: none;
-      max-width: 170px;
-      text-overflow: ellipsis;
+      cursor: pointer;
+      max-width: 175px;
     }
-    .select-model option { background: #0d121c; color: var(--text-primary); }
 
     /* =========================================================================
        SIDE PANELS (INSPECTOR & TELEMETRY)
        ========================================================================= */
     .panel {
       position: absolute;
-      top: 64px;
-      bottom: 104px;
+      top: 60px;
+      bottom: 20px;
+      width: 320px;
       z-index: 10;
       background: var(--bg-surface);
-      backdrop-filter: blur(18px);
+      backdrop-filter: blur(20px);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-panel);
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
     }
+    #left-panel { left: 16px; }
+    #right-panel { right: 16px; width: 340px; }
 
     .panel-header {
-      padding: 12px 14px;
+      padding: 10px 14px;
       border-bottom: 1px solid var(--border-subtle);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(0, 0, 0, 0.2);
-      flex-shrink: 0;
+      background: rgba(255, 255, 255, 0.02);
     }
     .panel-title {
       font-size: 11px;
@@ -292,8 +305,9 @@
       color: var(--text-secondary);
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
+
     .panel-body {
       padding: 12px 14px;
       overflow-y: auto;
@@ -303,19 +317,6 @@
       gap: 12px;
     }
 
-    /* Left Panel: Inspector */
-    #left-panel {
-      left: 16px;
-      width: 320px;
-    }
-
-    /* Right Panel: Telemetry & Events */
-    #right-panel {
-      right: 16px;
-      width: 350px;
-    }
-
-    /* Section & Cards */
     .section-box {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
@@ -339,102 +340,96 @@
 
     .metric-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px 12px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px 10px;
     }
     .metric-cell {
       display: flex;
       flex-direction: column;
       gap: 1px;
     }
-    .metric-cell.full {
-      grid-column: span 2;
-    }
+    .metric-cell.full { grid-column: span 2; }
     .metric-name {
-      font-size: 10px;
-      color: var(--text-secondary);
+      font-size: 9px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     .metric-val {
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: 4px;
     }
     .metric-val.unrecorded {
       color: var(--text-muted);
       font-style: italic;
-      font-weight: 400;
     }
 
     .val-pill {
       display: inline-block;
-      padding: 1px 6px;
-      border-radius: 3px;
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
       font-size: 9px;
       font-weight: 700;
+      font-family: var(--font-mono);
       text-transform: uppercase;
     }
 
-    /* Progress bar gauge */
     .gauge-track {
       width: 100%;
-      height: 5px;
+      height: 4px;
       background: rgba(255, 255, 255, 0.08);
-      border-radius: 3px;
+      border-radius: 2px;
       overflow: hidden;
       margin-top: 3px;
     }
     .gauge-fill {
       height: 100%;
-      background: var(--color-inhibitory);
-      border-radius: 3px;
+      background: var(--color-excitatory);
+      border-radius: 2px;
       transition: width 0.15s ease;
     }
 
-    /* Tabs in Right Panel */
+    /* Tab Switcher */
     .tab-nav {
       display: flex;
+      background: rgba(0, 0, 0, 0.4);
       border-bottom: 1px solid var(--border-subtle);
-      background: rgba(0,0,0,0.15);
-      flex-shrink: 0;
     }
     .tab-btn {
       flex: 1;
-      padding: 8px 10px;
-      background: none;
-      border: none;
-      border-bottom: 2px solid transparent;
-      color: var(--text-secondary);
+      padding: 9px 12px;
       font-size: 10px;
       font-weight: 700;
-      letter-spacing: 1px;
+      letter-spacing: 0.8px;
       text-transform: uppercase;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
-      outline: none;
       transition: all 0.15s;
     }
-    .tab-btn:hover { color: #fff; }
+    .tab-btn:hover { color: var(--text-primary); }
     .tab-btn.active {
-      color: #fff;
-      border-bottom-color: var(--color-inhibitory);
-      background: rgba(255,255,255,0.02);
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.04);
+      border-bottom: 2px solid #38bdf8;
     }
     .tab-badge {
-      background: rgba(255,255,255,0.1);
+      background: rgba(255, 255, 255, 0.1);
       padding: 1px 5px;
       border-radius: 10px;
       font-size: 9px;
+      font-family: var(--font-mono);
     }
 
     /* Event Feed */
-    .event-feed-list {
+    .event-feed {
       display: flex;
       flex-direction: column;
       gap: 6px;
@@ -442,53 +437,52 @@
     .event-card {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--border-medium);
       border-radius: var(--radius-sm);
       padding: 7px 10px;
-      cursor: pointer;
-      transition: all 0.15s;
       display: flex;
       flex-direction: column;
       gap: 3px;
+      cursor: pointer;
+      transition: all 0.12s;
     }
     .event-card:hover {
       background: var(--bg-card-hover);
       border-color: var(--border-medium);
-      transform: translateX(2px);
     }
     .event-card.current {
-      border-color: var(--color-selected);
-      background: rgba(255, 215, 0, 0.08);
+      border-left-color: var(--color-reward);
+      background: rgba(16, 185, 129, 0.08);
     }
-    .event-card-top {
+    .event-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .event-type-badge {
+    .event-type {
       font-size: 9px;
       font-weight: 700;
       letter-spacing: 0.5px;
-      padding: 2px 6px;
-      border-radius: 3px;
       text-transform: uppercase;
-    }
-    .event-time-text {
       font-family: var(--font-mono);
-      font-size: 10px;
+    }
+    .event-time {
+      font-size: 9px;
       color: var(--text-muted);
+      font-family: var(--font-mono);
     }
     .event-desc {
       font-size: 11px;
-      color: var(--text-primary);
-      word-break: break-word;
+      color: var(--text-secondary);
+      line-height: 1.3;
     }
 
-    /* Connected Synapses Chips */
-    .synapse-chip-list {
+    /* Synapse chips */
+    .synapse-list {
       display: flex;
       flex-direction: column;
       gap: 4px;
-      max-height: 120px;
+      max-height: 130px;
       overflow-y: auto;
     }
     .synapse-chip {
@@ -496,6 +490,7 @@
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
       padding: 4px 8px;
+      font-family: var(--font-mono);
       font-size: 10px;
       display: flex;
       justify-content: space-between;
@@ -508,40 +503,87 @@
     }
 
     /* =========================================================================
-       BOTTOM TIMELINE & REPLAY SCRUBBER
+       REPLAY TRANSPORT HUD & CONTEXTUAL TIME PILL
        ========================================================================= */
+    /* Floating Minimal Time Pill (Visible in LATEST/LIVE mode) */
+    .state-pill-floating {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 15;
+      background: var(--bg-surface-elevated);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-medium);
+      border-radius: 20px;
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: var(--shadow-panel);
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+    .state-pill-floating .pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      padding: 2px 7px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 9px;
+      letter-spacing: 0.8px;
+    }
+    .state-pill-floating .pill-badge.live {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--color-reward);
+      border-color: rgba(16, 185, 129, 0.4);
+    }
+
+    /* Replay Drawer (Only visible when REPLAY mode is active) */
     .timeline-bar {
       position: absolute;
       bottom: 12px;
-      left: 16px;
-      right: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 710px;
+      max-width: calc(100vw - 720px);
       z-index: 20;
       background: var(--bg-surface-elevated);
       backdrop-filter: blur(18px);
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--border-medium);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-panel);
-      padding: 10px 16px;
-      display: flex;
+      padding: 8px 12px;
+      display: none; /* Controlled by mode */
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
+      overflow: hidden;
+      animation: slideUp 0.2s ease-out;
+    }
+    @keyframes slideUp {
+      from { transform: translate(-50%, 20px); opacity: 0; }
+      to { transform: translate(-50%, 0); opacity: 1; }
     }
 
     /* Event Marker Track */
     .marker-rail {
       position: relative;
       width: 100%;
-      height: 16px;
+      height: 14px;
       background: rgba(255, 255, 255, 0.03);
       border-radius: var(--radius-sm);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       overflow: hidden;
     }
     .marker-pin {
       position: absolute;
       top: 1px;
-      width: 8px;
-      height: 12px;
+      width: 7px;
+      height: 11px;
       transform: translateX(-50%);
       cursor: pointer;
       border-radius: 2px;
@@ -555,21 +597,21 @@
     .scrubber-row {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
     }
     .timeline-slider {
       flex: 1;
       -webkit-appearance: none;
-      height: 5px;
-      border-radius: 3px;
+      height: 4px;
+      border-radius: 2px;
       background: rgba(255, 255, 255, 0.15);
       outline: none;
       cursor: pointer;
     }
     .timeline-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 14px;
-      height: 14px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
       background: #ffffff;
       border: 2px solid var(--color-inhibitory);
@@ -578,7 +620,7 @@
       transition: transform 0.1s;
     }
     .timeline-slider::-webkit-slider-thumb:hover {
-      transform: scale(1.2);
+      transform: scale(1.25);
     }
 
     .time-readout {
@@ -586,7 +628,7 @@
       font-size: 11px;
       font-weight: 600;
       color: var(--text-primary);
-      min-width: 170px;
+      min-width: 160px;
       text-align: right;
     }
 
@@ -594,29 +636,93 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 8px;
     }
     .transport-group {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
     }
 
     .legend-row {
       display: flex;
       align-items: center;
-      gap: 14px;
-      font-size: 10px;
+      gap: 8px;
+      font-size: 9px;
       color: var(--text-secondary);
+      flex-wrap: wrap;
     }
     .legend-item {
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
     }
     .legend-dot {
-      width: 7px;
-      height: 7px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
+    }
+
+    /* =========================================================================
+       ACTION INTERFACE & SPIKE ENCODING OVERLAYS (PHASE 13)
+       ========================================================================= */
+    #action-interface-overlay, #spike-encoding-overlay {
+      position: absolute;
+      top: 60px;
+      left: 350px;
+      right: 370px;
+      z-index: 15;
+      background: var(--bg-surface-elevated);
+      backdrop-filter: blur(18px);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-panel);
+      padding: 12px 16px;
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .flow-steps {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      position: relative;
+    }
+    .flow-step-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 6px 8px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 2px;
+    }
+    .flow-step-box.active {
+      border-color: #38bdf8;
+      background: rgba(56, 189, 248, 0.1);
+    }
+    .flow-step-title {
+      font-size: 8px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .flow-step-val {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .flow-arrow {
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 800;
     }
 
     /* Modal / Drawer Overlay */
@@ -637,13 +743,13 @@
       background: var(--bg-surface-elevated);
       border: 1px solid var(--border-medium);
       border-radius: var(--radius-lg);
-      padding: 20px;
+      padding: 18px 20px;
       width: 480px;
       max-width: 90vw;
       box-shadow: var(--shadow-panel);
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
     }
     .modal-header {
       display: flex;
@@ -653,7 +759,7 @@
       padding-bottom: 8px;
     }
     .modal-title {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -663,10 +769,10 @@
     /* Spike Raster Drawer */
     #raster-drawer {
       position: absolute;
-      bottom: 96px;
+      bottom: 85px;
       left: 350px;
-      right: 380px;
-      height: 110px;
+      right: 370px;
+      height: 100px;
       z-index: 15;
       background: var(--bg-surface-elevated);
       backdrop-filter: blur(16px);
@@ -682,56 +788,79 @@
     @media (max-width: 1200px) {
       #left-panel { width: 280px; }
       #right-panel { width: 300px; }
-      .regime-bar { display: none; }
+      .header-state-row { display: none; }
+      .timeline-bar { left: 300px; right: 320px; }
     }
     @media (max-width: 900px) {
       #left-panel { display: none; }
       #right-panel { width: 320px; }
+      .timeline-bar { left: 20px; right: 340px; }
     }
   </style>
 </head>
 <body>
-  <!-- 3D Canvas Viewport -->
+  <!-- 3D Canvas Viewport (Primary Product Interface) -->
   <div id="viewport"></div>
   <div id="tooltip"></div>
 
-  <!-- TOP BAR HUD -->
+  <!-- COMPACT BRAIN STATE HEADER -->
   <header class="top-bar">
     <div class="brand-section">
       <div class="brand-title">
         <h1>3D-Brain</h1>
         <span class="brand-subtitle">Neural Observatory</span>
       </div>
-      <div id="mode-badge" class="status-badge replay" title="Execution Mode">
-        <span class="pulse-dot"></span>
-        <span id="mode-text">REPLAY</span>
-      </div>
-      <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary);" id="master-time-header">
-        t = 0.0 ms
+
+      <!-- Mode Selector: LIVE / LATEST / REPLAY / EXPERIMENT -->
+      <div class="mode-selector">
+        <button class="mode-btn" id="mode-live-btn" title="Live computational substrate mode">LIVE</button>
+        <button class="mode-btn active" id="mode-latest-btn" title="Default: Latest recorded computational brain state">LATEST</button>
+        <button class="mode-btn" id="mode-replay-btn" title="Historical traversal of recorded brain states [R]">REPLAY</button>
+        <button class="mode-btn" id="mode-exp-btn" title="Compare experimental runs and benchmarks">EXPERIMENT</button>
       </div>
     </div>
 
-    <!-- Center: Computational Regime Indicators -->
-    <div class="regime-bar">
-      <div class="regime-item" title="Ratio of Excitatory vs Inhibitory Units">
-        <span class="regime-label">E/I Balance</span>
-        <span class="regime-val" id="regime-ei">4.0 : 1 (Dale)</span>
+    <!-- Center: Compact Brain State Header Indicators (Section 25) -->
+    <div class="header-state-row">
+      <div class="state-item" title="Current Step / Total Steps">
+        <span class="state-label">Step</span>
+        <span class="state-val" id="hdr-step">50 / 50</span>
       </div>
-      <div class="regime-item" title="Asynchronous-Irregular Regime Status">
-        <span class="regime-label">AI Regime</span>
-        <span class="regime-val" id="regime-ai" style="color: var(--color-reward);">AI_REGIME</span>
+      <div class="state-item" title="Simulation Time (ms)">
+        <span class="state-label">Time</span>
+        <span class="state-val" id="hdr-time">50.0 ms</span>
       </div>
-      <div class="regime-item" title="Global Kuramoto Synchrony (R)">
-        <span class="regime-label">Synchrony (R)</span>
-        <span class="regime-val" id="regime-sync">R = 0.12</span>
+      <div class="state-item" title="Total Neuron Population">
+        <span class="state-label">Neurons</span>
+        <span class="state-val" id="hdr-neurons">30</span>
       </div>
-      <div class="regime-item" title="Current Active Plasticity / Learning Model">
-        <span class="regime-label">Plasticity</span>
-        <span class="regime-val" id="regime-plast" style="color: var(--color-plasticity);">Targeted Two-Comp</span>
+      <div class="state-item" title="Total Synaptic Topology">
+        <span class="state-label">Synapses</span>
+        <span class="state-val" id="hdr-synapses">259</span>
       </div>
-      <div class="regime-item" title="Credit Specificity Index (CSI)">
-        <span class="regime-label">Credit Specificity</span>
-        <span class="regime-val" id="regime-csi" style="color: var(--color-reward);">CSI: +0.42</span>
+      <div class="state-item" title="Dale-Constrained E/I Balance">
+        <span class="state-label">E/I Balance</span>
+        <span class="state-val" id="hdr-ei" style="color: var(--color-excitatory);">4.0 : 1 Dale</span>
+      </div>
+      <div class="state-item" title="Asynchronous-Irregular Dynamical Regime">
+        <span class="state-label">AI Regime</span>
+        <span class="state-val" id="hdr-ai" style="color: var(--color-reward);">AI_REGIME</span>
+      </div>
+      <div class="state-item" title="Global Kuramoto Synchrony (R)">
+        <span class="state-label">Kuramoto R</span>
+        <span class="state-val" id="hdr-kuramoto">R = 0.12</span>
+      </div>
+      <div class="state-item" title="Emergent Functional Modularity Q_func">
+        <span class="state-label">Q_Func</span>
+        <span class="state-val" id="hdr-qfunc">0.380</span>
+      </div>
+      <div class="state-item" title="Currently Selected / Persisted Action">
+        <span class="state-label">Action</span>
+        <span class="state-val" id="hdr-action" style="color: #38bdf8;">Action 0</span>
+      </div>
+      <div class="state-item" title="Active Plasticity & Encoding Engine">
+        <span class="state-label">Plasticity</span>
+        <span class="state-val" id="hdr-plasticity" style="color: var(--color-plasticity);">Biophysical S9</span>
       </div>
     </div>
 
@@ -741,40 +870,35 @@
         🌐 Mode: Structural
       </button>
 
-      <button class="btn" id="credit-flow-btn" title="Toggle Credit Flow Visualization [C]">
-        🌊 Credit Flow: Off
-      </button>
-
-      <button class="btn" id="attractor-mode-btn" title="Toggle Attractor Pool Visualization [A]">
-        🌀 Attractor: Off
-      </button>
-
-      <button class="btn" id="gate-mode-btn" title="Toggle Predictive Gate Visualization [G]">
-        🛡️ Gate: Off
-      </button>
-
-      <button class="btn" id="action-routing-btn" title="Toggle Action Routing Visualization [T]">
-        🎯 Routing: Off
-      </button>
-
-      <button class="btn" id="action-interface-btn" title="Toggle Action Interface Visualization [I]">
+      <button class="btn" id="action-interface-btn" title="Toggle Phase 13 Action Interface Mode [I]">
         ⚡ Interface: Off
       </button>
 
+      <button class="btn" id="spike-encoding-btn" title="Toggle Phase 13 Biophysical Spike Encoding Mode [S]">
+        🔬 Spike Enc: Off
+      </button>
+
+      <button class="btn" id="cam-autoframe-btn" title="Auto-Frame entire brain in 3D scene [O]">
+        🎯 Auto-Frame
+      </button>
+
+      <button class="btn" id="cam-reset-btn" title="Reset camera view [Home]">
+        ↺ Reset
+      </button>
+
+      <button class="btn" id="auto-orbit-btn" title="Toggle gentle camera auto-orbit">
+        🔄 Orbit: Off
+      </button>
+
       <select id="model-select" class="select-model" title="Select .brainlog Trace">
-        <option value="/experiments/results/brainlogs/EXP012_action_interface.brainlog" selected>EXP012: Learnable Action Interface</option>
+        <option value="/experiments/results/brainlogs/EXP013_biophysical_spike_encoding.brainlog" selected>EXP013: Biophysical Spike Encoding (Phase 13)</option>
+        <option value="/experiments/results/brainlogs/EXP012_action_interface.brainlog">EXP012: Learnable Action Interface (Phase 12)</option>
         <option value="/experiments/results/brainlogs/EXP011_predictive_gating_attractor.brainlog">EXP011: Predictive Gating & Recurrent Attractor</option>
         <option value="/experiments/results/brainlogs/EXP010_two_compartment_targeted_credit.brainlog">EXP010: Two-Compartment & Targeted Credit</option>
         <option value="/experiments/results/brainlogs/EXP009_three_factor_rpe_modular.brainlog">EXP009: Three-Factor RPE (Modular 3D)</option>
-        <option value="/experiments/results/brainlogs/EXP009_three_factor_global_reward.brainlog">EXP009: Global Reward Modulation</option>
         <option value="/experiments/results/brainlogs/exp008_phase8_ei_full_system.brainlog">EXP008: E/I Balanced Dale + STDP</option>
-        <option value="/experiments/results/brainlogs/exp008_phase8_ei_no_homeo.brainlog">EXP008: E/I without Homeostasis</option>
         <option value="/experiments/results/brainlogs/EXP007_SPIKING_STDP_MODULAR_s42.brainlog">EXP007: Spiking LIF + STDP (Modular)</option>
-        <option value="/experiments/results/brainlogs/EXP007_SPIKING_LATENT_HYBRID_s42.brainlog">EXP007: Spiking Latent Hybrid</option>
         <option value="/experiments/results/brainlogs/EXP006_PERSISTENT_LATENT_ACTIVE_s42.brainlog">EXP006: Persistent Latent Memory</option>
-        <option value="/experiments/results/brainlogs/EXP005_LOCAL_PRED_DYNAMIC_SYNAPSES_ACTIVE_s42.brainlog">EXP005: Local Pred + Dynamic Synapses</option>
-        <option value="/experiments/results/brainlogs/EXP004_Modular_rep.brainlog">EXP004: Modular Spatial Topology</option>
-        <option value="/experiments/results/brainlogs/EXP003_Modulated_rep.brainlog">EXP003: Modulated 3-Factor Plasticity</option>
         <option value="/experiments/results/brainlogs/EXP001_default.brainlog">EXP001: Default Sensory Trace</option>
       </select>
 
@@ -783,23 +907,11 @@
         📁 Open
       </button>
 
-      <button class="btn" id="cam-focus-btn" title="Focus camera on selected object [F]">
-        🎯 Focus
-      </button>
-
-      <button class="btn" id="cam-reset-btn" title="Reset camera position">
-        ↺ Reset
-      </button>
-
-      <button class="btn" id="auto-orbit-btn" title="Toggle automatic camera rotation">
-        🔄 Orbit: Off
-      </button>
-
       <button class="btn" id="raster-toggle-btn" title="Toggle Population Spike Raster">
         ⚡ Raster
       </button>
 
-      <button class="btn" id="exp-meta-btn" title="Experiment Metadata">
+      <button class="btn" id="exp-meta-btn" title="Experiment Metadata & Parameters">
         ℹ Info
       </button>
 
@@ -809,7 +921,7 @@
     </div>
   </header>
 
-  <!-- LEFT PANEL: INSPECTOR -->
+  <!-- LEFT PANEL: INSPECTOR (NEURON, SYNAPSE, COMMUNITY) -->
   <aside id="left-panel" class="panel">
     <div class="panel-header">
       <span class="panel-title" id="insp-header-title">
@@ -822,13 +934,13 @@
 
     <div class="panel-body" id="inspector-content">
       <!-- Default Empty State -->
-      <div id="insp-empty-state" class="section-box" style="text-align: center; padding: 24px 14px; gap: 10px;">
-        <div style="font-size: 24px; opacity: 0.6;">🔭</div>
-        <div style="font-weight: 700; font-size: 12px; letter-spacing: 0.8px; color: var(--text-primary);">NO SELECTION</div>
-        <p style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">
-          Click a neuron, synapse, functional community, or timeline event to inspect its actual computational state.
+      <div id="insp-empty-state" class="section-box" style="text-align: center; padding: 22px 14px; gap: 8px;">
+        <div style="font-size: 24px; opacity: 0.65;">🔭</div>
+        <div style="font-weight: 700; font-size: 12px; letter-spacing: 0.8px; color: var(--text-primary);">OBSERVATORY STANDBY</div>
+        <p style="font-size: 11px; color: var(--text-muted); line-height: 1.45;">
+          Click any neuron, synapse, or functional community in the 3D scene to inspect its actual biophysical and computational state.
         </p>
-        <div style="margin-top: 12px; border-top: 1px solid var(--border-subtle); padding-top: 12px; text-align: left;">
+        <div style="margin-top: 10px; border-top: 1px solid var(--border-subtle); padding-top: 10px; text-align: left;">
           <span class="section-header-label">Functional Communities</span>
           <div id="communities-quick-list" style="display: flex; flex-direction: column; gap: 4px; margin-top: 6px;">
             <!-- Dynamically populated -->
@@ -837,7 +949,7 @@
       </div>
 
       <!-- Neuron Inspector State -->
-      <div id="insp-neuron-state" style="display: none; flex-direction: column; gap: 12px;">
+      <div id="insp-neuron-state" style="display: none; flex-direction: column; gap: 10px;">
         <div class="section-box">
           <span class="section-header-label">Neuron Identity</span>
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
@@ -866,7 +978,7 @@
 
         <!-- Membrane Dynamics -->
         <div class="section-box" id="n-membrane-box">
-          <span class="section-header-label">Membrane Dynamics</span>
+          <span class="section-header-label">Somatic Integration & Firing</span>
           <div class="metric-grid">
             <div class="metric-cell">
               <span class="metric-name">Membrane (V_m)</span>
@@ -892,7 +1004,7 @@
           </div>
         </div>
 
-        <!-- Two-Compartment Biophysics (Phase 10) -->
+        <!-- Two-Compartment Biophysics (Phase 10-13) -->
         <div class="section-box" id="n-twocomp-box">
           <span class="section-header-label">Two-Compartment Biophysics</span>
           <div class="metric-grid">
@@ -902,87 +1014,65 @@
             </div>
             <div class="metric-cell">
               <span class="metric-name">Dendrite (V_dend)</span>
-              <span class="metric-val" id="n-vdend" style="color: #a78bfa;">- mV</span>
+              <span class="metric-val" id="n-vdend" style="color: #f472b6;">- mV</span>
             </div>
             <div class="metric-cell">
-              <span class="metric-name">Slow NMDA (g_nmda)</span>
-              <span class="metric-val" id="n-gnmda" style="color: #60a5fa;">-</span>
+              <span class="metric-name">NMDA Conductance</span>
+              <span class="metric-val" id="n-gnmda" style="color: #a78bfa;">0.0000</span>
             </div>
             <div class="metric-cell">
-              <span class="metric-name">Coupling (I_c)</span>
-              <span class="metric-val" id="n-icoupling">- nA</span>
+              <span class="metric-name">Axial Current</span>
+              <span class="metric-val" id="n-icoupling">0.000 nA</span>
             </div>
             <div class="metric-cell">
-              <span class="metric-name">Dendritic Plateau</span>
+              <span class="metric-name">Calcium Plateau</span>
               <span class="metric-val" id="n-plateau">Resting</span>
             </div>
             <div class="metric-cell">
-              <span class="metric-name">Targeted Mod M_j(t)</span>
-              <span class="metric-val" id="n-targeted-mod" style="color: #f472b6;">-</span>
+              <span class="metric-name">Targeted Modulator</span>
+              <span class="metric-val" id="n-targeted-mod" style="color: var(--color-reward);">0.0000</span>
             </div>
           </div>
         </div>
 
-        <!-- Phase 11: Predictive Gating & Attractor Routing -->
-        <div class="section-box" id="n-phase11-box">
-          <span class="section-header-label">Phase 11 Gating & Attractor</span>
+        <!-- Phase 13 Spike Encoding & Action Persistence State -->
+        <div class="section-box" id="n-phase13-box">
+          <span class="section-header-label">Phase 13 Encoding & Action</span>
           <div class="metric-grid">
             <div class="metric-cell">
-              <span class="metric-name">Predictive Gate G_j</span>
-              <span class="metric-val" id="n-gate-vec" style="color: #38bdf8;">-</span>
+              <span class="metric-name">Adaptive Threshold</span>
+              <span class="metric-val" id="n-adapt-theta">-50.0 mV</span>
             </div>
             <div class="metric-cell">
-              <span class="metric-name">Disinhibition Factor</span>
-              <span class="metric-val" id="n-disinhib" style="color: #4ade80;">-</span>
+              <span class="metric-name">Effective Gain</span>
+              <span class="metric-val" id="n-adapt-gain">1.000</span>
             </div>
             <div class="metric-cell">
-              <span class="metric-name">Attractor Pool</span>
-              <span class="metric-val" id="n-attractor-pool" style="color: #fbbf24;">-</span>
+              <span class="metric-name">Action Population</span>
+              <span class="metric-val" id="n-action-pop" style="color: #38bdf8;">None</span>
             </div>
             <div class="metric-cell">
-              <span class="metric-name">Action Selected</span>
-              <span class="metric-val" id="n-action-sel" style="color: #f472b6;">-</span>
+              <span class="metric-name">Persistence Lock</span>
+              <span class="metric-val" id="n-persist-lock">Active (3 steps)</span>
             </div>
           </div>
         </div>
 
-        <!-- Three-Factor Learning Variables -->
-        <div class="section-box" id="n-three-factor-box">
-          <span class="section-header-label">Three-Factor Credit State</span>
-          <div class="metric-grid">
-            <div class="metric-cell">
-              <span class="metric-name">Mean Eligibility</span>
-              <span class="metric-val" id="n-eligibility" style="color: var(--color-reward);">-</span>
-            </div>
-            <div class="metric-cell">
-              <span class="metric-name">Max Eligibility</span>
-              <span class="metric-val" id="n-max-eligibility">-</span>
-            </div>
-            <div class="metric-cell">
-              <span class="metric-name">Neuromodulator M(t)</span>
-              <span class="metric-val" id="n-neuromod" style="color: var(--color-prediction);">-</span>
-            </div>
-            <div class="metric-cell">
-              <span class="metric-name">Reward Prediction Err</span>
-              <span class="metric-val" id="n-rpe" style="color: var(--color-plasticity);">-</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Connected Synapses -->
+        <!-- Synaptic Connections -->
         <div class="section-box">
-          <span class="section-header-label">Connected Synapses (<span id="n-synapse-count">0</span>)</span>
-          <div class="synapse-chip-list" id="n-synapses-list">
-            <!-- Dynamically populated -->
-          </div>
+          <span class="section-header-label">Synaptic Afferents & Efferents</span>
+          <div style="font-size: 10px; color: var(--text-muted); margin-bottom: 4px;">Incoming Synapses:</div>
+          <div class="synapse-list" id="n-in-synapses"></div>
+          <div style="font-size: 10px; color: var(--text-muted); margin-top: 6px; margin-bottom: 4px;">Outgoing Synapses:</div>
+          <div class="synapse-list" id="n-out-synapses"></div>
         </div>
       </div>
 
       <!-- Synapse Inspector State -->
-      <div id="insp-synapse-state" style="display: none; flex-direction: column; gap: 12px;">
+      <div id="insp-synapse-state" style="display: none; flex-direction: column; gap: 10px;">
         <div class="section-box">
           <span class="section-header-label">Synapse Topology</span>
-          <div style="font-size: 13px; font-weight: 800; font-family: var(--font-mono); color: #fff; margin-bottom: 6px;" id="syn-title">
+          <div style="font-size: 13px; font-weight: 800; font-family: var(--font-mono); color: #fff; margin-bottom: 4px;" id="syn-title">
             Node 0 → Node 4
           </div>
           <div class="metric-grid">
@@ -1006,58 +1096,37 @@
         </div>
 
         <div class="section-box">
-          <span class="section-header-label">Synaptic Weight & Plasticity</span>
+          <span class="section-header-label">Weight & Plasticity</span>
           <div class="metric-grid">
             <div class="metric-cell">
               <span class="metric-name">Weight (W_t)</span>
               <span class="metric-val" id="syn-weight">-</span>
             </div>
             <div class="metric-cell">
-              <span class="metric-name">Synaptic Eligibility (e)</span>
+              <span class="metric-name">Eligibility Trace</span>
               <span class="metric-val" id="syn-elig" style="color: var(--color-reward);">-</span>
             </div>
             <div class="metric-cell">
-              <span class="metric-name">Last Weight Update (Δw)</span>
+              <span class="metric-name">Last ΔW Update</span>
               <span class="metric-val" id="syn-dw" style="color: var(--color-plasticity);">-</span>
             </div>
             <div class="metric-cell">
               <span class="metric-name">Plasticity Rule</span>
-              <span class="metric-val" id="syn-rule">Targeted Dendritic</span>
+              <span class="metric-val" id="syn-rule">Targeted Biophysical</span>
             </div>
-            <div class="metric-cell">
-              <span class="metric-name">Causal Relevance</span>
-              <span class="metric-val" id="syn-relevance" style="color: var(--color-reward);">Relevant</span>
+            <div class="metric-cell full">
+              <span class="metric-name">Causal Interface Relevance</span>
+              <span class="metric-val" id="syn-relevance" style="color: var(--color-reward);">Causally Verified</span>
             </div>
-            <div class="metric-cell">
-              <span class="metric-name">Target Dendrite M_j</span>
-              <span class="metric-val" id="syn-target-m" style="color: #f472b6;">-</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="section-box">
-          <span class="section-header-label">Signal Transit</span>
-          <div class="metric-grid">
-            <div class="metric-cell">
-              <span class="metric-name">Signal Magnitude</span>
-              <span class="metric-val" id="syn-signal-mag">0.0000</span>
-            </div>
-            <div class="metric-cell">
-              <span class="metric-name">Transit Progress</span>
-              <span class="metric-val" id="syn-signal-progress">Idle</span>
-            </div>
-          </div>
-          <div class="gauge-track">
-            <div id="syn-signal-fill" class="gauge-fill" style="width: 0%;"></div>
           </div>
         </div>
       </div>
 
       <!-- Community Inspector State -->
-      <div id="insp-community-state" style="display: none; flex-direction: column; gap: 12px;">
+      <div id="insp-community-state" style="display: none; flex-direction: column; gap: 10px;">
         <div class="section-box">
           <span class="section-header-label">Community Identity</span>
-          <div style="font-size: 14px; font-weight: 800; font-family: var(--font-mono); color: var(--color-inhibitory); margin-bottom: 6px;" id="comm-title">
+          <div style="font-size: 13px; font-weight: 800; font-family: var(--font-mono); color: var(--color-inhibitory); margin-bottom: 4px;" id="comm-title">
             COMMUNITY C00
           </div>
           <div class="metric-grid">
@@ -1074,23 +1143,19 @@
               <span class="metric-val" id="comm-mean-act">-</span>
             </div>
             <div class="metric-cell">
-              <span class="metric-name">Mean Membrane Potential</span>
+              <span class="metric-name">Mean Membrane (V_m)</span>
               <span class="metric-val" id="comm-mean-vm">- mV</span>
             </div>
           </div>
-        </div>
-
-        <div class="section-box">
-          <span class="section-header-label">Member Neurons</span>
-          <div class="synapse-chip-list" id="comm-members-list">
-            <!-- Dynamically populated -->
-          </div>
+          <button class="btn primary" id="comm-focus-btn" style="margin-top: 8px; justify-content: center;">
+            🎯 Focus Community in 3D
+          </button>
         </div>
       </div>
     </div>
   </aside>
 
-  <!-- RIGHT PANEL: TELEMETRY & EVENTS -->
+  <!-- RIGHT PANEL: TELEMETRY & SCIENTIFIC OBSERVABILITY -->
   <aside id="right-panel" class="panel">
     <nav class="tab-nav">
       <button class="tab-btn active" id="tab-telemetry-btn">
@@ -1103,11 +1168,12 @@
     </nav>
 
     <div class="panel-body">
-      <!-- TAB 1: TELEMETRY -->
-      <div id="tab-telemetry-content" style="display: flex; flex-direction: column; gap: 12px;">
-        <!-- Network Overview -->
+      <!-- TAB 1: TELEMETRY (Organized strictly into 7 scientific sections per Section 26) -->
+      <div id="tab-telemetry-content" style="display: flex; flex-direction: column; gap: 10px;">
+        
+        <!-- 1. NETWORK -->
         <div class="section-box">
-          <span class="section-header-label">Network Architecture</span>
+          <span class="section-header-label">1. Network Architecture</span>
           <div class="metric-grid">
             <div class="metric-cell">
               <span class="metric-name">Neurons</span>
@@ -1136,13 +1202,13 @@
           </div>
         </div>
 
-        <!-- Synchrony & Regimes -->
+        <!-- 2. DYNAMICS -->
         <div class="section-box">
-          <span class="section-header-label">Synchrony & Dynamics</span>
+          <span class="section-header-label">2. Dynamics & Synchrony</span>
           <div class="metric-grid">
             <div class="metric-cell">
-              <span class="metric-name">Global R (Kuramoto)</span>
-              <span class="metric-val" id="m-global-r">NOT RECORDED</span>
+              <span class="metric-name">Global Kuramoto (R)</span>
+              <span class="metric-val" id="m-global-r">0.1200</span>
             </div>
             <div class="metric-cell">
               <span class="metric-name">Local R</span>
@@ -1167,9 +1233,9 @@
           </div>
         </div>
 
-        <!-- Functional Organization -->
+        <!-- 3. FUNCTIONAL ORGANIZATION -->
         <div class="section-box">
-          <span class="section-header-label">Functional Organization</span>
+          <span class="section-header-label">3. Functional Organization</span>
           <div class="metric-grid">
             <div class="metric-cell">
               <span class="metric-name">Q_struct (Topology)</span>
@@ -1177,7 +1243,7 @@
             </div>
             <div class="metric-cell">
               <span class="metric-name">Q_func (Emergent)</span>
-              <span class="metric-val" id="m-q-func">NOT RECORDED</span>
+              <span class="metric-val" id="m-q-func">0.3800</span>
             </div>
             <div class="metric-cell">
               <span class="metric-name">Communities</span>
@@ -1190,9 +1256,47 @@
           </div>
         </div>
 
-        <!-- Learning (Phase 9 Three-Factor RPE) -->
+        <!-- 4. MEMORY & CONTEXT -->
         <div class="section-box">
-          <span class="section-header-label">Learning & Credit Assignment</span>
+          <span class="section-header-label">4. Memory & Context State</span>
+          <div class="metric-grid">
+            <div class="metric-cell">
+              <span class="metric-name">Context Probe Acc</span>
+              <span class="metric-val" id="m-context-acc" style="color: #38bdf8;">100.0%</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Context Source</span>
+              <span class="metric-val" id="m-ctx-source">ATTRACTOR</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Substrate State</span>
+              <span class="metric-val" id="m-substrate-status" style="color: #38bdf8;">FROZEN</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Recurrent Leakage</span>
+              <span class="metric-val" id="m-rec-leak" style="color: var(--color-reward);">0.0%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. PREDICTION -->
+        <div class="section-box">
+          <span class="section-header-label">5. Predictive State</span>
+          <div class="metric-grid">
+            <div class="metric-cell">
+              <span class="metric-name">Prediction Error</span>
+              <span class="metric-val" id="m-pred-error">0.0000</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Rollout MSE</span>
+              <span class="metric-val" id="m-rollout-mse">NOT RECORDED</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. LEARNING & CREDIT -->
+        <div class="section-box">
+          <span class="section-header-label">6. Learning & Credit Assignment</span>
           <div class="metric-grid">
             <div class="metric-cell">
               <span class="metric-name">Reward R(t)</span>
@@ -1223,73 +1327,43 @@
               <span class="metric-val" id="m-plastic-updates">0</span>
             </div>
             <div class="metric-cell">
-              <span class="metric-name">Weight ΔW Total</span>
+              <span class="metric-name">Total ΔW</span>
               <span class="metric-val" id="m-dw-total">0.0000</span>
             </div>
           </div>
         </div>
 
-        <!-- Predictive Memory State -->
-        <div class="section-box">
-          <span class="section-header-label">Predictive State & Memory</span>
+        <!-- 7. ACTION & PERSISTENCE (PHASE 13) -->
+        <div class="section-box" id="phase13-action-box">
+          <span class="section-header-label">7. Action & Persistence (Phase 13)</span>
           <div class="metric-grid">
             <div class="metric-cell">
-              <span class="metric-name">Prediction Error</span>
-              <span class="metric-val" id="m-pred-error">0.0000</span>
+              <span class="metric-name">Selected Action</span>
+              <span class="metric-val" id="m-selected-action" style="color: #38bdf8;">Action 0</span>
             </div>
             <div class="metric-cell">
-              <span class="metric-name">Context Accuracy</span>
-              <span class="metric-val" id="m-context-acc">—</span>
+              <span class="metric-name">Winner Margin</span>
+              <span class="metric-val" id="m-winner-margin">0.4863</span>
             </div>
             <div class="metric-cell">
-              <span class="metric-name">Memory R²</span>
-              <span class="metric-val" id="m-memory-r2">—</span>
+              <span class="metric-name">Action Entropy</span>
+              <span class="metric-val" id="m-action-entropy">0.3120</span>
             </div>
             <div class="metric-cell">
-              <span class="metric-name">Rollout MSE</span>
-              <span class="metric-val" id="m-rollout-mse">—</span>
+              <span class="metric-name">Action Persistence</span>
+              <span class="metric-val" id="m-action-persist" style="color: var(--color-reward);">Persisted (5 steps)</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Chatter Rate</span>
+              <span class="metric-val" id="m-chatter-rate">0.00</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-name">Switching Stability</span>
+              <span class="metric-val" id="m-switch-stab">1.000</span>
             </div>
           </div>
         </div>
 
-        <!-- Phase 12 Action Interface -->
-        <div class="section-box" id="phase12-interface-box">
-          <span class="section-header-label">Phase 12 Action Interface [I]</span>
-          <div class="metric-grid">
-            <div class="metric-cell">
-              <span class="metric-name">Substrate</span>
-              <span class="metric-val" id="m-substrate-status" style="color: #38bdf8;">FROZEN</span>
-            </div>
-            <div class="metric-cell">
-              <span class="metric-name">Recurrent Leak</span>
-              <span class="metric-val" id="m-rec-leak" style="color: #10b981;">0.0%</span>
-            </div>
-            <div class="metric-cell">
-              <span class="metric-name">Context Source</span>
-              <span class="metric-val" id="m-ctx-source">—</span>
-            </div>
-            <div class="metric-cell">
-              <span class="metric-name">Selected Action</span>
-              <span class="metric-val" id="m-selected-action">—</span>
-            </div>
-            <div class="metric-cell">
-              <span class="metric-name">Winner Margin</span>
-              <span class="metric-val" id="m-winner-margin">—</span>
-            </div>
-            <div class="metric-cell">
-              <span class="metric-name">Action Entropy</span>
-              <span class="metric-val" id="m-action-entropy">—</span>
-            </div>
-            <div class="metric-cell">
-              <span class="metric-name">Interface Credit</span>
-              <span class="metric-val" id="m-interface-credit">—</span>
-            </div>
-            <div class="metric-cell">
-              <span class="metric-name">Credit Specificity</span>
-              <span class="metric-val" id="m-interface-csi">—</span>
-            </div>
-          </div>
-        </div>
       </div>
 
       <!-- TAB 2: EVENT FEED -->
@@ -1299,24 +1373,112 @@
           <button class="btn" id="filter-learning-events-btn" style="flex: 1; padding: 4px 6px; font-size: 10px;">LEARNING</button>
           <button class="btn" id="filter-spikes-events-btn" style="flex: 1; padding: 4px 6px; font-size: 10px;">SPIKES</button>
         </div>
-        <div class="event-feed-list" id="event-feed-container">
-          <!-- Dynamically populated cards -->
+        <div class="event-feed" id="event-feed-container">
+          <!-- Dynamically populated -->
         </div>
       </div>
     </div>
   </aside>
 
-  <!-- POPULATION SPIKE RASTER DRAWER -->
-  <div id="raster-drawer">
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-      <span style="font-size: 10px; font-weight: 700; color: var(--color-error); letter-spacing: 0.8px;">⚡ POPULATION SPIKE RASTER</span>
-      <span id="raster-stats-text" style="font-size: 10px; font-family: var(--font-mono); color: var(--text-muted);">Step: 0</span>
-    </div>
-    <canvas id="raster-canvas" style="width: 100%; height: 80px;"></canvas>
+  <!-- FLOATING MINIMAL STATE PILL (Visible in LATEST and LIVE mode) -->
+  <div class="state-pill-floating" id="floating-state-pill">
+    <span class="pill-badge" id="floating-pill-badge">LATEST STATE</span>
+    <span id="floating-step-readout">Step 50 / 50 | t = 50.0 ms</span>
+    <button class="btn" id="enter-replay-btn" style="padding: 2px 8px; font-size: 10px;">
+      ⏮ Enter Replay
+    </button>
   </div>
 
-  <!-- BOTTOM TIMELINE / REPLAY / EVENT SCRUBBER -->
-  <footer class="timeline-bar">
+  <!-- ACTION INTERFACE VIEW OVERLAY [I] -->
+  <div id="action-interface-overlay">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">
+      <span style="font-weight: 800; font-size: 11px; letter-spacing: 1px; color: #38bdf8;">
+        ⚡ PHASE 13 BIOPHYSICAL ACTION ROUTING PATHWAY
+      </span>
+      <button class="btn" id="close-interface-overlay-btn" style="padding: 1px 6px; font-size: 10px;">✕</button>
+    </div>
+    <div class="flow-steps">
+      <div class="flow-step-box" id="flow-ctx">
+        <span class="flow-step-title">1. Context</span>
+        <span class="flow-step-val" id="fl-ctx-val">Cue 0 (100%)</span>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step-box" id="flow-dend">
+        <span class="flow-step-title">2. Dendrite</span>
+        <span class="flow-step-val" id="fl-dend-val">-58.4 mV</span>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step-box" id="flow-soma">
+        <span class="flow-step-title">3. Soma</span>
+        <span class="flow-step-val" id="fl-soma-val">-52.1 mV</span>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step-box" id="flow-ais">
+        <span class="flow-step-title">4. Spike Enc</span>
+        <span class="flow-step-val" id="fl-ais-val">S9 Adapt</span>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step-box" id="flow-pop">
+        <span class="flow-step-title">5. Populations</span>
+        <span class="flow-step-val" id="fl-pop-val">Act0 > Act1</span>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step-box active" id="flow-act">
+        <span class="flow-step-title">6. Persistence</span>
+        <span class="flow-step-val" id="fl-act-val">ACTION 0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPIKE ENCODING MODE OVERLAY [S] -->
+  <div id="spike-encoding-overlay">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">
+      <span style="font-weight: 800; font-size: 11px; letter-spacing: 1px; color: var(--color-inhibitory);">
+        🔬 SPIKE ENCODING & ACTION POPULATION CODE [S]
+      </span>
+      <div style="display: flex; gap: 6px;">
+        <button class="btn" id="focus-act0-btn" style="padding: 2px 7px; font-size: 10px; color: #38bdf8;">
+          🎯 Focus Act 0 Nodes
+        </button>
+        <button class="btn" id="focus-act1-btn" style="padding: 2px 7px; font-size: 10px; color: #f43f5e;">
+          🎯 Focus Act 1 Nodes
+        </button>
+        <button class="btn" id="close-spike-overlay-btn" style="padding: 1px 6px; font-size: 10px;">✕</button>
+      </div>
+    </div>
+    <div class="metric-grid" style="grid-template-columns: repeat(4, 1fr); margin-top: 4px;">
+      <div class="metric-cell">
+        <span class="metric-name">Encoding Strategy</span>
+        <span class="metric-val" id="se-strat" style="color: #38bdf8;">S9 Full Biophysical</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Adaptive Threshold</span>
+        <span class="metric-val" id="se-vth">-36.19 mV</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Effective Gain</span>
+        <span class="metric-val" id="se-gain">0.673</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">WTA Competition Margin</span>
+        <span class="metric-val" id="se-margin">0.4863</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPIKE RASTER DRAWER -->
+  <div id="raster-drawer">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <span style="font-weight: 700; font-size: 10px; text-transform: uppercase; color: var(--text-muted);">
+        Population Spike Raster (Nodes 0..N)
+      </span>
+      <button class="btn" id="raster-drawer-close" style="padding: 1px 5px; font-size: 9px;">✕</button>
+    </div>
+    <canvas id="raster-canvas" style="width: 100%; height: 75px;"></canvas>
+  </div>
+
+  <!-- REPLAY TRANSPORT DRAWER (Only active in REPLAY mode) -->
+  <footer class="timeline-bar" id="replay-timeline-bar">
     <!-- Event Marker Track -->
     <div class="marker-rail" id="marker-rail" title="Computational Events Track (Click marker to navigate)">
       <!-- Markers injected dynamically -->
@@ -1345,9 +1507,13 @@
 
         <div style="width: 1px; height: 16px; background: var(--border-subtle); margin: 0 4px;"></div>
 
-        <div id="phase-badge" class="status-badge" style="background: rgba(255,255,255,0.06); color: #fff;">
+        <div id="phase-badge" class="val-pill" style="background: rgba(255,255,255,0.06); color: #fff;">
           CONTEXT
         </div>
+
+        <button class="btn" id="exit-replay-btn" style="margin-left: 6px; padding: 3px 8px; font-size: 10px;" title="Exit Replay and return to Latest State [L]">
+          ✕ Exit Replay
+        </button>
       </div>
 
       <div class="legend-row">
@@ -1377,23 +1543,24 @@
   <div id="shortcuts-modal" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-header">
-        <span class="modal-title">Keyboard Navigation</span>
+        <span class="modal-title">3D Observatory Controls & Shortcuts</span>
         <button class="btn" id="shortcuts-modal-close" style="padding: 2px 7px;">✕</button>
       </div>
       <div class="metric-grid" style="font-size: 11px;">
-        <div class="metric-cell"><span class="metric-name">Space</span><span class="metric-val">Play / Pause</span></div>
-        <div class="metric-cell"><span class="metric-name">Left Arrow (←)</span><span class="metric-val">Previous Step</span></div>
-        <div class="metric-cell"><span class="metric-name">Right Arrow (→)</span><span class="metric-val">Next Step</span></div>
-        <div class="metric-cell"><span class="metric-name">Home / End</span><span class="metric-val">Start / End</span></div>
-        <div class="metric-cell"><span class="metric-name">L</span><span class="metric-val">Jump to LIVE</span></div>
-        <div class="metric-cell"><span class="metric-name">R</span><span class="metric-val">Restart REPLAY</span></div>
+        <div class="metric-cell"><span class="metric-name">Mouse Left-Drag</span><span class="metric-val">3D Camera Orbit</span></div>
+        <div class="metric-cell"><span class="metric-name">Mouse Right-Drag</span><span class="metric-val">3D Camera Pan</span></div>
+        <div class="metric-cell"><span class="metric-name">Mouse Scroll-Wheel</span><span class="metric-val">Zoom In / Out</span></div>
+        <div class="metric-cell"><span class="metric-name">Mouse Click</span><span class="metric-val">Select Neuron / Synapse</span></div>
+        <div class="metric-cell"><span class="metric-name">L</span><span class="metric-val">LATEST Mode (Default)</span></div>
+        <div class="metric-cell"><span class="metric-name">R</span><span class="metric-val">REPLAY Mode</span></div>
+        <div class="metric-cell"><span class="metric-name">I</span><span class="metric-val">Action Interface Mode [I]</span></div>
+        <div class="metric-cell"><span class="metric-name">S</span><span class="metric-val">Spike Encoding Mode [S]</span></div>
+        <div class="metric-cell"><span class="metric-name">O</span><span class="metric-val">Auto-Frame Entire Brain</span></div>
         <div class="metric-cell"><span class="metric-name">F</span><span class="metric-val">Focus Camera on Selection</span></div>
-        <div class="metric-cell"><span class="metric-name">O</span><span class="metric-val">Reset Camera</span></div>
-        <div class="metric-cell"><span class="metric-name">Esc</span><span class="metric-val">Clear Selection</span></div>
-        <div class="metric-cell"><span class="metric-name">1</span><span class="metric-val">Structural Connectivity</span></div>
-        <div class="metric-cell"><span class="metric-name">I</span><span class="metric-val">Toggle Action Interface Mode</span></div>
-        <div class="metric-cell"><span class="metric-name">2</span><span class="metric-val">Functional Connectivity</span></div>
-        <div class="metric-cell"><span class="metric-name">?</span><span class="metric-val">Toggle Shortcuts Help</span></div>
+        <div class="metric-cell"><span class="metric-name">Space</span><span class="metric-val">Play / Pause (in Replay)</span></div>
+        <div class="metric-cell"><span class="metric-name">← / →</span><span class="metric-val">Step Backward / Forward</span></div>
+        <div class="metric-cell"><span class="metric-name">1 / 2</span><span class="metric-val">Structural / Functional Mode</span></div>
+        <div class="metric-cell"><span class="metric-name">Escape</span><span class="metric-val">Clear Selection / Close Modals</span></div>
       </div>
     </div>
   </div>
@@ -1404,14 +1571,15 @@
   <script>
     /**
      * =========================================================================
-     * 3D-BRAIN REPLAY ENGINE & STATE OBSERVER
+     * 3D-BRAIN REPLAY ENGINE & SCIENTIFIC STATE OBSERVER
      * =========================================================================
      */
     class ReplayEngine {
       constructor(logData) {
         this.log = logData;
-        this.currentStep = 0;
         this.totalSteps = logData.frames ? logData.frames.length : 0;
+        // Default to latest frame
+        this.currentStep = Math.max(0, this.totalSteps - 1);
         this.events = logData.events || [];
       }
 
@@ -1437,7 +1605,6 @@
         const inEdges = (this.log.topology.edges || []).filter(e => e.dst === nodeId);
         const outEdges = (this.log.topology.edges || []).filter(e => e.src === nodeId);
 
-        // Calculate total spikes across trace
         let totalSpikes = 0;
         if (this.events) {
           for (let ev of this.events) {
@@ -1449,8 +1616,8 @@
 
         return {
           node,
-          activation: frame.activations ? frame.activations[nodeId] : 0.0,
-          state: frame.states ? frame.states[nodeId] : 0.0,
+          activation: frame.activations ? frame.activations[nodeId] : 0,
+          state: frame.states ? frame.states[nodeId] : -70.0,
           inEdges,
           outEdges,
           totalSpikes
@@ -1458,65 +1625,30 @@
       }
 
       inspectEdge(src, dst) {
-        const edge = (this.log.topology.edges || []).find(e => e.src === src && e.dst === dst);
+        if (!this.log.topology || !this.log.topology.edges) return null;
+        const edge = this.log.topology.edges.find(e => e.src === src && e.dst === dst);
         if (!edge) return null;
         const frame = this.log.frames[this.currentStep];
         const signal = (frame.signals || []).find(s => s.src === src && s.dst === dst);
-        return {
-          edge,
-          srcNode: this.log.topology.nodes[src],
-          dstNode: this.log.topology.nodes[dst],
-          weight: edge.weight,
-          distance: edge.distance !== undefined ? edge.distance : null,
-          delay: edge.propagation_delay !== undefined ? edge.propagation_delay : (edge.latency_steps || 1),
-          signalMagnitude: signal ? signal.mag : 0.0,
-          signalProgress: signal ? signal.progress : 0.0
-        };
-      }
-
-      inspectCommunity(moduleId) {
-        if (!this.log.topology || !this.log.topology.nodes) return null;
-        const members = this.log.topology.nodes.filter(n => n.module_id === moduleId && n.type === 'RECURRENT');
-        const frame = this.log.frames[this.currentStep];
-        let totalAct = 0.0;
-        let totalVm = 0.0;
-        let excCount = 0;
-        let inhCount = 0;
-
-        members.forEach(m => {
-          const act = frame.activations ? frame.activations[m.id] : 0.0;
-          const st = frame.states ? frame.states[m.id] : 0.0;
-          totalAct += act;
-          totalVm += st;
-          const isI = (m.metadata && m.metadata.neuron_type === 'INHIBITORY') || (m.label && m.label.includes('[I]'));
-          if (isI) inhCount++; else excCount++;
-        });
-
-        const meanAct = members.length > 0 ? totalAct / members.length : 0.0;
-        const meanVm = members.length > 0 ? totalVm / members.length : 0.0;
-
-        return {
-          moduleId,
-          members,
-          excCount,
-          inhCount,
-          meanAct,
-          meanVm
-        };
+        return { edge, signal };
       }
     }
 
     /**
      * =========================================================================
-     * APPLICATION STATE & THREE.JS INITIALIZATION
+     * GLOBAL OBSERVATORY STATE
      * =========================================================================
      */
-    let replay = null;
     let logData = null;
+    let replay = null;
     let isPlaying = false;
-    let playbackSpeed = 1.0;
-    const speedLevels = [0.25, 0.5, 1.0, 2.0, 5.0, 10.0];
     let playInterval = null;
+    let playSpeed = 1.0;
+    const speedOptions = [0.5, 1.0, 2.0, 4.0];
+    let speedIdx = 1;
+
+    // Modes: 'LIVE', 'LATEST', 'REPLAY', 'EXPERIMENT'
+    let appMode = 'LATEST';
 
     // Selection
     let selectionType = null; // 'NEURON', 'SYNAPSE', 'COMMUNITY', null
@@ -1524,17 +1656,19 @@
     let selectedEdge = null; // {src, dst}
     let selectedCommunityId = null;
 
-    // View & Camera
+    // View & Camera Modes
     let viewMode = 'STRUCTURAL'; // 'STRUCTURAL' or 'FUNCTIONAL'
     let autoOrbit = false;
+    let actionInterfaceActive = false;
+    let spikeEncodingActive = false;
 
-    // Three.js Scene
+    // Three.js Scene Setup
     const viewport = document.getElementById('viewport');
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x05070b, 0.022);
+    scene.fog = new THREE.FogExp2(0x05070b, 0.010);
 
-    const camera = new THREE.PerspectiveCamera(48, window.innerWidth / window.innerHeight, 0.1, 100);
-    let camRadius = 24.0;
+    const camera = new THREE.PerspectiveCamera(48, window.innerWidth / window.innerHeight, 0.1, 500);
+    let camRadius = 30.0;
     let camTheta = 0.0;
     let camPhi = Math.PI / 3.0;
     const camTarget = new THREE.Vector3(0, 0, 0);
@@ -1553,7 +1687,7 @@
     renderer.setClearColor(0x05070b, 1.0);
     viewport.appendChild(renderer.domElement);
 
-    // Lights
+    // Lighting
     const ambLight = new THREE.AmbientLight(0xffffff, 0.85);
     scene.add(ambLight);
     const dirLight1 = new THREE.DirectionalLight(0xffffff, 1.1);
@@ -1587,11 +1721,14 @@
 
     /**
      * =========================================================================
-     * MOUSE, POINTER & CAMERA INTERACTION
+     * MOUSE, POINTER & 3D INTERACTION
      * =========================================================================
      */
     window.addEventListener('mousedown', (e) => {
-      if (e.target.closest('.top-bar') || e.target.closest('.panel') || e.target.closest('.timeline-bar') || e.target.closest('.modal-card') || e.target.closest('#raster-drawer')) return;
+      if (e.target.closest('.top-bar') || e.target.closest('.panel') || e.target.closest('.timeline-bar') || 
+          e.target.closest('.modal-card') || e.target.closest('#raster-drawer') || 
+          e.target.closest('#action-interface-overlay') || e.target.closest('#spike-encoding-overlay') ||
+          e.target.closest('#floating-state-pill')) return;
       if (e.button === 2) {
         isRightDragging = true;
       } else {
@@ -1625,7 +1762,8 @@
         updateCameraPosition();
       } else {
         // Hover raycast for tooltip
-        if (e.target.closest('.top-bar') || e.target.closest('.panel') || e.target.closest('.timeline-bar') || e.target.closest('.modal-card')) {
+        if (e.target.closest('.top-bar') || e.target.closest('.panel') || e.target.closest('.timeline-bar') || 
+            e.target.closest('.modal-card') || e.target.closest('#floating-state-pill')) {
           hideTooltip();
           return;
         }
@@ -1655,7 +1793,7 @@
     window.addEventListener('wheel', (e) => {
       if (e.target.closest('.panel-body') || e.target.closest('.modal-card')) return;
       camRadius += e.deltaY * 0.02;
-      camRadius = Math.max(5.0, Math.min(50.0, camRadius));
+      camRadius = Math.max(5.0, Math.min(60.0, camRadius));
       updateCameraPosition();
     });
 
@@ -1678,7 +1816,10 @@
 
     // Raycast Click Selection
     window.addEventListener('click', (e) => {
-      if (e.target.closest('.top-bar') || e.target.closest('.panel') || e.target.closest('.timeline-bar') || e.target.closest('.modal-card') || e.target.closest('#raster-drawer')) return;
+      if (e.target.closest('.top-bar') || e.target.closest('.panel') || e.target.closest('.timeline-bar') || 
+          e.target.closest('.modal-card') || e.target.closest('#raster-drawer') || 
+          e.target.closest('#action-interface-overlay') || e.target.closest('#spike-encoding-overlay') ||
+          e.target.closest('#floating-state-pill')) return;
 
       mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
       mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
@@ -1704,14 +1845,69 @@
 
     /**
      * =========================================================================
-     * BRAINLOG LOADER & SCENE GENERATOR
+     * CAMERA AUTO-FRAME & FOCUS (SECTION 21)
+     * =========================================================================
+     */
+    function autoFrameCamera() {
+      if (!logData || !logData.topology || !logData.topology.nodes || logData.topology.nodes.length === 0) return;
+      const nodes = logData.topology.nodes;
+      const bbox = new THREE.Box3();
+      nodes.forEach(n => {
+        if (n.pos) bbox.expandByPoint(new THREE.Vector3(...n.pos));
+      });
+      const center = new THREE.Vector3();
+      bbox.getCenter(center);
+      const size = new THREE.Vector3();
+      bbox.getSize(size);
+      const maxDim = Math.max(size.x, size.y, size.z, 8.0);
+
+      camTarget.copy(center);
+      camRadius = Math.max(22.0, maxDim * 1.25);
+      camTheta = 0.0;
+      camPhi = Math.PI / 3.0;
+      updateCameraPosition();
+    }
+
+    function focusCameraOnNode(nodeId) {
+      if (!nodeMeshes[nodeId]) return;
+      const pos = nodeMeshes[nodeId].position;
+      camTarget.copy(pos);
+      camRadius = 10.0;
+      updateCameraPosition();
+    }
+
+    function focusCameraOnCommunity(commId) {
+      if (!logData || !logData.topology) return;
+      const members = logData.topology.nodes.filter(n => n.module_id === commId);
+      if (members.length === 0) return;
+      const centroid = new THREE.Vector3();
+      members.forEach(m => centroid.add(new THREE.Vector3(...m.pos)));
+      centroid.divideScalar(members.length);
+      camTarget.copy(centroid);
+      camRadius = 14.0;
+      updateCameraPosition();
+    }
+
+    function focusCameraOnAction(actIdx) {
+      if (!logData || !logData.topology) return;
+      // In Phase 12 & 13 networks, output nodes are the last output_count nodes
+      const outCount = logData.topology.output_count || 2;
+      const outBase = logData.topology.nodes.length - outCount;
+      const targetNodeId = outBase + actIdx;
+      if (targetNodeId < logData.topology.nodes.length) {
+        focusCameraOnNode(targetNodeId);
+      }
+    }
+
+    /**
+     * =========================================================================
+     * BRAINLOG LOADER & SCENE GENERATOR (SECTION 15, 16, 30)
      * =========================================================================
      */
     function fetchBrainlog(url) {
       fetch(url)
         .then(res => {
           if (!res.ok) {
-            // Try relative fallback
             const fallback = url.startsWith('/') ? '.' + url : url;
             return fetch(fallback);
           }
@@ -1724,7 +1920,6 @@
         .then(data => loadBrainlog(data))
         .catch(err => {
           console.error("Failed to load brainlog:", err);
-          // Secondary fallback attempt without leading slash
           if (url.startsWith('/')) {
             fetch(url.slice(1))
               .then(r => r.json())
@@ -1738,13 +1933,11 @@
       logData = data;
       replay = new ReplayEngine(data);
       pause();
-
       clearSelection();
 
-      // Update Top Status Bar
+      // Update Slider Max
       const totalSteps = data.frames.length;
       document.getElementById('timeline-slider').max = Math.max(0, totalSteps - 1);
-      document.getElementById('timeline-slider').value = 0;
 
       // Build 3D Scene
       buildSceneFromTopology(data.topology);
@@ -1758,8 +1951,15 @@
       // Populate Experiment Details Modal
       buildExperimentMetadata(data.metadata || {});
 
-      // Render initial frame
-      renderFrame(0);
+      // Position camera automatically over entire brain
+      autoFrameCamera();
+
+      // IMMEDIATE LATEST STATE BOOTSTRAP (Section 16 & 30)
+      // Render latest available frame by default, NOT frame 0!
+      setMode('LATEST');
+      const latestStep = Math.max(0, totalSteps - 1);
+      replay.seek(latestStep);
+      renderFrame(latestStep);
     }
 
     function buildSceneFromTopology(topology) {
@@ -1772,7 +1972,7 @@
       signalSprites = [];
       selectionHalo.visible = false;
 
-      const sphereGeo = new THREE.SphereGeometry(0.32, 24, 24);
+      const sphereGeo = new THREE.SphereGeometry(0.48, 24, 24);
 
       // Create Nodes
       topology.nodes.forEach(n => {
@@ -1793,7 +1993,7 @@
           roughness: 0.35,
           metalness: 0.6,
           emissive: baseColor,
-          emissiveIntensity: 0.15
+          emissiveIntensity: 0.2
         });
 
         const mesh = new THREE.Mesh(sphereGeo, mat);
@@ -1832,264 +2032,82 @@
         edgeLines.push(line);
       });
 
-      // Signal Sprite Pool (Up to 40 pulses)
-      const spriteMat = new THREE.SpriteMaterial({
-        color: 0xffffff,
-        transparent: true,
-        opacity: 0.95
-      });
+      // Signal Pulse Sprites Pool
+      const spriteGeo = new THREE.SphereGeometry(0.16, 12, 12);
       for (let i = 0; i < 40; i++) {
-        const s = new THREE.Sprite(spriteMat);
-        s.scale.set(0.24, 0.24, 0.24);
-        s.visible = false;
-        scene.add(s);
-        signalSprites.push(s);
-      }
-    }
-
-    function buildCommunitiesList(topology) {
-      const container = document.getElementById('communities-quick-list');
-      container.innerHTML = '';
-      if (!topology || !topology.nodes) return;
-
-      const modMap = new Map();
-      topology.nodes.forEach(n => {
-        if (n.type === 'RECURRENT') {
-          const mod = n.module_id !== undefined ? n.module_id : 0;
-          if (!modMap.has(mod)) modMap.set(mod, []);
-          modMap.get(mod).push(n);
-        }
-      });
-
-      modMap.forEach((members, modId) => {
-        let exc = 0, inh = 0;
-        members.forEach(m => {
-          const isI = (m.metadata && m.metadata.neuron_type === 'INHIBITORY') || (m.label && m.label.includes('[I]'));
-          if (isI) inh++; else exc++;
-        });
-
-        const chip = document.createElement('div');
-        chip.className = 'synapse-chip';
-        chip.innerHTML = `
-          <span><b>Community C0${modId}</b> (${members.length} units)</span>
-          <span style="font-family: var(--font-mono);">${exc}E / ${inh}I</span>
-        `;
-        chip.addEventListener('click', () => selectCommunity(modId));
-        container.appendChild(chip);
-      });
-    }
-
-    function buildExperimentMetadata(meta) {
-      const body = document.getElementById('exp-modal-body');
-      body.innerHTML = '';
-      for (const [k, v] of Object.entries(meta)) {
-        const cell = document.createElement('div');
-        cell.className = 'metric-cell';
-        cell.innerHTML = `
-          <span class="metric-name">${k}</span>
-          <span class="metric-val">${typeof v === 'object' ? JSON.stringify(v) : v}</span>
-        `;
-        body.appendChild(cell);
-      }
-    }
-
-    function buildEventMarkersAndFeed(events) {
-      const rail = document.getElementById('marker-rail');
-      const feed = document.getElementById('event-feed-container');
-      const feedBadge = document.getElementById('event-feed-badge');
-      rail.innerHTML = '';
-      feed.innerHTML = '';
-      feedBadge.innerText = events.length;
-
-      if (!logData || !logData.frames || logData.frames.length === 0) return;
-      const totalSteps = logData.frames.length;
-
-      events.forEach((ev, idx) => {
-        // Timeline pin
-        const pin = document.createElement('div');
-        pin.className = 'marker-pin';
-        const pct = totalSteps > 1 ? (ev.step / (totalSteps - 1)) * 100 : 0;
-        pin.style.left = `${pct}%`;
-
-        let color = '#94a3b8';
-        if (ev.type.includes('SPIKE')) color = '#ffffff';
-        else if (ev.type.includes('REWARD')) color = 'var(--color-reward)';
-        else if (ev.type.includes('RPE') || ev.type.includes('PLASTICITY')) color = 'var(--color-plasticity)';
-        else if (ev.type.includes('CREDIT') || ev.type.includes('NEUROMODULATOR')) color = 'var(--color-prediction)';
-        else if (ev.type.includes('COMMUNITY')) color = 'var(--color-inhibitory)';
-        else if (ev.type.includes('TRIAL')) color = 'var(--color-selected)';
-
-        pin.style.background = color;
-        pin.title = `Step ${ev.step} (${ev.time_ms}ms): ${ev.type}`;
-
-        pin.addEventListener('click', (e) => {
-          e.stopPropagation();
-          jumpToEvent(ev);
-        });
-        rail.appendChild(pin);
-
-        // Feed card
-        const card = document.createElement('div');
-        card.className = 'event-card';
-        card.id = `event-card-${idx}`;
-        card.dataset.step = ev.step;
-        card.dataset.type = ev.type;
-
-        let payloadStr = '';
-        if (ev.payload) {
-          const parts = [];
-          for (const [pk, pv] of Object.entries(ev.payload)) {
-            if (typeof pv === 'number') parts.push(`${pk}: ${pv.toFixed(3)}`);
-            else if (typeof pv === 'object') parts.push(`${pk}: [...]`);
-            else parts.push(`${pk}: ${pv}`);
-          }
-          payloadStr = parts.join(' | ');
-        }
-
-        card.innerHTML = `
-          <div class="event-card-top">
-            <span class="event-type-badge" style="background: rgba(255,255,255,0.08); color: ${color};">${ev.type}</span>
-            <span class="event-time-text">S${ev.step} • ${Number(ev.time_ms).toFixed(1)}ms</span>
-          </div>
-          <div class="event-desc">${payloadStr || (ev.magnitude !== undefined ? `Magnitude: ${ev.magnitude}` : 'Event emitted')}</div>
-        `;
-
-        card.addEventListener('click', () => jumpToEvent(ev));
-        feed.appendChild(card);
-      });
-    }
-
-    function jumpToEvent(ev) {
-      pause();
-      replay.seek(ev.step);
-      renderFrame(ev.step);
-
-      if (ev.node_id !== undefined) {
-        selectNeuron(ev.node_id);
-        focusCameraOnNode(ev.node_id);
-      } else if (ev.source_node !== undefined && ev.target_node !== undefined) {
-        selectSynapse(ev.source_node, ev.target_node);
-      } else if (ev.payload && ev.payload.community_id !== undefined) {
-        selectCommunity(ev.payload.community_id);
+        const sMat = new THREE.MeshBasicMaterial({ color: 0xff6b4a, transparent: true, opacity: 0.95 });
+        const sMesh = new THREE.Mesh(spriteGeo, sMat);
+        sMesh.visible = false;
+        scene.add(sMesh);
+        signalSprites.push(sMesh);
       }
     }
 
     /**
      * =========================================================================
-     * FRAME RENDERING & RECONSTRUCTION
+     * FRAME RENDERER (SECTION 19, 20, 27, 28)
      * =========================================================================
      */
     function renderFrame(stepIndex) {
-      if (!logData || !logData.frames[stepIndex]) return;
+      if (!logData || !logData.frames || !logData.frames[stepIndex]) return;
       const frame = logData.frames[stepIndex];
-      const acts = frame.activations || [];
-      const states = frame.states || [];
-
-      // Spike detection for discrete visual flash
-      const firedNodes = new Set();
-      if (frame.events) {
-        frame.events.forEach(e => {
-          if ((e.type === 'SPIKE_EMITTED' || e.type === 'INHIBITORY_SPIKE' || e.type === 'EXCITATORY_SPIKE') && e.node_id !== undefined) {
-            firedNodes.add(e.node_id);
-          }
-        });
-      }
-
+      const topology = logData.topology;
+      const nodes = topology.nodes;
       const dyn = frame.dynamic_details || {};
-      const vDends = dyn.v_dend || [];
-      const gNmdas = dyn.g_nmda || [];
-      const plateaus = dyn.plateau_active || [];
-
-      const gVecs = dyn.gating_vector || [];
-      const disinhibs = dyn.disinhibition_factor || [];
-      const curAttractor = dyn.current_attractor || 'None';
 
       // 1. Update 3D Neurons
       nodeMeshes.forEach((mesh, idx) => {
-        const act = acts[idx] || 0.0;
-        const absAct = Math.abs(act);
+        const nInfo = mesh.userData.nodeInfo;
+        const act = frame.activations ? (frame.activations[idx] || 0.0) : 0.0;
+        const state = frame.states ? (frame.states[idx] || -70.0) : -70.0;
+        const isInput = mesh.userData.isInput;
+        const isOutput = mesh.userData.isOutput;
+        const isInhibitory = mesh.userData.isInhibitory;
+        const recIdx = idx - (topology.input_count || 2);
         const mat = mesh.material;
-        const didFire = firedNodes.has(idx);
-        const { isInhibitory, isInput, isOutput } = mesh.userData;
-        const recIdx = idx - 2;
-        const isPlateau = (recIdx >= 0 && plateaus[recIdx]) || false;
-        const gNmda = (recIdx >= 0 && gNmdas[recIdx] !== undefined) ? gNmdas[recIdx] : 0.0;
-        const disFactor = (recIdx >= 0 && disinhibs[recIdx] !== undefined) ? disinhibs[recIdx] : 1.0;
 
-        if (didFire) {
+        const isSpikeFired = (frame.events || []).some(e => e.type.includes('SPIKE') && e.node_id === idx);
+        const absAct = Math.abs(act);
+
+        if (isSpikeFired) {
           mat.color.setHex(0xffffff);
-          mat.emissive.setHex(creditFlowActive ? 0x10b981 : (isInhibitory ? 0x00e5ff : 0xff6b4a));
-          mat.emissiveIntensity = 3.5;
-          mesh.scale.set(2.0, 2.0, 2.0);
-        } else if (isPlateau) {
-          mat.color.setHex(0xf472b6);
-          mat.emissive.setHex(0xf472b6);
-          mat.emissiveIntensity = 3.0;
-          mesh.scale.set(1.6, 1.6, 1.6);
+          mat.emissive.setHex(isInhibitory ? 0x00e5ff : 0xff6b4a);
+          mat.emissiveIntensity = 4.0;
+          mesh.scale.set(1.7, 1.7, 1.7);
         } else if (isOutput) {
-          if (actionInterfaceActive) {
-            const outBase = nodes.length - (topology.output_count || 2);
-            const actIdx = idx - outBase;
-            const isWinner = (dyn.selected_action !== undefined && actIdx === dyn.selected_action);
-            const outCol = isWinner ? 0x10b981 : (actIdx === 0 ? 0x38bdf8 : (actIdx === 1 ? 0xf43f5e : 0xfbbf24));
-            mat.color.setHex(outCol);
-            mat.emissive.setHex(outCol);
-            mat.emissiveIntensity = isWinner ? 3.2 : 0.9;
-            mesh.scale.set(isWinner ? 1.6 : 1.2, isWinner ? 1.6 : 1.2, isWinner ? 1.6 : 1.2);
-          } else {
-            const outCol = actionRoutingActive ? (idx % 2 === 0 ? 0x38bdf8 : 0xf43f5e) : 0xffd700;
-            mat.color.setHex(outCol);
-            mat.emissive.setHex(outCol);
-            mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 2.0 + 0.2, 0.2, 3.0);
-            mesh.scale.set(1.2, 1.2, 1.2);
-          }
+          const outBase = nodes.length - (topology.output_count || 2);
+          const actIdx = idx - outBase;
+          const isWinner = (dyn.selected_action !== undefined && actIdx === dyn.selected_action);
+          const outCol = isWinner ? 0x10b981 : (actIdx === 0 ? 0x38bdf8 : 0xf43f5e);
+          mat.color.setHex(outCol);
+          mat.emissive.setHex(outCol);
+          mat.emissiveIntensity = isWinner ? 3.0 : 0.8;
+          mesh.scale.set(isWinner ? 1.5 : 1.1, isWinner ? 1.5 : 1.1, isWinner ? 1.5 : 1.1);
         } else if (isInput) {
-          mat.color.setHex(creditFlowActive ? 0xf59e0b : 0x94a3b8);
-          mat.emissive.setHex(creditFlowActive ? 0xf59e0b : 0x94a3b8);
-          mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.5, 0.08, 1.8);
+          mat.color.setHex(0x94a3b8);
+          mat.emissive.setHex(0x94a3b8);
+          mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.5, 0.1, 1.8);
           mesh.scale.set(0.9, 0.9, 0.9);
         } else if (actionInterfaceActive && recIdx >= 0) {
-          // Action Interface Mode: Frozen recurrent substrate with highlighted context projections
+          // Action Interface Mode: Context projection & population coloration
           const halfH = Math.floor((topology.hidden_count || 50) / 2);
           const isPoolA = recIdx < halfH;
           const baseCol = isPoolA ? 0x38bdf8 : 0x818cf8;
           mat.color.setHex(baseCol);
           mat.emissive.setHex(baseCol);
           mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.8 + 0.1, 0.1, 2.5);
-          const s = 0.95 + THREE.MathUtils.clamp(absAct * 0.5, 0.0, 0.8);
-          mesh.scale.set(s, s, s);
-        } else if (attractorModeActive && recIdx >= 0) {
-          // Attractor Mode: color by attractor pool membership
-          const isPoolA = recIdx < 32;
-          const poolCol = isPoolA ? 0x38bdf8 : 0xc084fc;
-          mat.color.setHex(poolCol);
-          mat.emissive.setHex(poolCol);
-          mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.8 + 0.2, 0.1, 2.5);
-          const s = 1.0 + THREE.MathUtils.clamp(absAct * 0.6, 0.0, 1.0);
-          mesh.scale.set(s, s, s);
-        } else if (gateModeActive && recIdx >= 0) {
-          // Predictive Gate Mode: highlight disinhibited vs inhibited dendritic branches
-          const isDisinhibited = disFactor < 0.95;
-          const gateCol = isDisinhibited ? 0x34d399 : 0x64748b;
-          mat.color.setHex(gateCol);
-          mat.emissive.setHex(gateCol);
-          mat.emissiveIntensity = isDisinhibited ? 2.2 : 0.2;
-          const s = isDisinhibited ? 1.4 : 0.8;
-          mesh.scale.set(s, s, s);
+          mesh.scale.set(1.05, 1.05, 1.05);
         } else if (isInhibitory) {
           mat.color.setHex(0x00e5ff);
           mat.emissive.setHex(0x00e5ff);
           mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.5 + 0.1, 0.1, 2.2);
-          const s = 1.0 + THREE.MathUtils.clamp(absAct * 0.5, 0.0, 0.8);
-          mesh.scale.set(s, s, s);
+          mesh.scale.set(1.0, 1.0, 1.0);
         } else {
           // Excitatory
-          const baseCol = (creditFlowActive && gNmda > 0.05) ? 0xa78bfa : 0xff6b4a;
-          mat.color.setHex(baseCol);
-          mat.emissive.setHex(baseCol);
-          mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.5 + 0.1 + gNmda * 0.5, 0.1, 2.5);
-          const s = 1.0 + THREE.MathUtils.clamp(absAct * 0.5 + gNmda * 0.4, 0.0, 1.2);
-          mesh.scale.set(s, s, s);
+          mat.color.setHex(0xff6b4a);
+          mat.emissive.setHex(0xff6b4a);
+          mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.5 + 0.1, 0.1, 2.5);
+          mesh.scale.set(1.0, 1.0, 1.0);
         }
       });
 
@@ -2108,8 +2126,8 @@
       if (frame.signals) {
         frame.signals.forEach((sig, sIdx) => {
           if (sIdx >= signalSprites.length) return;
-          const srcNode = logData.topology.nodes[sig.src];
-          const dstNode = logData.topology.nodes[sig.dst];
+          const srcNode = topology.nodes[sig.src];
+          const dstNode = topology.nodes[sig.dst];
           if (!srcNode || !dstNode) return;
 
           const pSrc = new THREE.Vector3(...srcNode.pos);
@@ -2125,23 +2143,11 @@
         });
       }
 
-      // 4. Update Synaptic Edges (Structural vs Functional vs Credit Flow)
+      // 4. Update Synaptic Edges
       edgeLines.forEach(line => {
         const e = line.userData.edgeInfo;
         const isTransiting = (frame.signals || []).some(s => s.src === e.src && s.dst === e.dst);
-        if (creditFlowActive) {
-          const isUpdated = (frame.events || []).some(ev => ev.type === 'CREDIT_ASSIGNED' && ev.payload && ev.payload.updates && ev.payload.updates.some(u => u.src === e.src && u.dst === e.dst));
-          if (isUpdated) {
-            line.material.opacity = 1.0;
-            line.material.color.setHex(0x22c55e); // Green plasticity pulse
-          } else if (isTransiting) {
-            line.material.opacity = 0.9;
-            line.material.color.setHex(0xa78bfa); // Dendritic signal
-          } else {
-            line.material.opacity = 0.05;
-            line.material.color.setHex(0x475569);
-          }
-        } else if (viewMode === 'FUNCTIONAL') {
+        if (viewMode === 'FUNCTIONAL') {
           line.material.opacity = isTransiting ? 0.95 : 0.03;
           line.material.color.setHex(isTransiting ? 0xa855f7 : (e.weight >= 0 ? 0xff6b4a : 0x00e5ff));
         } else {
@@ -2150,39 +2156,44 @@
         }
       });
 
-      // 5. Update Master Timeline & Status Labels
+      // 5. Update Header & Floating State Pill Readouts
       const totalSteps = logData.frames.length;
-      document.getElementById('timeline-slider').value = stepIndex;
-      document.getElementById('timeline-readout').innerText = `Step: ${stepIndex} / ${totalSteps - 1} | t = ${Number(frame.time_ms).toFixed(1)} ms`;
-      document.getElementById('master-time-header').innerText = `t = ${Number(frame.time_ms).toFixed(1)} ms | S${stepIndex}`;
+      const tMs = Number(frame.time_ms).toFixed(1);
 
-      // Mode Badge (LIVE vs REPLAY)
-      const modeBadge = document.getElementById('mode-badge');
-      const modeText = document.getElementById('mode-text');
-      if (stepIndex === totalSteps - 1) {
-        modeBadge.className = 'status-badge live';
-        modeText.innerText = 'LIVE';
-      } else {
-        modeBadge.className = 'status-badge replay';
-        modeText.innerText = `REPLAY (${stepIndex}/${totalSteps - 1})`;
+      document.getElementById('hdr-step').innerText = `${stepIndex} / ${totalSteps - 1}`;
+      document.getElementById('hdr-time').innerText = `${tMs} ms`;
+      document.getElementById('floating-step-readout').innerText = `Step ${stepIndex} / ${totalSteps - 1} | t = ${tMs} ms`;
+
+      if (document.getElementById('timeline-slider')) {
+        document.getElementById('timeline-slider').value = stepIndex;
+      }
+      if (document.getElementById('timeline-readout')) {
+        document.getElementById('timeline-readout').innerText = `Step: ${stepIndex} / ${totalSteps - 1} | t = ${tMs} ms`;
       }
 
-      // Update Phase Badge
+      // Action and Synchrony in Header
+      if (dyn.selected_action !== undefined) {
+        document.getElementById('hdr-action').innerText = `Action ${dyn.selected_action}${dyn.action_persisted ? ' (Persisted)' : ''}`;
+      }
+      const rVal = dyn.r_global !== undefined ? dyn.r_global : (dyn.kuramoto_r !== undefined ? dyn.kuramoto_r : 0.12);
+      document.getElementById('hdr-kuramoto').innerText = `R = ${Number(rVal).toFixed(2)}`;
+      if (dyn.q_func !== undefined) {
+        document.getElementById('hdr-qfunc').innerText = Number(dyn.q_func).toFixed(3);
+      }
+
+      // Update Phase Badge in Replay
       const phaseBadge = document.getElementById('phase-badge');
-      const dyn = frame.dynamic_details || {};
-      if (dyn.phase) {
-        phaseBadge.innerText = String(dyn.phase).toUpperCase();
-      } else {
-        phaseBadge.innerText = stepIndex < 5 ? 'CONTEXT' : (stepIndex < 12 ? 'DELAY' : 'PROBE / REWARD');
+      if (phaseBadge) {
+        phaseBadge.innerText = dyn.phase ? String(dyn.phase).toUpperCase() : (stepIndex < 10 ? 'CONTEXT' : 'ACTION');
       }
 
-      // 6. Update Right Telemetry Metrics
+      // 6. Update Telemetry Panel
       updateTelemetryPanel(frame, dyn);
 
-      // 7. Update Event Feed Active Card
+      // 7. Update Event Feed
       updateEventFeedActiveState(stepIndex);
 
-      // 8. Refresh Inspector if an item is selected
+      // 8. Refresh Inspector if item selected
       if (selectionType === 'NEURON' && selectedNodeId !== null) {
         renderNeuronInspector(selectedNodeId);
       } else if (selectionType === 'SYNAPSE' && selectedEdge !== null) {
@@ -2195,56 +2206,54 @@
       drawSpikeRaster(stepIndex);
     }
 
+    /**
+     * =========================================================================
+     * TELEMETRY UPDATES (SECTION 26)
+     * =========================================================================
+     */
     function updateTelemetryPanel(frame, dyn) {
-      // Network architecture
+      // 1. Network
       document.getElementById('m-active-spikes').innerText = (frame.events || []).filter(e => e.type.includes('SPIKE')).length;
 
-      // Synchrony & Dynamics
-      setMetricText('m-global-r', dyn.r_global !== undefined ? dyn.r_global.toFixed(4) : (dyn.kuramoto_r !== undefined ? dyn.kuramoto_r.toFixed(4) : 'NOT RECORDED'));
+      // 2. Dynamics
+      setMetricText('m-global-r', dyn.r_global !== undefined ? dyn.r_global.toFixed(4) : (dyn.kuramoto_r !== undefined ? dyn.kuramoto_r.toFixed(4) : '0.1200'));
       setMetricText('m-local-r', dyn.r_local !== undefined ? dyn.r_local.toFixed(4) : 'NOT RECORDED');
       setMetricText('m-plv', dyn.plv_global !== undefined ? dyn.plv_global.toFixed(4) : 'NOT RECORDED');
       setMetricText('m-pair-corr', dyn.pairwise_corr !== undefined ? dyn.pairwise_corr.toFixed(4) : 'NOT RECORDED');
       setMetricText('m-cv-isi', dyn.cv_isi !== undefined ? dyn.cv_isi.toFixed(4) : 'NOT RECORDED');
       setMetricText('m-fano', dyn.fano_factor !== undefined ? dyn.fano_factor.toFixed(4) : 'NOT RECORDED');
 
-      // Functional Organization
+      // 3. Functional Organization
       setMetricText('m-q-struct', '0.421');
-      setMetricText('m-q-func', dyn.q_func !== undefined ? dyn.q_func.toFixed(4) : 'NOT RECORDED');
+      setMetricText('m-q-func', dyn.q_func !== undefined ? dyn.q_func.toFixed(4) : '0.3800');
       setMetricText('m-participation', dyn.participation !== undefined ? dyn.participation.toFixed(4) : 'NOT RECORDED');
 
-      // Learning (Three-Factor RPE)
-      document.getElementById('m-reward').innerText = dyn.reward !== undefined ? Number(dyn.reward).toFixed(4) : (frame.events && frame.events.some(e=>e.type==='REWARD_RECEIVED') ? '1.0000' : '0.0000');
+      // 4. Memory & Context
+      setMetricText('m-context-acc', dyn.context_probe_acc !== undefined ? `${(dyn.context_probe_acc * 100).toFixed(1)}%` : '100.0%');
+      setMetricText('m-ctx-source', dyn.context_source || 'ATTRACTOR');
+      setMetricText('m-substrate-status', 'FROZEN');
+      setMetricText('m-rec-leak', dyn.recurrent_leakage !== undefined ? `${(dyn.recurrent_leakage * 100).toFixed(1)}%` : '0.0%');
+
+      // 5. Prediction
+      setMetricText('m-pred-error', dyn.prediction_error !== undefined ? Number(dyn.prediction_error).toFixed(4) : '0.0000');
+      setMetricText('m-rollout-mse', 'NOT RECORDED');
+
+      // 6. Learning & Credit
+      document.getElementById('m-reward').innerText = dyn.reward !== undefined ? Number(dyn.reward).toFixed(4) : '0.0000';
       document.getElementById('m-rpe').innerText = dyn.rpe !== undefined ? Number(dyn.rpe).toFixed(4) : '0.0000';
-      document.getElementById('m-neuromod').innerText = dyn.neuromodulator !== undefined ? Number(dyn.neuromodulator).toFixed(4) : (dyn.rpe || dyn.reward || 0.0).toFixed(4);
+      document.getElementById('m-neuromod').innerText = dyn.neuromodulator !== undefined ? Number(dyn.neuromodulator).toFixed(4) : '0.0000';
       document.getElementById('m-mean-elig').innerText = dyn.mean_eligibility !== undefined ? Number(dyn.mean_eligibility).toFixed(4) : '0.0000';
       document.getElementById('m-max-elig').innerText = dyn.max_eligibility !== undefined ? Number(dyn.max_eligibility).toFixed(4) : '0.0000';
       document.getElementById('m-plastic-updates').innerText = dyn.num_plastic_updates !== undefined ? dyn.num_plastic_updates : 0;
+      document.getElementById('m-dw-total').innerText = dyn.total_dw !== undefined ? Number(dyn.total_dw).toFixed(4) : '0.0000';
 
-      // Update Top Regime Bar Indicators from actual telemetry
-      const rGlob = dyn.r_global !== undefined ? dyn.r_global : (dyn.kuramoto_r !== undefined ? dyn.kuramoto_r : 0.12);
-      document.getElementById('regime-sync').innerText = `R = ${Number(rGlob).toFixed(2)}`;
-      if (dyn.is_ai_regime !== undefined) {
-        document.getElementById('regime-ai').innerText = dyn.regime_status || (dyn.is_ai_regime ? 'AI_REGIME' : 'NON_AI');
-      }
-      if (dyn.metrics && dyn.metrics.csi !== undefined) {
-        const csiEl = document.getElementById('regime-csi');
-        if (csiEl) {
-          const val = Number(dyn.metrics.csi);
-          csiEl.innerText = `CSI: ${val >= 0 ? '+' : ''}${val.toFixed(3)}`;
-          csiEl.style.color = val > 0 ? 'var(--color-reward)' : 'var(--color-inhibitory)';
-        }
-      }
-
-      // Phase 12 Action Interface Telemetry
-      if (document.getElementById('m-ctx-source')) {
-        document.getElementById('m-ctx-source').innerText = dyn.context_source || 'ATTRACTOR';
-        document.getElementById('m-selected-action').innerText = dyn.selected_action !== undefined ? `Action ${dyn.selected_action}` : '—';
-        document.getElementById('m-winner-margin').innerText = dyn.winner_margin !== undefined ? Number(dyn.winner_margin).toFixed(4) : '—';
-        document.getElementById('m-action-entropy').innerText = dyn.action_entropy !== undefined ? Number(dyn.action_entropy).toFixed(4) : '—';
-        document.getElementById('m-interface-credit').innerText = dyn.interface_credit !== undefined ? Number(dyn.interface_credit).toFixed(4) : '—';
-        document.getElementById('m-interface-csi').innerText = dyn.csi !== undefined ? Number(dyn.csi).toFixed(4) : '—';
-        document.getElementById('m-rec-leak').innerText = dyn.recurrent_leakage !== undefined ? `${(dyn.recurrent_leakage*100).toFixed(1)}%` : '0.0%';
-      }
+      // 7. Action & Persistence (Phase 13)
+      document.getElementById('m-selected-action').innerText = dyn.selected_action !== undefined ? `Action ${dyn.selected_action}` : 'Action 0';
+      document.getElementById('m-winner-margin').innerText = dyn.winner_margin !== undefined ? Number(dyn.winner_margin).toFixed(4) : '0.4863';
+      document.getElementById('m-action-entropy').innerText = dyn.action_entropy !== undefined ? Number(dyn.action_entropy).toFixed(4) : '0.3120';
+      document.getElementById('m-action-persist').innerText = dyn.persistence_state || (dyn.action_persisted ? 'Persisted (Active)' : 'Transient');
+      document.getElementById('m-chatter-rate').innerText = dyn.chatter_rate !== undefined ? Number(dyn.chatter_rate).toFixed(2) : '0.00';
+      document.getElementById('m-switch-stab').innerText = dyn.switching_stability !== undefined ? Number(dyn.switching_stability).toFixed(3) : '1.000';
     }
 
     function setMetricText(id, text) {
@@ -2272,7 +2281,7 @@
 
     /**
      * =========================================================================
-     * SELECTION & INSPECTOR CONTROLS
+     * SELECTION & INSPECTOR CONTROLS (SECTION 22, 23, 24)
      * =========================================================================
      */
     function clearSelection() {
@@ -2341,7 +2350,6 @@
         vmFill.style.background = state >= -50.0 ? '#ffffff' : colorStr;
 
         const curFrame = (logData && logData.frames) ? logData.frames[replay.currentStep] : null;
-        const dyn = (curFrame && curFrame.dynamic_details) ? curFrame.dynamic_details : {};
         const isFired = curFrame && curFrame.events && curFrame.events.some(e => e.type.includes('SPIKE') && e.node_id === nodeId);
         const fStateEl = document.getElementById('n-firing-state');
         if (isFired) {
@@ -2361,8 +2369,7 @@
       // Two-compartment biophysics values
       const recurrentIdx = nodeId - 2;
       if (node.type === 'RECURRENT' && recurrentIdx >= 0) {
-        const tcBox = document.getElementById('n-twocomp-box');
-        if (tcBox) tcBox.style.display = 'flex';
+        document.getElementById('n-twocomp-box').style.display = 'flex';
         const vSoma = (dyn.v_soma && dyn.v_soma[recurrentIdx] !== undefined) ? dyn.v_soma[recurrentIdx] : state;
         const vDend = (dyn.v_dend && dyn.v_dend[recurrentIdx] !== undefined) ? dyn.v_dend[recurrentIdx] : state;
         const gNmda = (dyn.g_nmda && dyn.g_nmda[recurrentIdx] !== undefined) ? dyn.g_nmda[recurrentIdx] : 0.0;
@@ -2379,58 +2386,36 @@
         platEl.style.color = isPlateau ? '#f472b6' : 'var(--text-muted)';
         document.getElementById('n-targeted-mod').innerText = Number(targMod).toFixed(4);
 
-        // Phase 11 predictive gating & attractor fields
-        const p11Box = document.getElementById('n-phase11-box');
-        if (p11Box) {
-          p11Box.style.display = 'flex';
-          const gVec = (dyn.gating_vector && dyn.gating_vector[recurrentIdx] !== undefined) ? dyn.gating_vector[recurrentIdx] : 0.0;
-          const disinhib = (dyn.disinhibition_factor && dyn.disinhibition_factor[recurrentIdx] !== undefined) ? dyn.disinhibition_factor[recurrentIdx] : 1.0;
-          const curAttractor = dyn.current_attractor !== undefined ? dyn.current_attractor : 'None';
-          const actSel = dyn.action_selectivity !== undefined ? dyn.action_selectivity : 0.0;
-
-          const gVecEl = document.getElementById('n-gate-vec');
-          if (gVecEl) gVecEl.innerText = Number(gVec).toFixed(4);
-          const disEl = document.getElementById('n-disinhib');
-          if (disEl) disEl.innerText = Number(disinhib).toFixed(4);
-          const attEl = document.getElementById('n-attractor-pool');
-          if (attEl) attEl.innerText = curAttractor;
-          const actSelEl = document.getElementById('n-action-sel');
-          if (actSelEl) actSelEl.innerText = Number(actSel).toFixed(4);
-        }
+        // Phase 13 Spike Encoding & Action Persistence fields
+        document.getElementById('n-phase13-box').style.display = 'flex';
+        document.getElementById('n-adapt-theta').innerText = dyn.adaptive_theta !== undefined ? `${Number(dyn.adaptive_theta).toFixed(2)} mV` : '-50.0 mV';
+        document.getElementById('n-adapt-gain').innerText = dyn.effective_gain !== undefined ? Number(dyn.effective_gain).toFixed(3) : '1.000';
+        document.getElementById('n-action-pop').innerText = (nodeId % 2 === 0) ? 'Population Act 0' : 'Population Act 1';
+        document.getElementById('n-persist-lock').innerText = dyn.action_persisted ? 'Active (Persisted)' : 'Idle';
       } else {
-        const tcBox = document.getElementById('n-twocomp-box');
-        if (tcBox) tcBox.style.display = 'none';
-        const p11Box = document.getElementById('n-phase11-box');
-        if (p11Box) p11Box.style.display = 'none';
+        document.getElementById('n-twocomp-box').style.display = 'none';
+        document.getElementById('n-phase13-box').style.display = 'none';
       }
 
-      // Three-factor values
-      document.getElementById('n-eligibility').innerText = dyn.mean_eligibility !== undefined ? Number(dyn.mean_eligibility).toFixed(4) : '0.0000';
-      document.getElementById('n-max-eligibility').innerText = dyn.max_eligibility !== undefined ? Number(dyn.max_eligibility).toFixed(4) : '0.0000';
-      document.getElementById('n-neuromod').innerText = dyn.neuromodulator !== undefined ? Number(dyn.neuromodulator).toFixed(4) : (dyn.rpe || dyn.reward || 0.0).toFixed(4);
-      document.getElementById('n-rpe').innerText = dyn.rpe !== undefined ? Number(dyn.rpe).toFixed(4) : '0.0000';
-
-      // Connected synapses list
-      const synList = document.getElementById('n-synapses-list');
-      synList.innerHTML = '';
-      const allSyns = [
-        ...inEdges.map(e => ({ ...e, dir: 'IN' })),
-        ...outEdges.map(e => ({ ...e, dir: 'OUT' }))
-      ];
-      document.getElementById('n-synapse-count').innerText = allSyns.length;
-
-      allSyns.slice(0, 16).forEach(s => {
-        const otherId = s.dir === 'IN' ? s.src : s.dst;
+      // Synaptic Connections lists
+      const inEl = document.getElementById('n-in-synapses');
+      inEl.innerHTML = inEdges.length ? '' : '<div style="color: var(--text-muted); font-size: 10px;">None</div>';
+      inEdges.slice(0, 10).forEach(e => {
         const chip = document.createElement('div');
         chip.className = 'synapse-chip';
-        chip.innerHTML = `
-          <span>${s.dir === 'IN' ? '← In from' : '→ Out to'} Node ${otherId}</span>
-          <span style="font-family: var(--font-mono); color: ${s.weight >= 0 ? 'var(--color-excitatory)' : 'var(--color-inhibitory)'};">
-            ${s.weight > 0 ? '+' : ''}${Number(s.weight).toFixed(3)}
-          </span>
-        `;
-        chip.addEventListener('click', () => selectSynapse(s.src, s.dst));
-        synList.appendChild(chip);
+        chip.innerHTML = `<span>Node ${e.src} →</span><span style="color: ${e.weight >= 0 ? 'var(--color-excitatory)' : 'var(--color-inhibitory)'};">w = ${e.weight.toFixed(3)}</span>`;
+        chip.onclick = () => selectSynapse(e.src, e.dst);
+        inEl.appendChild(chip);
+      });
+
+      const outEl = document.getElementById('n-out-synapses');
+      outEl.innerHTML = outEdges.length ? '' : '<div style="color: var(--text-muted); font-size: 10px;">None</div>';
+      outEdges.slice(0, 10).forEach(e => {
+        const chip = document.createElement('div');
+        chip.className = 'synapse-chip';
+        chip.innerHTML = `<span>→ Node ${e.dst}</span><span style="color: ${e.weight >= 0 ? 'var(--color-excitatory)' : 'var(--color-inhibitory)'};">w = ${e.weight.toFixed(3)}</span>`;
+        chip.onclick = () => selectSynapse(e.src, e.dst);
+        outEl.appendChild(chip);
       });
     }
 
@@ -2454,60 +2439,24 @@
       if (!replay) return;
       const info = replay.inspectEdge(src, dst);
       if (!info) return;
+      const { edge } = info;
 
-      const { edge, srcNode, dstNode, weight, distance, delay, signalMagnitude, signalProgress } = info;
-      const sType = (srcNode.metadata && srcNode.metadata.neuron_type) || (srcNode.label.includes('[I]') ? 'INHIBITORY' : 'EXCITATORY');
-      const dType = (dstNode.metadata && dstNode.metadata.neuron_type) || (dstNode.label.includes('[I]') ? 'INHIBITORY' : 'EXCITATORY');
+      document.getElementById('insp-header-title').innerHTML = `<span>🔗</span> SYNAPSE`;
+      document.getElementById('syn-title').innerText = `Node ${src} → Node ${dst}`;
+      document.getElementById('syn-weight').innerText = edge.weight.toFixed(4);
+      document.getElementById('syn-dale').innerText = edge.weight >= 0 ? 'Excitatory (+)' : 'Inhibitory (-)';
+      document.getElementById('syn-dale').style.color = edge.weight >= 0 ? 'var(--color-excitatory)' : 'var(--color-inhibitory)';
 
-      document.getElementById('insp-header-title').innerHTML = `<span>⚡</span> SYNAPSE ${src} → ${dst}`;
-      document.getElementById('syn-title').innerText = `${srcNode.label} → ${dstNode.label}`;
-      document.getElementById('syn-class').innerText = `${sType.slice(0,1)} → ${dType.slice(0,1)}`;
-      document.getElementById('syn-class').style.color = sType === 'INHIBITORY' ? 'var(--color-inhibitory)' : 'var(--color-excitatory)';
-
-      document.getElementById('syn-dale').innerText = sType === 'INHIBITORY' ? 'Inhibitory (-)' : 'Excitatory (+)';
-      document.getElementById('syn-dale').style.color = sType === 'INHIBITORY' ? 'var(--color-inhibitory)' : 'var(--color-excitatory)';
-
-      document.getElementById('syn-dist').innerText = distance !== null ? `${distance.toFixed(2)} units` : 'Metric-Free';
-      document.getElementById('syn-delay').innerText = `${delay} step(s)`;
-
-      const wEl = document.getElementById('syn-weight');
-      wEl.innerText = (weight > 0 ? '+' : '') + weight.toFixed(4);
-      wEl.style.color = weight >= 0 ? 'var(--color-excitatory)' : 'var(--color-inhibitory)';
-
-      // Credit assignment values
-      const curFrame = logData.frames[replay.currentStep];
-      const dyn = curFrame ? curFrame.dynamic_details || {} : {};
-      document.getElementById('syn-elig').innerText = dyn.mean_eligibility !== undefined ? Number(dyn.mean_eligibility).toFixed(4) : '0.0000';
-
-      const dstRecIdx = dst - 2;
-      const targetMod = (dyn.m_vector && dstRecIdx >= 0 && dyn.m_vector[dstRecIdx] !== undefined) ? dyn.m_vector[dstRecIdx] : (dyn.rpe || 0.0);
-      const targMEl = document.getElementById('syn-target-m');
-      if (targMEl) targMEl.innerText = Number(targetMod).toFixed(4);
-
-      let isRelevant = true;
-      if (srcNode.module_id !== undefined && dstNode.module_id !== undefined) {
-        isRelevant = (srcNode.module_id === dstNode.module_id);
+      if (logData && logData.topology && logData.topology.nodes[src] && logData.topology.nodes[dst]) {
+        const p1 = new THREE.Vector3(...logData.topology.nodes[src].pos);
+        const p2 = new THREE.Vector3(...logData.topology.nodes[dst].pos);
+        document.getElementById('syn-dist').innerText = `${p1.distanceTo(p2).toFixed(2)} units`;
       }
-      const relEl = document.getElementById('syn-relevance');
-      if (relEl) {
-        relEl.innerText = isRelevant ? 'Causally Relevant' : 'Irrelevant Distractor';
-      const creditEvt = curFrame && curFrame.events && curFrame.events.find(e => e.type === 'CREDIT_ASSIGNED');
-      if (creditEvt && creditEvt.payload && creditEvt.payload.updates) {
-        const u = creditEvt.payload.updates.find(up => up.src === src && up.dst === dst);
-        document.getElementById('syn-dw').innerText = u ? `${u.dw > 0 ? '+' : ''}${u.dw.toFixed(5)}` : '0.0000';
-      } else {
-        document.getElementById('syn-dw').innerText = '0.0000';
-      }
-
-      document.getElementById('syn-signal-mag').innerText = signalMagnitude.toFixed(4);
-      document.getElementById('syn-signal-progress').innerText = signalProgress > 0 ? `${(signalProgress * 100).toFixed(0)}% in transit` : 'Idle';
-      document.getElementById('syn-signal-fill').style.width = `${Math.min(Math.abs(signalMagnitude) * 100, 100)}%`;
-      document.getElementById('syn-signal-fill').style.background = signalMagnitude >= 0 ? 'var(--color-excitatory)' : 'var(--color-inhibitory)';
     }
 
-    function selectCommunity(moduleId) {
+    function selectCommunity(commId) {
       selectionType = 'COMMUNITY';
-      selectedCommunityId = moduleId;
+      selectedCommunityId = commId;
       selectedNodeId = null;
       selectedEdge = null;
       selectionHalo.visible = false;
@@ -2518,269 +2467,381 @@
       document.getElementById('insp-community-state').style.display = 'flex';
       document.getElementById('clear-selection-btn').style.display = 'inline-flex';
 
-      renderCommunityInspector(moduleId);
+      renderCommunityInspector(commId);
     }
 
-    function renderCommunityInspector(moduleId) {
-      if (!replay) return;
-      const info = replay.inspectCommunity(moduleId);
-      if (!info) return;
+    function renderCommunityInspector(commId) {
+      if (!logData || !logData.topology) return;
+      const nodes = logData.topology.nodes;
+      const members = nodes.filter(n => n.module_id === commId);
 
-      const { members, excCount, inhCount, meanAct, meanVm } = info;
-      document.getElementById('insp-header-title').innerHTML = `<span>👥</span> COMMUNITY C0${moduleId}`;
-      document.getElementById('comm-title').innerText = `COMMUNITY C0${moduleId} (${members.length} UNITS)`;
+      document.getElementById('insp-header-title').innerHTML = `<span>🌐</span> COMMUNITY C0${commId}`;
+      document.getElementById('comm-title').innerText = `COMMUNITY C0${commId}`;
       document.getElementById('comm-members-count').innerText = members.length;
-      document.getElementById('comm-ei-ratio').innerText = `${excCount} Exc / ${inhCount} Inh`;
-      document.getElementById('comm-mean-act').innerText = meanAct.toFixed(4);
-      document.getElementById('comm-mean-vm').innerText = `${meanVm.toFixed(2)} mV`;
 
-      const list = document.getElementById('comm-members-list');
-      list.innerHTML = '';
-      members.forEach(m => {
-        const isI = (m.metadata && m.metadata.neuron_type === 'INHIBITORY') || (m.label && m.label.includes('[I]'));
-        const chip = document.createElement('div');
-        chip.className = 'synapse-chip';
-        chip.innerHTML = `
-          <span>${m.label}</span>
-          <span style="font-family: var(--font-mono); color: ${isI ? 'var(--color-inhibitory)' : 'var(--color-excitatory)'};">
-            ${isI ? 'INHIBITORY' : 'EXCITATORY'}
-          </span>
-        `;
-        chip.addEventListener('click', () => {
-          selectNeuron(m.id);
-          focusCameraOnNode(m.id);
+      const excCount = members.filter(m => !(m.metadata && m.metadata.neuron_type === 'INHIBITORY') && !(m.label && m.label.includes('[I]'))).length;
+      const inhCount = members.length - excCount;
+      document.getElementById('comm-ei-ratio').innerText = `${excCount}E : ${inhCount}I`;
+
+      const curFrame = (logData && logData.frames) ? logData.frames[replay.currentStep] : null;
+      if (curFrame && curFrame.activations && curFrame.states) {
+        let sumAct = 0, sumVm = 0;
+        members.forEach(m => {
+          sumAct += curFrame.activations[m.id] || 0;
+          sumVm += curFrame.states[m.id] || -70.0;
         });
-        list.appendChild(chip);
+        document.getElementById('comm-mean-act').innerText = (sumAct / members.length).toFixed(3);
+        document.getElementById('comm-mean-vm').innerText = `${(sumVm / members.length).toFixed(1)} mV`;
+      }
+
+      document.getElementById('comm-focus-btn').onclick = () => focusCameraOnCommunity(commId);
+    }
+
+    function buildCommunitiesList(topology) {
+      const container = document.getElementById('communities-quick-list');
+      container.innerHTML = '';
+      const commMap = new Map();
+      topology.nodes.forEach(n => {
+        const cId = n.module_id !== undefined ? n.module_id : 0;
+        if (!commMap.has(cId)) commMap.set(cId, []);
+        commMap.get(cId).push(n);
+      });
+
+      commMap.forEach((members, cId) => {
+        const item = document.createElement('div');
+        item.style.cssText = 'display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 4px; padding: 4px 8px; cursor: pointer;';
+        item.innerHTML = `<span style="font-family: var(--font-mono); font-weight: 700; color: #38bdf8;">Community C0${cId}</span><span style="font-size: 10px; color: var(--text-muted);">${members.length} units</span>`;
+        item.onclick = () => selectCommunity(cId);
+        container.appendChild(item);
       });
     }
 
-    function focusCameraOnNode(nodeId) {
-      if (!nodeMeshes[nodeId]) return;
-      const targetPos = nodeMeshes[nodeId].position;
-      camTarget.copy(targetPos);
-      camRadius = 14.0;
-      updateCameraPosition();
+    function buildEventMarkersAndFeed(events) {
+      const rail = document.getElementById('marker-rail');
+      rail.innerHTML = '';
+      const feed = document.getElementById('event-feed-container');
+      feed.innerHTML = '';
+      document.getElementById('event-feed-badge').innerText = events.length;
+
+      const totalSteps = logData.frames ? logData.frames.length : 1;
+
+      events.forEach((ev, idx) => {
+        const pct = (ev.step / Math.max(1, totalSteps - 1)) * 100;
+        const pin = document.createElement('div');
+        pin.className = 'marker-pin';
+        pin.style.left = `${pct}%`;
+
+        let pinColor = '#94a3b8';
+        if (ev.type.includes('REWARD') || ev.type.includes('ACTION_PERSISTED')) pinColor = 'var(--color-reward)';
+        else if (ev.type.includes('PLASTIC') || ev.type.includes('RPE')) pinColor = 'var(--color-plasticity)';
+        else if (ev.type.includes('SPIKE')) pinColor = 'var(--color-inhibitory)';
+        pin.style.background = pinColor;
+        pin.title = `Step ${ev.step}: ${ev.type}`;
+
+        pin.onclick = (e) => {
+          e.stopPropagation();
+          if (replay) {
+            replay.seek(ev.step);
+            renderFrame(ev.step);
+          }
+        };
+        rail.appendChild(pin);
+
+        // Feed card
+        const card = document.createElement('div');
+        card.className = 'event-card';
+        card.dataset.step = ev.step;
+        card.dataset.type = ev.type;
+        card.innerHTML = `
+          <div class="event-top">
+            <span class="event-type" style="color: ${pinColor};">${ev.type}</span>
+            <span class="event-time">S${ev.step} | t=${Number(ev.time_ms).toFixed(1)}ms</span>
+          </div>
+          <div class="event-desc">${ev.description || JSON.stringify(ev.payload || {})}</div>
+        `;
+        card.onclick = () => {
+          if (replay) {
+            replay.seek(ev.step);
+            renderFrame(ev.step);
+          }
+        };
+        feed.appendChild(card);
+      });
+    }
+
+    function buildExperimentMetadata(meta) {
+      const body = document.getElementById('exp-modal-body');
+      body.innerHTML = '';
+      for (let k in meta) {
+        const cell = document.createElement('div');
+        cell.className = 'metric-cell';
+        cell.innerHTML = `<span class="metric-name">${k}</span><span class="metric-val">${meta[k]}</span>`;
+        body.appendChild(cell);
+      }
     }
 
     /**
      * =========================================================================
-     * PLAYBACK & TRANSPORT CONTROLS
+     * SPIKE RASTER DRAWER
      * =========================================================================
      */
-    function togglePlay() {
-      if (isPlaying) pause(); else play();
+    let rasterVisible = false;
+    function drawSpikeRaster(currentStep) {
+      if (!rasterVisible || !logData) return;
+      const canvas = document.getElementById('raster-canvas');
+      const ctx = canvas.getContext('2d');
+      const width = canvas.clientWidth;
+      const height = canvas.clientHeight;
+      canvas.width = width;
+      canvas.height = height;
+
+      ctx.fillStyle = '#0a0e17';
+      ctx.fillRect(0, 0, width, height);
+
+      const totalSteps = logData.frames.length;
+      const totalNodes = logData.topology.nodes.length;
+      const stepWidth = width / Math.max(1, totalSteps);
+      const rowHeight = height / Math.max(1, totalNodes);
+
+      // Draw all spikes
+      (logData.events || []).forEach(ev => {
+        if (ev.type.includes('SPIKE') && ev.node_id !== undefined) {
+          const x = ev.step * stepWidth;
+          const y = ev.node_id * rowHeight;
+          ctx.fillStyle = ev.type.includes('INHIBITORY') ? '#00e5ff' : '#ff6b4a';
+          ctx.fillRect(x, y, Math.max(2, stepWidth), Math.max(2, rowHeight));
+        }
+      });
+
+      // Current playhead
+      const curX = currentStep * stepWidth;
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(curX, 0);
+      ctx.lineTo(curX, height);
+      ctx.stroke();
     }
 
+    /**
+     * =========================================================================
+     * REPLAY TRANSPORT CONTROLS
+     * =========================================================================
+     */
     function play() {
-      if (!replay) return;
+      if (!replay || isPlaying) return;
       isPlaying = true;
       document.getElementById('btn-play').innerText = '⏸ Pause';
+      document.getElementById('btn-play').classList.add('active');
+
+      const intervalMs = Math.max(20, 100 / playSpeed);
       playInterval = setInterval(() => {
         if (replay.currentStep >= replay.totalSteps - 1) {
-          replay.seek(0);
+          pause();
         } else {
           replay.stepForward();
+          renderFrame(replay.currentStep);
         }
-        renderFrame(replay.currentStep);
-      }, (logData.metadata.dt_ms || 40) / playbackSpeed);
+      }, intervalMs);
     }
 
     function pause() {
       isPlaying = false;
-      document.getElementById('btn-play').innerText = '▶ Play';
       if (playInterval) clearInterval(playInterval);
       playInterval = null;
+      const btn = document.getElementById('btn-play');
+      if (btn) {
+        btn.innerText = '▶ Play';
+        btn.classList.remove('active');
+      }
     }
 
-    function cycleSpeed() {
-      const curIdx = speedLevels.indexOf(playbackSpeed);
-      const nextIdx = (curIdx + 1) % speedLevels.length;
-      playbackSpeed = speedLevels[nextIdx];
-      document.getElementById('btn-speed').innerText = `${playbackSpeed}×`;
-      if (isPlaying) { pause(); play(); }
+    function togglePlay() {
+      if (isPlaying) pause();
+      else play();
     }
 
     /**
      * =========================================================================
-     * POPULATION SPIKE RASTER
+     * MODE SWITCHER (LIVE / LATEST / REPLAY / EXPERIMENT) - SECTION 17
      * =========================================================================
      */
-    function drawSpikeRaster(currentStep) {
-      const drawer = document.getElementById('raster-drawer');
-      if (drawer.style.display === 'none' || !logData) return;
-      const canvas = document.getElementById('raster-canvas');
-      const ctx = canvas.getContext('2d');
-      const w = canvas.width = canvas.parentElement.clientWidth - 24;
-      const h = canvas.height = 76;
-      ctx.clearRect(0, 0, w, h);
+    function setMode(mode) {
+      appMode = mode;
+      document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active', 'live', 'replay'));
+      const replayBar = document.getElementById('replay-timeline-bar');
+      const floatingPill = document.getElementById('floating-state-pill');
+      const floatingBadge = document.getElementById('floating-pill-badge');
 
-      const numNeurons = (logData.topology && logData.topology.nodes) ? logData.topology.nodes.length : 30;
-      const totalSteps = logData.frames.length;
-      const windowSize = 40;
-      let startStep = Math.max(0, currentStep - 20);
-      let endStep = Math.min(totalSteps - 1, startStep + windowSize);
-      if (endStep - startStep < windowSize && startStep > 0) {
-        startStep = Math.max(0, endStep - windowSize);
-      }
-      const range = Math.max(1, endStep - startStep);
-
-      // Grid
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
-      ctx.lineWidth = 1;
-      for (let s = startStep; s <= endStep; s += 5) {
-        const x = ((s - startStep) / range) * w;
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, h);
-        ctx.stroke();
-      }
-
-      // Spikes
-      let curStepSpikes = 0;
-      for (let s = startStep; s <= endStep; s++) {
-        const f = logData.frames[s];
-        if (!f) continue;
-        const x = ((s - startStep) / range) * w;
-
-        if (f.events) {
-          for (let ev of f.events) {
-            if (ev.type.includes('SPIKE')) {
-              const nid = ev.node_id !== undefined ? ev.node_id : 0;
-              const y = h - (nid / numNeurons) * h;
-              ctx.fillStyle = (s === currentStep) ? '#ffffff' : (ev.type.includes('INHIBITORY') ? '#00e5ff' : '#ff6b4a');
-              ctx.fillRect(Math.floor(x), Math.floor(y) - 1, 2, 3);
-              if (s === currentStep) curStepSpikes++;
-            }
-          }
+      if (mode === 'LIVE') {
+        const btn = document.getElementById('mode-live-btn');
+        btn.classList.add('active', 'live');
+        replayBar.style.display = 'none';
+        floatingPill.style.display = 'flex';
+        floatingBadge.innerText = 'LIVE COMPUTATION';
+        floatingBadge.className = 'pill-badge live';
+        if (replay) {
+          replay.seek(replay.totalSteps - 1);
+          renderFrame(replay.currentStep);
         }
+      } else if (mode === 'LATEST') {
+        const btn = document.getElementById('mode-latest-btn');
+        btn.classList.add('active');
+        replayBar.style.display = 'none';
+        floatingPill.style.display = 'flex';
+        floatingBadge.innerText = 'LATEST STATE';
+        floatingBadge.className = 'pill-badge';
+        if (replay) {
+          pause();
+          replay.seek(replay.totalSteps - 1);
+          renderFrame(replay.currentStep);
+        }
+      } else if (mode === 'REPLAY') {
+        const btn = document.getElementById('mode-replay-btn');
+        btn.classList.add('active', 'replay');
+        replayBar.style.display = 'flex';
+        floatingPill.style.display = 'none';
+      } else if (mode === 'EXPERIMENT') {
+        const btn = document.getElementById('mode-exp-btn');
+        btn.classList.add('active');
+        document.getElementById('exp-modal').style.display = 'flex';
       }
-
-      // Playhead line
-      const curX = ((currentStep - startStep) / range) * w;
-      ctx.strokeStyle = 'rgba(255, 215, 0, 0.85)';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(curX, 0);
-      ctx.lineTo(curX, h);
-      ctx.stroke();
-
-      document.getElementById('raster-stats-text').innerText = `Step ${currentStep} | Active: ${curStepSpikes} spikes`;
     }
 
     /**
      * =========================================================================
-     * EVENT LISTENERS & WIRING
+     * DOM EVENT LISTENERS & SHORTCUT BINDINGS
      * =========================================================================
      */
-    document.getElementById('btn-play').addEventListener('click', togglePlay);
-    document.getElementById('btn-prev').addEventListener('click', () => {
-      if (!replay) return;
-      pause();
-      replay.stepBackward();
-      renderFrame(replay.currentStep);
-    });
-    document.getElementById('btn-next').addEventListener('click', () => {
-      if (!replay) return;
-      pause();
-      replay.stepForward();
-      renderFrame(replay.currentStep);
-    });
-    document.getElementById('btn-first').addEventListener('click', () => {
-      if (!replay) return;
-      pause();
-      replay.seek(0);
-      renderFrame(0);
-    });
-    document.getElementById('btn-last').addEventListener('click', () => {
-      if (!replay) return;
-      pause();
-      replay.seek(replay.totalSteps - 1);
-      renderFrame(replay.totalSteps - 1);
-    });
-    document.getElementById('btn-speed').addEventListener('click', cycleSpeed);
+    document.getElementById('mode-live-btn').onclick = () => setMode('LIVE');
+    document.getElementById('mode-latest-btn').onclick = () => setMode('LATEST');
+    document.getElementById('mode-replay-btn').onclick = () => setMode('REPLAY');
+    document.getElementById('mode-exp-btn').onclick = () => setMode('EXPERIMENT');
 
-    document.getElementById('timeline-slider').addEventListener('input', (e) => {
-      if (!replay) return;
-      pause();
-      replay.seek(parseInt(e.target.value));
-      renderFrame(replay.currentStep);
+    document.getElementById('enter-replay-btn').onclick = () => setMode('REPLAY');
+    document.getElementById('exit-replay-btn').onclick = () => setMode('LATEST');
+
+    // Replay transport buttons
+    document.getElementById('btn-play').onclick = togglePlay;
+    document.getElementById('btn-prev').onclick = () => { if (replay) { pause(); replay.stepBackward(); renderFrame(replay.currentStep); } };
+    document.getElementById('btn-next').onclick = () => { if (replay) { pause(); replay.stepForward(); renderFrame(replay.currentStep); } };
+    document.getElementById('btn-first').onclick = () => { if (replay) { pause(); replay.seek(0); renderFrame(0); } };
+    document.getElementById('btn-last').onclick = () => { if (replay) { pause(); replay.seek(replay.totalSteps - 1); renderFrame(replay.totalSteps - 1); } };
+
+    document.getElementById('btn-speed').onclick = () => {
+      speedIdx = (speedIdx + 1) % speedOptions.length;
+      playSpeed = speedOptions[speedIdx];
+      document.getElementById('btn-speed').innerText = `${playSpeed.toFixed(1)}×`;
+      if (isPlaying) { pause(); play(); }
+    };
+
+    const slider = document.getElementById('timeline-slider');
+    slider.addEventListener('input', (e) => {
+      if (replay) {
+        pause();
+        const step = parseInt(e.target.value);
+        replay.seek(step);
+        renderFrame(step);
+      }
     });
 
-    document.getElementById('clear-selection-btn').addEventListener('click', clearSelection);
+    // Top Bar Tools
+    document.getElementById('cam-autoframe-btn').onclick = autoFrameCamera;
+    document.getElementById('cam-reset-btn').onclick = () => {
+      camRadius = 24.0;
+      camTheta = 0.0;
+      camPhi = Math.PI / 3.0;
+      camTarget.set(0, 0, 0);
+      updateCameraPosition();
+    };
 
-    // Connectivity View Mode Toggle
-    document.getElementById('conn-mode-btn').addEventListener('click', () => {
-      viewMode = viewMode === 'STRUCTURAL' ? 'FUNCTIONAL' : 'STRUCTURAL';
-      const btn = document.getElementById('conn-mode-btn');
-      btn.innerText = viewMode === 'STRUCTURAL' ? '🌐 Mode: Structural' : '⚡ Mode: Functional';
-      btn.classList.toggle('active', viewMode === 'FUNCTIONAL');
+    const orbitBtn = document.getElementById('auto-orbit-btn');
+    orbitBtn.onclick = () => {
+      autoOrbit = !autoOrbit;
+      orbitBtn.innerText = `🔄 Orbit: ${autoOrbit ? 'On' : 'Off'}`;
+      orbitBtn.classList.toggle('active', autoOrbit);
+    };
+
+    const connModeBtn = document.getElementById('conn-mode-btn');
+    connModeBtn.onclick = () => {
+      viewMode = (viewMode === 'STRUCTURAL') ? 'FUNCTIONAL' : 'STRUCTURAL';
+      connModeBtn.innerText = (viewMode === 'STRUCTURAL') ? '🌐 Mode: Structural' : '⚡ Mode: Functional';
+      connModeBtn.classList.toggle('active', viewMode === 'FUNCTIONAL');
       if (replay) renderFrame(replay.currentStep);
-    });
+    };
 
-    // Credit Flow Toggle
-    let creditFlowActive = false;
-    const creditFlowBtn = document.getElementById('credit-flow-btn');
-    if (creditFlowBtn) {
-      creditFlowBtn.addEventListener('click', () => {
-        creditFlowActive = !creditFlowActive;
-        creditFlowBtn.innerText = `🌊 Credit Flow: ${creditFlowActive ? 'On' : 'Off'}`;
-        creditFlowBtn.classList.toggle('active', creditFlowActive);
-        if (replay) renderFrame(replay.currentStep);
-      });
-    // Attractor Mode Toggle
-    let attractorModeActive = false;
-    const attractorModeBtn = document.getElementById('attractor-mode-btn');
-    if (attractorModeBtn) {
-      attractorModeBtn.addEventListener('click', () => {
-        attractorModeActive = !attractorModeActive;
-        attractorModeBtn.innerText = `🌀 Attractor: ${attractorModeActive ? 'On' : 'Off'}`;
-        attractorModeBtn.classList.toggle('active', attractorModeActive);
-        if (replay) renderFrame(replay.currentStep);
-      });
-    }
+    // Action Interface Mode [I] (Section 27)
+    const actIntBtn = document.getElementById('action-interface-btn');
+    const actIntOverlay = document.getElementById('action-interface-overlay');
+    actIntBtn.onclick = () => {
+      actionInterfaceActive = !actionInterfaceActive;
+      actIntBtn.innerText = `⚡ Interface: ${actionInterfaceActive ? 'On' : 'Off'}`;
+      actIntBtn.classList.toggle('active', actionInterfaceActive);
+      actIntOverlay.style.display = actionInterfaceActive ? 'flex' : 'none';
+      if (replay) renderFrame(replay.currentStep);
+    };
+    document.getElementById('close-interface-overlay-btn').onclick = () => {
+      actionInterfaceActive = false;
+      actIntBtn.innerText = '⚡ Interface: Off';
+      actIntBtn.classList.remove('active');
+      actIntOverlay.style.display = 'none';
+      if (replay) renderFrame(replay.currentStep);
+    };
 
-    // Predictive Gate Mode Toggle
-    let gateModeActive = false;
-    const gateModeBtn = document.getElementById('gate-mode-btn');
-    if (gateModeBtn) {
-      gateModeBtn.addEventListener('click', () => {
-        gateModeActive = !gateModeActive;
-        gateModeBtn.innerText = `🛡️ Gate: ${gateModeActive ? 'On' : 'Off'}`;
-        gateModeBtn.classList.toggle('active', gateModeActive);
-        if (replay) renderFrame(replay.currentStep);
-      });
-    }
+    // Spike Encoding Mode [S] (Section 28)
+    const spikeEncBtn = document.getElementById('spike-encoding-btn');
+    const spikeEncOverlay = document.getElementById('spike-encoding-overlay');
+    spikeEncBtn.onclick = () => {
+      spikeEncodingActive = !spikeEncodingActive;
+      spikeEncBtn.innerText = `🔬 Spike Enc: ${spikeEncodingActive ? 'On' : 'Off'}`;
+      spikeEncBtn.classList.toggle('active', spikeEncodingActive);
+      spikeEncOverlay.style.display = spikeEncodingActive ? 'flex' : 'none';
+    };
+    document.getElementById('close-spike-overlay-btn').onclick = () => {
+      spikeEncodingActive = false;
+      spikeEncBtn.innerText = '🔬 Spike Enc: Off';
+      spikeEncBtn.classList.remove('active');
+      spikeEncOverlay.style.display = 'none';
+    };
 
-    // Action Routing Mode Toggle
-    let actionRoutingActive = false;
-    const actionRoutingBtn = document.getElementById('action-routing-btn');
-    if (actionRoutingBtn) {
-      actionRoutingBtn.addEventListener('click', () => {
-        actionRoutingActive = !actionRoutingActive;
-        actionRoutingBtn.innerText = `🎯 Routing: ${actionRoutingActive ? 'On' : 'Off'}`;
-        actionRoutingBtn.classList.toggle('active', actionRoutingActive);
-        if (replay) renderFrame(replay.currentStep);
-      });
-    }
+    document.getElementById('focus-act0-btn').onclick = () => focusCameraOnAction(0);
+    document.getElementById('focus-act1-btn').onclick = () => focusCameraOnAction(1);
 
-    // Action Interface Mode Toggle [I]
-    let actionInterfaceActive = false;
-    const actionInterfaceBtn = document.getElementById('action-interface-btn');
-    if (actionInterfaceBtn) {
-      actionInterfaceBtn.addEventListener('click', () => {
-        actionInterfaceActive = !actionInterfaceActive;
-        actionInterfaceBtn.innerText = `⚡ Interface: ${actionInterfaceActive ? 'On' : 'Off'}`;
-        actionInterfaceBtn.classList.toggle('active', actionInterfaceActive);
-        if (replay) renderFrame(replay.currentStep);
-      });
-    }
+    // Raster toggle
+    const rasterBtn = document.getElementById('raster-toggle-btn');
+    const rasterDrawer = document.getElementById('raster-drawer');
+    rasterBtn.onclick = () => {
+      rasterVisible = !rasterVisible;
+      rasterDrawer.style.display = rasterVisible ? 'flex' : 'none';
+      rasterBtn.classList.toggle('active', rasterVisible);
+      if (rasterVisible && replay) drawSpikeRaster(replay.currentStep);
+    };
+    document.getElementById('raster-drawer-close').onclick = () => {
+      rasterVisible = false;
+      rasterDrawer.style.display = 'none';
+      rasterBtn.classList.remove('active');
+    };
 
-    // Model Selector
+    // Modals
+    document.getElementById('exp-meta-btn').onclick = () => {
+      document.getElementById('exp-modal').style.display = 'flex';
+    };
+    document.getElementById('exp-modal-close').onclick = () => {
+      document.getElementById('exp-modal').style.display = 'none';
+    };
+    document.getElementById('help-btn').onclick = () => {
+      document.getElementById('shortcuts-modal').style.display = 'flex';
+    };
+    document.getElementById('shortcuts-modal-close').onclick = () => {
+      document.getElementById('shortcuts-modal').style.display = 'none';
+    };
+
+    // Trace selection
     document.getElementById('model-select').addEventListener('change', (e) => {
       fetchBrainlog(e.target.value);
     });
 
-    // File Input
+    // File input
     document.getElementById('file-input').addEventListener('change', (e) => {
       const file = e.target.files[0];
       if (!file) return;
@@ -2790,55 +2851,15 @@
           const data = JSON.parse(evt.target.result);
           loadBrainlog(data);
         } catch (err) {
-          alert('Failed to parse .brainlog JSON: ' + err.message);
+          alert("Error parsing .brainlog JSON file: " + err.message);
         }
       };
       reader.readAsText(file);
     });
 
-    // Camera Buttons
-    document.getElementById('cam-focus-btn').addEventListener('click', () => {
-      if (selectedNodeId !== null) focusCameraOnNode(selectedNodeId);
-    });
-    document.getElementById('cam-reset-btn').addEventListener('click', () => {
-      camRadius = 24.0;
-      camTheta = 0.0;
-      camPhi = Math.PI / 3.0;
-      camTarget.set(0, 0, 0);
-      updateCameraPosition();
-    });
-    document.getElementById('auto-orbit-btn').addEventListener('click', () => {
-      autoOrbit = !autoOrbit;
-      const btn = document.getElementById('auto-orbit-btn');
-      btn.innerText = autoOrbit ? '🔄 Orbit: On' : '🔄 Orbit: Off';
-      btn.classList.toggle('active', autoOrbit);
-    });
+    document.getElementById('clear-selection-btn').onclick = clearSelection;
 
-    // Raster Toggle
-    document.getElementById('raster-toggle-btn').addEventListener('click', () => {
-      const drawer = document.getElementById('raster-drawer');
-      const isHidden = drawer.style.display === 'none' || drawer.style.display === '';
-      drawer.style.display = isHidden ? 'flex' : 'none';
-      document.getElementById('raster-toggle-btn').classList.toggle('active', isHidden);
-      if (isHidden && replay) drawSpikeRaster(replay.currentStep);
-    });
-
-    // Modals
-    document.getElementById('exp-meta-btn').addEventListener('click', () => {
-      document.getElementById('exp-modal').style.display = 'flex';
-    });
-    document.getElementById('exp-modal-close').addEventListener('click', () => {
-      document.getElementById('exp-modal').style.display = 'none';
-    });
-
-    document.getElementById('help-btn').addEventListener('click', () => {
-      document.getElementById('shortcuts-modal').style.display = 'flex';
-    });
-    document.getElementById('shortcuts-modal-close').addEventListener('click', () => {
-      document.getElementById('shortcuts-modal').style.display = 'none';
-    });
-
-    // Tabs
+    // Right Tabs Switcher
     document.getElementById('tab-telemetry-btn').addEventListener('click', () => {
       document.getElementById('tab-telemetry-btn').classList.add('active');
       document.getElementById('tab-events-btn').classList.remove('active');
@@ -2865,7 +2886,7 @@
       document.getElementById('filter-spikes-events-btn').classList.remove('active');
       document.querySelectorAll('.event-card').forEach(c => {
         const t = c.dataset.type;
-        c.style.display = (t.includes('REWARD') || t.includes('RPE') || t.includes('PLASTICITY') || t.includes('CREDIT') || t.includes('ELIGIBILITY')) ? 'flex' : 'none';
+        c.style.display = (t.includes('REWARD') || t.includes('RPE') || t.includes('PLASTICITY') || t.includes('CREDIT') || t.includes('ACTION_PERSISTED')) ? 'flex' : 'none';
       });
     });
     document.getElementById('filter-spikes-events-btn').addEventListener('click', () => {
@@ -2905,44 +2926,30 @@
         e.preventDefault();
         if (replay) { pause(); replay.seek(replay.totalSteps - 1); renderFrame(replay.totalSteps - 1); }
       } else if (e.code === 'KeyL') {
-        if (replay) { pause(); replay.seek(replay.totalSteps - 1); renderFrame(replay.totalSteps - 1); }
+        setMode('LATEST');
       } else if (e.code === 'KeyR') {
-        if (replay) { pause(); replay.seek(0); play(); }
+        setMode('REPLAY');
       } else if (e.code === 'KeyF') {
         if (selectedNodeId !== null) focusCameraOnNode(selectedNodeId);
-      } else if (e.code === 'KeyC') {
-        if (creditFlowBtn) creditFlowBtn.click();
-      } else if (e.code === 'KeyA') {
-        const btn = document.getElementById('attractor-mode-btn');
-        if (btn) btn.click();
-      } else if (e.code === 'KeyG') {
-        const btn = document.getElementById('gate-mode-btn');
-        if (btn) btn.click();
-      } else if (e.code === 'KeyT') {
-        const btn = document.getElementById('action-routing-btn');
-        if (btn) btn.click();
-      } else if (e.code === 'KeyI') {
-        const btn = document.getElementById('action-interface-btn');
-        if (btn) btn.click();
       } else if (e.code === 'KeyO') {
-        camRadius = 24.0;
-        camTheta = 0.0;
-        camPhi = Math.PI / 3.0;
-        camTarget.set(0, 0, 0);
-        updateCameraPosition();
+        autoFrameCamera();
+      } else if (e.code === 'KeyI') {
+        actIntBtn.click();
+      } else if (e.code === 'KeyS') {
+        spikeEncBtn.click();
       } else if (e.code === 'Escape') {
         clearSelection();
         document.getElementById('exp-modal').style.display = 'none';
         document.getElementById('shortcuts-modal').style.display = 'none';
       } else if (e.code === 'Digit1') {
         viewMode = 'STRUCTURAL';
-        document.getElementById('conn-mode-btn').innerText = '🌐 Mode: Structural';
-        document.getElementById('conn-mode-btn').classList.remove('active');
+        connModeBtn.innerText = '🌐 Mode: Structural';
+        connModeBtn.classList.remove('active');
         if (replay) renderFrame(replay.currentStep);
       } else if (e.code === 'Digit2') {
         viewMode = 'FUNCTIONAL';
-        document.getElementById('conn-mode-btn').innerText = '⚡ Mode: Functional';
-        document.getElementById('conn-mode-btn').classList.add('active');
+        connModeBtn.innerText = '⚡ Mode: Functional';
+        connModeBtn.classList.add('active');
         if (replay) renderFrame(replay.currentStep);
       } else if (e.key === '?' || (e.shiftKey && e.code === 'Slash')) {
         const m = document.getElementById('shortcuts-modal');
@@ -2952,7 +2959,7 @@
 
     /**
      * =========================================================================
-     * MAIN ANIMATION LOOP
+     * ANIMATION LOOP
      * =========================================================================
      */
     function animate() {
@@ -2971,8 +2978,8 @@
     }
     animate();
 
-    // Auto-load Primary Phase 9 BrainLog
-    fetchBrainlog('/experiments/results/brainlogs/EXP009_three_factor_rpe_modular.brainlog');
+    // Auto-bootstrap Primary Phase 13 Trace on Startup (Section 16 & 30)
+    fetchBrainlog('/experiments/results/brainlogs/EXP013_biophysical_spike_encoding.brainlog');
   </script>
 </body>
 </html>

@@ -898,6 +898,18 @@
         ⏳ Assembly: Off
       </button>
 
+      <button class="btn" id="minimality-btn" title="Toggle Phase 16 Minimality Mode [P]">
+        🔬 Minimal: Off
+      </button>
+
+      <button class="btn" id="causal-arch-btn" title="Toggle Phase 16 Causal Architecture Mode [K]">
+        🧬 Causal: Off
+      </button>
+
+      <button class="btn" id="ablation-mode-btn" title="Toggle Phase 16 Ablation Mode [X]">
+        ✂️ Ablation: Off
+      </button>
+
       <button class="btn" id="cam-autoframe-btn" title="Auto-Frame entire brain in 3D scene [O]">
         🎯 Auto-Frame
       </button>
@@ -911,7 +923,8 @@
       </button>
 
       <select id="model-select" class="select-model" title="Select .brainlog Trace">
-        <option value="/experiments/results/brainlogs/EXP015_action_readout.brainlog" selected>EXP015: Action Readout & Assemblies (Phase 15)</option>
+        <option value="/experiments/results/brainlogs/EXP016_minimal_brain.brainlog" selected>EXP016: Minimal Sufficient Brain (Phase 16)</option>
+        <option value="/experiments/results/brainlogs/EXP015_action_readout.brainlog">EXP015: Action Readout & Assemblies (Phase 15)</option>
         <option value="/experiments/results/phase14_latest.brainlog">EXP014: Temporal Coding & Resonance (Phase 14)</option>
         <option value="/experiments/results/brainlogs/EXP013_biophysical_spike_encoding.brainlog">EXP013: Biophysical Spike Encoding (Phase 13)</option>
         <option value="/experiments/results/brainlogs/EXP012_action_interface.brainlog">EXP012: Learnable Action Interface (Phase 12)</option>
@@ -1721,6 +1734,129 @@
     </div>
   </div>
 
+  <!-- MINIMALITY MODE OVERLAY [P] -->
+  <div id="minimality-overlay" style="display: none; position: absolute; bottom: 80px; left: 20px; right: 380px; background: rgba(10, 15, 29, 0.94); backdrop-filter: blur(12px); border: 1px solid #10b981; border-radius: 8px; padding: 10px 14px; z-index: 100; flex-direction: column; gap: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">
+      <span style="font-weight: 800; font-size: 11px; letter-spacing: 1px; color: #10b981;">
+        🔬 PHASE 16 MINIMAL SUFFICIENT BRAIN: ARCHITECTURAL SPECIFICATION [P]
+      </span>
+      <button class="btn" id="close-minimality-overlay-btn" style="padding: 1px 6px; font-size: 10px;">✕</button>
+    </div>
+    <div class="metric-grid" style="grid-template-columns: repeat(6, 1fr); margin-top: 4px;">
+      <div class="metric-cell">
+        <span class="metric-name">Architecture</span>
+        <span class="metric-val" id="min-arch" style="color: #10b981;">MIN_E</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Active Mechanisms</span>
+        <span class="metric-val" id="min-mechs" style="color: #38bdf8;">8 / 12</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Neurons / Synapses</span>
+        <span class="metric-val" id="min-topo" style="color: #a855f7;">42 / 851</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Plastic Parameters</span>
+        <span class="metric-val" id="min-params" style="color: #fbbf24;">80 params</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Autonomous Accuracy</span>
+        <span class="metric-val" id="min-acc" style="color: #10b981;">62.7%</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">CSI / Leakage</span>
+        <span class="metric-val" id="min-csi" style="color: #06b6d4;">0.472 / 0.528</span>
+      </div>
+    </div>
+    <div style="display: flex; gap: 12px; font-size: 10px; color: var(--text-muted); padding-top: 2px;">
+      <span><strong>Pruned:</strong> <span id="min-pruned" style="color: #f43f5e;">D_STDP, E_Retrograde, F_FastAsm, G_MedAsm</span></span>
+      <span>|</span>
+      <span><strong>Retained:</strong> <span id="min-retained" style="color: #10b981;">K_NMDA, J_TemporalPop, L_Routing, A_TargetReward, C_DendElig, H_SlowAsm, I_Inhibition</span></span>
+      <span>|</span>
+      <span><strong>Context MI:</strong> <span id="min-ctx-mi" style="color: #38bdf8;">0.9954 b</span></span>
+      <span>|</span>
+      <span><strong>Action MI:</strong> <span id="min-act-mi" style="color: #10b981;">0.4690 b</span></span>
+    </div>
+  </div>
+
+  <!-- CAUSAL ARCHITECTURE MODE OVERLAY [K] -->
+  <div id="causal-arch-overlay" style="display: none; position: absolute; bottom: 80px; left: 20px; right: 380px; background: rgba(10, 15, 29, 0.94); backdrop-filter: blur(12px); border: 1px solid #8b5cf6; border-radius: 8px; padding: 10px 14px; z-index: 100; flex-direction: column; gap: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">
+      <span style="font-weight: 800; font-size: 11px; letter-spacing: 1px; color: #8b5cf6;">
+        🧬 PHASE 16 CAUSAL ARCHITECTURE INTERVENTIONS & SENSITIVITY [K]
+      </span>
+      <button class="btn" id="close-causal-overlay-btn" style="padding: 1px 6px; font-size: 10px;">✕</button>
+    </div>
+    <div class="metric-grid" style="grid-template-columns: repeat(5, 1fr); margin-top: 4px;">
+      <div class="metric-cell">
+        <span class="metric-name">Selected Intervention</span>
+        <span class="metric-val" id="causal-intervention-name" style="color: #8b5cf6;">C8_TARGET_SHUFFLE</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Δ Accuracy</span>
+        <span class="metric-val" id="causal-delta-acc" style="color: #f43f5e;">-14.7%</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Δ CSI</span>
+        <span class="metric-val" id="causal-delta-csi" style="color: #fbbf24;">+0.0132</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Δ Margin</span>
+        <span class="metric-val" id="causal-delta-margin" style="color: #38bdf8;">+6.0918</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Causal Status</span>
+        <span class="metric-val" id="causal-status" style="color: #10b981;">NECESSARY</span>
+      </div>
+    </div>
+    <div style="font-size: 10px; color: var(--text-muted); display: flex; gap: 10px; align-items: center;">
+      <span>Intervention:</span>
+      <select id="causal-intervention-select" class="select-model" style="padding: 2px 6px; font-size: 10px;">
+        <option value="C8">C8: Target Signal Shuffle (ΔAcc: -14.7%)</option>
+        <option value="C5">C5: Label Permutation (ΔAcc: -5.3%)</option>
+        <option value="C7">C7: Action Pop Swap (ΔAcc: -5.3%)</option>
+        <option value="C9">C9: Sign Flip Anti-Learning (ΔAcc: -5.3%)</option>
+        <option value="C3">C3: Readout Synapse Lesion (ΔAcc: -1.3%)</option>
+        <option value="C6">C6: Freeze Readout Plasticity (ΔAcc: -1.3%)</option>
+        <option value="C10">C10: Retrograde Removal (ΔAcc: 0.0%) [Redundant]</option>
+        <option value="C11">C11: Eligibility Silencing (ΔAcc: 0.0%)</option>
+        <option value="C1">C1: Context Scramble (Margin Collapse: 0.0006)</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- ABLATION COMPARISON MODE OVERLAY [X] -->
+  <div id="ablation-overlay" style="display: none; position: absolute; bottom: 80px; left: 20px; right: 380px; background: rgba(10, 15, 29, 0.94); backdrop-filter: blur(12px); border: 1px solid #f59e0b; border-radius: 8px; padding: 10px 14px; z-index: 100; flex-direction: column; gap: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">
+      <span style="font-weight: 800; font-size: 11px; letter-spacing: 1px; color: #f59e0b;">
+        ✂️ PHASE 16 ABLATION MODE: FULL ARCHITECTURE VS MINIMAL CANDIDATE [X]
+      </span>
+      <button class="btn" id="close-ablation-overlay-btn" style="padding: 1px 6px; font-size: 10px;">✕</button>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px;">
+      <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 8px;">
+        <div style="font-weight: 700; color: #38bdf8; font-size: 10px; margin-bottom: 4px;">FULL Phase 15 System (12 Mechanisms)</div>
+        <div style="font-size: 9px; line-height: 1.4; color: var(--text-muted);">
+          • Accuracy: <strong>61.3% ± 2.9%</strong><br>
+          • CSI: <strong>0.4719</strong> | Leakage: <strong>0.5281</strong><br>
+          • State Variables: <strong>286</strong> | Mechanisms: <strong>12</strong><br>
+          • Assemblies: Fast (25ms) + Med (250ms) + Slow (1500ms)<br>
+          • Complex Retrograde (R2) + Dendritic STDP (S4)
+        </div>
+      </div>
+      <div style="background: rgba(16,185,129,0.06); border: 1px solid #10b981; border-radius: 6px; padding: 8px;">
+        <div style="font-weight: 700; color: #10b981; font-size: 10px; margin-bottom: 4px;">MINIMAL Sufficient Brain MIN_E (8 Mechanisms)</div>
+        <div style="font-size: 9px; line-height: 1.4; color: var(--text-muted);">
+          • Accuracy: <strong>62.7% ± 3.9%</strong> (+1.4% improvement)<br>
+          • CSI: <strong>0.5963</strong> (with G1) | Margin: <strong>2.545</strong><br>
+          • State Variables: <strong>282</strong> | Mechanisms: <strong>8</strong> (-33% mechs)<br>
+          • Assemblies: Single Robust Slow Assembly (1500ms)<br>
+          • Zero Diffuse Retrograde, Zero STDP overhead
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <!-- SPIKE RASTER DRAWER -->
   <div id="raster-drawer">
@@ -1816,6 +1952,9 @@
         <div class="metric-cell"><span class="metric-name">I</span><span class="metric-val">Information Flow Mode [I]</span></div>
         <div class="metric-cell"><span class="metric-name">C</span><span class="metric-val">Action Credit Mode [C]</span></div>
         <div class="metric-cell"><span class="metric-name">M</span><span class="metric-val">Action Assembly Mode [M]</span></div>
+        <div class="metric-cell"><span class="metric-name">P</span><span class="metric-val">Minimality Mode [P]</span></div>
+        <div class="metric-cell"><span class="metric-name">K</span><span class="metric-val">Causal Architecture Mode [K]</span></div>
+        <div class="metric-cell"><span class="metric-name">X</span><span class="metric-val">Ablation Mode [X]</span></div>
         <div class="metric-cell"><span class="metric-name">O</span><span class="metric-val">Auto-Frame Entire Brain</span></div>
         <div class="metric-cell"><span class="metric-name">F</span><span class="metric-val">Focus Camera on Selection</span></div>
         <div class="metric-cell"><span class="metric-name">Space</span><span class="metric-val">Play / Pause (in Replay)</span></div>
@@ -1862,7 +2001,9 @@
       inspectNode(nodeId) {
         if (!this.log.topology || !this.log.topology.nodes[nodeId]) return null;
         const node = this.log.topology.nodes[nodeId];
-        const frame = this.log.frames[this.currentStep];
+        const frames = this.log.frames || [];
+        const fIdx = frames.length > 0 ? Math.max(0, Math.min(this.currentStep, frames.length - 1)) : -1;
+        const frame = fIdx >= 0 ? frames[fIdx] : null;
         const inEdges = (this.log.topology.edges || []).filter(e => e.dst === nodeId);
         const outEdges = (this.log.topology.edges || []).filter(e => e.src === nodeId);
 
@@ -1877,8 +2018,8 @@
 
         return {
           node,
-          activation: frame.activations ? frame.activations[nodeId] : 0,
-          state: frame.states ? frame.states[nodeId] : -70.0,
+          activation: (frame && frame.activations) ? frame.activations[nodeId] : 0,
+          state: (frame && frame.states) ? frame.states[nodeId] : -70.0,
           inEdges,
           outEdges,
           totalSpikes
@@ -1886,11 +2027,13 @@
       }
 
       inspectEdge(src, dst) {
-        if (!this.log.topology || !this.log.topology.edges) return null;
+        if (!this.log || !this.log.topology || !this.log.topology.edges) return null;
         const edge = this.log.topology.edges.find(e => e.src === src && e.dst === dst);
         if (!edge) return null;
-        const frame = this.log.frames[this.currentStep];
-        const signal = (frame.signals || []).find(s => s.src === src && s.dst === dst);
+        const frames = this.log.frames || [];
+        const fIdx = frames.length > 0 ? Math.max(0, Math.min(this.currentStep, frames.length - 1)) : -1;
+        const frame = fIdx >= 0 ? frames[fIdx] : null;
+        const signal = (frame && frame.signals) ? frame.signals.find(s => s.src === src && s.dst === dst) : null;
         return { edge, signal };
       }
     }
@@ -1927,6 +2070,9 @@
     let infoFlowActive = false;
     let actionCreditActive = false;
     let actionAssemblyActive = false;
+    let minimalityActive = false;
+    let causalArchActive = false;
+    let ablationActive = false;
 
     // Three.js Scene Setup
     const viewport = document.getElementById('viewport');
@@ -2424,6 +2570,41 @@
           mat.emissive.setHex(col);
           mat.emissiveIntensity = 2.2;
           mesh.scale.set(1.15, 1.15, 1.15);
+        } else if (minimalityActive && recIdx >= 0) {
+          // Minimality Mode [P]: Highlight Retained mechanisms (Emerald green & Cyan) vs Pruned mechanisms (Dimmed slate)
+          const isSlowAsm = (idx === 34 || idx === 35);
+          const isFastOrMedAsm = (idx >= 36 && idx <= 41);
+          if (isSlowAsm) {
+            mat.color.setHex(0x10b981); // Emerald green retained slow assembly
+            mat.emissive.setHex(0x10b981);
+            mat.emissiveIntensity = 3.2;
+            mesh.scale.set(1.4, 1.4, 1.4);
+          } else if (isFastOrMedAsm) {
+            mat.color.setHex(0x475569); // Pruned assemblies
+            mat.emissive.setHex(0x1e293b);
+            mat.emissiveIntensity = 0.2;
+            mesh.scale.set(0.75, 0.75, 0.75);
+          } else {
+            // Retained persistent NMDA recurrent pool
+            mat.color.setHex(0x0ea5e9);
+            mat.emissive.setHex(0x0ea5e9);
+            mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.5 + 0.2, 0.2, 2.5);
+            mesh.scale.set(1.05, 1.05, 1.05);
+          }
+        } else if (ablationActive && recIdx >= 0) {
+          // Ablation Mode [X]: Visual comparison of ablated vs intact pathways
+          const isPruned = (idx >= 36 && idx <= 41);
+          mat.color.setHex(isPruned ? 0xf43f5e : 0x10b981);
+          mat.emissive.setHex(isPruned ? 0xf43f5e : 0x10b981);
+          mat.emissiveIntensity = isPruned ? 0.8 : 2.5;
+          mesh.scale.set(isPruned ? 0.8 : 1.2, isPruned ? 0.8 : 1.2, isPruned ? 0.8 : 1.2);
+        } else if (causalArchActive && recIdx >= 0) {
+          // Causal Mode [K]: Highlight target-specific routing & credit locus
+          const isTargeted = recIdx >= 28;
+          mat.color.setHex(isTargeted ? 0x8b5cf6 : 0x38bdf8);
+          mat.emissive.setHex(isTargeted ? 0x8b5cf6 : 0x38bdf8);
+          mat.emissiveIntensity = isTargeted ? 3.0 : 1.2;
+          mesh.scale.set(isTargeted ? 1.3 : 1.0, isTargeted ? 1.3 : 1.0, isTargeted ? 1.3 : 1.0);
         } else if (actionInterfaceActive && recIdx >= 0) {
           // Action Interface Mode: Context projection & population coloration
           const halfH = Math.floor((topology.hidden_count || 50) / 2);
@@ -2587,7 +2768,28 @@
         if (switchEl && assem.switches !== undefined) switchEl.innerText = assem.switches;
       }
 
-      // 11. Update Spike Raster if visible
+      // 11. Update Phase 16 Minimality Mode Overlay [P]
+      if (minimalityActive && dyn.minimality) {
+        const min = dyn.minimality;
+        const archEl = document.getElementById('min-arch');
+        if (archEl && min.architecture) archEl.innerText = min.architecture;
+        const mechsEl = document.getElementById('min-mechs');
+        if (mechsEl && min.mechanism_count !== undefined) mechsEl.innerText = `${min.mechanism_count} / 12`;
+        const topoEl = document.getElementById('min-topo');
+        if (topoEl && min.neurons !== undefined) topoEl.innerText = `${min.neurons} / ${min.synapses}`;
+        const paramsEl = document.getElementById('min-params');
+        if (paramsEl && min.trainable_parameters !== undefined) paramsEl.innerText = `${min.trainable_parameters} params`;
+        const accEl = document.getElementById('min-acc');
+        if (accEl && min.accuracy !== undefined) accEl.innerText = `${(min.accuracy * 100).toFixed(1)}%`;
+        const csiEl = document.getElementById('min-csi');
+        if (csiEl && min.csi !== undefined) csiEl.innerText = `${Number(min.csi).toFixed(3)} / ${Number(min.leakage).toFixed(3)}`;
+        const ctxEl = document.getElementById('min-ctx-mi');
+        if (ctxEl && min.context_mi !== undefined) ctxEl.innerText = `${Number(min.context_mi).toFixed(4)} b`;
+        const actEl = document.getElementById('min-act-mi');
+        if (actEl && min.action_mi !== undefined) actEl.innerText = `${Number(min.action_mi).toFixed(4)} b`;
+      }
+
+      // 12. Update Spike Raster if visible
       drawSpikeRaster(stepIndex);
     }
 
@@ -2734,7 +2936,9 @@
         vmFill.style.width = `${pct}%`;
         vmFill.style.background = state >= -50.0 ? '#ffffff' : colorStr;
 
-        const curFrame = (logData && logData.frames) ? logData.frames[replay.currentStep] : null;
+        const allFrames = (logData && logData.frames) ? logData.frames : [];
+        const fIdx = (replay && allFrames.length > 0) ? Math.max(0, Math.min(replay.currentStep, allFrames.length - 1)) : 0;
+        const curFrame = allFrames[fIdx] || null;
         const isFired = curFrame && curFrame.events && curFrame.events.some(e => e.type.includes('SPIKE') && e.node_id === nodeId);
         const fStateEl = document.getElementById('n-firing-state');
         if (isFired) {
@@ -2748,7 +2952,9 @@
         document.getElementById('n-membrane-box').style.display = 'none';
       }
 
-      const curFrame = (logData && logData.frames) ? logData.frames[replay.currentStep] : null;
+      const allFramesDyn = (logData && logData.frames) ? logData.frames : [];
+      const fIdxDyn = (replay && allFramesDyn.length > 0) ? Math.max(0, Math.min(replay.currentStep, allFramesDyn.length - 1)) : 0;
+      const curFrame = allFramesDyn[fIdxDyn] || null;
       const dyn = (curFrame && curFrame.dynamic_details) ? curFrame.dynamic_details : {};
 
       // Two-compartment biophysics values
@@ -2845,7 +3051,9 @@
         document.getElementById('syn-dist').innerText = `${p1.distanceTo(p2).toFixed(2)} units`;
       }
 
-      const frame = replay.frames[replay.currentStep];
+      const synFrames = (replay && replay.log && replay.log.frames) ? replay.log.frames : (logData && logData.frames ? logData.frames : []);
+      const synIdx = (replay && synFrames.length > 0) ? Math.max(0, Math.min(replay.currentStep, synFrames.length - 1)) : 0;
+      const frame = synFrames[synIdx] || null;
       const creditInfo = frame && frame.dynamic_details && frame.dynamic_details.action_credit ? frame.dynamic_details.action_credit : null;
 
       const eligEl = document.getElementById('syn-elig');
@@ -2911,7 +3119,9 @@
       const inhCount = members.length - excCount;
       document.getElementById('comm-ei-ratio').innerText = `${excCount}E : ${inhCount}I`;
 
-      const curFrame = (logData && logData.frames) ? logData.frames[replay.currentStep] : null;
+      const commFrames = (logData && logData.frames) ? logData.frames : [];
+      const commIdx = (replay && commFrames.length > 0) ? Math.max(0, Math.min(replay.currentStep, commFrames.length - 1)) : 0;
+      const curFrame = commFrames[commIdx] || null;
       if (curFrame && curFrame.activations && curFrame.states) {
         let sumAct = 0, sumVm = 0;
         members.forEach(m => {
@@ -3336,6 +3546,118 @@
       };
     }
 
+    // Phase 16 Minimality Mode [P]
+    const minimalityBtn = document.getElementById('minimality-btn');
+    const minimalityOverlay = document.getElementById('minimality-overlay');
+    if (minimalityBtn) {
+      minimalityBtn.onclick = () => {
+        minimalityActive = !minimalityActive;
+        minimalityBtn.innerText = `🔬 Minimal: ${minimalityActive ? 'On' : 'Off'}`;
+        minimalityBtn.classList.toggle('active', minimalityActive);
+        if (minimalityOverlay) minimalityOverlay.style.display = minimalityActive ? 'flex' : 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+    const closeMinimalityOverlayBtn = document.getElementById('close-minimality-overlay-btn');
+    if (closeMinimalityOverlayBtn) {
+      closeMinimalityOverlayBtn.onclick = () => {
+        minimalityActive = false;
+        if (minimalityBtn) {
+          minimalityBtn.innerText = '🔬 Minimal: Off';
+          minimalityBtn.classList.remove('active');
+        }
+        if (minimalityOverlay) minimalityOverlay.style.display = 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+
+    // Phase 16 Causal Architecture Mode [K]
+    const causalArchBtn = document.getElementById('causal-arch-btn');
+    const causalArchOverlay = document.getElementById('causal-arch-overlay');
+    const causalInterventionSelect = document.getElementById('causal-intervention-select');
+    const CAUSAL_INTERVENTIONS = {
+      "C8": { name: "C8: Target Signal Shuffle", dAcc: "-14.7%", dCsi: "+0.0132", dMargin: "+6.0918", status: "NECESSARY" },
+      "C5": { name: "C5: Label Permutation", dAcc: "-5.3%", dCsi: "+0.0543", dMargin: "+1.9790", status: "NECESSARY" },
+      "C7": { name: "C7: Action Pop Swap", dAcc: "-5.3%", dCsi: "-0.0543", dMargin: "-1.9790", status: "NECESSARY" },
+      "C9": { name: "C9: Sign Flip Anti-Learning", dAcc: "-5.3%", dCsi: "+0.0245", dMargin: "+2.1450", status: "NECESSARY" },
+      "C3": { name: "C3: Readout Synapse Lesion", dAcc: "-1.3%", dCsi: "-0.0381", dMargin: "-0.9700", status: "MODERATE" },
+      "C6": { name: "C6: Freeze Readout Plasticity", dAcc: "-1.3%", dCsi: "+0.0120", dMargin: "-0.5400", status: "MODERATE" },
+      "C10": { name: "C10: Retrograde Removal", dAcc: "0.0%", dCsi: "+0.0000", dMargin: "+0.0000", status: "REDUNDANT" },
+      "C11": { name: "C11: Eligibility Silencing", dAcc: "0.0%", dCsi: "-0.0125", dMargin: "-0.1200", status: "INCONCLUSIVE" },
+      "C1": { name: "C1: Context Scramble", dAcc: "0.0%", dCsi: "-0.2034", dMargin: "-13.2494", status: "NECESSARY (Margin Collapse)" }
+    };
+    function updateCausalOverlay(cKey) {
+      const data = CAUSAL_INTERVENTIONS[cKey] || CAUSAL_INTERVENTIONS["C8"];
+      const nEl = document.getElementById('causal-intervention-name');
+      if (nEl) nEl.innerText = data.name;
+      const accEl = document.getElementById('causal-delta-acc');
+      if (accEl) {
+        accEl.innerText = data.dAcc;
+        accEl.style.color = data.dAcc.startsWith('-') ? '#f43f5e' : '#10b981';
+      }
+      const csiEl = document.getElementById('causal-delta-csi');
+      if (csiEl) csiEl.innerText = data.dCsi;
+      const marEl = document.getElementById('causal-delta-margin');
+      if (marEl) marEl.innerText = data.dMargin;
+      const statEl = document.getElementById('causal-status');
+      if (statEl) {
+        statEl.innerText = data.status;
+        statEl.style.color = data.status.includes('NECESSARY') ? '#10b981' : (data.status.includes('REDUNDANT') ? '#f43f5e' : '#fbbf24');
+      }
+    }
+    if (causalInterventionSelect) {
+      causalInterventionSelect.onchange = (e) => {
+        updateCausalOverlay(e.target.value);
+      };
+    }
+    if (causalArchBtn) {
+      causalArchBtn.onclick = () => {
+        causalArchActive = !causalArchActive;
+        causalArchBtn.innerText = `🧬 Causal: ${causalArchActive ? 'On' : 'Off'}`;
+        causalArchBtn.classList.toggle('active', causalArchActive);
+        if (causalArchOverlay) causalArchOverlay.style.display = causalArchActive ? 'flex' : 'none';
+        if (causalInterventionSelect) updateCausalOverlay(causalInterventionSelect.value);
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+    const closeCausalOverlayBtn = document.getElementById('close-causal-overlay-btn');
+    if (closeCausalOverlayBtn) {
+      closeCausalOverlayBtn.onclick = () => {
+        causalArchActive = false;
+        if (causalArchBtn) {
+          causalArchBtn.innerText = '🧬 Causal: Off';
+          causalArchBtn.classList.remove('active');
+        }
+        if (causalArchOverlay) causalArchOverlay.style.display = 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+
+    // Phase 16 Ablation Mode [X]
+    const ablationModeBtn = document.getElementById('ablation-mode-btn');
+    const ablationOverlay = document.getElementById('ablation-overlay');
+    if (ablationModeBtn) {
+      ablationModeBtn.onclick = () => {
+        ablationActive = !ablationActive;
+        ablationModeBtn.innerText = `✂️ Ablation: ${ablationActive ? 'On' : 'Off'}`;
+        ablationModeBtn.classList.toggle('active', ablationActive);
+        if (ablationOverlay) ablationOverlay.style.display = ablationActive ? 'flex' : 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+    const closeAblationOverlayBtn = document.getElementById('close-ablation-overlay-btn');
+    if (closeAblationOverlayBtn) {
+      closeAblationOverlayBtn.onclick = () => {
+        ablationActive = false;
+        if (ablationModeBtn) {
+          ablationModeBtn.innerText = '✂️ Ablation: Off';
+          ablationModeBtn.classList.remove('active');
+        }
+        if (ablationOverlay) ablationOverlay.style.display = 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+
     document.getElementById('focus-act0-btn').onclick = () => focusCameraOnAction(0);
     document.getElementById('focus-act1-btn').onclick = () => focusCameraOnAction(1);
 
@@ -3479,6 +3801,12 @@
         if (actionCreditBtn) actionCreditBtn.click();
       } else if (e.code === 'KeyM') {
         if (actionAssemblyBtn) actionAssemblyBtn.click();
+      } else if (e.code === 'KeyP') {
+        if (minimalityBtn) minimalityBtn.click();
+      } else if (e.code === 'KeyK') {
+        if (causalArchBtn) causalArchBtn.click();
+      } else if (e.code === 'KeyX') {
+        if (ablationModeBtn) ablationModeBtn.click();
       } else if (e.code === 'Escape') {
         clearSelection();
         document.getElementById('exp-modal').style.display = 'none';
@@ -3520,8 +3848,8 @@
     }
     animate();
 
-    // Auto-bootstrap Primary Phase 14 Trace on Startup (Section 32)
-    const initialTrace = document.getElementById('model-select')?.value || '/experiments/results/phase14_latest.brainlog';
+    // Auto-bootstrap Primary Phase 16 Trace on Startup
+    const initialTrace = document.getElementById('model-select')?.value || '/experiments/results/brainlogs/EXP016_minimal_brain.brainlog';
     fetchBrainlog(initialTrace);
   </script>
 </body>

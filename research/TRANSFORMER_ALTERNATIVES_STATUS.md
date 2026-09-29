@@ -156,30 +156,30 @@ Below is the scientific audit of the candidate computational families evaluated 
 ---
 
 ### Candidate 10: Hybrid Biophysical Architectures (The 3D-Brain Integrated Lineage)
-- **What It Solves:** Integrates Dale's E/I balance + modular 3D spatial topology + two-compartment NMDA/dendritic integration + target-specific dendritic learning + multi-timescale action assemblies + biophysical burst dynamics + dendritic calcium coincidence + population resonance.
-- **What It Does Not Solve:** Diffuse retrograde signaling induces credit leakage without spine-level microdomains; scaling to complex multi-task reinforcement learning benchmarks remains an open investigation.
-- **Biological Plausibility:** Exceptionally High across anatomical, physiological, dendritic, and learning constraints.
-- **Memory Mechanism:** Slow NMDA conductances, dendritic plateau potentials, multi-timescale assemblies ($\tau = 25\text{--}1500\text{ ms}$), and persistent evidence accumulation.
+- **What It Solves:** Integrates Dale's E/I balance + modular 3D spatial topology + persistent NMDA conductances + target-specific dendritic learning + minimal action assemblies + biophysical burst dynamics + local three-factor eligibility.
+- **What It Does Not Solve:** Scaling to multi-task reinforcement learning benchmarks and lifelong continual task switching remains an open empirical challenge.
+- **Biological Plausibility:** Exceptionally High across anatomical, physiological, dendritic, and local learning constraints (no global BPTT, no backward passes).
+- **Memory Mechanism:** Slow NMDA conductances ($\tau_{\text{NMDA}} = 120\text{ ms}$), temporal population bursting representations, and slow evidence-accumulating action assemblies ($\tau_{\text{slow}} = 1500\text{ ms}$).
 - **Scaling:** Demonstrates sub-millisecond execution for $N=100,000$ ($169.6\text{ steps/s}$, $>2.54 \times 10^6\text{ spikes/s}$, $21.74\text{ MB}$ RAM).
-- **Training Mechanism:** Local target-specific three-factor plasticity with dendritic plateau teaching signals ($G_1 / G_3$).
+- **Training Mechanism:** Local target-specific three-factor plasticity with dendritic eligibility traces ($M_k(t) \cdot e_{ij}^k(t)$). Diffuse retrograde signaling and dendritic STDP were empirically identified as redundant/harmful and pruned in Phase 16.
 - **Temporal Credit Assignment:** Preserves causal context across $>5000\text{ ms}$ delays with zero decision chatter.
 - **Spatial Structure:** Genuine 3D Euclidean coordinates with modular community structure.
-- **Interpretability / Observability:** Completely observable in the 3D Neural Observatory with target dendritic synapse inspection and action assembly overlays.
-- **Computational Cost:** Very low compared to Transformers ($O(N)$ linear event-driven scaling).
-- **Current 3D-Brain Evidence:** Phase 15 closed the gap with the analytical BPTT reference ($68.0\%$), achieving **$64.0\% \text{ to } 65.3\%$** autonomous task accuracy without global backpropagation through time. Continuous Shannon mutual information preserved in the population temporal state reached **$0.9968\text{ b}$** ($99.7\%$).
+- **Interpretability / Observability:** Completely observable in the 3D Neural Observatory with Minimality [P], Causal Architecture [K], and Ablation [X] inspection modes.
+- **Computational Cost:** Very low compared to Transformers ($O(N)$ linear event-driven scaling, reduced from 286 to 282 state variables in `MIN_E`).
+- **Phase 16 Minimality Evidence:** Phase 16 pruned the architecture from 12 down to 8 essential mechanisms (`MIN_E`), achieving **62.7% ± 3.9%** autonomous task accuracy (outperforming Full Phase 15 at 61.3%). The optimal dual-timescale configuration (`MIN_C` / `ABL_G`) reached **77.3% ± 1.3%**, surpassing the analytical BPTT reference ($68.0\%$). Continuous Shannon mutual information preserved across delay horizons reached **0.9954 b** ($99.5\%$), with action-relevant mutual information reaching **0.4690 b**.
 
 ---
 
-## 3. Decision Gate Criteria & Next Scientific Focus
+## 3. Decision Gate Criteria & Research Track Status
 
 **Why No Final Winner Is Selected:**
-While Phase 15 Target-Specific Dendritic Learning achieved a major breakthrough in closing the gap to Supervised BPTT ($64.0\%\text{--}65.3\%\text{ vs }68.0\%$) and confirmed that the recurrent temporal population preserves $0.9968\text{ b}$ of Shannon mutual information, the standard offline Small Transformer reference ($72.0\%$) and unconstrained continuous oracle ($96.0\%$) demonstrate that additional capacity remains latent in the substrate.
+Phase 16 architectural minimality proved that biological local learning does NOT require complex mechanism proliferation: pruning 4 non-essential subsystems reduced mechanism count by 33.3% while simultaneously improving accuracy (+1.4%), boosting credit specificity ($0.472 \to 0.596$), and preserving full contextual Shannon entropy ($0.9954\text{ b}$).
 
-The scientific comparison remains:
-- **Transformer:** Highly efficient sequence-processing mathematical reference without biological realism, spatial geometry, or continuous physics.
-- **3D-Brain:** Stateful, spatial, temporally structured biological computational substrate operating with local credit assignment.
+Nevertheless, both analytical BPTT ($68.0\%$) and standard causal Transformers ($72.0\%$) remain critical **scientific controls**:
+- **Transformer:** Unbounded self-attention baseline without biophysical constraints, spatial embedding, or continuous embodiment.
+- **3D-Brain:** Spatially embedded, stateful biological substrate operating exclusively through local physical dynamics.
 
-The question of eventual architecture selection remains open pending multi-task scaling, structural spine compartmentalization, and generalized embodiment.
+Neither architecture is declared the victor. The Transformer research track is retained as an active scientific benchmark.
 
 > **STATUS: RESEARCH ONGOING — NO FINAL ALTERNATIVE SELECTED.**
 

@@ -1,0 +1,6871 @@
+{
+  "brainlog_version": "2.6",
+  "metadata": {
+    "experiment_id": "EXP_016",
+    "title": "Minimal Sufficient Brain: Phase 16",
+    "architecture": "MIN_E",
+    "num_nodes": 50,
+    "num_edges": 310,
+    "total_steps": 19,
+    "duration_ms": 760.0
+  },
+  "topology": {
+    "topology_id": "MIN_E_40units",
+    "model_id": "MIN_E",
+    "node_count": 50,
+    "edge_count": 310,
+    "nodes": [
+      {
+        "id": 0,
+        "type": "INPUT",
+        "label": "Sensor_0",
+        "pos": [
+          -4.0,
+          0.0,
+          -8.0
+        ],
+        "unit_index": -1,
+        "module_id": 0,
+        "metadata": {}
+      },
+      {
+        "id": 1,
+        "type": "INPUT",
+        "label": "Sensor_1",
+        "pos": [
+          -2.857,
+          0.0,
+          -8.0
+        ],
+        "unit_index": -1,
+        "module_id": 1,
+        "metadata": {}
+      },
+      {
+        "id": 2,
+        "type": "INPUT",
+        "label": "Sensor_2",
+        "pos": [
+          -1.714,
+          0.0,
+          -8.0
+        ],
+        "unit_index": -1,
+        "module_id": 2,
+        "metadata": {}
+      },
+      {
+        "id": 3,
+        "type": "INPUT",
+        "label": "Sensor_3",
+        "pos": [
+          -0.571,
+          0.0,
+          -8.0
+        ],
+        "unit_index": -1,
+        "module_id": 3,
+        "metadata": {}
+      },
+      {
+        "id": 4,
+        "type": "INPUT",
+        "label": "Sensor_4",
+        "pos": [
+          0.571,
+          0.0,
+          -8.0
+        ],
+        "unit_index": -1,
+        "module_id": 0,
+        "metadata": {}
+      },
+      {
+        "id": 5,
+        "type": "INPUT",
+        "label": "Sensor_5",
+        "pos": [
+          1.714,
+          0.0,
+          -8.0
+        ],
+        "unit_index": -1,
+        "module_id": 1,
+        "metadata": {}
+      },
+      {
+        "id": 6,
+        "type": "INPUT",
+        "label": "Sensor_6",
+        "pos": [
+          2.857,
+          0.0,
+          -8.0
+        ],
+        "unit_index": -1,
+        "module_id": 2,
+        "metadata": {}
+      },
+      {
+        "id": 7,
+        "type": "INPUT",
+        "label": "Sensor_7",
+        "pos": [
+          4.0,
+          0.0,
+          -8.0
+        ],
+        "unit_index": -1,
+        "module_id": 3,
+        "metadata": {}
+      },
+      {
+        "id": 8,
+        "type": "RECURRENT",
+        "label": "[E] Unit_00",
+        "pos": [
+          12.609,
+          -2.08,
+          -2.099
+        ],
+        "unit_index": 0,
+        "module_id": 0,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 9,
+        "type": "RECURRENT",
+        "label": "[E] Unit_01",
+        "pos": [
+          13.881,
+          -3.902,
+          -6.204
+        ],
+        "unit_index": 1,
+        "module_id": 0,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 10,
+        "type": "RECURRENT",
+        "label": "[E] Unit_02",
+        "pos": [
+          12.256,
+          -0.632,
+          -3.634
+        ],
+        "unit_index": 2,
+        "module_id": 0,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 11,
+        "type": "RECURRENT",
+        "label": "[E] Unit_03",
+        "pos": [
+          10.294,
+          1.759,
+          -2.044
+        ],
+        "unit_index": 3,
+        "module_id": 0,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 12,
+        "type": "RECURRENT",
+        "label": "[E] Unit_04",
+        "pos": [
+          12.132,
+          2.254,
+          -2.665
+        ],
+        "unit_index": 4,
+        "module_id": 0,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 13,
+        "type": "RECURRENT",
+        "label": "[E] Unit_05",
+        "pos": [
+          10.281,
+          0.738,
+          -5.518
+        ],
+        "unit_index": 5,
+        "module_id": 0,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 14,
+        "type": "RECURRENT",
+        "label": "[E] Unit_06",
+        "pos": [
+          13.757,
+          -0.1,
+          -3.97
+        ],
+        "unit_index": 6,
+        "module_id": 0,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 15,
+        "type": "RECURRENT",
+        "label": "[E] Unit_07",
+        "pos": [
+          10.638,
+          2.445,
+          -3.909
+        ],
+        "unit_index": 7,
+        "module_id": 0,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 16,
+        "type": "RECURRENT",
+        "label": "[E] Unit_08",
+        "pos": [
+          11.143,
+          -0.704,
+          -2.535
+        ],
+        "unit_index": 8,
+        "module_id": 0,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 17,
+        "type": "RECURRENT",
+        "label": "[E] Unit_09",
+        "pos": [
+          12.731,
+          0.825,
+          -2.738
+        ],
+        "unit_index": 9,
+        "module_id": 0,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 18,
+        "type": "RECURRENT",
+        "label": "[E] Unit_10",
+        "pos": [
+          4.283,
+          11.187,
+          2.576
+        ],
+        "unit_index": 10,
+        "module_id": 1,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 19,
+        "type": "RECURRENT",
+        "label": "[E] Unit_11",
+        "pos": [
+          -1.628,
+          13.232,
+          5.858
+        ],
+        "unit_index": 11,
+        "module_id": 1,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 20,
+        "type": "RECURRENT",
+        "label": "[E] Unit_12",
+        "pos": [
+          -0.228,
+          10.32,
+          1.951
+        ],
+        "unit_index": 12,
+        "module_id": 1,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 21,
+        "type": "RECURRENT",
+        "label": "[E] Unit_13",
+        "pos": [
+          1.301,
+          13.487,
+          4.686
+        ],
+        "unit_index": 13,
+        "module_id": 1,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 22,
+        "type": "RECURRENT",
+        "label": "[E] Unit_14",
+        "pos": [
+          -1.331,
+          12.464,
+          3.833
+        ],
+        "unit_index": 14,
+        "module_id": 1,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 23,
+        "type": "RECURRENT",
+        "label": "[E] Unit_15",
+        "pos": [
+          0.437,
+          13.743,
+          4.047
+        ],
+        "unit_index": 15,
+        "module_id": 1,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 24,
+        "type": "RECURRENT",
+        "label": "[E] Unit_16",
+        "pos": [
+          1.358,
+          12.135,
+          4.178
+        ],
+        "unit_index": 16,
+        "module_id": 1,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 25,
+        "type": "RECURRENT",
+        "label": "[E] Unit_17",
+        "pos": [
+          1.263,
+          9.086,
+          2.961
+        ],
+        "unit_index": 17,
+        "module_id": 1,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 26,
+        "type": "RECURRENT",
+        "label": "[E] Unit_18",
+        "pos": [
+          -0.941,
+          10.722,
+          3.05
+        ],
+        "unit_index": 18,
+        "module_id": 1,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 27,
+        "type": "RECURRENT",
+        "label": "[E] Unit_19",
+        "pos": [
+          2.99,
+          10.268,
+          5.537
+        ],
+        "unit_index": 19,
+        "module_id": 1,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 28,
+        "type": "RECURRENT",
+        "label": "[E] Unit_20",
+        "pos": [
+          -15.366,
+          -0.67,
+          -3.274
+        ],
+        "unit_index": 20,
+        "module_id": 2,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 29,
+        "type": "RECURRENT",
+        "label": "[E] Unit_21",
+        "pos": [
+          -10.828,
+          1.422,
+          -2.013
+        ],
+        "unit_index": 21,
+        "module_id": 2,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 30,
+        "type": "RECURRENT",
+        "label": "[E] Unit_22",
+        "pos": [
+          -12.697,
+          -0.925,
+          -1.884
+        ],
+        "unit_index": 22,
+        "module_id": 2,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 31,
+        "type": "RECURRENT",
+        "label": "[E] Unit_23",
+        "pos": [
+          -12.383,
+          -2.551,
+          -5.867
+        ],
+        "unit_index": 23,
+        "module_id": 2,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 32,
+        "type": "RECURRENT",
+        "label": "[E] Unit_24",
+        "pos": [
+          -13.839,
+          0.994,
+          -3.315
+        ],
+        "unit_index": 24,
+        "module_id": 2,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 33,
+        "type": "RECURRENT",
+        "label": "[E] Unit_25",
+        "pos": [
+          -10.619,
+          -0.855,
+          -3.283
+        ],
+        "unit_index": 25,
+        "module_id": 2,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 34,
+        "type": "RECURRENT",
+        "label": "[E] Unit_26",
+        "pos": [
+          -10.749,
+          -0.619,
+          -2.686
+        ],
+        "unit_index": 26,
+        "module_id": 2,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 35,
+        "type": "RECURRENT",
+        "label": "[E] Unit_27",
+        "pos": [
+          -13.324,
+          -0.726,
+          -4.363
+        ],
+        "unit_index": 27,
+        "module_id": 2,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 36,
+        "type": "RECURRENT",
+        "label": "[E] Unit_28",
+        "pos": [
+          -14.392,
+          0.974,
+          -4.539
+        ],
+        "unit_index": 28,
+        "module_id": 2,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 37,
+        "type": "RECURRENT",
+        "label": "[E] Unit_29",
+        "pos": [
+          -11.975,
+          0.961,
+          -2.707
+        ],
+        "unit_index": 29,
+        "module_id": 2,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 38,
+        "type": "RECURRENT",
+        "label": "[E] Unit_30",
+        "pos": [
+          1.331,
+          -12.197,
+          2.753
+        ],
+        "unit_index": 30,
+        "module_id": 3,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 39,
+        "type": "RECURRENT",
+        "label": "[E] Unit_31",
+        "pos": [
+          -0.159,
+          -15.375,
+          0.706
+        ],
+        "unit_index": 31,
+        "module_id": 3,
+        "metadata": {
+          "neuron_type": "EXCITATORY"
+        }
+      },
+      {
+        "id": 40,
+        "type": "RECURRENT",
+        "label": "[I] Unit_32",
+        "pos": [
+          -2.645,
+          -13.994,
+          4.4
+        ],
+        "unit_index": 32,
+        "module_id": 3,
+        "metadata": {
+          "neuron_type": "INHIBITORY"
+        }
+      },
+      {
+        "id": 41,
+        "type": "RECURRENT",
+        "label": "[I] Unit_33",
+        "pos": [
+          -1.811,
+          -12.756,
+          6.198
+        ],
+        "unit_index": 33,
+        "module_id": 3,
+        "metadata": {
+          "neuron_type": "INHIBITORY"
+        }
+      },
+      {
+        "id": 42,
+        "type": "RECURRENT",
+        "label": "[I] Unit_34",
+        "pos": [
+          -0.713,
+          -10.525,
+          1.733
+        ],
+        "unit_index": 34,
+        "module_id": 3,
+        "metadata": {
+          "neuron_type": "INHIBITORY"
+        }
+      },
+      {
+        "id": 43,
+        "type": "RECURRENT",
+        "label": "[I] Unit_35",
+        "pos": [
+          -0.411,
+          -13.9,
+          2.922
+        ],
+        "unit_index": 35,
+        "module_id": 3,
+        "metadata": {
+          "neuron_type": "INHIBITORY"
+        }
+      },
+      {
+        "id": 44,
+        "type": "RECURRENT",
+        "label": "[I] Unit_36",
+        "pos": [
+          1.681,
+          -15.455,
+          4.469
+        ],
+        "unit_index": 36,
+        "module_id": 3,
+        "metadata": {
+          "neuron_type": "INHIBITORY"
+        }
+      },
+      {
+        "id": 45,
+        "type": "RECURRENT",
+        "label": "[I] Unit_37",
+        "pos": [
+          0.475,
+          -13.188,
+          0.708
+        ],
+        "unit_index": 37,
+        "module_id": 3,
+        "metadata": {
+          "neuron_type": "INHIBITORY"
+        }
+      },
+      {
+        "id": 46,
+        "type": "RECURRENT",
+        "label": "[I] Unit_38",
+        "pos": [
+          0.144,
+          -13.059,
+          4.065
+        ],
+        "unit_index": 38,
+        "module_id": 3,
+        "metadata": {
+          "neuron_type": "INHIBITORY"
+        }
+      },
+      {
+        "id": 47,
+        "type": "RECURRENT",
+        "label": "[I] Unit_39",
+        "pos": [
+          0.044,
+          -8.796,
+          3.121
+        ],
+        "unit_index": 39,
+        "module_id": 3,
+        "metadata": {
+          "neuron_type": "INHIBITORY"
+        }
+      },
+      {
+        "id": 48,
+        "type": "OUTPUT",
+        "label": "Pred_0",
+        "pos": [
+          -4.0,
+          0.0,
+          8.0
+        ],
+        "unit_index": -1,
+        "module_id": 0,
+        "metadata": {}
+      },
+      {
+        "id": 49,
+        "type": "OUTPUT",
+        "label": "Pred_1",
+        "pos": [
+          4.0,
+          0.0,
+          8.0
+        ],
+        "unit_index": -1,
+        "module_id": 1,
+        "metadata": {}
+      }
+    ],
+    "edges": [
+      {
+        "src": 0,
+        "dst": 8,
+        "weight": 0.9293,
+        "latency_steps": 1,
+        "distance": 17.748,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 9,
+        "weight": 0.7929,
+        "latency_steps": 1,
+        "distance": 18.39,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 10,
+        "weight": 0.9564,
+        "latency_steps": 1,
+        "distance": 16.844,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 11,
+        "weight": 0.6183,
+        "latency_steps": 1,
+        "distance": 15.585,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 12,
+        "weight": 0.5827,
+        "latency_steps": 1,
+        "distance": 17.14,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 13,
+        "weight": 1.1153,
+        "latency_steps": 1,
+        "distance": 14.514,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 14,
+        "weight": 1.088,
+        "latency_steps": 1,
+        "distance": 18.209,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 15,
+        "weight": 0.6833,
+        "latency_steps": 1,
+        "distance": 15.394,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 16,
+        "weight": 1.1017,
+        "latency_steps": 1,
+        "distance": 16.114,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 17,
+        "weight": 0.4099,
+        "latency_steps": 1,
+        "distance": 17.558,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 18,
+        "weight": 0.9938,
+        "latency_steps": 1,
+        "distance": 17.482,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 19,
+        "weight": 1.004,
+        "latency_steps": 1,
+        "distance": 19.307,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 20,
+        "weight": 0.2388,
+        "latency_steps": 1,
+        "distance": 14.824,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 21,
+        "weight": 0.4039,
+        "latency_steps": 1,
+        "distance": 19.26,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 22,
+        "weight": 0.5479,
+        "latency_steps": 1,
+        "distance": 17.392,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 23,
+        "weight": 0.3658,
+        "latency_steps": 1,
+        "distance": 18.807,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 24,
+        "weight": -0.2714,
+        "latency_steps": 1,
+        "distance": 18.007,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 25,
+        "weight": 0.133,
+        "latency_steps": 1,
+        "distance": 15.179,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 26,
+        "weight": -0.3449,
+        "latency_steps": 1,
+        "distance": 15.698,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 27,
+        "weight": -0.7105,
+        "latency_steps": 1,
+        "distance": 18.372,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 28,
+        "weight": -0.4095,
+        "latency_steps": 1,
+        "distance": 12.328,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 29,
+        "weight": -0.0665,
+        "latency_steps": 1,
+        "distance": 9.192,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 30,
+        "weight": 0.67,
+        "latency_steps": 1,
+        "distance": 10.672,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 31,
+        "weight": 0.1819,
+        "latency_steps": 1,
+        "distance": 9.018,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 32,
+        "weight": -0.1626,
+        "latency_steps": 1,
+        "distance": 10.943,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 33,
+        "weight": 0.1432,
+        "latency_steps": 1,
+        "distance": 8.173,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 34,
+        "weight": -0.3726,
+        "latency_steps": 1,
+        "distance": 8.612,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 35,
+        "weight": 0.2283,
+        "latency_steps": 1,
+        "distance": 10.035,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 36,
+        "weight": 0.0384,
+        "latency_steps": 1,
+        "distance": 10.996,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 37,
+        "weight": 0.1339,
+        "latency_steps": 1,
+        "distance": 9.62,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 38,
+        "weight": -0.372,
+        "latency_steps": 1,
+        "distance": 17.112,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 39,
+        "weight": 1.2325,
+        "latency_steps": 1,
+        "distance": 18.081,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 40,
+        "weight": 0.1845,
+        "latency_steps": 1,
+        "distance": 18.746,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 41,
+        "weight": 0.2001,
+        "latency_steps": 1,
+        "distance": 19.212,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 42,
+        "weight": -0.0413,
+        "latency_steps": 1,
+        "distance": 14.708,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 43,
+        "weight": 0.2037,
+        "latency_steps": 1,
+        "distance": 18.038,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 44,
+        "weight": -0.124,
+        "latency_steps": 1,
+        "distance": 20.654,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 45,
+        "weight": 0.1256,
+        "latency_steps": 1,
+        "distance": 16.425,
+        "propagation_delay": 1
+      },
+      {
+        "src": 0,
+        "dst": 47,
+        "weight": 0.7399,
+        "latency_steps": 1,
+        "distance": 14.744,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 8,
+        "weight": 0.3588,
+        "latency_steps": 1,
+        "distance": 16.684,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 9,
+        "weight": 0.4381,
+        "latency_steps": 1,
+        "distance": 17.28,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 10,
+        "weight": 0.3932,
+        "latency_steps": 1,
+        "distance": 15.744,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 11,
+        "weight": 0.6506,
+        "latency_steps": 1,
+        "distance": 14.544,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 12,
+        "weight": 0.4547,
+        "latency_steps": 1,
+        "distance": 16.069,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 13,
+        "weight": 1.0304,
+        "latency_steps": 1,
+        "distance": 13.391,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 14,
+        "weight": 0.8287,
+        "latency_steps": 1,
+        "distance": 17.096,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 15,
+        "weight": 1.4342,
+        "latency_steps": 1,
+        "distance": 14.312,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 16,
+        "weight": 1.1366,
+        "latency_steps": 1,
+        "distance": 15.045,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 17,
+        "weight": 1.0109,
+        "latency_steps": 1,
+        "distance": 16.473,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 18,
+        "weight": 0.5192,
+        "latency_steps": 1,
+        "distance": 16.97,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 19,
+        "weight": 0.9894,
+        "latency_steps": 1,
+        "distance": 19.2,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 20,
+        "weight": 0.3769,
+        "latency_steps": 1,
+        "distance": 14.575,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 21,
+        "weight": 0.7128,
+        "latency_steps": 1,
+        "distance": 18.977,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 22,
+        "weight": 0.1865,
+        "latency_steps": 1,
+        "distance": 17.254,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 23,
+        "weight": 0.8761,
+        "latency_steps": 1,
+        "distance": 18.57,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 24,
+        "weight": -0.3931,
+        "latency_steps": 1,
+        "distance": 17.701,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 25,
+        "weight": 0.3556,
+        "latency_steps": 1,
+        "distance": 14.821,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 26,
+        "weight": -0.1762,
+        "latency_steps": 1,
+        "distance": 15.516,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 27,
+        "weight": -0.2063,
+        "latency_steps": 1,
+        "distance": 17.969,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 28,
+        "weight": -0.3077,
+        "latency_steps": 1,
+        "distance": 13.389,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 30,
+        "weight": 0.0679,
+        "latency_steps": 1,
+        "distance": 11.623,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 31,
+        "weight": 0.6516,
+        "latency_steps": 1,
+        "distance": 10.09,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 32,
+        "weight": 0.62,
+        "latency_steps": 1,
+        "distance": 11.981,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 33,
+        "weight": 0.5971,
+        "latency_steps": 1,
+        "distance": 9.123,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 34,
+        "weight": -0.1418,
+        "latency_steps": 1,
+        "distance": 9.534,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 35,
+        "weight": 0.5674,
+        "latency_steps": 1,
+        "distance": 11.105,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 36,
+        "weight": 0.0968,
+        "latency_steps": 1,
+        "distance": 12.082,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 37,
+        "weight": 0.5116,
+        "latency_steps": 1,
+        "distance": 10.587,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 38,
+        "weight": -0.04,
+        "latency_steps": 1,
+        "distance": 16.791,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 39,
+        "weight": -0.4971,
+        "latency_steps": 1,
+        "distance": 17.874,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 40,
+        "weight": -0.1596,
+        "latency_steps": 1,
+        "distance": 18.699,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 41,
+        "weight": 0.4297,
+        "latency_steps": 1,
+        "distance": 19.115,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 42,
+        "weight": 0.8881,
+        "latency_steps": 1,
+        "distance": 14.495,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 43,
+        "weight": -0.7402,
+        "latency_steps": 1,
+        "distance": 17.846,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 44,
+        "weight": -0.0439,
+        "latency_steps": 1,
+        "distance": 20.37,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 45,
+        "weight": -0.1578,
+        "latency_steps": 1,
+        "distance": 16.151,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 46,
+        "weight": -0.4467,
+        "latency_steps": 1,
+        "distance": 18.031,
+        "propagation_delay": 1
+      },
+      {
+        "src": 1,
+        "dst": 47,
+        "weight": 0.1862,
+        "latency_steps": 1,
+        "distance": 14.473,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 8,
+        "weight": 1.1184,
+        "latency_steps": 1,
+        "distance": 15.63,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 9,
+        "weight": 1.1731,
+        "latency_steps": 1,
+        "distance": 16.176,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 10,
+        "weight": 1.1727,
+        "latency_steps": 1,
+        "distance": 14.65,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 11,
+        "weight": 1.0258,
+        "latency_steps": 1,
+        "distance": 13.519,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 12,
+        "weight": 1.0613,
+        "latency_steps": 1,
+        "distance": 15.008,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 13,
+        "weight": 0.5176,
+        "latency_steps": 1,
+        "distance": 12.271,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 14,
+        "weight": 0.9227,
+        "latency_steps": 1,
+        "distance": 15.988,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 15,
+        "weight": 0.4327,
+        "latency_steps": 1,
+        "distance": 13.24,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 16,
+        "weight": 0.652,
+        "latency_steps": 1,
+        "distance": 13.988,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 17,
+        "weight": 0.8604,
+        "latency_steps": 1,
+        "distance": 15.396,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 18,
+        "weight": 0.646,
+        "latency_steps": 1,
+        "distance": 16.522,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 19,
+        "weight": 1.0823,
+        "latency_steps": 1,
+        "distance": 19.161,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 20,
+        "weight": 0.9696,
+        "latency_steps": 1,
+        "distance": 14.413,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 21,
+        "weight": 0.3969,
+        "latency_steps": 1,
+        "distance": 18.76,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 22,
+        "weight": 0.8306,
+        "latency_steps": 1,
+        "distance": 17.191,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 23,
+        "weight": 0.8933,
+        "latency_steps": 1,
+        "distance": 18.402,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 24,
+        "weight": -0.1654,
+        "latency_steps": 1,
+        "distance": 17.464,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 25,
+        "weight": 0.8471,
+        "latency_steps": 1,
+        "distance": 14.545,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 26,
+        "weight": -0.2597,
+        "latency_steps": 1,
+        "distance": 15.416,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 28,
+        "weight": 0.903,
+        "latency_steps": 1,
+        "distance": 14.462,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 29,
+        "weight": -0.2778,
+        "latency_steps": 1,
+        "distance": 10.997,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 30,
+        "weight": -0.0503,
+        "latency_steps": 1,
+        "distance": 12.605,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 31,
+        "weight": 0.0777,
+        "latency_steps": 1,
+        "distance": 11.175,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 32,
+        "weight": -0.4697,
+        "latency_steps": 1,
+        "distance": 13.037,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 33,
+        "weight": 0.0384,
+        "latency_steps": 1,
+        "distance": 10.113,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 34,
+        "weight": 0.3886,
+        "latency_steps": 1,
+        "distance": 10.5,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 35,
+        "weight": -0.0656,
+        "latency_steps": 1,
+        "distance": 12.188,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 36,
+        "weight": 1.0681,
+        "latency_steps": 1,
+        "distance": 13.178,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 37,
+        "weight": -0.3093,
+        "latency_steps": 1,
+        "distance": 11.586,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 38,
+        "weight": -0.7457,
+        "latency_steps": 1,
+        "distance": 16.543,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 39,
+        "weight": -0.1562,
+        "latency_steps": 1,
+        "distance": 17.737,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 40,
+        "weight": -0.0568,
+        "latency_steps": 1,
+        "distance": 18.721,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 41,
+        "weight": 0.0659,
+        "latency_steps": 1,
+        "distance": 19.087,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 42,
+        "weight": 0.6675,
+        "latency_steps": 1,
+        "distance": 14.37,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 43,
+        "weight": 0.3935,
+        "latency_steps": 1,
+        "distance": 17.726,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 44,
+        "weight": -0.1069,
+        "latency_steps": 1,
+        "distance": 20.146,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 45,
+        "weight": -0.7453,
+        "latency_steps": 1,
+        "distance": 15.954,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 46,
+        "weight": -0.1419,
+        "latency_steps": 1,
+        "distance": 17.876,
+        "propagation_delay": 1
+      },
+      {
+        "src": 2,
+        "dst": 47,
+        "weight": 0.3513,
+        "latency_steps": 1,
+        "distance": 14.288,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 8,
+        "weight": 1.199,
+        "latency_steps": 1,
+        "distance": 14.59,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 9,
+        "weight": 1.13,
+        "latency_steps": 1,
+        "distance": 15.077,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 10,
+        "weight": 0.7788,
+        "latency_steps": 1,
+        "distance": 13.564,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 11,
+        "weight": 0.955,
+        "latency_steps": 1,
+        "distance": 12.515,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 12,
+        "weight": 1.279,
+        "latency_steps": 1,
+        "distance": 13.961,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 13,
+        "weight": 0.8985,
+        "latency_steps": 1,
+        "distance": 11.157,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 14,
+        "weight": 1.0678,
+        "latency_steps": 1,
+        "distance": 14.884,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 15,
+        "weight": 1.2108,
+        "latency_steps": 1,
+        "distance": 12.18,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 16,
+        "weight": 0.6038,
+        "latency_steps": 1,
+        "distance": 12.945,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 17,
+        "weight": 1.0929,
+        "latency_steps": 1,
+        "distance": 14.329,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 18,
+        "weight": 0.638,
+        "latency_steps": 1,
+        "distance": 16.142,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 19,
+        "weight": 0.7582,
+        "latency_steps": 1,
+        "distance": 19.19,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 20,
+        "weight": 0.4158,
+        "latency_steps": 1,
+        "distance": 14.34,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 21,
+        "weight": 0.6562,
+        "latency_steps": 1,
+        "distance": 18.61,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 22,
+        "weight": 0.5754,
+        "latency_steps": 1,
+        "distance": 17.203,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 23,
+        "weight": 1.3767,
+        "latency_steps": 1,
+        "distance": 18.303,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 24,
+        "weight": -0.5841,
+        "latency_steps": 1,
+        "distance": 17.3,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 25,
+        "weight": 1.2362,
+        "latency_steps": 1,
+        "distance": 14.355,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 26,
+        "weight": -0.0597,
+        "latency_steps": 1,
+        "distance": 15.401,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 27,
+        "weight": 0.7501,
+        "latency_steps": 1,
+        "distance": 17.36,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 28,
+        "weight": -0.3485,
+        "latency_steps": 1,
+        "distance": 15.546,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 29,
+        "weight": 0.1893,
+        "latency_steps": 1,
+        "distance": 11.961,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 30,
+        "weight": 0.1213,
+        "latency_steps": 1,
+        "distance": 13.613,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 31,
+        "weight": -0.5195,
+        "latency_steps": 1,
+        "distance": 12.271,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 32,
+        "weight": -0.3796,
+        "latency_steps": 1,
+        "distance": 14.106,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 33,
+        "weight": 0.2732,
+        "latency_steps": 1,
+        "distance": 11.133,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 34,
+        "weight": -0.5627,
+        "latency_steps": 1,
+        "distance": 11.498,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 35,
+        "weight": -0.2953,
+        "latency_steps": 1,
+        "distance": 13.281,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 36,
+        "weight": 0.7963,
+        "latency_steps": 1,
+        "distance": 14.281,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 37,
+        "weight": -0.2775,
+        "latency_steps": 1,
+        "distance": 12.609,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 38,
+        "weight": -0.6224,
+        "latency_steps": 1,
+        "distance": 16.371,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 39,
+        "weight": 0.1449,
+        "latency_steps": 1,
+        "distance": 17.674,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 40,
+        "weight": -0.5833,
+        "latency_steps": 1,
+        "distance": 18.812,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 41,
+        "weight": 0.1492,
+        "latency_steps": 1,
+        "distance": 19.127,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 42,
+        "weight": 0.1637,
+        "latency_steps": 1,
+        "distance": 14.336,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 43,
+        "weight": 0.1928,
+        "latency_steps": 1,
+        "distance": 17.678,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 44,
+        "weight": 0.0647,
+        "latency_steps": 1,
+        "distance": 19.985,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 45,
+        "weight": 0.1392,
+        "latency_steps": 1,
+        "distance": 15.838,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 46,
+        "weight": 0.5516,
+        "latency_steps": 1,
+        "distance": 17.794,
+        "propagation_delay": 1
+      },
+      {
+        "src": 3,
+        "dst": 47,
+        "weight": -0.1258,
+        "latency_steps": 1,
+        "distance": 14.192,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 8,
+        "weight": -0.8278,
+        "latency_steps": 1,
+        "distance": 13.567,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 10,
+        "weight": -0.0784,
+        "latency_steps": 1,
+        "distance": 12.49,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 11,
+        "weight": 0.1751,
+        "latency_steps": 1,
+        "distance": 11.537,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 12,
+        "weight": -0.0483,
+        "latency_steps": 1,
+        "distance": 12.931,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 13,
+        "weight": 0.0495,
+        "latency_steps": 1,
+        "distance": 10.049,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 14,
+        "weight": -0.6182,
+        "latency_steps": 1,
+        "distance": 13.788,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 15,
+        "weight": -0.714,
+        "latency_steps": 1,
+        "distance": 11.138,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 16,
+        "weight": 0.364,
+        "latency_steps": 1,
+        "distance": 11.922,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 17,
+        "weight": -0.1813,
+        "latency_steps": 1,
+        "distance": 13.275,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 18,
+        "weight": -0.5074,
+        "latency_steps": 1,
+        "distance": 15.836,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 19,
+        "weight": -0.1796,
+        "latency_steps": 1,
+        "distance": 19.286,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 20,
+        "weight": -0.1604,
+        "latency_steps": 1,
+        "distance": 14.358,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 21,
+        "weight": 0.3565,
+        "latency_steps": 1,
+        "distance": 18.53,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 22,
+        "weight": 0.0987,
+        "latency_steps": 1,
+        "distance": 17.291,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 23,
+        "weight": 0.3543,
+        "latency_steps": 1,
+        "distance": 18.276,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 24,
+        "weight": 1.0695,
+        "latency_steps": 1,
+        "distance": 17.21,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 25,
+        "weight": 0.9758,
+        "latency_steps": 1,
+        "distance": 14.254,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 26,
+        "weight": 1.2523,
+        "latency_steps": 1,
+        "distance": 15.471,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 27,
+        "weight": 0.8553,
+        "latency_steps": 1,
+        "distance": 17.162,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 28,
+        "weight": 1.1557,
+        "latency_steps": 1,
+        "distance": 16.636,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 29,
+        "weight": 0.607,
+        "latency_steps": 1,
+        "distance": 12.954,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 30,
+        "weight": 1.3541,
+        "latency_steps": 1,
+        "distance": 14.639,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 31,
+        "weight": 0.2195,
+        "latency_steps": 1,
+        "distance": 13.374,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 32,
+        "weight": 1.0729,
+        "latency_steps": 1,
+        "distance": 15.185,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 33,
+        "weight": -0.0698,
+        "latency_steps": 1,
+        "distance": 12.174,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 34,
+        "weight": 0.813,
+        "latency_steps": 1,
+        "distance": 12.521,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 35,
+        "weight": 0.705,
+        "latency_steps": 1,
+        "distance": 14.381,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 36,
+        "weight": 0.438,
+        "latency_steps": 1,
+        "distance": 15.389,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 37,
+        "weight": -0.111,
+        "latency_steps": 1,
+        "distance": 13.651,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 38,
+        "weight": 1.7034,
+        "latency_steps": 1,
+        "distance": 16.278,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 39,
+        "weight": 1.5334,
+        "latency_steps": 1,
+        "distance": 17.684,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 40,
+        "weight": -0.101,
+        "latency_steps": 1,
+        "distance": 18.972,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 42,
+        "weight": -0.3237,
+        "latency_steps": 1,
+        "distance": 14.393,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 43,
+        "weight": -0.4711,
+        "latency_steps": 1,
+        "distance": 17.705,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 44,
+        "weight": 0.6243,
+        "latency_steps": 1,
+        "distance": 19.889,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 45,
+        "weight": 0.7329,
+        "latency_steps": 1,
+        "distance": 15.804,
+        "propagation_delay": 1
+      },
+      {
+        "src": 4,
+        "dst": 46,
+        "weight": 0.2472,
+        "latency_steps": 1,
+        "distance": 17.784,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 8,
+        "weight": -0.5525,
+        "latency_steps": 1,
+        "distance": 12.564,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 9,
+        "weight": 0.4782,
+        "latency_steps": 1,
+        "distance": 12.903,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 10,
+        "weight": -0.2889,
+        "latency_steps": 1,
+        "distance": 11.428,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 11,
+        "weight": 0.1828,
+        "latency_steps": 1,
+        "distance": 10.592,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 12,
+        "weight": -0.3564,
+        "latency_steps": 1,
+        "distance": 11.92,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 13,
+        "weight": 0.0928,
+        "latency_steps": 1,
+        "distance": 8.95,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 14,
+        "weight": -0.1356,
+        "latency_steps": 1,
+        "distance": 12.7,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 15,
+        "weight": -0.1421,
+        "latency_steps": 1,
+        "distance": 10.117,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 16,
+        "weight": -0.0812,
+        "latency_steps": 1,
+        "distance": 10.921,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 17,
+        "weight": 0.0673,
+        "latency_steps": 1,
+        "distance": 12.237,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 18,
+        "weight": 0.2066,
+        "latency_steps": 1,
+        "distance": 15.608,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 19,
+        "weight": -0.0338,
+        "latency_steps": 1,
+        "distance": 19.45,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 20,
+        "weight": 0.5512,
+        "latency_steps": 1,
+        "distance": 14.467,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 21,
+        "weight": -0.7328,
+        "latency_steps": 1,
+        "distance": 18.52,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 23,
+        "weight": 0.1514,
+        "latency_steps": 1,
+        "distance": 18.32,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 24,
+        "weight": 0.7057,
+        "latency_steps": 1,
+        "distance": 17.196,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 25,
+        "weight": 0.3802,
+        "latency_steps": 1,
+        "distance": 14.244,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 26,
+        "weight": 0.8666,
+        "latency_steps": 1,
+        "distance": 15.624,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 27,
+        "weight": 1.2169,
+        "latency_steps": 1,
+        "distance": 17.038,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 28,
+        "weight": 0.4169,
+        "latency_steps": 1,
+        "distance": 17.734,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 29,
+        "weight": 0.28,
+        "latency_steps": 1,
+        "distance": 13.97,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 30,
+        "weight": 0.8931,
+        "latency_steps": 1,
+        "distance": 15.682,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 31,
+        "weight": 1.5004,
+        "latency_steps": 1,
+        "distance": 14.484,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 32,
+        "weight": 0.6326,
+        "latency_steps": 1,
+        "distance": 16.274,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 33,
+        "weight": 0.7793,
+        "latency_steps": 1,
+        "distance": 13.232,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 34,
+        "weight": 0.5946,
+        "latency_steps": 1,
+        "distance": 13.563,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 35,
+        "weight": 0.9029,
+        "latency_steps": 1,
+        "distance": 15.489,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 36,
+        "weight": 0.6781,
+        "latency_steps": 1,
+        "distance": 16.502,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 37,
+        "weight": 0.731,
+        "latency_steps": 1,
+        "distance": 14.708,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 38,
+        "weight": 0.2538,
+        "latency_steps": 1,
+        "distance": 16.265,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 39,
+        "weight": 0.3813,
+        "latency_steps": 1,
+        "distance": 17.768,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 40,
+        "weight": -0.113,
+        "latency_steps": 1,
+        "distance": 19.199,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 42,
+        "weight": -0.472,
+        "latency_steps": 1,
+        "distance": 14.54,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 43,
+        "weight": -0.2001,
+        "latency_steps": 1,
+        "distance": 17.805,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 44,
+        "weight": -1.0889,
+        "latency_steps": 1,
+        "distance": 19.858,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 45,
+        "weight": -0.6508,
+        "latency_steps": 1,
+        "distance": 15.852,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 46,
+        "weight": 0.735,
+        "latency_steps": 1,
+        "distance": 17.848,
+        "propagation_delay": 1
+      },
+      {
+        "src": 5,
+        "dst": 47,
+        "weight": -0.2959,
+        "latency_steps": 1,
+        "distance": 14.277,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 8,
+        "weight": 0.0542,
+        "latency_steps": 1,
+        "distance": 11.587,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 9,
+        "weight": 0.1983,
+        "latency_steps": 1,
+        "distance": 11.831,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 10,
+        "weight": 0.5187,
+        "latency_steps": 1,
+        "distance": 10.383,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 11,
+        "weight": 0.9086,
+        "latency_steps": 1,
+        "distance": 9.689,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 12,
+        "weight": -0.3498,
+        "latency_steps": 1,
+        "distance": 10.935,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 13,
+        "weight": 0.3697,
+        "latency_steps": 1,
+        "distance": 7.863,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 14,
+        "weight": -0.1996,
+        "latency_steps": 1,
+        "distance": 11.622,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 15,
+        "weight": 0.0691,
+        "latency_steps": 1,
+        "distance": 9.125,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 16,
+        "weight": -0.5412,
+        "latency_steps": 1,
+        "distance": 9.951,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 17,
+        "weight": 0.2654,
+        "latency_steps": 1,
+        "distance": 11.219,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 18,
+        "weight": -0.1992,
+        "latency_steps": 1,
+        "distance": 15.461,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 19,
+        "weight": -0.7159,
+        "latency_steps": 1,
+        "distance": 19.679,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 20,
+        "weight": -0.1512,
+        "latency_steps": 1,
+        "distance": 14.664,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 21,
+        "weight": 0.1843,
+        "latency_steps": 1,
+        "distance": 18.581,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 22,
+        "weight": 0.6796,
+        "latency_steps": 1,
+        "distance": 17.689,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 23,
+        "weight": 0.6208,
+        "latency_steps": 1,
+        "distance": 18.435,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 24,
+        "weight": 0.176,
+        "latency_steps": 1,
+        "distance": 17.257,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 25,
+        "weight": -0.1046,
+        "latency_steps": 1,
+        "distance": 14.326,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 26,
+        "weight": 0.7327,
+        "latency_steps": 1,
+        "distance": 15.858,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 27,
+        "weight": 0.5882,
+        "latency_steps": 1,
+        "distance": 16.991,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 28,
+        "weight": 1.1952,
+        "latency_steps": 1,
+        "distance": 18.838,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 29,
+        "weight": 0.2578,
+        "latency_steps": 1,
+        "distance": 15.005,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 30,
+        "weight": 0.6257,
+        "latency_steps": 1,
+        "distance": 16.739,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 31,
+        "weight": 1.5313,
+        "latency_steps": 1,
+        "distance": 15.599,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 32,
+        "weight": 0.7978,
+        "latency_steps": 1,
+        "distance": 17.369,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 33,
+        "weight": 0.4422,
+        "latency_steps": 1,
+        "distance": 14.303,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 34,
+        "weight": 0.661,
+        "latency_steps": 1,
+        "distance": 14.62,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 35,
+        "weight": 0.8749,
+        "latency_steps": 1,
+        "distance": 16.601,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 36,
+        "weight": 0.1791,
+        "latency_steps": 1,
+        "distance": 17.62,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 37,
+        "weight": 0.3493,
+        "latency_steps": 1,
+        "distance": 15.777,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 38,
+        "weight": 0.3347,
+        "latency_steps": 1,
+        "distance": 16.332,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 39,
+        "weight": 0.6959,
+        "latency_steps": 1,
+        "distance": 17.924,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 40,
+        "weight": 0.0985,
+        "latency_steps": 1,
+        "distance": 19.49,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 41,
+        "weight": -0.3061,
+        "latency_steps": 1,
+        "distance": 19.649,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 42,
+        "weight": 0.5054,
+        "latency_steps": 1,
+        "distance": 14.773,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 43,
+        "weight": 0.1119,
+        "latency_steps": 1,
+        "distance": 17.977,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 44,
+        "weight": -0.1005,
+        "latency_steps": 1,
+        "distance": 19.893,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 45,
+        "weight": 0.3665,
+        "latency_steps": 1,
+        "distance": 15.982,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 46,
+        "weight": 0.4995,
+        "latency_steps": 1,
+        "distance": 17.985,
+        "propagation_delay": 1
+      },
+      {
+        "src": 6,
+        "dst": 47,
+        "weight": 0.4198,
+        "latency_steps": 1,
+        "distance": 14.455,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 8,
+        "weight": -0.1342,
+        "latency_steps": 1,
+        "distance": 10.643,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 9,
+        "weight": -0.3646,
+        "latency_steps": 1,
+        "distance": 10.774,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 10,
+        "weight": -0.0656,
+        "latency_steps": 1,
+        "distance": 9.361,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 11,
+        "weight": -0.1724,
+        "latency_steps": 1,
+        "distance": 8.842,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 12,
+        "weight": 0.276,
+        "latency_steps": 1,
+        "distance": 9.984,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 13,
+        "weight": 0.0949,
+        "latency_steps": 1,
+        "distance": 6.794,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 14,
+        "weight": -0.2711,
+        "latency_steps": 1,
+        "distance": 10.557,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 15,
+        "weight": 0.2487,
+        "latency_steps": 1,
+        "distance": 8.172,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 16,
+        "weight": -0.4808,
+        "latency_steps": 1,
+        "distance": 9.021,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 17,
+        "weight": -0.1312,
+        "latency_steps": 1,
+        "distance": 10.227,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 19,
+        "weight": -0.614,
+        "latency_steps": 1,
+        "distance": 19.97,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 20,
+        "weight": 0.3129,
+        "latency_steps": 1,
+        "distance": 14.947,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 21,
+        "weight": 0.1009,
+        "latency_steps": 1,
+        "distance": 18.711,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 22,
+        "weight": -0.1015,
+        "latency_steps": 1,
+        "distance": 17.994,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 23,
+        "weight": -0.5043,
+        "latency_steps": 1,
+        "distance": 18.62,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 24,
+        "weight": 0.3691,
+        "latency_steps": 1,
+        "distance": 17.394,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 25,
+        "weight": 0.9136,
+        "latency_steps": 1,
+        "distance": 14.498,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 26,
+        "weight": 0.3606,
+        "latency_steps": 1,
+        "distance": 16.17,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 27,
+        "weight": 0.2973,
+        "latency_steps": 1,
+        "distance": 17.021,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 28,
+        "weight": 0.9633,
+        "latency_steps": 1,
+        "distance": 19.946,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 29,
+        "weight": 0.8732,
+        "latency_steps": 1,
+        "distance": 16.054,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 30,
+        "weight": 1.2694,
+        "latency_steps": 1,
+        "distance": 17.806,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 31,
+        "weight": 0.7238,
+        "latency_steps": 1,
+        "distance": 16.717,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 32,
+        "weight": 0.7307,
+        "latency_steps": 1,
+        "distance": 18.471,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 33,
+        "weight": 0.2829,
+        "latency_steps": 1,
+        "distance": 15.385,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 34,
+        "weight": 1.2254,
+        "latency_steps": 1,
+        "distance": 15.689,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 35,
+        "weight": 0.3399,
+        "latency_steps": 1,
+        "distance": 17.717,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 36,
+        "weight": 0.5494,
+        "latency_steps": 1,
+        "distance": 18.74,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 37,
+        "weight": 0.5754,
+        "latency_steps": 1,
+        "distance": 16.856,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 38,
+        "weight": 1.5793,
+        "latency_steps": 1,
+        "distance": 16.478,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 39,
+        "weight": 1.1298,
+        "latency_steps": 1,
+        "distance": 18.152,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 40,
+        "weight": -0.2356,
+        "latency_steps": 1,
+        "distance": 19.843,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 41,
+        "weight": 0.1343,
+        "latency_steps": 1,
+        "distance": 19.952,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 42,
+        "weight": 0.1115,
+        "latency_steps": 1,
+        "distance": 15.09,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 44,
+        "weight": 0.0749,
+        "latency_steps": 1,
+        "distance": 19.993,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 45,
+        "weight": -0.1394,
+        "latency_steps": 1,
+        "distance": 16.192,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 46,
+        "weight": 0.1863,
+        "latency_steps": 1,
+        "distance": 18.193,
+        "propagation_delay": 1
+      },
+      {
+        "src": 7,
+        "dst": 47,
+        "weight": -0.4999,
+        "latency_steps": 1,
+        "distance": 14.721,
+        "propagation_delay": 1
+      }
+    ]
+  },
+  "frames": [
+    {
+      "step": 1,
+      "time_ms": 40.0,
+      "inputs": [
+        1.0,
+        0.0,
+        0.615,
+        0.6188,
+        0.561,
+        0.0,
+        0.0026,
+        0.0
+      ],
+      "activations": [
+        1.0,
+        0.0,
+        0.615,
+        0.6188,
+        0.561,
+        0.0,
+        0.0026,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5002,
+        0.4998
+      ],
+      "states": [
+        1.0,
+        0.0,
+        0.615,
+        0.6188,
+        0.561,
+        0.0,
+        0.0026,
+        0.0,
+        -69.3476,
+        -70.02,
+        -69.1248,
+        -69.0297,
+        -70.4755,
+        -70.1511,
+        -69.4361,
+        -69.6581,
+        -69.5084,
+        -69.9265,
+        -69.0603,
+        -69.1111,
+        -69.467,
+        -68.9364,
+        -69.2662,
+        -69.9296,
+        -69.3156,
+        -69.9794,
+        -69.0608,
+        -69.525,
+        -69.5924,
+        -69.8405,
+        -68.8887,
+        -69.5773,
+        -69.7142,
+        -69.6761,
+        -69.2338,
+        -69.3173,
+        -69.2936,
+        -69.2846,
+        -68.4292,
+        -69.7032,
+        -69.7561,
+        -69.9069,
+        -69.192,
+        -68.9355,
+        -69.557,
+        -69.9201,
+        -69.9122,
+        -69.1747,
+        0.5002,
+        0.4998
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [],
+      "dynamic_details": {
+        "minimality": {
+          "architecture": "MIN_E",
+          "mechanism_count": 8,
+          "active_mechanisms": [
+            "A_TARGET_SPECIFIC_TEACHING",
+            "B_DENDRITIC_TEACHING",
+            "C_DENDRITIC_ELIGIBILITY",
+            "H_SLOW_ACTION_ASSEMBLY",
+            "I_MUTUAL_INHIBITION",
+            "J_TEMPORAL_POPULATION",
+            "K_PERSISTENT_LATENT_NMDA",
+            "L_TARGET_ACTION_ROUTING"
+          ],
+          "removed_mechanisms": [
+            "D_DENDRITIC_STDP",
+            "E_RETROGRADE_SIGNALING",
+            "F_FAST_ACTION_ASSEMBLY",
+            "G_MEDIUM_ACTION_ASSEMBLY"
+          ],
+          "neurons": 42,
+          "synapses": 863,
+          "trainable_parameters": 80,
+          "state_variables": 282,
+          "accuracy": 0.6267,
+          "csi": 0.5313,
+          "leakage": 0.4687,
+          "context_mi": 0.9954,
+          "action_mi": 0.469
+        },
+        "action_credit": {
+          "csi": 0.5313,
+          "precision": 0.0,
+          "leakage": 0.4687,
+          "teaching": [
+            0.04530580714344978,
+            -0.039987385272979736
+          ],
+          "retrograde": [
+            0.0,
+            0.0
+          ]
+        },
+        "action_assemblies": {
+          "act_fast": [
+            -0.29162609577178955,
+            -0.32971882820129395
+          ],
+          "act_med": [
+            -0.030225105583667755,
+            -0.03417016193270683
+          ],
+          "act_slow": [
+            -0.00505434675142169,
+            -0.005714006721973419
+          ],
+          "margin": 0.0007,
+          "confidence": 0.0003,
+          "switches": 0
+        }
+      }
+    },
+    {
+      "step": 2,
+      "time_ms": 80.0,
+      "inputs": [
+        0.9997,
+        0.0,
+        0.6176,
+        0.6156,
+        0.6013,
+        0.0225,
+        0.0094,
+        0.0
+      ],
+      "activations": [
+        0.9997,
+        0.0,
+        0.6176,
+        0.6156,
+        0.6013,
+        0.0225,
+        0.0094,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5003,
+        0.4997
+      ],
+      "states": [
+        0.9997,
+        0.0,
+        0.6176,
+        0.6156,
+        0.6013,
+        0.0225,
+        0.0094,
+        0.0,
+        -67.6314,
+        -67.6506,
+        -68.1262,
+        -67.7802,
+        -68.134,
+        -67.9935,
+        -67.5354,
+        -68.3871,
+        -67.5702,
+        -68.3743,
+        -68.0711,
+        -67.5319,
+        -69.393,
+        -68.5213,
+        -68.5194,
+        -68.4068,
+        -69.4779,
+        -67.3524,
+        -69.5982,
+        -68.7482,
+        -69.8335,
+        -69.4734,
+        -68.1124,
+        -69.0832,
+        -69.0777,
+        -68.8163,
+        -69.4956,
+        -69.2859,
+        -67.8884,
+        -69.4287,
+        -69.7713,
+        -68.5155,
+        -69.9109,
+        -68.9881,
+        -69.0612,
+        -68.7282,
+        -69.4829,
+        -69.2874,
+        -68.9085,
+        -68.8545,
+        0.5003,
+        0.4997
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [],
+      "dynamic_details": {
+        "minimality": {
+          "architecture": "MIN_E",
+          "mechanism_count": 8,
+          "active_mechanisms": [
+            "A_TARGET_SPECIFIC_TEACHING",
+            "B_DENDRITIC_TEACHING",
+            "C_DENDRITIC_ELIGIBILITY",
+            "H_SLOW_ACTION_ASSEMBLY",
+            "I_MUTUAL_INHIBITION",
+            "J_TEMPORAL_POPULATION",
+            "K_PERSISTENT_LATENT_NMDA",
+            "L_TARGET_ACTION_ROUTING"
+          ],
+          "removed_mechanisms": [
+            "D_DENDRITIC_STDP",
+            "E_RETROGRADE_SIGNALING",
+            "F_FAST_ACTION_ASSEMBLY",
+            "G_MEDIUM_ACTION_ASSEMBLY"
+          ],
+          "neurons": 42,
+          "synapses": 863,
+          "trainable_parameters": 80,
+          "state_variables": 282,
+          "accuracy": 0.6267,
+          "csi": 0.5792,
+          "leakage": 0.4208,
+          "context_mi": 0.9954,
+          "action_mi": 0.469
+        },
+        "action_credit": {
+          "csi": 0.5792,
+          "precision": 0.0,
+          "leakage": 0.4208,
+          "teaching": [
+            0.06313835829496384,
+            -0.04590563103556633
+          ],
+          "retrograde": [
+            0.0,
+            0.0
+          ]
+        },
+        "action_assemblies": {
+          "act_fast": [
+            -0.5341008901596069,
+            -0.6106672286987305
+          ],
+          "act_med": [
+            -0.05744384601712227,
+            -0.06563766300678253
+          ],
+          "act_slow": [
+            -0.009639573283493519,
+            -0.011013934388756752
+          ],
+          "margin": 0.0014,
+          "confidence": 0.0007,
+          "switches": 0
+        }
+      }
+    },
+    {
+      "step": 3,
+      "time_ms": 120.0,
+      "inputs": [
+        1.0,
+        0.0,
+        0.6176,
+        0.599,
+        0.5963,
+        0.0,
+        0.0245,
+        0.0
+      ],
+      "activations": [
+        1.0,
+        0.0,
+        0.6176,
+        0.599,
+        0.5963,
+        0.0,
+        0.0245,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5005,
+        0.4995
+      ],
+      "states": [
+        1.0,
+        0.0,
+        0.6176,
+        0.599,
+        0.5963,
+        0.0,
+        0.0245,
+        0.0,
+        -64.8576,
+        -65.0026,
+        -64.7752,
+        -64.9586,
+        -66.0971,
+        -64.9942,
+        -65.1714,
+        -66.534,
+        -64.4595,
+        -65.981,
+        -65.4238,
+        -64.6653,
+        -67.3905,
+        -66.2861,
+        -66.8153,
+        -66.0219,
+        -69.7042,
+        -65.5337,
+        -68.3099,
+        -68.8999,
+        -68.2291,
+        -68.1765,
+        -65.7447,
+        -68.6393,
+        -69.6115,
+        -68.5732,
+        -69.4609,
+        -68.3081,
+        -65.4466,
+        -69.8798,
+        -68.4597,
+        -64.7678,
+        -69.6598,
+        -69.3226,
+        -68.3615,
+        -68.4554,
+        -68.6837,
+        -68.9679,
+        -67.6914,
+        -67.2854,
+        0.5005,
+        0.4995
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [],
+      "dynamic_details": {
+        "minimality": {
+          "architecture": "MIN_E",
+          "mechanism_count": 8,
+          "active_mechanisms": [
+            "A_TARGET_SPECIFIC_TEACHING",
+            "B_DENDRITIC_TEACHING",
+            "C_DENDRITIC_ELIGIBILITY",
+            "H_SLOW_ACTION_ASSEMBLY",
+            "I_MUTUAL_INHIBITION",
+            "J_TEMPORAL_POPULATION",
+            "K_PERSISTENT_LATENT_NMDA",
+            "L_TARGET_ACTION_ROUTING"
+          ],
+          "removed_mechanisms": [
+            "D_DENDRITIC_STDP",
+            "E_RETROGRADE_SIGNALING",
+            "F_FAST_ACTION_ASSEMBLY",
+            "G_MEDIUM_ACTION_ASSEMBLY"
+          ],
+          "neurons": 42,
+          "synapses": 863,
+          "trainable_parameters": 80,
+          "state_variables": 282,
+          "accuracy": 0.6267,
+          "csi": 0.611,
+          "leakage": 0.389,
+          "context_mi": 0.9954,
+          "action_mi": 0.469
+        },
+        "action_credit": {
+          "csi": 0.611,
+          "precision": 0.0,
+          "leakage": 0.389,
+          "teaching": [
+            0.07708923518657684,
+            -0.049130622297525406
+          ],
+          "retrograde": [
+            0.0,
+            0.0
+          ]
+        },
+        "action_assemblies": {
+          "act_fast": [
+            -0.6673160791397095,
+            -0.7782694697380066
+          ],
+          "act_med": [
+            -0.07506050169467926,
+            -0.08734280616044998
+          ],
+          "act_slow": [
+            -0.01264936849474907,
+            -0.01471619214862585
+          ],
+          "margin": 0.0021,
+          "confidence": 0.001,
+          "switches": 0
+        }
+      }
+    },
+    {
+      "step": 4,
+      "time_ms": 160.0,
+      "inputs": [
+        0.9914,
+        0.0,
+        0.6106,
+        0.6073,
+        0.6083,
+        0.0086,
+        0.0428,
+        0.0
+      ],
+      "activations": [
+        0.9914,
+        0.0,
+        0.6106,
+        0.6073,
+        0.6083,
+        0.0086,
+        0.0428,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5006,
+        0.4994
+      ],
+      "states": [
+        0.9914,
+        0.0,
+        0.6106,
+        0.6073,
+        0.6083,
+        0.0086,
+        0.0428,
+        0.0,
+        -63.2602,
+        -61.8745,
+        -62.159,
+        -61.8539,
+        -62.7437,
+        -62.4985,
+        -61.8561,
+        -65.5813,
+        -62.4052,
+        -64.7792,
+        -64.1637,
+        -62.9016,
+        -65.9517,
+        -64.9975,
+        -65.2603,
+        -63.6939,
+        -68.9312,
+        -62.1161,
+        -67.2862,
+        -66.5391,
+        -67.2712,
+        -68.7431,
+        -64.948,
+        -68.4639,
+        -69.3275,
+        -68.0744,
+        -69.3075,
+        -67.7202,
+        -63.448,
+        -69.0224,
+        -68.9077,
+        -62.9733,
+        -70.1946,
+        -68.3428,
+        -67.997,
+        -66.9115,
+        -68.3823,
+        -68.0163,
+        -67.8892,
+        -66.827,
+        0.5006,
+        0.4994
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [],
+      "dynamic_details": {
+        "minimality": {
+          "architecture": "MIN_E",
+          "mechanism_count": 8,
+          "active_mechanisms": [
+            "A_TARGET_SPECIFIC_TEACHING",
+            "B_DENDRITIC_TEACHING",
+            "C_DENDRITIC_ELIGIBILITY",
+            "H_SLOW_ACTION_ASSEMBLY",
+            "I_MUTUAL_INHIBITION",
+            "J_TEMPORAL_POPULATION",
+            "K_PERSISTENT_LATENT_NMDA",
+            "L_TARGET_ACTION_ROUTING"
+          ],
+          "removed_mechanisms": [
+            "D_DENDRITIC_STDP",
+            "E_RETROGRADE_SIGNALING",
+            "F_FAST_ACTION_ASSEMBLY",
+            "G_MEDIUM_ACTION_ASSEMBLY"
+          ],
+          "neurons": 42,
+          "synapses": 863,
+          "trainable_parameters": 80,
+          "state_variables": 282,
+          "accuracy": 0.6267,
+          "csi": 0.7318,
+          "leakage": 0.2682,
+          "context_mi": 0.9954,
+          "action_mi": 0.469
+        },
+        "action_credit": {
+          "csi": 0.7318,
+          "precision": 0.0,
+          "leakage": 0.2682,
+          "teaching": [
+            0.09837394207715988,
+            -0.05428672581911087
+          ],
+          "retrograde": [
+            0.0,
+            0.0
+          ]
+        },
+        "action_assemblies": {
+          "act_fast": [
+            -0.7572694420814514,
+            -0.8855459690093994
+          ],
+          "act_med": [
+            -0.08913549780845642,
+            -0.10395453125238419
+          ],
+          "act_slow": [
+            -0.015086701139807701,
+            -0.017590641975402832
+          ],
+          "margin": 0.0025,
+          "confidence": 0.0013,
+          "switches": 0
+        }
+      }
+    },
+    {
+      "step": 5,
+      "time_ms": 200.0,
+      "inputs": [
+        0.9898,
+        0.0,
+        0.6123,
+        0.6226,
+        0.5977,
+        0.0,
+        0.0,
+        0.013
+      ],
+      "activations": [
+        0.9898,
+        0.0,
+        0.6123,
+        0.6226,
+        0.5977,
+        0.0,
+        0.0,
+        0.013,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5013,
+        0.4987
+      ],
+      "states": [
+        0.9898,
+        0.0,
+        0.6123,
+        0.6226,
+        0.5977,
+        0.0,
+        0.0,
+        0.013,
+        -60.7562,
+        -59.2086,
+        -58.138,
+        -60.0298,
+        -60.136,
+        -60.1963,
+        -59.3736,
+        -63.2625,
+        -59.239,
+        -62.3533,
+        -62.2502,
+        -59.3486,
+        -65.0169,
+        -63.7706,
+        -63.5164,
+        -60.615,
+        -68.2269,
+        -59.7671,
+        -67.4187,
+        -67.1645,
+        -65.6837,
+        -67.5242,
+        -62.2012,
+        -67.6788,
+        -68.8016,
+        -66.683,
+        -68.8466,
+        -67.5119,
+        -62.4552,
+        -68.2911,
+        -67.5474,
+        -59.43,
+        -69.5444,
+        -67.1859,
+        -68.0252,
+        -67.7145,
+        -67.6193,
+        -68.2197,
+        -66.8684,
+        -65.2449,
+        0.5013,
+        0.4987
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [],
+      "dynamic_details": {
+        "minimality": {
+          "architecture": "MIN_E",
+          "mechanism_count": 8,
+          "active_mechanisms": [
+            "A_TARGET_SPECIFIC_TEACHING",
+            "B_DENDRITIC_TEACHING",
+            "C_DENDRITIC_ELIGIBILITY",
+            "H_SLOW_ACTION_ASSEMBLY",
+            "I_MUTUAL_INHIBITION",
+            "J_TEMPORAL_POPULATION",
+            "K_PERSISTENT_LATENT_NMDA",
+            "L_TARGET_ACTION_ROUTING"
+          ],
+          "removed_mechanisms": [
+            "D_DENDRITIC_STDP",
+            "E_RETROGRADE_SIGNALING",
+            "F_FAST_ACTION_ASSEMBLY",
+            "G_MEDIUM_ACTION_ASSEMBLY"
+          ],
+          "neurons": 42,
+          "synapses": 863,
+          "trainable_parameters": 80,
+          "state_variables": 282,
+          "accuracy": 0.6267,
+          "csi": 0.8549,
+          "leakage": 0.1451,
+          "context_mi": 0.9954,
+          "action_mi": 0.469
+        },
+        "action_credit": {
+          "csi": 0.8549,
+          "precision": 0.0,
+          "leakage": 0.1451,
+          "teaching": [
+            0.12995749711990356,
+            -0.05886825919151306
+          ],
+          "retrograde": [
+            0.0,
+            0.0
+          ]
+        },
+        "action_assemblies": {
+          "act_fast": [
+            -0.6453344821929932,
+            -0.9225778579711914
+          ],
+          "act_med": [
+            -0.08295991271734238,
+            -0.11400456726551056
+          ],
+          "act_slow": [
+            -0.014154238626360893,
+            -0.01938606984913349
+          ],
+          "margin": 0.0052,
+          "confidence": 0.0026,
+          "switches": 0
+        }
+      }
+    },
+    {
+      "step": 6,
+      "time_ms": 240.0,
+      "inputs": [
+        0.2149,
+        0.2109,
+        0.1867,
+        0.2046,
+        0.2023,
+        0.2044,
+        0.2174,
+        0.0
+      ],
+      "activations": [
+        0.2149,
+        0.2109,
+        0.1867,
+        0.2046,
+        0.2023,
+        0.2044,
+        0.2174,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5032,
+        0.4968
+      ],
+      "states": [
+        0.2149,
+        0.2109,
+        0.1867,
+        0.2046,
+        0.2023,
+        0.2044,
+        0.2174,
+        0.0,
+        -57.3903,
+        -54.1009,
+        -55.1802,
+        -55.9521,
+        -58.098,
+        -56.4606,
+        -56.7098,
+        -62.4571,
+        -56.0435,
+        -60.5316,
+        -59.5259,
+        -56.9185,
+        -63.4133,
+        -61.8708,
+        -61.2951,
+        -57.1478,
+        -68.2326,
+        -55.6162,
+        -66.8567,
+        -66.6464,
+        -65.4175,
+        -67.3076,
+        -60.0803,
+        -68.4754,
+        -68.7604,
+        -66.7058,
+        -67.5128,
+        -65.5289,
+        -60.1519,
+        -68.7255,
+        -68.9069,
+        -56.0674,
+        -69.298,
+        -66.5668,
+        -67.5545,
+        -66.9205,
+        -68.5735,
+        -67.626,
+        -67.0856,
+        -64.5791,
+        0.5032,
+        0.4968
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [],
+      "dynamic_details": {
+        "minimality": {
+          "architecture": "MIN_E",
+          "mechanism_count": 8,
+          "active_mechanisms": [
+            "A_TARGET_SPECIFIC_TEACHING",
+            "B_DENDRITIC_TEACHING",
+            "C_DENDRITIC_ELIGIBILITY",
+            "H_SLOW_ACTION_ASSEMBLY",
+            "I_MUTUAL_INHIBITION",
+            "J_TEMPORAL_POPULATION",
+            "K_PERSISTENT_LATENT_NMDA",
+            "L_TARGET_ACTION_ROUTING"
+          ],
+          "removed_mechanisms": [
+            "D_DENDRITIC_STDP",
+            "E_RETROGRADE_SIGNALING",
+            "F_FAST_ACTION_ASSEMBLY",
+            "G_MEDIUM_ACTION_ASSEMBLY"
+          ],
+          "neurons": 42,
+          "synapses": 863,
+          "trainable_parameters": 80,
+          "state_variables": 282,
+          "accuracy": 0.6267,
+          "csi": 0.8875,
+          "leakage": 0.1125,
+          "context_mi": 0.9954,
+          "action_mi": 0.469
+        },
+        "action_credit": {
+          "csi": 0.8875,
+          "precision": 0.0,
+          "leakage": 0.1125,
+          "teaching": [
+            0.1499270647764206,
+            -0.06319735199213028
+          ],
+          "retrograde": [
+            0.0,
+            0.0
+          ]
+        },
+        "action_assemblies": {
+          "act_fast": [
+            -0.16919425129890442,
+            -0.8633698225021362
+          ],
+          "act_med": [
+            -0.03827289491891861,
+            -0.11429119855165482
+          ],
+          "act_slow": [
+            -0.006775995250791311,
+            -0.019559768959879875
+          ],
+          "margin": 0.0128,
+          "confidence": 0.0064,
+          "switches": 0
+        }
+      }
+    },
+    {
+      "step": 7,
+      "time_ms": 280.0,
+      "inputs": [
+        0.2136,
+        0.2014,
+        0.2058,
+        0.2126,
+        0.1709,
+        0.1936,
+        0.1906,
+        0.0
+      ],
+      "activations": [
+        0.2136,
+        0.2014,
+        0.2058,
+        0.2126,
+        0.1709,
+        0.1936,
+        0.1906,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.508,
+        0.492
+      ],
+      "states": [
+        0.2136,
+        0.2014,
+        0.2058,
+        0.2126,
+        0.1709,
+        0.1936,
+        0.1906,
+        0.0,
+        -56.6806,
+        -50.4579,
+        -52.5548,
+        -54.0765,
+        -54.4308,
+        -54.389,
+        -54.6356,
+        -60.2075,
+        -51.2836,
+        -59.8692,
+        -59.4669,
+        -53.8413,
+        -62.236,
+        -61.9638,
+        -60.6528,
+        -54.7165,
+        -67.7731,
+        -53.6637,
+        -66.259,
+        -66.4354,
+        -64.548,
+        -67.0148,
+        -58.7864,
+        -67.4654,
+        -67.9597,
+        -65.2612,
+        -67.9589,
+        -65.2804,
+        -58.9935,
+        -68.0702,
+        -68.1269,
+        -52.6027,
+        -69.1972,
+        -65.6777,
+        -66.2231,
+        -66.8807,
+        -68.0014,
+        -68.2641,
+        -65.6038,
+        -64.0998,
+        0.508,
+        0.492
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [],
+      "dynamic_details": {
+        "minimality": {
+          "architecture": "MIN_E",
+          "mechanism_count": 8,
+          "active_mechanisms": [
+            "A_TARGET_SPECIFIC_TEACHING",
+            "B_DENDRITIC_TEACHING",
+            "C_DENDRITIC_ELIGIBILITY",
+            "H_SLOW_ACTION_ASSEMBLY",
+            "I_MUTUAL_INHIBITION",
+            "J_TEMPORAL_POPULATION",
+            "K_PERSISTENT_LATENT_NMDA",
+            "L_TARGET_ACTION_ROUTING"
+          ],
+          "removed_mechanisms": [
+            "D_DENDRITIC_STDP",
+            "E_RETROGRADE_SIGNALING",
+            "F_FAST_ACTION_ASSEMBLY",
+            "G_MEDIUM_ACTION_ASSEMBLY"
+          ],
+          "neurons": 42,
+          "synapses": 863,
+          "trainable_parameters": 80,
+          "state_variables": 282,
+          "accuracy": 0.6267,
+          "csi": 0.9388,
+          "leakage": 0.0612,
+          "context_mi": 0.9954,
+          "action_mi": 0.469
+        },
+        "action_credit": {
+          "csi": 0.9388,
+          "precision": 0.0,
+          "leakage": 0.0612,
+          "teaching": [
+            0.2091527283191681,
+            -0.06910526007413864
+          ],
+          "retrograde": [
+            0.0,
+            0.0
+          ]
+        },
+        "action_assemblies": {
+          "act_fast": [
+            0.9460729360580444,
+            -0.8060529232025146
+          ],
+          "act_med": [
+            0.07557046413421631,
+            -0.1137719675898552
+          ],
+          "act_slow": [
+            0.012211036868393421,
+            -0.019597215577960014
+          ],
+          "margin": 0.0318,
+          "confidence": 0.0159,
+          "switches": 0
+        }
+      }
+    },
+    {
+      "step": 8,
+      "time_ms": 320.0,
+      "inputs": [
+        0.1945,
+        0.2299,
+        0.1827,
+        0.2194,
+        0.1663,
+        0.1933,
+        0.2033,
+        0.0
+      ],
+      "activations": [
+        0.1945,
+        0.2299,
+        0.1827,
+        0.2194,
+        0.1663,
+        0.1933,
+        0.2033,
+        0.0,
+        0.0,
+        0.0488,
+        0.0488,
+        0.0488,
+        0.0,
+        0.0488,
+        0.0488,
+        0.0,
+        0.0488,
+        0.0,
+        0.0,
+        0.0488,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0488,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0488,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5328,
+        0.4672
+      ],
+      "states": [
+        0.1945,
+        0.2299,
+        0.1827,
+        0.2194,
+        0.1663,
+        0.1933,
+        0.2033,
+        0.0,
+        -53.4604,
+        -75.0,
+        -75.0,
+        -75.0,
+        -52.7489,
+        -75.0,
+        -75.0,
+        -59.8195,
+        -75.0,
+        -57.764,
+        -57.8957,
+        -75.0,
+        -61.2505,
+        -61.9344,
+        -59.2985,
+        -50.5162,
+        -67.6387,
+        -75.0,
+        -66.635,
+        -65.2174,
+        -63.041,
+        -67.3873,
+        -56.6571,
+        -66.6033,
+        -67.5435,
+        -65.685,
+        -67.3408,
+        -63.6983,
+        -57.1144,
+        -66.9227,
+        -67.5306,
+        -75.0,
+        -68.0686,
+        -65.9212,
+        -66.0519,
+        -66.9998,
+        -67.9211,
+        -67.9689,
+        -65.4286,
+        -64.4091,
+        0.5328,
+        0.4672
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [],
+      "dynamic_details": {
+        "minimality": {
+          "architecture": "MIN_E",
+          "mechanism_count": 8,
+          "active_mechanisms": [
+            "A_TARGET_SPECIFIC_TEACHING",
+            "B_DENDRITIC_TEACHING",
+            "C_DENDRITIC_ELIGIBILITY",
+            "H_SLOW_ACTION_ASSEMBLY",
+            "I_MUTUAL_INHIBITION",
+            "J_TEMPORAL_POPULATION",
+            "K_PERSISTENT_LATENT_NMDA",
+            "L_TARGET_ACTION_ROUTING"
+          ],
+          "removed_mechanisms": [
+            "D_DENDRITIC_STDP",
+            "E_RETROGRADE_SIGNALING",
+            "F_FAST_ACTION_ASSEMBLY",
+            "G_MEDIUM_ACTION_ASSEMBLY"
+          ],
+          "neurons": 42,
+          "synapses": 863,
+          "trainable_parameters": 80,
+          "state_variables": 282,
+          "accuracy": 0.6267,
+          "csi": 0.9721,
+          "leakage": 0.0279,
+          "context_mi": 0.9954,
+          "action_mi": 0.469
+        },
+        "action_credit": {
+          "csi": 0.9721,
+          "precision": 0.0,
+          "leakage": 0.0279,
+          "teaching": [
+            0.43391162157058716,
+            -0.09943050146102905
+          ],
+          "retrograde": [
+            0.0,
+            0.0
+          ]
+        },
+        "action_assemblies": {
+          "act_fast": [
+            6.012423515319824,
+            -1.4913562536239624
+          ],
+          "act_med": [
+            0.6003036499023438,
+            -0.18460874259471893
+          ],
+          "act_slow": [
+            0.09993443638086319,
+            -0.03149054944515228
+          ],
+          "margin": 0.1314,
+          "confidence": 0.0656,
+          "switches": 0
+        }
+      }
+    },
+    {
+      "step": 9,
+      "time_ms": 360.0,
+      "inputs": [
+        0.2142,
+        0.2159,
+        0.193,
+        0.1908,
+        0.2172,
+        0.1962,
+        0.1745,
+        0.0
+      ],
+      "activations": [
+        0.2142,
+        0.2159,
+        0.193,
+        0.1908,
+        0.2172,
+        0.1962,
+        0.1745,
+        0.0,
+        0.0488,
+        0.0464,
+        0.0464,
+        0.0464,
+        0.0488,
+        0.0464,
+        0.0464,
+        0.0,
+        0.0464,
+        0.0,
+        0.0,
+        0.0464,
+        0.0,
+        0.0,
+        0.0,
+        0.0488,
+        0.0,
+        0.0464,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0464,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5897,
+        0.4103
+      ],
+      "states": [
+        0.2142,
+        0.2159,
+        0.193,
+        0.1908,
+        0.2172,
+        0.1962,
+        0.1745,
+        0.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -57.5368,
+        -75.0,
+        -55.3196,
+        -55.4027,
+        -75.0,
+        -60.4747,
+        -61.0186,
+        -57.8091,
+        -75.0,
+        -67.7699,
+        -75.0,
+        -64.6781,
+        -64.5307,
+        -63.365,
+        -66.9956,
+        -54.6363,
+        -66.1329,
+        -67.1564,
+        -64.2555,
+        -66.4156,
+        -63.1621,
+        -56.4764,
+        -66.9701,
+        -67.69,
+        -75.0,
+        -68.4097,
+        -64.821,
+        -66.6876,
+        -67.0935,
+        -67.4831,
+        -68.6074,
+        -64.4187,
+        -63.3595,
+        0.5897,
+        0.4103
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [],
+      "dynamic_details": {
+        "minimality": {
+          "architecture": "MIN_E",
+          "mechanism_count": 8,
+          "active_mechanisms": [
+            "A_TARGET_SPECIFIC_TEACHING",
+            "B_DENDRITIC_TEACHING",
+            "C_DENDRITIC_ELIGIBILITY",
+            "H_SLOW_ACTION_ASSEMBLY",
+            "I_MUTUAL_INHIBITION",
+            "J_TEMPORAL_POPULATION",
+            "K_PERSISTENT_LATENT_NMDA",
+            "L_TARGET_ACTION_ROUTING"
+          ],
+          "removed_mechanisms": [
+            "D_DENDRITIC_STDP",
+            "E_RETROGRADE_SIGNALING",
+            "F_FAST_ACTION_ASSEMBLY",
+            "G_MEDIUM_ACTION_ASSEMBLY"
+          ],
+          "neurons": 42,
+          "synapses": 863,
+          "trainable_parameters": 80,
+          "state_variables": 282,
+          "accuracy": 0.6267,
+          "csi": 0.9738,
+          "leakage": 0.0262,
+          "context_mi": 0.9954,
+          "action_mi": 0.469
+        },
+        "action_credit": {
+          "csi": 0.9738,
+          "precision": 0.0,
+          "leakage": 0.0262,
+          "teaching": [
+            0.251384437084198,
+            -0.053044091910123825
+          ],
+          "retrograde": [
+            0.0,
+            0.0
+          ]
+        },
+        "action_assemblies": {
+          "act_fast": [
+            10.0,
+            -2.6673998832702637
+          ],
+          "act_med": [
+            1.8796637058258057,
+            -0.2884027063846588
+          ],
+          "act_slow": [
+            0.3143151104450226,
+            -0.048551566898822784
+          ],
+          "margin": 0.3629,
+          "confidence": 0.1795,
+          "switches": 0
+        }
+      }
+    },
+    {
+      "step": 10,
+      "time_ms": 400.0,
+      "inputs": [
+        0.1816,
+        0.2099,
+        0.2028,
+        0.2138,
+        0.1915,
+        0.2032,
+        0.2125,
+        0.0
+      ],
+      "activations": [
+        0.1816,
+        0.2099,
+        0.2028,
+        0.2138,
+        0.1915,
+        0.2032,
+        0.2125,
+        0.0,
+        0.0464,
+        0.0441,
+        0.0441,
+        0.0441,
+        0.0464,
+        0.0441,
+        0.0441,
+        0.0,
+        0.0441,
+        0.0,
+        0.0,
+        0.0441,
+        0.0,
+        0.0,
+        0.0,
+        0.0464,
+        0.0,
+        0.0441,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0441,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.6595,
+        0.3405
+      ],
+      "states": [
+        0.1816,
+        0.2099,
+        0.2028,
+        0.2138,
+        0.1915,
+        0.2032,
+        0.2125,
+        0.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -55.9585,
+        -75.0,
+        -52.7694,
+        -53.5546,
+        -75.0,
+        -59.2067,
+        -59.6315,
+        -55.7721,
+        -75.0,
+        -67.2283,
+        -75.0,
+        -65.387,
+        -64.0709,
+        -62.1368,
+        -66.2946,
+        -50.1741,
+        -65.3132,
+        -66.3655,
+        -63.3069,
+        -66.7617,
+        -62.7371,
+        -52.3864,
+        -66.0586,
+        -67.3408,
+        -75.0,
+        -67.4419,
+        -64.9287,
+        -65.1169,
+        -66.5774,
+        -66.4453,
+        -67.9708,
+        -65.661,
+        -62.5322,
+        0.6595,
+        0.3405
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [],
+      "dynamic_details": {
+        "minimality": {
+          "architecture": "MIN_E",
+          "mechanism_count": 8,
+          "active_mechanisms": [
+            "A_TARGET_SPECIFIC_TEACHING",
+            "B_DENDRITIC_TEACHING",
+            "C_DENDRITIC_ELIGIBILITY",
+            "H_SLOW_ACTION_ASSEMBLY",
+            "I_MUTUAL_INHIBITION",
+            "J_TEMPORAL_POPULATION",
+            "K_PERSISTENT_LATENT_NMDA",
+            "L_TARGET_ACTION_ROUTING"
+          ],
+          "removed_mechanisms": [
+            "D_DENDRITIC_STDP",
+            "E_RETROGRADE_SIGNALING",
+            "F_FAST_ACTION_ASSEMBLY",
+            "G_MEDIUM_ACTION_ASSEMBLY"
+          ],
+          "neurons": 42,
+          "synapses": 863,
+          "trainable_parameters": 80,
+          "state_variables": 282,
+          "accuracy": 0.6267,
+          "csi": 0.9354,
+          "leakage": 0.0646,
+          "context_mi": 0.9954,
+          "action_mi": 0.469
+        },
+        "action_credit": {
+          "csi": 0.9354,
+          "precision": 0.0,
+          "leakage": 0.0646,
+          "teaching": [
+            0.21954382956027985,
+            -0.07273858040571213
+          ],
+          "retrograde": [
+            0.0,
+            0.0
+          ]
+        },
+        "action_assemblies": {
+          "act_fast": [
+            10.0,
+            -3.982430934906006
+          ],
+          "act_med": [
+            3.533568859100342,
+            -0.41276776790618896
+          ],
+          "act_slow": [
+            0.5924406051635742,
+            -0.06840699911117554
+          ],
+          "margin": 0.6608,
+          "confidence": 0.3189,
+          "switches": 0
+        }
+      }
+    },
+    {
+      "step": 11,
+      "time_ms": 440.0,
+      "inputs": [
+        0.2091,
+        0.1868,
+        0.1927,
+        0.1924,
+        0.1761,
+        0.2097,
+        0.1906,
+        0.0
+      ],
+      "activations": [
+        0.2091,
+        0.1868,
+        0.1927,
+        0.1924,
+        0.1761,
+        0.2097,
+        0.1906,
+        0.0,
+        0.0441,
+        0.042,
+        0.042,
+        0.042,
+        0.0441,
+        0.042,
+        0.042,
+        0.0,
+        0.042,
+        0.0488,
+        0.0488,
+        0.042,
+        0.0,
+        0.0,
+        0.0,
+        0.0441,
+        0.0,
+        0.042,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0488,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0488,
+        0.0,
+        0.0,
+        0.042,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.7563,
+        0.2437
+      ],
+      "states": [
+        0.2091,
+        0.1868,
+        0.1927,
+        0.1924,
+        0.1761,
+        0.2097,
+        0.1906,
+        0.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -52.4785,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -59.3351,
+        -58.2885,
+        -52.5872,
+        -75.0,
+        -67.6645,
+        -75.0,
+        -63.8974,
+        -61.8643,
+        -61.2974,
+        -66.8543,
+        -75.0,
+        -64.0297,
+        -66.0357,
+        -62.8195,
+        -65.53,
+        -61.4736,
+        -75.0,
+        -65.9861,
+        -66.6039,
+        -75.0,
+        -68.2818,
+        -64.9385,
+        -64.5764,
+        -65.402,
+        -66.566,
+        -66.9661,
+        -63.5076,
+        -61.7286,
+        0.7563,
+        0.2437
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [],
+      "dynamic_details": {
+        "minimality": {
+          "architecture": "MIN_E",
+          "mechanism_count": 8,
+          "active_mechanisms": [
+            "A_TARGET_SPECIFIC_TEACHING",
+            "B_DENDRITIC_TEACHING",
+            "C_DENDRITIC_ELIGIBILITY",
+            "H_SLOW_ACTION_ASSEMBLY",
+            "I_MUTUAL_INHIBITION",
+            "J_TEMPORAL_POPULATION",
+            "K_PERSISTENT_LATENT_NMDA",
+            "L_TARGET_ACTION_ROUTING"
+          ],
+          "removed_mechanisms": [
+            "D_DENDRITIC_STDP",
+            "E_RETROGRADE_SIGNALING",
+            "F_FAST_ACTION_ASSEMBLY",
+            "G_MEDIUM_ACTION_ASSEMBLY"
+          ],
+          "neurons": 42,
+          "synapses": 863,
+          "trainable_parameters": 80,
+          "state_variables": 282,
+          "accuracy": 0.6267,
+          "csi": 0.8713,
+          "leakage": 0.1287,
+          "context_mi": 0.9954,
+          "action_mi": 0.469
+        },
+        "action_credit": {
+          "csi": 0.8713,
+          "precision": 0.0,
+          "leakage": 0.1287,
+          "teaching": [
+            0.2392314076423645,
+            -0.12688933312892914
+          ],
+          "retrograde": [
+            0.0,
+            0.0
+          ]
+        },
+        "action_assemblies": {
+          "act_fast": [
+            10.0,
+            -6.422589302062988
+          ],
+          "act_med": [
+            6.089916229248047,
+            -0.6697328686714172
+          ],
+          "act_slow": [
+            1.0228312015533447,
+            -0.10955999791622162
+          ],
+          "margin": 1.1324,
+          "confidence": 0.5126,
+          "switches": 0
+        }
+      }
+    },
+    {
+      "step": 12,
+      "time_ms": 480.0,
+      "inputs": [
+        0.2096,
+        0.2089,
+        0.2133,
+        0.198,
+        0.1915,
+        0.1984,
+        0.1663,
+        0.0
+      ],
+      "activations": [
+        0.2096,
+        0.2089,
+        0.2133,
+        0.198,
+        0.1915,
+        0.1984,
+        0.1663,
+        0.0,
+        0.042,
+        0.0887,
+        0.0887,
+        0.0887,
+        0.042,
+        0.0887,
+        0.0887,
+        0.0488,
+        0.0887,
+        0.0464,
+        0.0464,
+        0.0887,
+        0.0,
+        0.0,
+        0.0488,
+        0.042,
+        0.0,
+        0.0887,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0464,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0464,
+        0.0,
+        0.0,
+        0.0887,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.8599,
+        0.1401
+      ],
+      "states": [
+        0.2096,
+        0.2089,
+        0.2133,
+        0.198,
+        0.1915,
+        0.1984,
+        0.1663,
+        0.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -54.9008,
+        -52.0235,
+        -75.0,
+        -75.0,
+        -67.1449,
+        -75.0,
+        -63.7901,
+        -62.2602,
+        -60.8237,
+        -65.6668,
+        -75.0,
+        -63.624,
+        -64.4449,
+        -60.5765,
+        -62.7633,
+        -60.1684,
+        -75.0,
+        -64.3904,
+        -67.3377,
+        -75.0,
+        -67.6931,
+        -65.6634,
+        -60.699,
+        -66.3364,
+        -65.8646,
+        -66.4336,
+        -61.5923,
+        -59.5481,
+        0.8599,
+        0.1401
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [],
+      "dynamic_details": {
+        "minimality": {
+          "architecture": "MIN_E",
+          "mechanism_count": 8,
+          "active_mechanisms": [
+            "A_TARGET_SPECIFIC_TEACHING",
+            "B_DENDRITIC_TEACHING",
+            "C_DENDRITIC_ELIGIBILITY",
+            "H_SLOW_ACTION_ASSEMBLY",
+            "I_MUTUAL_INHIBITION",
+            "J_TEMPORAL_POPULATION",
+            "K_PERSISTENT_LATENT_NMDA",
+            "L_TARGET_ACTION_ROUTING"
+          ],
+          "removed_mechanisms": [
+            "D_DENDRITIC_STDP",
+            "E_RETROGRADE_SIGNALING",
+            "F_FAST_ACTION_ASSEMBLY",
+            "G_MEDIUM_ACTION_ASSEMBLY"
+          ],
+          "neurons": 42,
+          "synapses": 863,
+          "trainable_parameters": 80,
+          "state_variables": 282,
+          "accuracy": 0.6267,
+          "csi": 0.9932,
+          "leakage": 0.0068,
+          "context_mi": 0.9954,
+          "action_mi": 0.469
+        },
+        "action_credit": {
+          "csi": 0.9932,
+          "precision": 0.0,
+          "leakage": 0.0068,
+          "teaching": [
+            0.13155467808246613,
+            -0.017616789788007736
+          ],
+          "retrograde": [
+            0.0,
+            0.0
+          ]
+        },
+        "action_assemblies": {
+          "act_fast": [
+            10.0,
+            -8.878320693969727
+          ],
+          "act_med": [
+            9.867502212524414,
+            -0.9580621719360352
+          ],
+          "act_slow": [
+            1.6596758365631104,
+            -0.1546482890844345
+          ],
+          "margin": 1.8143,
+          "confidence": 0.7198,
+          "switches": 0
+        }
+      }
+    },
+    {
+      "step": 13,
+      "time_ms": 520.0,
+      "inputs": [
+        0.1735,
+        0.1801,
+        0.208,
+        0.1819,
+        0.1924,
+        0.226,
+        0.1929,
+        0.0
+      ],
+      "activations": [
+        0.1735,
+        0.1801,
+        0.208,
+        0.1819,
+        0.1924,
+        0.226,
+        0.1929,
+        0.0,
+        0.0887,
+        0.0844,
+        0.0844,
+        0.0844,
+        0.0887,
+        0.0844,
+        0.0844,
+        0.0464,
+        0.0844,
+        0.0441,
+        0.0441,
+        0.0844,
+        0.0,
+        0.0488,
+        0.0464,
+        0.0887,
+        0.0,
+        0.0844,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0441,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0441,
+        0.0,
+        0.0,
+        0.0844,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9088,
+        0.0912
+      ],
+      "states": [
+        0.1735,
+        0.1801,
+        0.208,
+        0.1819,
+        0.1924,
+        0.226,
+        0.1929,
+        0.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -52.4292,
+        -75.0,
+        -75.0,
+        -75.0,
+        -67.8801,
+        -75.0,
+        -61.3106,
+        -61.0912,
+        -58.9864,
+        -64.1013,
+        -75.0,
+        -62.2786,
+        -64.0966,
+        -59.6101,
+        -62.6805,
+        -58.7397,
+        -75.0,
+        -64.5759,
+        -64.8663,
+        -75.0,
+        -66.7163,
+        -60.2995,
+        -60.0789,
+        -63.0739,
+        -65.5998,
+        -66.1815,
+        -60.9483,
+        -60.064,
+        0.9088,
+        0.0912
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [],
+      "dynamic_details": {
+        "minimality": {
+          "architecture": "MIN_E",
+          "mechanism_count": 8,
+          "active_mechanisms": [
+            "A_TARGET_SPECIFIC_TEACHING",
+            "B_DENDRITIC_TEACHING",
+            "C_DENDRITIC_ELIGIBILITY",
+            "H_SLOW_ACTION_ASSEMBLY",
+            "I_MUTUAL_INHIBITION",
+            "J_TEMPORAL_POPULATION",
+            "K_PERSISTENT_LATENT_NMDA",
+            "L_TARGET_ACTION_ROUTING"
+          ],
+          "removed_mechanisms": [
+            "D_DENDRITIC_STDP",
+            "E_RETROGRADE_SIGNALING",
+            "F_FAST_ACTION_ASSEMBLY",
+            "G_MEDIUM_ACTION_ASSEMBLY"
+          ],
+          "neurons": 42,
+          "synapses": 863,
+          "trainable_parameters": 80,
+          "state_variables": 282,
+          "accuracy": 0.6267,
+          "csi": 0.5454,
+          "leakage": 0.4546,
+          "context_mi": 0.9954,
+          "action_mi": 0.469
+        },
+        "action_credit": {
+          "csi": 0.5454,
+          "precision": 0.0,
+          "leakage": 0.4546,
+          "teaching": [
+            0.022072654217481613,
+            -0.023913823068141937
+          ],
+          "retrograde": [
+            0.0,
+            0.0
+          ]
+        },
+        "action_assemblies": {
+          "act_fast": [
+            10.0,
+            -10.0
+          ],
+          "act_med": [
+            10.0,
+            -1.2699576616287231
+          ],
+          "act_slow": [
+            2.096930503845215,
+            -0.20243428647518158
+          ],
+          "margin": 2.2994,
+          "confidence": 0.8176,
+          "switches": 0
+        }
+      }
+    },
+    {
+      "step": 14,
+      "time_ms": 560.0,
+      "inputs": [
+        0.1813,
+        0.1959,
+        0.181,
+        0.1932,
+        0.2168,
+        0.1655,
+        0.2087,
+        0.0
+      ],
+      "activations": [
+        0.1813,
+        0.1959,
+        0.181,
+        0.1932,
+        0.2168,
+        0.1655,
+        0.2087,
+        0.0,
+        0.0844,
+        0.0803,
+        0.0803,
+        0.0803,
+        0.0844,
+        0.0803,
+        0.0803,
+        0.0441,
+        0.0803,
+        0.042,
+        0.042,
+        0.0803,
+        0.0488,
+        0.0464,
+        0.0441,
+        0.0844,
+        0.0,
+        0.0803,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.042,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.042,
+        0.0,
+        0.0,
+        0.0803,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9455,
+        0.0545
+      ],
+      "states": [
+        0.1813,
+        0.1959,
+        0.181,
+        0.1932,
+        0.2168,
+        0.1655,
+        0.2087,
+        0.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -67.2036,
+        -75.0,
+        -60.5944,
+        -59.6949,
+        -58.8056,
+        -64.1554,
+        -75.0,
+        -61.4455,
+        -62.3263,
+        -57.1383,
+        -60.9194,
+        -56.1649,
+        -75.0,
+        -63.5543,
+        -66.4073,
+        -75.0,
+        -66.1436,
+        -58.7321,
+        -59.375,
+        -63.8503,
+        -64.7654,
+        -65.6635,
+        -57.9903,
+        -58.749,
+        0.9455,
+        0.0545
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [],
+      "dynamic_details": {
+        "minimality": {
+          "architecture": "MIN_E",
+          "mechanism_count": 8,
+          "active_mechanisms": [
+            "A_TARGET_SPECIFIC_TEACHING",
+            "B_DENDRITIC_TEACHING",
+            "C_DENDRITIC_ELIGIBILITY",
+            "H_SLOW_ACTION_ASSEMBLY",
+            "I_MUTUAL_INHIBITION",
+            "J_TEMPORAL_POPULATION",
+            "K_PERSISTENT_LATENT_NMDA",
+            "L_TARGET_ACTION_ROUTING"
+          ],
+          "removed_mechanisms": [
+            "D_DENDRITIC_STDP",
+            "E_RETROGRADE_SIGNALING",
+            "F_FAST_ACTION_ASSEMBLY",
+            "G_MEDIUM_ACTION_ASSEMBLY"
+          ],
+          "neurons": 42,
+          "synapses": 863,
+          "trainable_parameters": 80,
+          "state_variables": 282,
+          "accuracy": 0.6267,
+          "csi": 0.5533,
+          "leakage": 0.4467,
+          "context_mi": 0.9954,
+          "action_mi": 0.469
+        },
+        "action_credit": {
+          "csi": 0.5533,
+          "precision": 0.0,
+          "leakage": 0.4467,
+          "teaching": [
+            0.020765218883752823,
+            -0.023841435089707375
+          ],
+          "retrograde": [
+            0.0,
+            0.0
+          ]
+        },
+        "action_assemblies": {
+          "act_fast": [
+            10.0,
+            -10.0
+          ],
+          "act_med": [
+            10.0,
+            -1.6329915523529053
+          ],
+          "act_slow": [
+            2.593635082244873,
+            -0.2593795359134674
+          ],
+          "margin": 2.853,
+          "confidence": 0.8909,
+          "switches": 0
+        }
+      }
+    },
+    {
+      "step": 15,
+      "time_ms": 600.0,
+      "inputs": [
+        0.1881,
+        0.1711,
+        0.2014,
+        0.1894,
+        0.2047,
+        0.2004,
+        0.232,
+        0.0
+      ],
+      "activations": [
+        0.1881,
+        0.1711,
+        0.2014,
+        0.1894,
+        0.2047,
+        0.2004,
+        0.232,
+        0.0,
+        0.0803,
+        0.0763,
+        0.0763,
+        0.0763,
+        0.0803,
+        0.0763,
+        0.0763,
+        0.042,
+        0.0763,
+        0.0887,
+        0.0887,
+        0.0763,
+        0.0464,
+        0.0441,
+        0.042,
+        0.0803,
+        0.0,
+        0.0763,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0887,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0887,
+        0.0,
+        0.0,
+        0.0763,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9689,
+        0.0311
+      ],
+      "states": [
+        0.1881,
+        0.1711,
+        0.2014,
+        0.1894,
+        0.2047,
+        0.2004,
+        0.232,
+        0.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -67.633,
+        -75.0,
+        -58.3946,
+        -57.3215,
+        -56.6578,
+        -63.8195,
+        -75.0,
+        -60.2828,
+        -61.5601,
+        -57.0477,
+        -61.1124,
+        -54.8108,
+        -75.0,
+        -63.11,
+        -62.5198,
+        -75.0,
+        -66.7156,
+        -60.1267,
+        -59.4113,
+        -62.1026,
+        -63.118,
+        -63.8646,
+        -56.7228,
+        -56.6755,
+        0.9689,
+        0.0311
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [],
+      "dynamic_details": {
+        "minimality": {
+          "architecture": "MIN_E",
+          "mechanism_count": 8,
+          "active_mechanisms": [
+            "A_TARGET_SPECIFIC_TEACHING",
+            "B_DENDRITIC_TEACHING",
+            "C_DENDRITIC_ELIGIBILITY",
+            "H_SLOW_ACTION_ASSEMBLY",
+            "I_MUTUAL_INHIBITION",
+            "J_TEMPORAL_POPULATION",
+            "K_PERSISTENT_LATENT_NMDA",
+            "L_TARGET_ACTION_ROUTING"
+          ],
+          "removed_mechanisms": [
+            "D_DENDRITIC_STDP",
+            "E_RETROGRADE_SIGNALING",
+            "F_FAST_ACTION_ASSEMBLY",
+            "G_MEDIUM_ACTION_ASSEMBLY"
+          ],
+          "neurons": 42,
+          "synapses": 863,
+          "trainable_parameters": 80,
+          "state_variables": 282,
+          "accuracy": 0.6267,
+          "csi": 0.8993,
+          "leakage": 0.1007,
+          "context_mi": 0.9954,
+          "action_mi": 0.469
+        },
+        "action_credit": {
+          "csi": 0.8993,
+          "precision": 0.0,
+          "leakage": 0.1007,
+          "teaching": [
+            0.014260835945606232,
+            -0.007286059204488993
+          ],
+          "retrograde": [
+            0.0,
+            0.0
+          ]
+        },
+        "action_assemblies": {
+          "act_fast": [
+            10.0,
+            -10.0
+          ],
+          "act_med": [
+            10.0,
+            -1.9490231275558472
+          ],
+          "act_slow": [
+            3.1303038597106934,
+            -0.3092121481895447
+          ],
+          "margin": 3.4395,
+          "confidence": 0.9378,
+          "switches": 0
+        }
+      }
+    },
+    {
+      "step": 16,
+      "time_ms": 640.0,
+      "inputs": [
+        0.0,
+        0.0036,
+        0.0044,
+        0.0272,
+        0.0167,
+        0.0071,
+        0.0293,
+        0.9762
+      ],
+      "activations": [
+        0.0,
+        0.0036,
+        0.0044,
+        0.0272,
+        0.0167,
+        0.0071,
+        0.0293,
+        0.9762,
+        0.0763,
+        0.0726,
+        0.0726,
+        0.0726,
+        0.0763,
+        0.0726,
+        0.0726,
+        0.0887,
+        0.0726,
+        0.0844,
+        0.0844,
+        0.0726,
+        0.0441,
+        0.042,
+        0.0887,
+        0.0763,
+        0.0,
+        0.0726,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0844,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0488,
+        0.0844,
+        0.0,
+        0.0,
+        0.0726,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0488,
+        0.0,
+        0.9804,
+        0.0196
+      ],
+      "states": [
+        0.0,
+        0.0036,
+        0.0044,
+        0.0272,
+        0.0167,
+        0.0071,
+        0.0293,
+        0.9762,
+        -75.0,
+        -69.6606,
+        -70.3185,
+        -69.761,
+        -75.0,
+        -67.7433,
+        -71.2118,
+        -75.0,
+        -66.7138,
+        -75.0,
+        -75.0,
+        -73.1006,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -65.8291,
+        -72.023,
+        -58.3068,
+        -55.6881,
+        -55.0598,
+        -61.6919,
+        -75.0,
+        -58.9932,
+        -59.255,
+        -52.8379,
+        -58.0047,
+        -75.0,
+        -75.0,
+        -62.2976,
+        -63.2326,
+        -70.6125,
+        -65.1252,
+        -59.512,
+        -52.4391,
+        -61.9094,
+        -62.1372,
+        -62.4128,
+        -75.0,
+        -54.5164,
+        0.9804,
+        0.0196
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [],
+      "dynamic_details": {
+        "minimality": {
+          "architecture": "MIN_E",
+          "mechanism_count": 8,
+          "active_mechanisms": [
+            "A_TARGET_SPECIFIC_TEACHING",
+            "B_DENDRITIC_TEACHING",
+            "C_DENDRITIC_ELIGIBILITY",
+            "H_SLOW_ACTION_ASSEMBLY",
+            "I_MUTUAL_INHIBITION",
+            "J_TEMPORAL_POPULATION",
+            "K_PERSISTENT_LATENT_NMDA",
+            "L_TARGET_ACTION_ROUTING"
+          ],
+          "removed_mechanisms": [
+            "D_DENDRITIC_STDP",
+            "E_RETROGRADE_SIGNALING",
+            "F_FAST_ACTION_ASSEMBLY",
+            "G_MEDIUM_ACTION_ASSEMBLY"
+          ],
+          "neurons": 42,
+          "synapses": 863,
+          "trainable_parameters": 80,
+          "state_variables": 282,
+          "accuracy": 0.6267,
+          "csi": 0.1309,
+          "leakage": 0.8691,
+          "context_mi": 0.9954,
+          "action_mi": 0.469
+        },
+        "action_credit": {
+          "csi": 0.1309,
+          "precision": 0.0,
+          "leakage": 0.8691,
+          "teaching": [
+            0.0033099160064011812,
+            -0.008584998548030853
+          ],
+          "retrograde": [
+            0.0,
+            0.0
+          ]
+        },
+        "action_assemblies": {
+          "act_fast": [
+            10.0,
+            -10.0
+          ],
+          "act_med": [
+            10.0,
+            -2.3367691040039062
+          ],
+          "act_slow": [
+            3.540648937225342,
+            -0.37172794342041016
+          ],
+          "margin": 3.9124,
+          "confidence": 0.9608,
+          "switches": 0
+        }
+      }
+    },
+    {
+      "step": 17,
+      "time_ms": 680.0,
+      "inputs": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0127,
+        0.0,
+        0.0,
+        0.9797
+      ],
+      "activations": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0127,
+        0.0,
+        0.0,
+        0.9797,
+        0.0726,
+        0.0691,
+        0.0691,
+        0.0691,
+        0.0726,
+        0.0691,
+        0.0691,
+        0.0844,
+        0.0691,
+        0.0803,
+        0.0803,
+        0.0691,
+        0.042,
+        0.0887,
+        0.0844,
+        0.0726,
+        0.0,
+        0.0691,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0803,
+        0.0,
+        0.0,
+        0.0488,
+        0.0,
+        0.0464,
+        0.0803,
+        0.0,
+        0.0,
+        0.0691,
+        0.0,
+        0.0,
+        0.0488,
+        0.0,
+        0.0,
+        0.0,
+        0.0464,
+        0.0488,
+        0.9878,
+        0.0122
+      ],
+      "states": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0127,
+        0.0,
+        0.0,
+        0.9797,
+        -71.8059,
+        -68.9712,
+        -71.1211,
+        -69.7721,
+        -69.8098,
+        -68.6974,
+        -71.0273,
+        -75.0,
+        -67.0827,
+        -75.0,
+        -75.0,
+        -69.7126,
+        -75.0,
+        -75.0,
+        -75.0,
+        -67.0565,
+        -65.9549,
+        -68.4333,
+        -55.201,
+        -54.4884,
+        -51.2657,
+        -60.1977,
+        -75.0,
+        -57.7137,
+        -59.0292,
+        -75.0,
+        -55.9786,
+        -75.0,
+        -75.0,
+        -61.384,
+        -59.0563,
+        -67.8844,
+        -61.868,
+        -53.976,
+        -75.0,
+        -58.8442,
+        -61.647,
+        -61.9615,
+        -75.0,
+        -75.0,
+        0.9878,
+        0.0122
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 1.0,
+      "signals": [],
+      "events": [
+        {
+          "type": "ACTION_SELECTED",
+          "step": 17,
+          "time_ms": 680.0,
+          "payload": {
+            "action": 0,
+            "confidence": 0.987846851348877
+          }
+        },
+        {
+          "type": "INFORMATION_MEASURED",
+          "step": 17,
+          "time_ms": 680.0,
+          "payload": {
+            "context_mi": 0.9954,
+            "action_mi": 0.469
+          }
+        }
+      ],
+      "dynamic_details": {
+        "minimality": {
+          "architecture": "MIN_E",
+          "mechanism_count": 8,
+          "active_mechanisms": [
+            "A_TARGET_SPECIFIC_TEACHING",
+            "B_DENDRITIC_TEACHING",
+            "C_DENDRITIC_ELIGIBILITY",
+            "H_SLOW_ACTION_ASSEMBLY",
+            "I_MUTUAL_INHIBITION",
+            "J_TEMPORAL_POPULATION",
+            "K_PERSISTENT_LATENT_NMDA",
+            "L_TARGET_ACTION_ROUTING"
+          ],
+          "removed_mechanisms": [
+            "D_DENDRITIC_STDP",
+            "E_RETROGRADE_SIGNALING",
+            "F_FAST_ACTION_ASSEMBLY",
+            "G_MEDIUM_ACTION_ASSEMBLY"
+          ],
+          "neurons": 42,
+          "synapses": 863,
+          "trainable_parameters": 80,
+          "state_variables": 282,
+          "accuracy": 0.6267,
+          "csi": 0.097,
+          "leakage": 0.903,
+          "context_mi": 0.9954,
+          "action_mi": 0.469
+        },
+        "action_credit": {
+          "csi": 0.097,
+          "precision": 0.0,
+          "leakage": 0.903,
+          "teaching": [
+            0.00210359669290483,
+            -0.006623942404985428
+          ],
+          "retrograde": [
+            0.0,
+            0.0
+          ]
+        },
+        "action_assemblies": {
+          "act_fast": [
+            10.0,
+            -10.0
+          ],
+          "act_med": [
+            10.0,
+            -2.746981382369995
+          ],
+          "act_slow": [
+            3.9592349529266357,
+            -0.43870866298675537
+          ],
+          "margin": 4.3979,
+          "confidence": 0.9757,
+          "switches": 0
+        }
+      }
+    },
+    {
+      "step": 18,
+      "time_ms": 720.0,
+      "inputs": [
+        0.2063,
+        0.2168,
+        0.2399,
+        0.2583,
+        0.2083,
+        0.1802,
+        0.1574,
+        0.0
+      ],
+      "activations": [
+        0.2063,
+        0.2168,
+        0.2399,
+        0.2583,
+        0.2083,
+        0.1802,
+        0.1574,
+        0.0,
+        0.0691,
+        0.0657,
+        0.0657,
+        0.0657,
+        0.0691,
+        0.0657,
+        0.0657,
+        0.0803,
+        0.0657,
+        0.0763,
+        0.0763,
+        0.0657,
+        0.0887,
+        0.0844,
+        0.0803,
+        0.0691,
+        0.0,
+        0.0657,
+        0.0,
+        0.0,
+        0.0488,
+        0.0,
+        0.0763,
+        0.0,
+        0.0,
+        0.0464,
+        0.0,
+        0.0441,
+        0.0763,
+        0.0,
+        0.0,
+        0.0657,
+        0.0,
+        0.0488,
+        0.0464,
+        0.0,
+        0.0,
+        0.0,
+        0.0929,
+        0.0464,
+        0.9925,
+        0.0075
+      ],
+      "states": [
+        0.2063,
+        0.2168,
+        0.2399,
+        0.2583,
+        0.2083,
+        0.1802,
+        0.1574,
+        0.0,
+        -70.4372,
+        -67.3848,
+        -67.6599,
+        -68.3698,
+        -68.5638,
+        -64.0735,
+        -66.9186,
+        -75.0,
+        -64.5699,
+        -75.0,
+        -75.0,
+        -70.2741,
+        -75.0,
+        -75.0,
+        -75.0,
+        -66.4273,
+        -65.728,
+        -67.2387,
+        -52.1962,
+        -52.2178,
+        -75.0,
+        -58.2596,
+        -75.0,
+        -54.2845,
+        -56.0657,
+        -75.0,
+        -51.1822,
+        -75.0,
+        -75.0,
+        -59.7229,
+        -57.5598,
+        -66.6973,
+        -62.7464,
+        -75.0,
+        -75.0,
+        -58.3014,
+        -60.8056,
+        -62.4803,
+        -75.0,
+        -75.0,
+        0.9925,
+        0.0075
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [],
+      "dynamic_details": {
+        "minimality": {
+          "architecture": "MIN_E",
+          "mechanism_count": 8,
+          "active_mechanisms": [
+            "A_TARGET_SPECIFIC_TEACHING",
+            "B_DENDRITIC_TEACHING",
+            "C_DENDRITIC_ELIGIBILITY",
+            "H_SLOW_ACTION_ASSEMBLY",
+            "I_MUTUAL_INHIBITION",
+            "J_TEMPORAL_POPULATION",
+            "K_PERSISTENT_LATENT_NMDA",
+            "L_TARGET_ACTION_ROUTING"
+          ],
+          "removed_mechanisms": [
+            "D_DENDRITIC_STDP",
+            "E_RETROGRADE_SIGNALING",
+            "F_FAST_ACTION_ASSEMBLY",
+            "G_MEDIUM_ACTION_ASSEMBLY"
+          ],
+          "neurons": 42,
+          "synapses": 863,
+          "trainable_parameters": 80,
+          "state_variables": 282,
+          "accuracy": 0.6267,
+          "csi": 0.0541,
+          "leakage": 0.9459,
+          "context_mi": 0.9954,
+          "action_mi": 0.469
+        },
+        "action_credit": {
+          "csi": 0.0541,
+          "precision": 0.0,
+          "leakage": 0.9459,
+          "teaching": [
+            0.0010422853520140052,
+            -0.005166804417967796
+          ],
+          "retrograde": [
+            0.0,
+            0.0
+          ]
+        },
+        "action_assemblies": {
+          "act_fast": [
+            10.0,
+            -10.0
+          ],
+          "act_med": [
+            10.0,
+            -3.215664863586426
+          ],
+          "act_slow": [
+            4.369137287139893,
+            -0.5162017941474915
+          ],
+          "margin": 4.8853,
+          "confidence": 0.985,
+          "switches": 0
+        }
+      }
+    },
+    {
+      "step": 19,
+      "time_ms": 760.0,
+      "inputs": [
+        0.1837,
+        0.1917,
+        0.1878,
+        0.1972,
+        0.2213,
+        0.2031,
+        0.1968,
+        0.0
+      ],
+      "activations": [
+        0.1837,
+        0.1917,
+        0.1878,
+        0.1972,
+        0.2213,
+        0.2031,
+        0.1968,
+        0.0,
+        0.0657,
+        0.0625,
+        0.0625,
+        0.0625,
+        0.0657,
+        0.0625,
+        0.0625,
+        0.0763,
+        0.0625,
+        0.0726,
+        0.0726,
+        0.0625,
+        0.0844,
+        0.0803,
+        0.0763,
+        0.0657,
+        0.0,
+        0.0625,
+        0.0488,
+        0.0488,
+        0.0464,
+        0.0,
+        0.0726,
+        0.0488,
+        0.0,
+        0.0441,
+        0.0488,
+        0.042,
+        0.0726,
+        0.0,
+        0.0,
+        0.0625,
+        0.0,
+        0.0464,
+        0.0441,
+        0.0,
+        0.0,
+        0.0,
+        0.0884,
+        0.0929,
+        0.9957,
+        0.0043
+      ],
+      "states": [
+        0.1837,
+        0.1917,
+        0.1878,
+        0.1972,
+        0.2213,
+        0.2031,
+        0.1968,
+        0.0,
+        -67.9033,
+        -64.1114,
+        -66.7974,
+        -65.1587,
+        -65.4366,
+        -60.8223,
+        -64.2545,
+        -75.0,
+        -63.1616,
+        -70.3689,
+        -72.6192,
+        -66.0854,
+        -75.0,
+        -75.0,
+        -75.0,
+        -63.8996,
+        -65.2675,
+        -65.5477,
+        -75.0,
+        -75.0,
+        -75.0,
+        -56.1677,
+        -70.3246,
+        -75.0,
+        -52.6406,
+        -75.0,
+        -75.0,
+        -75.0,
+        -70.0382,
+        -59.1446,
+        -54.4624,
+        -64.7001,
+        -62.4737,
+        -75.0,
+        -71.0051,
+        -57.5515,
+        -61.4355,
+        -59.0077,
+        -75.0,
+        -75.0,
+        0.9957,
+        0.0043
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [
+        {
+          "type": "CREDIT_PATHWAY_ACTIVE",
+          "step": 19,
+          "time_ms": 760.0,
+          "payload": {
+            "pathway": "target_specific_reward",
+            "csi": 0.2764
+          }
+        }
+      ],
+      "dynamic_details": {
+        "minimality": {
+          "architecture": "MIN_E",
+          "mechanism_count": 8,
+          "active_mechanisms": [
+            "A_TARGET_SPECIFIC_TEACHING",
+            "B_DENDRITIC_TEACHING",
+            "C_DENDRITIC_ELIGIBILITY",
+            "H_SLOW_ACTION_ASSEMBLY",
+            "I_MUTUAL_INHIBITION",
+            "J_TEMPORAL_POPULATION",
+            "K_PERSISTENT_LATENT_NMDA",
+            "L_TARGET_ACTION_ROUTING"
+          ],
+          "removed_mechanisms": [
+            "D_DENDRITIC_STDP",
+            "E_RETROGRADE_SIGNALING",
+            "F_FAST_ACTION_ASSEMBLY",
+            "G_MEDIUM_ACTION_ASSEMBLY"
+          ],
+          "neurons": 42,
+          "synapses": 863,
+          "trainable_parameters": 80,
+          "state_variables": 282,
+          "accuracy": 0.6267,
+          "csi": 0.2764,
+          "leakage": 0.7236,
+          "context_mi": 0.9954,
+          "action_mi": 0.469
+        },
+        "action_credit": {
+          "csi": 0.2764,
+          "precision": 0.0,
+          "leakage": 0.7236,
+          "teaching": [
+            0.001346368109807372,
+            -0.003292147070169449
+          ],
+          "retrograde": [
+            0.0,
+            0.0
+          ]
+        },
+        "action_assemblies": {
+          "act_fast": [
+            10.0,
+            -10.0
+          ],
+          "act_med": [
+            10.0,
+            -3.708587169647217
+          ],
+          "act_slow": [
+            4.846958637237549,
+            -0.5985540151596069
+          ],
+          "margin": 5.4455,
+          "confidence": 0.9914,
+          "switches": 0
+        }
+      }
+    }
+  ],
+  "events": [
+    {
+      "type": "TRIAL_STARTED",
+      "step": 0,
+      "time_ms": 0.0,
+      "payload": {
+        "task": "LongDelayContextualCreditTask",
+        "architecture": "MIN_E"
+      }
+    },
+    {
+      "type": "ARCHITECTURE_SELECTED",
+      "step": 0,
+      "time_ms": 0.0,
+      "payload": {
+        "architecture": "MIN_E",
+        "mechanisms_retained": [
+          "A_TARGET_SPECIFIC_TEACHING",
+          "B_DENDRITIC_TEACHING",
+          "C_DENDRITIC_ELIGIBILITY",
+          "H_SLOW_ACTION_ASSEMBLY",
+          "I_MUTUAL_INHIBITION",
+          "J_TEMPORAL_POPULATION",
+          "K_PERSISTENT_LATENT_NMDA",
+          "L_TARGET_ACTION_ROUTING"
+        ]
+      }
+    },
+    {
+      "type": "MECHANISM_ABLATED",
+      "step": 0,
+      "time_ms": 0.0,
+      "payload": {
+        "mechanism": "D_DENDRITIC_STDP",
+        "status": "PRUNED_REDUNDANT"
+      }
+    },
+    {
+      "type": "MECHANISM_ABLATED",
+      "step": 0,
+      "time_ms": 0.0,
+      "payload": {
+        "mechanism": "E_RETROGRADE_SIGNALING",
+        "status": "PRUNED_REDUNDANT"
+      }
+    },
+    {
+      "type": "MECHANISM_ABLATED",
+      "step": 0,
+      "time_ms": 0.0,
+      "payload": {
+        "mechanism": "F_FAST_ACTION_ASSEMBLY",
+        "status": "PRUNED_REDUNDANT"
+      }
+    },
+    {
+      "type": "MECHANISM_ABLATED",
+      "step": 0,
+      "time_ms": 0.0,
+      "payload": {
+        "mechanism": "G_MEDIUM_ACTION_ASSEMBLY",
+        "status": "PRUNED_REDUNDANT"
+      }
+    },
+    {
+      "type": "ACTION_SELECTED",
+      "step": 17,
+      "time_ms": 680.0,
+      "payload": {
+        "action": 0,
+        "confidence": 0.987846851348877
+      }
+    },
+    {
+      "type": "INFORMATION_MEASURED",
+      "step": 17,
+      "time_ms": 680.0,
+      "payload": {
+        "context_mi": 0.9954,
+        "action_mi": 0.469
+      }
+    },
+    {
+      "type": "CREDIT_PATHWAY_ACTIVE",
+      "step": 19,
+      "time_ms": 760.0,
+      "payload": {
+        "pathway": "target_specific_reward",
+        "csi": 0.2764
+      }
+    }
+  ],
+  "snapshots": {}
+}

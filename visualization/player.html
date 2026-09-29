@@ -664,9 +664,9 @@
     }
 
     /* =========================================================================
-       ACTION INTERFACE & SPIKE ENCODING OVERLAYS (PHASE 13)
+       ACTION INTERFACE, SPIKE ENCODING, TEMPORAL & RESONANCE OVERLAYS
        ========================================================================= */
-    #action-interface-overlay, #spike-encoding-overlay {
+    #action-interface-overlay, #spike-encoding-overlay, #temporal-coding-overlay, #resonance-overlay, #info-flow-overlay {
       position: absolute;
       top: 60px;
       left: 350px;
@@ -870,12 +870,24 @@
         🌐 Mode: Structural
       </button>
 
-      <button class="btn" id="action-interface-btn" title="Toggle Phase 13 Action Interface Mode [I]">
+      <button class="btn" id="action-interface-btn" title="Toggle Phase 13/14 Action Interface Mode [A]">
         ⚡ Interface: Off
       </button>
 
       <button class="btn" id="spike-encoding-btn" title="Toggle Phase 13 Biophysical Spike Encoding Mode [S]">
         🔬 Spike Enc: Off
+      </button>
+
+      <button class="btn" id="temporal-coding-btn" title="Toggle Phase 14 Temporal Coding Mode [T]">
+        ⏱ Temporal: Off
+      </button>
+
+      <button class="btn" id="resonance-btn" title="Toggle Phase 14 Population Resonance Mode [N]">
+        🌊 Resonance: Off
+      </button>
+
+      <button class="btn" id="info-flow-btn" title="Toggle Phase 14 Information Flow Mode [I]">
+        📊 Info Flow: Off
       </button>
 
       <button class="btn" id="cam-autoframe-btn" title="Auto-Frame entire brain in 3D scene [O]">
@@ -891,7 +903,8 @@
       </button>
 
       <select id="model-select" class="select-model" title="Select .brainlog Trace">
-        <option value="/experiments/results/brainlogs/EXP013_biophysical_spike_encoding.brainlog" selected>EXP013: Biophysical Spike Encoding (Phase 13)</option>
+        <option value="/experiments/results/phase14_latest.brainlog" selected>EXP014: Temporal Coding & Resonance (Phase 14)</option>
+        <option value="/experiments/results/brainlogs/EXP013_biophysical_spike_encoding.brainlog">EXP013: Biophysical Spike Encoding (Phase 13)</option>
         <option value="/experiments/results/brainlogs/EXP012_action_interface.brainlog">EXP012: Learnable Action Interface (Phase 12)</option>
         <option value="/experiments/results/brainlogs/EXP011_predictive_gating_attractor.brainlog">EXP011: Predictive Gating & Recurrent Attractor</option>
         <option value="/experiments/results/brainlogs/EXP010_two_compartment_targeted_credit.brainlog">EXP010: Two-Compartment & Targeted Credit</option>
@@ -1466,6 +1479,152 @@
     </div>
   </div>
 
+  <!-- TEMPORAL CODING MODE OVERLAY [T] -->
+  <div id="temporal-coding-overlay">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">
+      <span style="font-weight: 800; font-size: 11px; letter-spacing: 1px; color: #f59e0b;">
+        ⏱ PHASE 14 TEMPORAL NEURAL CODING & BURST STRUCTURE [T]
+      </span>
+      <button class="btn" id="close-temporal-overlay-btn" style="padding: 1px 6px; font-size: 10px;">✕</button>
+    </div>
+    <div class="metric-grid" style="grid-template-columns: repeat(5, 1fr); margin-top: 4px;">
+      <div class="metric-cell">
+        <span class="metric-name">Temporal Scheme</span>
+        <span class="metric-val" id="tc-scheme" style="color: #f59e0b;">T8 Combined</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Integration Window</span>
+        <span class="metric-val" id="tc-window">10 steps</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Total Bursts</span>
+        <span class="metric-val" id="tc-total-bursts">14 bursts</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Mean ISI</span>
+        <span class="metric-val" id="tc-mean-isi">2.4 ms</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">First-Spike Latency</span>
+        <span class="metric-val" id="tc-latency">1.2 ms</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESONANCE MODE OVERLAY [N] -->
+  <div id="resonance-overlay">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">
+      <span style="font-weight: 800; font-size: 11px; letter-spacing: 1px; color: #10b981;">
+        🌊 PHASE 14 POPULATION RESONANCE & SPATIAL SYNCHRONY [N]
+      </span>
+      <button class="btn" id="close-resonance-overlay-btn" style="padding: 1px 6px; font-size: 10px;">✕</button>
+    </div>
+    <div class="metric-grid" style="grid-template-columns: repeat(6, 1fr); margin-top: 4px;">
+      <div class="metric-cell">
+        <span class="metric-name">Kuramoto R (Global)</span>
+        <span class="metric-val" id="res-r-global" style="color: #10b981;">0.482</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Kuramoto R (Local)</span>
+        <span class="metric-val" id="res-r-local" style="color: #38bdf8;">0.741</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Phase-Locking (PLV)</span>
+        <span class="metric-val" id="res-plv">0.518</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Frequency Band</span>
+        <span class="metric-val" id="res-freq">40.0 Hz (Gamma)</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Modularity Q_func</span>
+        <span class="metric-val" id="res-qfunc">0.382</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Participation Ratio PR</span>
+        <span class="metric-val" id="res-pr">6.78</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- INFORMATION FLOW MODE OVERLAY [I] -->
+  <div id="info-flow-overlay">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">
+      <span style="font-weight: 800; font-size: 11px; letter-spacing: 1px; color: #a855f7;">
+        📊 11-STAGE BIOPHYSICAL INFORMATION BOTTLENECK AUDIT [I]
+      </span>
+      <button class="btn" id="close-infoflow-overlay-btn" style="padding: 1px 6px; font-size: 10px;">✕</button>
+    </div>
+    <div class="flow-steps" style="overflow-x: auto; padding: 4px 0;">
+      <div class="flow-step-box">
+        <span class="flow-step-title">1. Context</span>
+        <span class="flow-step-val" style="color: #10b981;">1.000 b</span>
+        <span style="font-size: 8px; color: var(--text-muted);">100% Acc</span>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step-box">
+        <span class="flow-step-title">2. Dendrite</span>
+        <span class="flow-step-val">0.497 b</span>
+        <span style="font-size: 8px; color: var(--text-muted);">88.9% Acc</span>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step-box">
+        <span class="flow-step-title">3. NMDA</span>
+        <span class="flow-step-val" style="color: #10b981;">1.000 b</span>
+        <span style="font-size: 8px; color: var(--text-muted);">100% Acc</span>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step-box">
+        <span class="flow-step-title">4. Calcium</span>
+        <span class="flow-step-val">0.082 b</span>
+        <span style="font-size: 8px; color: var(--text-muted);">66.7% Acc</span>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step-box">
+        <span class="flow-step-title">5. Soma</span>
+        <span class="flow-step-val" style="color: #10b981;">1.000 b</span>
+        <span style="font-size: 8px; color: var(--text-muted);">100% Acc</span>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step-box">
+        <span class="flow-step-title">6. AIS Gate</span>
+        <span class="flow-step-val" style="color: var(--color-error);">0.000 b</span>
+        <span style="font-size: 8px; color: var(--text-muted);">50% Acc</span>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step-box">
+        <span class="flow-step-title">7. Spikes</span>
+        <span class="flow-step-val" style="color: var(--color-error);">0.000 b</span>
+        <span style="font-size: 8px; color: var(--text-muted);">50% Acc</span>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step-box">
+        <span class="flow-step-title">8. Bursts</span>
+        <span class="flow-step-val" style="color: #f59e0b;">0.000 b</span>
+        <span style="font-size: 8px; color: var(--text-muted);">50% Acc</span>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step-box">
+        <span class="flow-step-title">9. Temporal</span>
+        <span class="flow-step-val" style="color: #38bdf8;">0.009 b</span>
+        <span style="font-size: 8px; color: var(--text-muted);">55.6% Acc</span>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step-box">
+        <span class="flow-step-title">10. Action Pop</span>
+        <span class="flow-step-val">0.009 b</span>
+        <span style="font-size: 8px; color: var(--text-muted);">55.6% Acc</span>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step-box active">
+        <span class="flow-step-title">11. Persistent</span>
+        <span class="flow-step-val" style="color: #a855f7;">0.236 b</span>
+        <span style="font-size: 8px; color: #a855f7;">77.8% Acc (23.6%)</span>
+      </div>
+    </div>
+  </div>
+
+
   <!-- SPIKE RASTER DRAWER -->
   <div id="raster-drawer">
     <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -1553,8 +1712,11 @@
         <div class="metric-cell"><span class="metric-name">Mouse Click</span><span class="metric-val">Select Neuron / Synapse</span></div>
         <div class="metric-cell"><span class="metric-name">L</span><span class="metric-val">LATEST Mode (Default)</span></div>
         <div class="metric-cell"><span class="metric-name">R</span><span class="metric-val">REPLAY Mode</span></div>
-        <div class="metric-cell"><span class="metric-name">I</span><span class="metric-val">Action Interface Mode [I]</span></div>
+        <div class="metric-cell"><span class="metric-name">A</span><span class="metric-val">Action Interface Mode [A]</span></div>
         <div class="metric-cell"><span class="metric-name">S</span><span class="metric-val">Spike Encoding Mode [S]</span></div>
+        <div class="metric-cell"><span class="metric-name">T</span><span class="metric-val">Temporal Coding Mode [T]</span></div>
+        <div class="metric-cell"><span class="metric-name">N</span><span class="metric-val">Resonance Mode [N]</span></div>
+        <div class="metric-cell"><span class="metric-name">I</span><span class="metric-val">Information Flow Mode [I]</span></div>
         <div class="metric-cell"><span class="metric-name">O</span><span class="metric-val">Auto-Frame Entire Brain</span></div>
         <div class="metric-cell"><span class="metric-name">F</span><span class="metric-val">Focus Camera on Selection</span></div>
         <div class="metric-cell"><span class="metric-name">Space</span><span class="metric-val">Play / Pause (in Replay)</span></div>
@@ -1661,6 +1823,9 @@
     let autoOrbit = false;
     let actionInterfaceActive = false;
     let spikeEncodingActive = false;
+    let temporalCodingActive = false;
+    let resonanceActive = false;
+    let infoFlowActive = false;
 
     // Three.js Scene Setup
     const viewport = document.getElementById('viewport');
@@ -1932,6 +2097,13 @@
     function loadBrainlog(data) {
       logData = data;
       replay = new ReplayEngine(data);
+      window.logData = logData;
+      window.replay = replay;
+      window.nodeMeshes = nodeMeshes;
+      window.selectNeuron = selectNeuron;
+      window.selectNode = selectNeuron;
+      window.renderFrame = renderFrame;
+      window.setMode = setMode;
       pause();
       clearSelection();
 
@@ -1960,6 +2132,8 @@
       const latestStep = Math.max(0, totalSteps - 1);
       replay.seek(latestStep);
       renderFrame(latestStep);
+      window.nodeMeshes = nodeMeshes;
+      window.isReady = true;
     }
 
     function buildSceneFromTopology(topology) {
@@ -2088,6 +2262,52 @@
           mat.emissive.setHex(0x94a3b8);
           mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.5, 0.1, 1.8);
           mesh.scale.set(0.9, 0.9, 0.9);
+        } else if (temporalCodingActive && recIdx >= 0) {
+          // Temporal Coding Mode: Gold for bursting, Cyan for spiking, Dimmed slate for quiescent
+          const hasBurst = (frame.events || []).some(e => e.type && e.type.includes('BURST'));
+          if (hasBurst && absAct > 0.3) {
+            mat.color.setHex(0xf59e0b); // Radiant gold burst
+            mat.emissive.setHex(0xf59e0b);
+            mat.emissiveIntensity = 3.5;
+            mesh.scale.set(1.4, 1.4, 1.4);
+          } else if (absAct > 0.15) {
+            mat.color.setHex(0x38bdf8); // Cyan spike
+            mat.emissive.setHex(0x38bdf8);
+            mat.emissiveIntensity = 2.2;
+            mesh.scale.set(1.15, 1.15, 1.15);
+          } else {
+            mat.color.setHex(0x334155);
+            mat.emissive.setHex(0x1e293b);
+            mat.emissiveIntensity = 0.2;
+            mesh.scale.set(0.85, 0.85, 0.85);
+          }
+        } else if (resonanceActive && recIdx >= 0) {
+          // Resonance Mode: Phase-based oscillatory coloring across local communities
+          const commId = nInfo.module_id !== undefined ? nInfo.module_id : (recIdx % 4);
+          const phaseHue = ((commId * 90) + (stepIndex * 24)) % 360;
+          const colorObj = new THREE.Color(`hsl(${phaseHue}, 90%, 55%)`);
+          mat.color.copy(colorObj);
+          mat.emissive.copy(colorObj);
+          mat.emissiveIntensity = 2.0 + 0.8 * Math.sin((stepIndex * 0.4) + commId);
+          mesh.scale.set(1.2, 1.2, 1.2);
+        } else if (infoFlowActive) {
+          // Info Flow Mode: Thematic stage colors (Context green -> Soma blue -> Action purple)
+          if (isInput) {
+            mat.color.setHex(0x10b981);
+            mat.emissive.setHex(0x10b981);
+            mat.emissiveIntensity = 2.5;
+            mesh.scale.set(1.2, 1.2, 1.2);
+          } else if (isOutput) {
+            mat.color.setHex(0xa855f7);
+            mat.emissive.setHex(0xa855f7);
+            mat.emissiveIntensity = 3.0;
+            mesh.scale.set(1.4, 1.4, 1.4);
+          } else {
+            mat.color.setHex(0x38bdf8);
+            mat.emissive.setHex(0x38bdf8);
+            mat.emissiveIntensity = 1.2;
+            mesh.scale.set(1.0, 1.0, 1.0);
+          }
         } else if (actionInterfaceActive && recIdx >= 0) {
           // Action Interface Mode: Context projection & population coloration
           const halfH = Math.floor((topology.hidden_count || 50) / 2);
@@ -2804,6 +3024,60 @@
       spikeEncOverlay.style.display = 'none';
     };
 
+    // Temporal Coding Mode [T] (Phase 14 Section 28)
+    const temporalCodingBtn = document.getElementById('temporal-coding-btn');
+    const temporalCodingOverlay = document.getElementById('temporal-coding-overlay');
+    temporalCodingBtn.onclick = () => {
+      temporalCodingActive = !temporalCodingActive;
+      temporalCodingBtn.innerText = `⏱ Temporal: ${temporalCodingActive ? 'On' : 'Off'}`;
+      temporalCodingBtn.classList.toggle('active', temporalCodingActive);
+      temporalCodingOverlay.style.display = temporalCodingActive ? 'flex' : 'none';
+      if (replay) renderFrame(replay.currentStep);
+    };
+    document.getElementById('close-temporal-overlay-btn').onclick = () => {
+      temporalCodingActive = false;
+      temporalCodingBtn.innerText = '⏱ Temporal: Off';
+      temporalCodingBtn.classList.remove('active');
+      temporalCodingOverlay.style.display = 'none';
+      if (replay) renderFrame(replay.currentStep);
+    };
+
+    // Population Resonance Mode [N] (Phase 14 Section 29)
+    const resonanceBtn = document.getElementById('resonance-btn');
+    const resonanceOverlay = document.getElementById('resonance-overlay');
+    resonanceBtn.onclick = () => {
+      resonanceActive = !resonanceActive;
+      resonanceBtn.innerText = `🌊 Resonance: ${resonanceActive ? 'On' : 'Off'}`;
+      resonanceBtn.classList.toggle('active', resonanceActive);
+      resonanceOverlay.style.display = resonanceActive ? 'flex' : 'none';
+      if (replay) renderFrame(replay.currentStep);
+    };
+    document.getElementById('close-resonance-overlay-btn').onclick = () => {
+      resonanceActive = false;
+      resonanceBtn.innerText = '🌊 Resonance: Off';
+      resonanceBtn.classList.remove('active');
+      resonanceOverlay.style.display = 'none';
+      if (replay) renderFrame(replay.currentStep);
+    };
+
+    // Information Flow Mode [I] (Phase 14 Section 30)
+    const infoFlowBtn = document.getElementById('info-flow-btn');
+    const infoFlowOverlay = document.getElementById('info-flow-overlay');
+    infoFlowBtn.onclick = () => {
+      infoFlowActive = !infoFlowActive;
+      infoFlowBtn.innerText = `📊 Info Flow: ${infoFlowActive ? 'On' : 'Off'}`;
+      infoFlowBtn.classList.toggle('active', infoFlowActive);
+      infoFlowOverlay.style.display = infoFlowActive ? 'flex' : 'none';
+      if (replay) renderFrame(replay.currentStep);
+    };
+    document.getElementById('close-infoflow-overlay-btn').onclick = () => {
+      infoFlowActive = false;
+      infoFlowBtn.innerText = '📊 Info Flow: Off';
+      infoFlowBtn.classList.remove('active');
+      infoFlowOverlay.style.display = 'none';
+      if (replay) renderFrame(replay.currentStep);
+    };
+
     document.getElementById('focus-act0-btn').onclick = () => focusCameraOnAction(0);
     document.getElementById('focus-act1-btn').onclick = () => focusCameraOnAction(1);
 
@@ -2933,10 +3207,16 @@
         if (selectedNodeId !== null) focusCameraOnNode(selectedNodeId);
       } else if (e.code === 'KeyO') {
         autoFrameCamera();
-      } else if (e.code === 'KeyI') {
+      } else if (e.code === 'KeyA') {
         actIntBtn.click();
       } else if (e.code === 'KeyS') {
         spikeEncBtn.click();
+      } else if (e.code === 'KeyT') {
+        temporalCodingBtn.click();
+      } else if (e.code === 'KeyN') {
+        resonanceBtn.click();
+      } else if (e.code === 'KeyI') {
+        infoFlowBtn.click();
       } else if (e.code === 'Escape') {
         clearSelection();
         document.getElementById('exp-modal').style.display = 'none';
@@ -2978,8 +3258,9 @@
     }
     animate();
 
-    // Auto-bootstrap Primary Phase 13 Trace on Startup (Section 16 & 30)
-    fetchBrainlog('/experiments/results/brainlogs/EXP013_biophysical_spike_encoding.brainlog');
+    // Auto-bootstrap Primary Phase 14 Trace on Startup (Section 32)
+    const initialTrace = document.getElementById('model-select')?.value || '/experiments/results/phase14_latest.brainlog';
+    fetchBrainlog(initialTrace);
   </script>
 </body>
 </html>

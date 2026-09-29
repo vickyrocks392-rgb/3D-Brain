@@ -1,6 +1,6 @@
 # Transformer Alternatives Status: Comprehensive Candidate Architecture Analysis
 
-**Phase:** Phase 13 Research Synthesis  
+**Phase:** Phase 14 Research Synthesis  
 **Status Statement:**  
 > **STATUS: RESEARCH ONGOING — NO FINAL ALTERNATIVE SELECTED.**
 
@@ -10,28 +10,28 @@
 
 The 3D-Brain project investigates whether biologically grounded, non-Transformer computational paradigms can achieve flexible memory, temporal credit assignment, and contextual action routing without the quadratic context bottleneck, lack of spatial embedding, and biological implausibility of the standard self-attention Transformer.
 
-In Phase 13, the question of a Transformer replacement remains **firmly open**. No final architecture has been chosen. Standard causal Transformers serve strictly as **reference baselines** ($72.0\%$ accuracy on identical tasks) to anchor empirical comparison.
+In Phase 14, the question of a Transformer replacement remains **firmly open**. No final architecture has been chosen. Standard causal Transformers serve strictly as **reference baselines** ($72.0\%$ accuracy on identical tasks) to anchor empirical comparison.
 
 ---
 
 ## 2. Comprehensive Candidate Architecture Matrix
 
-Below is the scientific audit of the candidate computational families evaluated throughout Phases 1–13:
+Below is the scientific audit of the candidate computational families evaluated throughout Phases 1–14:
 
 ---
 
 ### Candidate 1: Spiking Neural Networks (SNNs)
 - **What It Solves:** Extreme energy efficiency, event-driven sparse computation, temporal spike-timing precision.
-- **What It Does Not Solve:** The continuous-to-discrete discretization cliff; single-step point-process spikes lose subthreshold manifold information.
+- **What It Does Not Solve:** The continuous-to-discrete discretization cliff; single-step point-process spikes lose subthreshold manifold information ($0.000\text{ bit}$).
 - **Biological Plausibility:** High (Hodgkin-Huxley / Leaky Integrate-and-Fire / Axon Initial Segment).
 - **Memory Mechanism:** Membrane integration, synaptic eligibility traces, spike-timing attractors.
-- **Scaling:** High throughput ($1.85\text{ MSpk/s}$ at $N=10,000$).
+- **Scaling:** High throughput ($12.9\text{ MSpk/s}$ at $N=50,000$).
 - **Training Mechanism:** Three-factor eligibility STDP, surrogate gradient BPTT.
 - **Temporal Credit Assignment:** Dependent on eligibility traces and slow NMDA time constants.
 - **Spatial Structure:** Explicit 3D embedding with conduction delays ($1\text{--}5\text{ steps}$).
 - **Interpretability / Observability:** Observable via raster plots, ISI distributions, and membrane gauges.
 - **Computational Cost:** Extremely low per timestep; event-driven.
-- **Current 3D-Brain Evidence:** Phase 7–8, Phase 13 (S1–S9). Discrete action selection requires temporal + population coding.
+- **Current 3D-Brain Evidence:** Phase 7–8, Phase 13, Phase 14. Temporal + population integration recovers $0.2358\text{ bit}$ downstream.
 
 ---
 
@@ -98,45 +98,45 @@ Below is the scientific audit of the candidate computational families evaluated 
 ### Candidate 6: Spatial Recurrent Systems (Modular / Small-World 3D Topologies)
 - **What It Solves:** Physical wiring cost constraints, biological modularity, functional segregation vs integration ($Q_{\text{struct}}, Q_{\text{func}}$).
 - **What It Does Not Solve:** Does not itself provide learning or memory without a dynamical plasticity substrate.
-- **Biological Plausibility:** High (spatial embedding matches connectome statistics).
-- **Memory Mechanism:** Compartmentalized attractors within structural communities.
-- **Scaling:** High; sparse spatial connectivity avoids $O(N^2)$ memory explosion.
-- **Training Mechanism:** Structural plasticity (axonal pruning / sprouting) combined with synaptic plasticity.
-- **Temporal Credit Assignment:** Constrained by inter-module axonal propagation delays.
-- **Spatial Structure:** Direct 3D Cartesian coordinates $[x, y, z]$.
-- **Interpretability / Observability:** Directly visualizable in 3D scene.
-- **Computational Cost:** Low; sparse graph operations.
-- **Current 3D-Brain Evidence:** Phase 4, Phase 8, Phase 10 spatial networks.
+- **Biological Plausibility:** Very High (recapitulates brain connectomes and wiring minimization).
+- **Memory Mechanism:** Topological clustering preserves reverberating local attractors.
+- **Scaling:** Highly scalable ($O(k \cdot N)$ sparse connectivity).
+- **Training Mechanism:** Structural rewiring, distance-dependent STDP.
+- **Temporal Credit Assignment:** Conduction delays ($1\text{--}10\text{ ms}$) assist in spatiotemporal sequence tagging.
+- **Spatial Structure:** Explicit continuous 3D Euclidean coordinates.
+- **Interpretability / Observability:** Community detection, modularity graphs, 3D spatial layout.
+- **Computational Cost:** Low.
+- **Current 3D-Brain Evidence:** Phase 4, Phase 8, Phase 14 local vs global resonance analysis.
 
 ---
 
-### Candidate 7: Latent-State Recurrent Architectures
-- **What It Solves:** Long-term context disambiguation, persistent internal working memory.
-- **What It Does Not Solve:** Susceptible to drift over very long delays unless anchored by discrete attractors.
-- **Biological Plausibility:** Moderate (recurrent cortical loop models).
-- **Memory Mechanism:** Self-sustaining low-dimensional manifold attractors.
-- **Scaling:** High.
-- **Training Mechanism:** Hebbian attractor formation + neuromodulated readout.
-- **Temporal Credit Assignment:** Maintained across multi-second delays ($> 2000\text{ ms}$).
-- **Spatial Structure:** Can be mapped onto modular clusters.
-- **Interpretability / Observability:** PCA manifold projections, attractor energy wells.
-- **Computational Cost:** Moderate.
-- **Current 3D-Brain Evidence:** Phase 6, Phase 11 recurrent attractor networks.
+### Candidate 7: State Space Models (Mamba / S4)
+- **What It Solves:** Linear time complexity ($O(T)$), fast parallel training via associative scans, long-range dependency modeling.
+- **What It Does Not Solve:** Lacks physical spatial geometry; parameter updates still depend on global automatic differentiation (non-local).
+- **Biological Plausibility:** Low to Moderate (continuous SSMs can approximate membrane dynamics, but associative scans lack physical biological realization).
+- **Memory Mechanism:** Hidden recurrent state matrix $\mathbf{h}(t)$.
+- **Scaling:** Excellent sequence scaling ($O(T)$).
+- **Training Mechanism:** Supervised gradient backpropagation.
+- **Temporal Credit Assignment:** Analytical gradients through continuous transition matrices.
+- **Spatial Structure:** Non-spatial (1D sequence dimension).
+- **Interpretability / Observability:** Moderate (hidden state trajectories can be probed).
+- **Computational Cost:** Low inference cost; moderate training cost.
+- **Current 3D-Brain Evidence:** Evaluated in comparative surveys; non-spatial structure remains a fundamental limitation.
 
 ---
 
-### Candidate 8: Neural Cellular Automata (NCAs)
-- **What It Solves:** Extreme parameter efficiency, self-repair, local spatial computation.
-- **What It Does Not Solve:** Difficult to perform global credit assignment and long-range sequence processing.
-- **Biological Plausibility:** Moderate (developmental biology / morphogenesis).
-- **Memory Mechanism:** Persistent spatial patterns on a cellular grid.
-- **Scaling:** Scales linearly with cell count.
-- **Training Mechanism:** Evolutionary strategies or BPTT through time.
-- **Temporal Credit Assignment:** Poor for delayed temporal cues.
-- **Spatial Structure:** High (grid or graph topology).
-- **Interpretability / Observability:** Highly visual; state patterns directly rendered.
-- **Computational Cost:** Low per cell update.
-- **Current 3D-Brain Evidence:** Evaluated conceptually; not currently prioritized for sequence memory.
+### Candidate 8: Continuous Attractor Networks (CANNs)
+- **What It Solves:** Persistent working memory, smooth continuous manifold representations (head direction, spatial grid maps), robustness to noise.
+- **What It Does Not Solve:** Vulnerable to drift without anchor cues; discrete decision switching requires external competition mechanisms.
+- **Biological Plausibility:** High (hippocampal place cells, entorhinal grid cells, head direction circuits).
+- **Memory Mechanism:** Stable fixed points / line attractors maintained by recurrent symmetric/skew-symmetric connectivity.
+- **Scaling:** Scales linearly with number of attractor modules.
+- **Training Mechanism:** Anti-Hebbian / Hebbian attractor formation.
+- **Temporal Credit Assignment:** Strong for static maintenance; weak for sequential history without asymmetric connections.
+- **Spatial Structure:** Ring, toroidal, or spherical topologies.
+- **Interpretability / Observability:** High; manifold projection and bump velocity tracking.
+- **Computational Cost:** Low.
+- **Current 3D-Brain Evidence:** Phase 6, Phase 11 persistent attractor memory substrate.
 
 ---
 
@@ -151,31 +151,34 @@ Below is the scientific audit of the candidate computational families evaluated 
 - **Spatial Structure:** None (token positions are 1D indices).
 - **Interpretability / Observability:** Attention heatmaps.
 - **Computational Cost:** High ($O(T^2)$).
-- **Current 3D-Brain Evidence:** Benchmarked in Phase 13 ($72.0\%$ accuracy reference baseline).
+- **Current 3D-Brain Evidence:** Benchmarked in Phase 13 & 14 ($72.0\%$ accuracy reference baseline).
 
 ---
 
 ### Candidate 10: Hybrid Biophysical Architectures (The 3D-Brain Integrated Lineage)
-- **What It Solves:** Integrates Dale's E/I balance + modular 3D spatial topology + two-compartment NMDA/dendritic integration + three-factor eligibility credit assignment + biophysical spike encoding + action persistence.
-- **What It Does Not Solve:** Single-step discretization loss remains an active research frontier ($8.17\%$ context retention at action stage); still trails supervised gradient methods on raw task accuracy ($45.3\%\text{ vs }72.0\%$).
+- **What It Solves:** Integrates Dale's E/I balance + modular 3D spatial topology + two-compartment NMDA/dendritic integration + three-factor eligibility credit assignment + biophysical burst dynamics + dendritic calcium coincidence + population resonance + action persistence.
+- **What It Does Not Solve:** Single-step discretization loss remains an active research frontier; still trails supervised gradient methods on raw task accuracy ($44.0\%\text{ vs }72.0\%$).
 - **Biological Plausibility:** Exceptionally High across all anatomical, dynamical, and learning constraints.
-- **Memory Mechanism:** Slow NMDA conductances, dendritic plateau potentials, and recurrent attractor pools.
-- **Scaling:** Demonstrates sub-millisecond execution for $N=10,000$ with $4.27\text{ MB}$ footprint.
+- **Memory Mechanism:** Slow NMDA conductances, dendritic plateau potentials, recurrent attractor pools, and persistent evidence accumulation.
+- **Scaling:** Demonstrates sub-millisecond execution for $N=50,000$ ($1,722.9\text{ steps/s}$, $6.29\text{ MB}$ RAM).
 - **Training Mechanism:** Local targeted three-factor plasticity with dendritic feedback.
 - **Temporal Credit Assignment:** Preserves causal context across $2000\text{ ms}$ delays.
 - **Spatial Structure:** Genuine 3D Euclidean coordinates with modular community structure.
 - **Interpretability / Observability:** Completely observable in the 3D Neural Observatory.
 - **Computational Cost:** Very low compared to Transformers.
-- **Current 3D-Brain Evidence:** Phases 8, 9, 10, 11, 12, 13.
+- **Current 3D-Brain Evidence:** Phases 8 through 14. Phase 14 increased context information retention from $8.17\%$ to $23.58\%$ ($0.2358\text{ bit}$ in action state, $77.8\%$ probe accuracy).
 
 ---
 
 ## 3. Decision Gate Criteria & Next Scientific Focus
 
 **Why No Final Winner Is Selected:**
-While the Phase 13 Hybrid Biophysical Architecture achieves superior biological realism, energy efficiency, and spatial observability, its behavioral accuracy ($45.3\%$) remains below the Small Transformer Reference ($72.0\%$) and Supervised Linear Readout ($60.0\%$). 
+While the Phase 14 Hybrid Biophysical Architecture achieves substantial progress in information preservation (jumping from $8.17\%$ to $23.58\%$ context retention, with $77.8\%$ probe accuracy on the persistent action state), its behavioral accuracy ($44.0\%$) remains below the Small Transformer Reference ($72.0\%$) and Supervised BPTT Reference ($64.0\%$).
 
-The bottleneck is now precisely identified:
-**The continuous-to-discrete spike conversion drops mutual information from $1.00\text{ b}$ to $0.00\text{ b}$ at single steps, recovering only $0.082\text{ b}$ downstream.**
+The scientific comparison remains:
+- **Transformer:** Highly efficient sequence-processing mathematical reference without biological realism.
+- **3D-Brain:** Stateful, spatial, temporally structured biological computational substrate.
 
-Until a biological spike mechanism can preserve $\ge 50\%$ of continuous upstream information through the discrete spiking bottleneck, declaring a Transformer alternative would be scientifically premature.
+The question of eventual architecture selection remains open until cross-task evidence and higher information retention ($\ge 50\%$) are established.
+
+> **STATUS: RESEARCH ONGOING — NO FINAL ALTERNATIVE SELECTED.**

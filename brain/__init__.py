@@ -152,6 +152,17 @@ from brain.biophysical_audit import (
     StageMetrics,
 )
 from brain.phase13_network import Phase13Network
+from brain.burst_dynamics import BurstDynamicsEngine, BurstStrategy, BurstRecord
+from brain.dendritic_coincidence import DendriticCoincidenceDetector, CoincidenceTriggerType
+from brain.temporal_coding import TemporalSpikeDecoder, TemporalCodingScheme
+from brain.population_resonance import (
+    PopulationResonanceEngine,
+    ResonanceRegime,
+    SpatialResonanceMode,
+    PopulationCodingMode,
+)
+from brain.information_bottleneck import InformationBottleneckAuditor, StageAuditRecord
+from brain.phase14_network import Phase14Network
 
 __all__.extend([
     "TwoCompartmentPopulation",
@@ -178,7 +189,22 @@ __all__.extend([
     "BiophysicalPathwayAuditor",
     "StageMetrics",
     "Phase13Network",
+    "BurstDynamicsEngine",
+    "BurstStrategy",
+    "BurstRecord",
+    "DendriticCoincidenceDetector",
+    "CoincidenceTriggerType",
+    "TemporalSpikeDecoder",
+    "TemporalCodingScheme",
+    "PopulationResonanceEngine",
+    "ResonanceRegime",
+    "SpatialResonanceMode",
+    "PopulationCodingMode",
+    "InformationBottleneckAuditor",
+    "StageAuditRecord",
+    "Phase14Network",
 ])
+
 
 
 

@@ -67,8 +67,8 @@ class BrainLogValidator:
             data = filepath_or_dict
 
         version = data.get("brainlog_version")
-        if version not in ["1.0", "2.0", "2.1", "2.2", "2.3", "2.4", "2.5", "2.6", "2.7", "2.8", "2.9", "3.0", "3.1"]:
-            return False, f"Missing, incompatible or unsupported brainlog_version '{version}' (expected '1.0', '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '2.6', '2.7', '2.8', '2.9', '3.0', or '3.1')"
+        if version not in ["1.0", "2.0", "2.1", "2.2", "2.3", "2.4", "2.5", "2.6", "2.7", "2.8", "2.9", "3.0", "3.1", "3.2"]:
+            return False, f"Missing, incompatible or unsupported brainlog_version '{version}' (expected '1.0', '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '2.6', '2.7', '2.8', '2.9', '3.0', '3.1', or '3.2')"
 
         if "metadata" not in data or not isinstance(data["metadata"], dict):
             return False, "Missing or invalid 'metadata' object"
@@ -97,7 +97,7 @@ class BrainLogValidator:
                 f"Activation length mismatch: {len(f0['activations'])} vs {node_count} nodes in topology",
             )
 
-        if version in ["2.0", "2.1", "2.2", "2.3", "2.4", "2.5", "2.6", "2.7", "2.8", "2.9", "3.0", "3.1"]:
+        if version in ["2.0", "2.1", "2.2", "2.3", "2.4", "2.5", "2.6", "2.7", "2.8", "2.9", "3.0", "3.1", "3.2"]:
             if "events" not in data or not isinstance(data["events"], list):
                 return False, f"v{version} brainlog requires 'events' list"
 

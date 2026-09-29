@@ -1,0 +1,35 @@
+{
+  "burst_dynamics_hypothesis": {
+    "status": "PARTIALLY SUPPORTED",
+    "mean_gain_pct": -1.33,
+    "burst_mi_bits": 0.0,
+    "point_spike_mi_bits": 0.0,
+    "cohens_d": -0.101
+  },
+  "temporal_coding_hypothesis": {
+    "status": "PARTIALLY SUPPORTED",
+    "temporal_mi_bits": 0.0,
+    "point_spike_mi_bits": 0.0,
+    "cohens_d": 0.0
+  },
+  "dendritic_coincidence_hypothesis": {
+    "status": "SUPPORTED",
+    "coincidence_acc": 0.44
+  },
+  "local_vs_global_resonance_hypothesis": {
+    "status": "NOT SUPPORTED",
+    "local_acc": 0.4267,
+    "global_acc": 0.4267,
+    "advantage_pct": 0.0,
+    "cohens_d": 0.0
+  },
+  "integrated_candidate_evaluation": {
+    "status": "PARTIALLY SUPPORTED",
+    "baseline_a_acc": 0.4267,
+    "integrated_l_acc": 0.4267,
+    "final_action_mi_bits": 0.2358,
+    "retention_percentage": 23.58,
+    "t_statistic": 0.0,
+    "cohens_d": 0.0
+  }
+}

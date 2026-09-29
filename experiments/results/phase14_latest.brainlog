@@ -1,0 +1,3377 @@
+{
+  "brainlog_version": "3.2",
+  "metadata": {
+    "experiment_id": "EXP_014_TEMPORAL_CODING",
+    "phase": 14,
+    "brainlog_version": "3.2",
+    "created_at": "2026-09-29 16:06:47",
+    "total_steps": 13,
+    "total_events": 7,
+    "topology_family": "MODULAR"
+  },
+  "topology": {
+    "topology_id": "topo_phase14",
+    "model_id": "phase14_integrated",
+    "node_count": 50,
+    "edge_count": 109,
+    "nodes": [
+      {
+        "id": 0,
+        "type": "input",
+        "label": "In_0",
+        "pos": [
+          -15.0,
+          -8.75,
+          0.0
+        ],
+        "unit_index": -1,
+        "module_id": 0,
+        "metadata": {}
+      },
+      {
+        "id": 1,
+        "type": "input",
+        "label": "In_1",
+        "pos": [
+          -15.0,
+          -6.25,
+          0.0
+        ],
+        "unit_index": -1,
+        "module_id": 0,
+        "metadata": {}
+      },
+      {
+        "id": 2,
+        "type": "input",
+        "label": "In_2",
+        "pos": [
+          -15.0,
+          -3.75,
+          0.0
+        ],
+        "unit_index": -1,
+        "module_id": 0,
+        "metadata": {}
+      },
+      {
+        "id": 3,
+        "type": "input",
+        "label": "In_3",
+        "pos": [
+          -15.0,
+          -1.25,
+          0.0
+        ],
+        "unit_index": -1,
+        "module_id": 0,
+        "metadata": {}
+      },
+      {
+        "id": 4,
+        "type": "input",
+        "label": "In_4",
+        "pos": [
+          -15.0,
+          1.25,
+          0.0
+        ],
+        "unit_index": -1,
+        "module_id": 0,
+        "metadata": {}
+      },
+      {
+        "id": 5,
+        "type": "input",
+        "label": "In_5",
+        "pos": [
+          -15.0,
+          3.75,
+          0.0
+        ],
+        "unit_index": -1,
+        "module_id": 0,
+        "metadata": {}
+      },
+      {
+        "id": 6,
+        "type": "input",
+        "label": "In_6",
+        "pos": [
+          -15.0,
+          6.25,
+          0.0
+        ],
+        "unit_index": -1,
+        "module_id": 0,
+        "metadata": {}
+      },
+      {
+        "id": 7,
+        "type": "input",
+        "label": "In_7",
+        "pos": [
+          -15.0,
+          8.75,
+          0.0
+        ],
+        "unit_index": -1,
+        "module_id": 0,
+        "metadata": {}
+      },
+      {
+        "id": 8,
+        "type": "excitatory",
+        "label": "H_0",
+        "pos": [
+          12.609,
+          -2.08,
+          -2.099
+        ],
+        "unit_index": 0,
+        "module_id": 0,
+        "metadata": {}
+      },
+      {
+        "id": 9,
+        "type": "excitatory",
+        "label": "H_1",
+        "pos": [
+          13.881,
+          -3.902,
+          -6.204
+        ],
+        "unit_index": 1,
+        "module_id": 0,
+        "metadata": {}
+      },
+      {
+        "id": 10,
+        "type": "excitatory",
+        "label": "H_2",
+        "pos": [
+          12.256,
+          -0.632,
+          -3.634
+        ],
+        "unit_index": 2,
+        "module_id": 0,
+        "metadata": {}
+      },
+      {
+        "id": 11,
+        "type": "excitatory",
+        "label": "H_3",
+        "pos": [
+          10.294,
+          1.759,
+          -2.044
+        ],
+        "unit_index": 3,
+        "module_id": 0,
+        "metadata": {}
+      },
+      {
+        "id": 12,
+        "type": "excitatory",
+        "label": "H_4",
+        "pos": [
+          12.132,
+          2.254,
+          -2.665
+        ],
+        "unit_index": 4,
+        "module_id": 0,
+        "metadata": {}
+      },
+      {
+        "id": 13,
+        "type": "excitatory",
+        "label": "H_5",
+        "pos": [
+          10.281,
+          0.738,
+          -5.518
+        ],
+        "unit_index": 5,
+        "module_id": 0,
+        "metadata": {}
+      },
+      {
+        "id": 14,
+        "type": "excitatory",
+        "label": "H_6",
+        "pos": [
+          13.757,
+          -0.1,
+          -3.97
+        ],
+        "unit_index": 6,
+        "module_id": 0,
+        "metadata": {}
+      },
+      {
+        "id": 15,
+        "type": "excitatory",
+        "label": "H_7",
+        "pos": [
+          10.638,
+          2.445,
+          -3.909
+        ],
+        "unit_index": 7,
+        "module_id": 0,
+        "metadata": {}
+      },
+      {
+        "id": 16,
+        "type": "excitatory",
+        "label": "H_8",
+        "pos": [
+          11.143,
+          -0.704,
+          -2.535
+        ],
+        "unit_index": 8,
+        "module_id": 0,
+        "metadata": {}
+      },
+      {
+        "id": 17,
+        "type": "excitatory",
+        "label": "H_9",
+        "pos": [
+          12.731,
+          0.825,
+          -2.738
+        ],
+        "unit_index": 9,
+        "module_id": 0,
+        "metadata": {}
+      },
+      {
+        "id": 18,
+        "type": "excitatory",
+        "label": "H_10",
+        "pos": [
+          4.283,
+          11.187,
+          2.576
+        ],
+        "unit_index": 10,
+        "module_id": 1,
+        "metadata": {}
+      },
+      {
+        "id": 19,
+        "type": "excitatory",
+        "label": "H_11",
+        "pos": [
+          -1.628,
+          13.232,
+          5.858
+        ],
+        "unit_index": 11,
+        "module_id": 1,
+        "metadata": {}
+      },
+      {
+        "id": 20,
+        "type": "excitatory",
+        "label": "H_12",
+        "pos": [
+          -0.228,
+          10.32,
+          1.951
+        ],
+        "unit_index": 12,
+        "module_id": 1,
+        "metadata": {}
+      },
+      {
+        "id": 21,
+        "type": "excitatory",
+        "label": "H_13",
+        "pos": [
+          1.301,
+          13.487,
+          4.686
+        ],
+        "unit_index": 13,
+        "module_id": 1,
+        "metadata": {}
+      },
+      {
+        "id": 22,
+        "type": "excitatory",
+        "label": "H_14",
+        "pos": [
+          -1.331,
+          12.464,
+          3.833
+        ],
+        "unit_index": 14,
+        "module_id": 1,
+        "metadata": {}
+      },
+      {
+        "id": 23,
+        "type": "excitatory",
+        "label": "H_15",
+        "pos": [
+          0.437,
+          13.743,
+          4.047
+        ],
+        "unit_index": 15,
+        "module_id": 1,
+        "metadata": {}
+      },
+      {
+        "id": 24,
+        "type": "excitatory",
+        "label": "H_16",
+        "pos": [
+          1.358,
+          12.135,
+          4.178
+        ],
+        "unit_index": 16,
+        "module_id": 1,
+        "metadata": {}
+      },
+      {
+        "id": 25,
+        "type": "excitatory",
+        "label": "H_17",
+        "pos": [
+          1.263,
+          9.086,
+          2.961
+        ],
+        "unit_index": 17,
+        "module_id": 1,
+        "metadata": {}
+      },
+      {
+        "id": 26,
+        "type": "excitatory",
+        "label": "H_18",
+        "pos": [
+          -0.941,
+          10.722,
+          3.05
+        ],
+        "unit_index": 18,
+        "module_id": 1,
+        "metadata": {}
+      },
+      {
+        "id": 27,
+        "type": "excitatory",
+        "label": "H_19",
+        "pos": [
+          2.99,
+          10.268,
+          5.537
+        ],
+        "unit_index": 19,
+        "module_id": 1,
+        "metadata": {}
+      },
+      {
+        "id": 28,
+        "type": "excitatory",
+        "label": "H_20",
+        "pos": [
+          -15.366,
+          -0.67,
+          -3.274
+        ],
+        "unit_index": 20,
+        "module_id": 2,
+        "metadata": {}
+      },
+      {
+        "id": 29,
+        "type": "excitatory",
+        "label": "H_21",
+        "pos": [
+          -10.828,
+          1.422,
+          -2.013
+        ],
+        "unit_index": 21,
+        "module_id": 2,
+        "metadata": {}
+      },
+      {
+        "id": 30,
+        "type": "excitatory",
+        "label": "H_22",
+        "pos": [
+          -12.697,
+          -0.925,
+          -1.884
+        ],
+        "unit_index": 22,
+        "module_id": 2,
+        "metadata": {}
+      },
+      {
+        "id": 31,
+        "type": "excitatory",
+        "label": "H_23",
+        "pos": [
+          -12.383,
+          -2.551,
+          -5.867
+        ],
+        "unit_index": 23,
+        "module_id": 2,
+        "metadata": {}
+      },
+      {
+        "id": 32,
+        "type": "excitatory",
+        "label": "H_24",
+        "pos": [
+          -13.839,
+          0.994,
+          -3.315
+        ],
+        "unit_index": 24,
+        "module_id": 2,
+        "metadata": {}
+      },
+      {
+        "id": 33,
+        "type": "excitatory",
+        "label": "H_25",
+        "pos": [
+          -10.619,
+          -0.855,
+          -3.283
+        ],
+        "unit_index": 25,
+        "module_id": 2,
+        "metadata": {}
+      },
+      {
+        "id": 34,
+        "type": "excitatory",
+        "label": "H_26",
+        "pos": [
+          -10.749,
+          -0.619,
+          -2.686
+        ],
+        "unit_index": 26,
+        "module_id": 2,
+        "metadata": {}
+      },
+      {
+        "id": 35,
+        "type": "excitatory",
+        "label": "H_27",
+        "pos": [
+          -13.324,
+          -0.726,
+          -4.363
+        ],
+        "unit_index": 27,
+        "module_id": 2,
+        "metadata": {}
+      },
+      {
+        "id": 36,
+        "type": "excitatory",
+        "label": "H_28",
+        "pos": [
+          -14.392,
+          0.974,
+          -4.539
+        ],
+        "unit_index": 28,
+        "module_id": 2,
+        "metadata": {}
+      },
+      {
+        "id": 37,
+        "type": "excitatory",
+        "label": "H_29",
+        "pos": [
+          -11.975,
+          0.961,
+          -2.707
+        ],
+        "unit_index": 29,
+        "module_id": 2,
+        "metadata": {}
+      },
+      {
+        "id": 38,
+        "type": "excitatory",
+        "label": "H_30",
+        "pos": [
+          1.331,
+          -12.197,
+          2.753
+        ],
+        "unit_index": 30,
+        "module_id": 3,
+        "metadata": {}
+      },
+      {
+        "id": 39,
+        "type": "excitatory",
+        "label": "H_31",
+        "pos": [
+          -0.159,
+          -15.375,
+          0.706
+        ],
+        "unit_index": 31,
+        "module_id": 3,
+        "metadata": {}
+      },
+      {
+        "id": 40,
+        "type": "inhibitory",
+        "label": "H_32",
+        "pos": [
+          -2.645,
+          -13.994,
+          4.4
+        ],
+        "unit_index": 32,
+        "module_id": 3,
+        "metadata": {}
+      },
+      {
+        "id": 41,
+        "type": "inhibitory",
+        "label": "H_33",
+        "pos": [
+          -1.811,
+          -12.756,
+          6.198
+        ],
+        "unit_index": 33,
+        "module_id": 3,
+        "metadata": {}
+      },
+      {
+        "id": 42,
+        "type": "inhibitory",
+        "label": "H_34",
+        "pos": [
+          -0.713,
+          -10.525,
+          1.733
+        ],
+        "unit_index": 34,
+        "module_id": 3,
+        "metadata": {}
+      },
+      {
+        "id": 43,
+        "type": "inhibitory",
+        "label": "H_35",
+        "pos": [
+          -0.411,
+          -13.9,
+          2.922
+        ],
+        "unit_index": 35,
+        "module_id": 3,
+        "metadata": {}
+      },
+      {
+        "id": 44,
+        "type": "inhibitory",
+        "label": "H_36",
+        "pos": [
+          1.681,
+          -15.455,
+          4.469
+        ],
+        "unit_index": 36,
+        "module_id": 3,
+        "metadata": {}
+      },
+      {
+        "id": 45,
+        "type": "inhibitory",
+        "label": "H_37",
+        "pos": [
+          0.475,
+          -13.188,
+          0.708
+        ],
+        "unit_index": 37,
+        "module_id": 3,
+        "metadata": {}
+      },
+      {
+        "id": 46,
+        "type": "inhibitory",
+        "label": "H_38",
+        "pos": [
+          0.144,
+          -13.059,
+          4.065
+        ],
+        "unit_index": 38,
+        "module_id": 3,
+        "metadata": {}
+      },
+      {
+        "id": 47,
+        "type": "inhibitory",
+        "label": "H_39",
+        "pos": [
+          0.044,
+          -8.796,
+          3.121
+        ],
+        "unit_index": 39,
+        "module_id": 3,
+        "metadata": {}
+      },
+      {
+        "id": 48,
+        "type": "output",
+        "label": "Act_0",
+        "pos": [
+          15.0,
+          -2.5,
+          0.0
+        ],
+        "unit_index": -1,
+        "module_id": 0,
+        "metadata": {}
+      },
+      {
+        "id": 49,
+        "type": "output",
+        "label": "Act_1",
+        "pos": [
+          15.0,
+          2.5,
+          0.0
+        ],
+        "unit_index": -1,
+        "module_id": 0,
+        "metadata": {}
+      }
+    ],
+    "edges": [
+      {
+        "src": 8,
+        "dst": 9,
+        "weight": 0.7672,
+        "latency_steps": 1
+      },
+      {
+        "src": 8,
+        "dst": 12,
+        "weight": 0.5606,
+        "latency_steps": 1
+      },
+      {
+        "src": 8,
+        "dst": 13,
+        "weight": 0.7452,
+        "latency_steps": 1
+      },
+      {
+        "src": 8,
+        "dst": 16,
+        "weight": 0.7722,
+        "latency_steps": 1
+      },
+      {
+        "src": 8,
+        "dst": 18,
+        "weight": 0.5673,
+        "latency_steps": 1
+      },
+      {
+        "src": 8,
+        "dst": 19,
+        "weight": 0.5991,
+        "latency_steps": 1
+      },
+      {
+        "src": 8,
+        "dst": 21,
+        "weight": 0.5957,
+        "latency_steps": 1
+      },
+      {
+        "src": 8,
+        "dst": 23,
+        "weight": 0.596,
+        "latency_steps": 1
+      },
+      {
+        "src": 9,
+        "dst": 12,
+        "weight": 0.571,
+        "latency_steps": 1
+      },
+      {
+        "src": 9,
+        "dst": 13,
+        "weight": 0.6046,
+        "latency_steps": 1
+      },
+      {
+        "src": 9,
+        "dst": 14,
+        "weight": 0.5906,
+        "latency_steps": 1
+      },
+      {
+        "src": 9,
+        "dst": 16,
+        "weight": 0.593,
+        "latency_steps": 1
+      },
+      {
+        "src": 9,
+        "dst": 18,
+        "weight": 0.7286,
+        "latency_steps": 1
+      },
+      {
+        "src": 9,
+        "dst": 19,
+        "weight": 0.7766,
+        "latency_steps": 1
+      },
+      {
+        "src": 9,
+        "dst": 21,
+        "weight": 0.5214,
+        "latency_steps": 1
+      },
+      {
+        "src": 10,
+        "dst": 9,
+        "weight": 0.6267,
+        "latency_steps": 1
+      },
+      {
+        "src": 10,
+        "dst": 12,
+        "weight": 0.54,
+        "latency_steps": 1
+      },
+      {
+        "src": 10,
+        "dst": 13,
+        "weight": 0.5619,
+        "latency_steps": 1
+      },
+      {
+        "src": 10,
+        "dst": 19,
+        "weight": 0.7521,
+        "latency_steps": 1
+      },
+      {
+        "src": 10,
+        "dst": 23,
+        "weight": 0.5486,
+        "latency_steps": 1
+      },
+      {
+        "src": 11,
+        "dst": 9,
+        "weight": 0.6948,
+        "latency_steps": 1
+      },
+      {
+        "src": 11,
+        "dst": 12,
+        "weight": 0.7093,
+        "latency_steps": 1
+      },
+      {
+        "src": 11,
+        "dst": 13,
+        "weight": 0.6844,
+        "latency_steps": 1
+      },
+      {
+        "src": 11,
+        "dst": 16,
+        "weight": 0.7372,
+        "latency_steps": 1
+      },
+      {
+        "src": 11,
+        "dst": 17,
+        "weight": 0.5685,
+        "latency_steps": 1
+      },
+      {
+        "src": 11,
+        "dst": 18,
+        "weight": 0.6736,
+        "latency_steps": 1
+      },
+      {
+        "src": 11,
+        "dst": 20,
+        "weight": 0.6531,
+        "latency_steps": 1
+      },
+      {
+        "src": 11,
+        "dst": 21,
+        "weight": 0.6877,
+        "latency_steps": 1
+      },
+      {
+        "src": 11,
+        "dst": 22,
+        "weight": 0.6996,
+        "latency_steps": 1
+      },
+      {
+        "src": 11,
+        "dst": 23,
+        "weight": 0.7635,
+        "latency_steps": 1
+      },
+      {
+        "src": 12,
+        "dst": 8,
+        "weight": 0.5464,
+        "latency_steps": 1
+      },
+      {
+        "src": 12,
+        "dst": 10,
+        "weight": 0.5618,
+        "latency_steps": 1
+      },
+      {
+        "src": 12,
+        "dst": 15,
+        "weight": 0.7052,
+        "latency_steps": 1
+      },
+      {
+        "src": 12,
+        "dst": 16,
+        "weight": 0.6046,
+        "latency_steps": 1
+      },
+      {
+        "src": 12,
+        "dst": 22,
+        "weight": 0.6156,
+        "latency_steps": 1
+      },
+      {
+        "src": 12,
+        "dst": 23,
+        "weight": 0.5834,
+        "latency_steps": 1
+      },
+      {
+        "src": 13,
+        "dst": 8,
+        "weight": 0.5641,
+        "latency_steps": 1
+      },
+      {
+        "src": 13,
+        "dst": 14,
+        "weight": 0.6799,
+        "latency_steps": 1
+      },
+      {
+        "src": 13,
+        "dst": 16,
+        "weight": 0.6548,
+        "latency_steps": 1
+      },
+      {
+        "src": 13,
+        "dst": 21,
+        "weight": 0.5963,
+        "latency_steps": 1
+      },
+      {
+        "src": 14,
+        "dst": 15,
+        "weight": 0.7267,
+        "latency_steps": 1
+      },
+      {
+        "src": 14,
+        "dst": 16,
+        "weight": 0.6341,
+        "latency_steps": 1
+      },
+      {
+        "src": 14,
+        "dst": 17,
+        "weight": 0.5266,
+        "latency_steps": 1
+      },
+      {
+        "src": 14,
+        "dst": 21,
+        "weight": 0.5651,
+        "latency_steps": 1
+      },
+      {
+        "src": 14,
+        "dst": 22,
+        "weight": 0.5851,
+        "latency_steps": 1
+      },
+      {
+        "src": 15,
+        "dst": 11,
+        "weight": 0.5383,
+        "latency_steps": 1
+      },
+      {
+        "src": 15,
+        "dst": 13,
+        "weight": 0.6723,
+        "latency_steps": 1
+      },
+      {
+        "src": 15,
+        "dst": 17,
+        "weight": 0.6873,
+        "latency_steps": 1
+      },
+      {
+        "src": 15,
+        "dst": 21,
+        "weight": 0.7699,
+        "latency_steps": 1
+      },
+      {
+        "src": 15,
+        "dst": 23,
+        "weight": 0.538,
+        "latency_steps": 1
+      },
+      {
+        "src": 16,
+        "dst": 10,
+        "weight": 0.7547,
+        "latency_steps": 1
+      },
+      {
+        "src": 16,
+        "dst": 13,
+        "weight": 0.7528,
+        "latency_steps": 1
+      },
+      {
+        "src": 16,
+        "dst": 14,
+        "weight": 0.5228,
+        "latency_steps": 1
+      },
+      {
+        "src": 16,
+        "dst": 17,
+        "weight": 0.603,
+        "latency_steps": 1
+      },
+      {
+        "src": 16,
+        "dst": 22,
+        "weight": 0.5962,
+        "latency_steps": 1
+      },
+      {
+        "src": 16,
+        "dst": 23,
+        "weight": 0.6949,
+        "latency_steps": 1
+      },
+      {
+        "src": 17,
+        "dst": 10,
+        "weight": 0.5417,
+        "latency_steps": 1
+      },
+      {
+        "src": 17,
+        "dst": 13,
+        "weight": 0.7557,
+        "latency_steps": 1
+      },
+      {
+        "src": 17,
+        "dst": 14,
+        "weight": 0.6481,
+        "latency_steps": 1
+      },
+      {
+        "src": 17,
+        "dst": 15,
+        "weight": 0.6419,
+        "latency_steps": 1
+      },
+      {
+        "src": 17,
+        "dst": 16,
+        "weight": 0.5509,
+        "latency_steps": 1
+      },
+      {
+        "src": 17,
+        "dst": 18,
+        "weight": 0.6888,
+        "latency_steps": 1
+      },
+      {
+        "src": 17,
+        "dst": 22,
+        "weight": 0.5943,
+        "latency_steps": 1
+      },
+      {
+        "src": 18,
+        "dst": 8,
+        "weight": 0.7733,
+        "latency_steps": 1
+      },
+      {
+        "src": 18,
+        "dst": 12,
+        "weight": 0.7316,
+        "latency_steps": 1
+      },
+      {
+        "src": 18,
+        "dst": 14,
+        "weight": 0.7568,
+        "latency_steps": 1
+      },
+      {
+        "src": 18,
+        "dst": 20,
+        "weight": 0.7625,
+        "latency_steps": 1
+      },
+      {
+        "src": 18,
+        "dst": 22,
+        "weight": 0.5269,
+        "latency_steps": 1
+      },
+      {
+        "src": 18,
+        "dst": 23,
+        "weight": 0.7307,
+        "latency_steps": 1
+      },
+      {
+        "src": 19,
+        "dst": 8,
+        "weight": 0.6946,
+        "latency_steps": 1
+      },
+      {
+        "src": 19,
+        "dst": 16,
+        "weight": 0.5548,
+        "latency_steps": 1
+      },
+      {
+        "src": 19,
+        "dst": 17,
+        "weight": 0.7163,
+        "latency_steps": 1
+      },
+      {
+        "src": 19,
+        "dst": 21,
+        "weight": 0.5555,
+        "latency_steps": 1
+      },
+      {
+        "src": 19,
+        "dst": 22,
+        "weight": 0.6112,
+        "latency_steps": 1
+      },
+      {
+        "src": 20,
+        "dst": 10,
+        "weight": 0.57,
+        "latency_steps": 1
+      },
+      {
+        "src": 20,
+        "dst": 11,
+        "weight": 0.5639,
+        "latency_steps": 1
+      },
+      {
+        "src": 20,
+        "dst": 12,
+        "weight": 0.566,
+        "latency_steps": 1
+      },
+      {
+        "src": 20,
+        "dst": 13,
+        "weight": 0.5514,
+        "latency_steps": 1
+      },
+      {
+        "src": 20,
+        "dst": 15,
+        "weight": 0.6147,
+        "latency_steps": 1
+      },
+      {
+        "src": 20,
+        "dst": 18,
+        "weight": 0.7278,
+        "latency_steps": 1
+      },
+      {
+        "src": 20,
+        "dst": 21,
+        "weight": 0.7471,
+        "latency_steps": 1
+      },
+      {
+        "src": 20,
+        "dst": 23,
+        "weight": 0.592,
+        "latency_steps": 1
+      },
+      {
+        "src": 21,
+        "dst": 11,
+        "weight": 0.6596,
+        "latency_steps": 1
+      },
+      {
+        "src": 21,
+        "dst": 14,
+        "weight": 0.5532,
+        "latency_steps": 1
+      },
+      {
+        "src": 21,
+        "dst": 15,
+        "weight": 0.6144,
+        "latency_steps": 1
+      },
+      {
+        "src": 21,
+        "dst": 18,
+        "weight": 0.7765,
+        "latency_steps": 1
+      },
+      {
+        "src": 21,
+        "dst": 20,
+        "weight": 0.5465,
+        "latency_steps": 1
+      },
+      {
+        "src": 21,
+        "dst": 22,
+        "weight": 0.5839,
+        "latency_steps": 1
+      },
+      {
+        "src": 21,
+        "dst": 23,
+        "weight": 0.5685,
+        "latency_steps": 1
+      },
+      {
+        "src": 22,
+        "dst": 8,
+        "weight": 0.6711,
+        "latency_steps": 1
+      },
+      {
+        "src": 22,
+        "dst": 9,
+        "weight": 0.6451,
+        "latency_steps": 1
+      },
+      {
+        "src": 22,
+        "dst": 11,
+        "weight": 0.6075,
+        "latency_steps": 1
+      },
+      {
+        "src": 22,
+        "dst": 12,
+        "weight": 0.5365,
+        "latency_steps": 1
+      },
+      {
+        "src": 22,
+        "dst": 14,
+        "weight": 0.7306,
+        "latency_steps": 1
+      },
+      {
+        "src": 22,
+        "dst": 15,
+        "weight": 0.6972,
+        "latency_steps": 1
+      },
+      {
+        "src": 22,
+        "dst": 19,
+        "weight": 0.6107,
+        "latency_steps": 1
+      },
+      {
+        "src": 23,
+        "dst": 8,
+        "weight": 0.7539,
+        "latency_steps": 1
+      },
+      {
+        "src": 23,
+        "dst": 9,
+        "weight": 0.6613,
+        "latency_steps": 1
+      },
+      {
+        "src": 23,
+        "dst": 12,
+        "weight": 0.7644,
+        "latency_steps": 1
+      },
+      {
+        "src": 23,
+        "dst": 14,
+        "weight": 0.5562,
+        "latency_steps": 1
+      },
+      {
+        "src": 23,
+        "dst": 20,
+        "weight": 0.601,
+        "latency_steps": 1
+      },
+      {
+        "src": 23,
+        "dst": 21,
+        "weight": 0.7134,
+        "latency_steps": 1
+      },
+      {
+        "src": 23,
+        "dst": 22,
+        "weight": 0.6682,
+        "latency_steps": 1
+      },
+      {
+        "src": 24,
+        "dst": 27,
+        "weight": 0.7594,
+        "latency_steps": 1
+      },
+      {
+        "src": 25,
+        "dst": 27,
+        "weight": 0.6242,
+        "latency_steps": 1
+      },
+      {
+        "src": 26,
+        "dst": 24,
+        "weight": 0.6635,
+        "latency_steps": 1
+      },
+      {
+        "src": 26,
+        "dst": 25,
+        "weight": 0.5966,
+        "latency_steps": 1
+      },
+      {
+        "src": 27,
+        "dst": 24,
+        "weight": 0.707,
+        "latency_steps": 1
+      },
+      {
+        "src": 27,
+        "dst": 25,
+        "weight": 0.6673,
+        "latency_steps": 1
+      }
+    ]
+  },
+  "frames": [
+    {
+      "step": 0,
+      "time_ms": 0.0,
+      "inputs": [
+        1.0,
+        0.0,
+        0.615,
+        0.6188,
+        0.561,
+        0.0,
+        0.0026,
+        0.0
+      ],
+      "activations": [
+        1.0,
+        0.0,
+        0.615,
+        0.6188,
+        0.561,
+        0.0,
+        0.0026,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        0.5
+      ],
+      "states": [
+        1.0,
+        0.0,
+        0.615,
+        0.6188,
+        0.561,
+        0.0,
+        0.0026,
+        0.0,
+        -69.3476,
+        -70.02,
+        -69.1248,
+        -69.0297,
+        -70.4755,
+        -70.1511,
+        -69.4361,
+        -69.6581,
+        -69.5084,
+        -69.9265,
+        -69.0603,
+        -69.1111,
+        -69.467,
+        -68.9364,
+        -69.2662,
+        -69.9296,
+        -69.3156,
+        -69.9794,
+        -69.0608,
+        -69.525,
+        -69.5924,
+        -69.8405,
+        -68.8887,
+        -69.5773,
+        -69.7142,
+        -69.6761,
+        -69.2338,
+        -69.3173,
+        -69.2936,
+        -69.2846,
+        -68.4292,
+        -69.7032,
+        -69.7561,
+        -69.9069,
+        -69.192,
+        -68.9355,
+        -69.557,
+        -69.9201,
+        -69.9122,
+        -69.1747,
+        0.0,
+        0.0
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [
+        {
+          "type": "TRIAL_STARTED",
+          "step": 0,
+          "time_ms": 0.0,
+          "payload": {
+            "context_id": 0
+          }
+        }
+      ],
+      "dynamic_details": {
+        "temporal_coding": {
+          "scheme": "T8_COMBINED",
+          "window_steps": 10,
+          "total_bursts": 0,
+          "burst_stats": {
+            "burst_count": 0,
+            "mean_burst_length_ms": 0.0,
+            "mean_spikes_per_burst": 0.0,
+            "mean_isi_ms": 0.0,
+            "burst_frequency_hz": 0.0
+          },
+          "r_global": 0.0923,
+          "r_local": 0.3383,
+          "plv": 0.0923,
+          "dominant_frequency_hz": 40.0
+        },
+        "last_stage_audit": {
+          "r_global": 0.09234330803155899,
+          "r_local": 0.33829981833696365,
+          "plv": 0.09234330803155899,
+          "margin": 0.0
+        }
+      }
+    },
+    {
+      "step": 1,
+      "time_ms": 40.0,
+      "inputs": [
+        0.9997,
+        0.0,
+        0.6176,
+        0.6156,
+        0.6013,
+        0.0225,
+        0.0094,
+        0.0
+      ],
+      "activations": [
+        0.9997,
+        0.0,
+        0.6176,
+        0.6156,
+        0.6013,
+        0.0225,
+        0.0094,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        0.5
+      ],
+      "states": [
+        0.9997,
+        0.0,
+        0.6176,
+        0.6156,
+        0.6013,
+        0.0225,
+        0.0094,
+        0.0,
+        -67.6314,
+        -67.6506,
+        -68.1262,
+        -67.7802,
+        -68.134,
+        -67.9935,
+        -67.5354,
+        -68.3871,
+        -67.5702,
+        -68.3743,
+        -68.0711,
+        -67.5319,
+        -69.393,
+        -68.5213,
+        -68.5194,
+        -68.4068,
+        -69.4779,
+        -67.3524,
+        -69.5982,
+        -68.7482,
+        -69.8335,
+        -69.4734,
+        -68.1124,
+        -69.0832,
+        -69.0777,
+        -68.8163,
+        -69.4956,
+        -69.2859,
+        -67.8884,
+        -69.4287,
+        -69.7713,
+        -68.5155,
+        -69.9109,
+        -68.9881,
+        -69.0612,
+        -68.7282,
+        -69.4829,
+        -69.2874,
+        -68.9085,
+        -68.8545,
+        0.0,
+        0.0
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [],
+      "dynamic_details": {
+        "temporal_coding": {
+          "scheme": "T8_COMBINED",
+          "window_steps": 10,
+          "total_bursts": 0,
+          "burst_stats": {
+            "burst_count": 0,
+            "mean_burst_length_ms": 0.0,
+            "mean_spikes_per_burst": 0.0,
+            "mean_isi_ms": 0.0,
+            "burst_frequency_hz": 0.0
+          },
+          "r_global": 0.1246,
+          "r_local": 0.4518,
+          "plv": 0.1085,
+          "dominant_frequency_hz": 40.0
+        },
+        "last_stage_audit": {
+          "r_global": 0.12461291998624802,
+          "r_local": 0.4517827779054642,
+          "plv": 0.1084781140089035,
+          "margin": 0.0
+        }
+      }
+    },
+    {
+      "step": 2,
+      "time_ms": 80.0,
+      "inputs": [
+        1.0,
+        0.0,
+        0.6176,
+        0.599,
+        0.5963,
+        0.0,
+        0.0245,
+        0.0
+      ],
+      "activations": [
+        1.0,
+        0.0,
+        0.6176,
+        0.599,
+        0.5963,
+        0.0,
+        0.0245,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        0.5
+      ],
+      "states": [
+        1.0,
+        0.0,
+        0.6176,
+        0.599,
+        0.5963,
+        0.0,
+        0.0245,
+        0.0,
+        -64.8576,
+        -65.0026,
+        -64.7752,
+        -64.9586,
+        -66.0971,
+        -64.9942,
+        -65.1714,
+        -66.534,
+        -64.4595,
+        -65.981,
+        -65.4238,
+        -64.6653,
+        -67.3905,
+        -66.2861,
+        -66.8153,
+        -66.0219,
+        -69.7042,
+        -65.5337,
+        -68.3099,
+        -68.8999,
+        -68.2291,
+        -68.1765,
+        -65.7447,
+        -68.6393,
+        -69.6115,
+        -68.5732,
+        -69.4609,
+        -68.3081,
+        -65.4466,
+        -69.8798,
+        -68.4597,
+        -64.7678,
+        -69.6598,
+        -69.3226,
+        -68.3615,
+        -68.4554,
+        -68.6837,
+        -68.9679,
+        -67.6914,
+        -67.2854,
+        0.0,
+        0.0
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [],
+      "dynamic_details": {
+        "temporal_coding": {
+          "scheme": "T8_COMBINED",
+          "window_steps": 10,
+          "total_bursts": 0,
+          "burst_stats": {
+            "burst_count": 0,
+            "mean_burst_length_ms": 0.0,
+            "mean_spikes_per_burst": 0.0,
+            "mean_isi_ms": 0.0,
+            "burst_frequency_hz": 0.0
+          },
+          "r_global": 0.166,
+          "r_local": 0.5895,
+          "plv": 0.1277,
+          "dominant_frequency_hz": 40.0
+        },
+        "last_stage_audit": {
+          "r_global": 0.16602280735969543,
+          "r_local": 0.5894818753004074,
+          "plv": 0.12765967845916748,
+          "margin": 0.0
+        }
+      }
+    },
+    {
+      "step": 3,
+      "time_ms": 120.0,
+      "inputs": [
+        0.9914,
+        0.0,
+        0.6106,
+        0.6073,
+        0.6083,
+        0.0086,
+        0.0428,
+        0.0
+      ],
+      "activations": [
+        0.9914,
+        0.0,
+        0.6106,
+        0.6073,
+        0.6083,
+        0.0086,
+        0.0428,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        0.5
+      ],
+      "states": [
+        0.9914,
+        0.0,
+        0.6106,
+        0.6073,
+        0.6083,
+        0.0086,
+        0.0428,
+        0.0,
+        -63.2602,
+        -61.8745,
+        -62.159,
+        -61.8539,
+        -62.7437,
+        -62.4985,
+        -61.8561,
+        -65.5813,
+        -62.4052,
+        -64.7792,
+        -64.1637,
+        -62.9016,
+        -65.9517,
+        -64.9975,
+        -65.2603,
+        -63.6939,
+        -68.9312,
+        -62.1161,
+        -67.2862,
+        -66.5391,
+        -67.2712,
+        -68.7431,
+        -64.948,
+        -68.4639,
+        -69.3275,
+        -68.0744,
+        -69.3075,
+        -67.7202,
+        -63.448,
+        -69.0224,
+        -68.9077,
+        -62.9733,
+        -70.1946,
+        -68.3428,
+        -67.997,
+        -66.9115,
+        -68.3823,
+        -68.0163,
+        -67.8892,
+        -66.827,
+        0.0,
+        0.0
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [],
+      "dynamic_details": {
+        "temporal_coding": {
+          "scheme": "T8_COMBINED",
+          "window_steps": 10,
+          "total_bursts": 0,
+          "burst_stats": {
+            "burst_count": 0,
+            "mean_burst_length_ms": 0.0,
+            "mean_spikes_per_burst": 0.0,
+            "mean_isi_ms": 0.0,
+            "burst_frequency_hz": 0.0
+          },
+          "r_global": 0.2065,
+          "r_local": 0.7344,
+          "plv": 0.1474,
+          "dominant_frequency_hz": 40.0
+        },
+        "last_stage_audit": {
+          "r_global": 0.20648959279060364,
+          "r_local": 0.7344305962324142,
+          "plv": 0.14736715704202652,
+          "margin": 0.0
+        }
+      }
+    },
+    {
+      "step": 4,
+      "time_ms": 160.0,
+      "inputs": [
+        0.9898,
+        0.0,
+        0.6123,
+        0.6226,
+        0.5977,
+        0.0,
+        0.0,
+        0.013
+      ],
+      "activations": [
+        0.9898,
+        0.0,
+        0.6123,
+        0.6226,
+        0.5977,
+        0.0,
+        0.0,
+        0.013,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        0.5
+      ],
+      "states": [
+        0.9898,
+        0.0,
+        0.6123,
+        0.6226,
+        0.5977,
+        0.0,
+        0.0,
+        0.013,
+        -60.7562,
+        -59.2086,
+        -58.138,
+        -60.0298,
+        -60.136,
+        -60.1963,
+        -59.3736,
+        -63.2625,
+        -59.239,
+        -62.3533,
+        -62.2502,
+        -59.3486,
+        -65.0169,
+        -63.7706,
+        -63.5164,
+        -60.615,
+        -68.2269,
+        -59.7671,
+        -67.4187,
+        -67.1645,
+        -65.6837,
+        -67.5242,
+        -62.2012,
+        -67.6788,
+        -68.8016,
+        -66.683,
+        -68.8466,
+        -67.5119,
+        -62.4552,
+        -68.2911,
+        -67.5474,
+        -59.43,
+        -69.5444,
+        -67.1859,
+        -68.0252,
+        -67.7145,
+        -67.6193,
+        -68.2197,
+        -66.8684,
+        -65.2449,
+        0.0,
+        0.0
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [],
+      "dynamic_details": {
+        "temporal_coding": {
+          "scheme": "T8_COMBINED",
+          "window_steps": 10,
+          "total_bursts": 0,
+          "burst_stats": {
+            "burst_count": 0,
+            "mean_burst_length_ms": 0.0,
+            "mean_spikes_per_burst": 0.0,
+            "mean_isi_ms": 0.0,
+            "burst_frequency_hz": 0.0
+          },
+          "r_global": 0.2312,
+          "r_local": 0.8464,
+          "plv": 0.1641,
+          "dominant_frequency_hz": 40.0
+        },
+        "last_stage_audit": {
+          "r_global": 0.23117373883724213,
+          "r_local": 0.8464062958955765,
+          "plv": 0.16412847340106965,
+          "margin": 0.0
+        }
+      }
+    },
+    {
+      "step": 5,
+      "time_ms": 200.0,
+      "inputs": [
+        0.2149,
+        0.2109,
+        0.1867,
+        0.2046,
+        0.2023,
+        0.2044,
+        0.2174,
+        0.0
+      ],
+      "activations": [
+        0.2149,
+        0.2109,
+        0.1867,
+        0.2046,
+        0.2023,
+        0.2044,
+        0.2174,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        0.5
+      ],
+      "states": [
+        0.2149,
+        0.2109,
+        0.1867,
+        0.2046,
+        0.2023,
+        0.2044,
+        0.2174,
+        0.0,
+        -57.3903,
+        -54.1009,
+        -55.1802,
+        -55.9521,
+        -58.098,
+        -56.4606,
+        -56.7098,
+        -62.4571,
+        -56.0435,
+        -60.5316,
+        -59.5259,
+        -56.9185,
+        -63.4133,
+        -61.8708,
+        -61.2951,
+        -57.1478,
+        -68.2326,
+        -55.6162,
+        -66.8567,
+        -66.6464,
+        -65.4175,
+        -67.3076,
+        -60.0803,
+        -68.4754,
+        -68.7604,
+        -66.7058,
+        -67.5128,
+        -65.5289,
+        -60.1519,
+        -68.7255,
+        -68.9069,
+        -56.0674,
+        -69.298,
+        -66.5668,
+        -67.5545,
+        -66.9205,
+        -68.5735,
+        -67.626,
+        -67.0856,
+        -64.5791,
+        0.0,
+        0.0
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [],
+      "dynamic_details": {
+        "temporal_coding": {
+          "scheme": "T8_COMBINED",
+          "window_steps": 10,
+          "total_bursts": 0,
+          "burst_stats": {
+            "burst_count": 0,
+            "mean_burst_length_ms": 0.0,
+            "mean_spikes_per_burst": 0.0,
+            "mean_isi_ms": 0.0,
+            "burst_frequency_hz": 0.0
+          },
+          "r_global": 0.2516,
+          "r_local": 0.9095,
+          "plv": 0.1787,
+          "dominant_frequency_hz": 40.0
+        },
+        "last_stage_audit": {
+          "r_global": 0.25157663226127625,
+          "r_local": 0.9095098972320557,
+          "plv": 0.1787031665444374,
+          "margin": 0.0
+        }
+      }
+    },
+    {
+      "step": 6,
+      "time_ms": 240.0,
+      "inputs": [
+        0.2136,
+        0.2014,
+        0.2058,
+        0.2126,
+        0.1709,
+        0.1936,
+        0.1906,
+        0.0
+      ],
+      "activations": [
+        0.2136,
+        0.2014,
+        0.2058,
+        0.2126,
+        0.1709,
+        0.1936,
+        0.1906,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        0.5
+      ],
+      "states": [
+        0.2136,
+        0.2014,
+        0.2058,
+        0.2126,
+        0.1709,
+        0.1936,
+        0.1906,
+        0.0,
+        -56.6806,
+        -50.4579,
+        -52.5548,
+        -54.0765,
+        -54.4308,
+        -54.389,
+        -54.6356,
+        -60.2075,
+        -51.2836,
+        -59.8692,
+        -59.4669,
+        -53.8413,
+        -62.236,
+        -61.9638,
+        -60.6528,
+        -54.7165,
+        -67.7731,
+        -53.6637,
+        -66.259,
+        -66.4354,
+        -64.548,
+        -67.0148,
+        -58.7864,
+        -67.4654,
+        -67.9597,
+        -65.2612,
+        -67.9589,
+        -65.2804,
+        -58.9935,
+        -68.0702,
+        -68.1269,
+        -52.6027,
+        -69.1972,
+        -65.6777,
+        -66.2231,
+        -66.8807,
+        -68.0014,
+        -68.2641,
+        -65.6038,
+        -64.0998,
+        0.0,
+        0.0
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [],
+      "dynamic_details": {
+        "temporal_coding": {
+          "scheme": "T8_COMBINED",
+          "window_steps": 10,
+          "total_bursts": 0,
+          "burst_stats": {
+            "burst_count": 0,
+            "mean_burst_length_ms": 0.0,
+            "mean_spikes_per_burst": 0.0,
+            "mean_isi_ms": 0.0,
+            "burst_frequency_hz": 0.0
+          },
+          "r_global": 0.271,
+          "r_local": 0.9405,
+          "plv": 0.1919,
+          "dominant_frequency_hz": 40.0
+        },
+        "last_stage_audit": {
+          "r_global": 0.2710414230823517,
+          "r_local": 0.940539762377739,
+          "plv": 0.19189434604985373,
+          "margin": 0.0
+        }
+      }
+    },
+    {
+      "step": 7,
+      "time_ms": 280.0,
+      "inputs": [
+        0.1945,
+        0.2299,
+        0.1827,
+        0.2194,
+        0.1663,
+        0.1933,
+        0.2033,
+        0.0
+      ],
+      "activations": [
+        0.1945,
+        0.2299,
+        0.1827,
+        0.2194,
+        0.1663,
+        0.1933,
+        0.2033,
+        0.0,
+        0.0,
+        0.0488,
+        0.0488,
+        0.0488,
+        0.0,
+        0.0488,
+        0.0488,
+        0.0,
+        0.0488,
+        0.0,
+        0.0,
+        0.0488,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0488,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0488,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        0.5
+      ],
+      "states": [
+        0.1945,
+        0.2299,
+        0.1827,
+        0.2194,
+        0.1663,
+        0.1933,
+        0.2033,
+        0.0,
+        -53.4604,
+        -75.0,
+        -75.0,
+        -75.0,
+        -52.7489,
+        -75.0,
+        -75.0,
+        -59.8195,
+        -75.0,
+        -57.764,
+        -57.8957,
+        -75.0,
+        -61.2505,
+        -61.9344,
+        -59.2985,
+        -50.5162,
+        -67.6387,
+        -75.0,
+        -66.635,
+        -65.2174,
+        -63.041,
+        -67.3873,
+        -56.6571,
+        -66.6033,
+        -67.5435,
+        -65.685,
+        -67.3408,
+        -63.6983,
+        -57.1144,
+        -66.9227,
+        -67.5306,
+        -75.0,
+        -68.0686,
+        -65.9212,
+        -66.0519,
+        -66.9998,
+        -67.9211,
+        -67.9689,
+        -65.4286,
+        -64.4091,
+        0.0,
+        0.0
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [],
+      "dynamic_details": {
+        "temporal_coding": {
+          "scheme": "T8_COMBINED",
+          "window_steps": 10,
+          "total_bursts": 0,
+          "burst_stats": {
+            "burst_count": 0,
+            "mean_burst_length_ms": 0.0,
+            "mean_spikes_per_burst": 0.0,
+            "mean_isi_ms": 0.0,
+            "burst_frequency_hz": 0.0
+          },
+          "r_global": 0.282,
+          "r_local": 0.9502,
+          "plv": 0.2032,
+          "dominant_frequency_hz": 40.0
+        },
+        "last_stage_audit": {
+          "r_global": 0.28204429149627686,
+          "r_local": 0.9501646161079407,
+          "plv": 0.20316308923065662,
+          "margin": 0.0
+        }
+      }
+    },
+    {
+      "step": 8,
+      "time_ms": 320.0,
+      "inputs": [
+        0.2142,
+        0.2159,
+        0.193,
+        0.1908,
+        0.2172,
+        0.1962,
+        0.1745,
+        0.0
+      ],
+      "activations": [
+        0.2142,
+        0.2159,
+        0.193,
+        0.1908,
+        0.2172,
+        0.1962,
+        0.1745,
+        0.0,
+        0.0488,
+        0.0464,
+        0.0464,
+        0.0464,
+        0.0488,
+        0.0464,
+        0.0464,
+        0.0,
+        0.0464,
+        0.0,
+        0.0,
+        0.0464,
+        0.0,
+        0.0,
+        0.0,
+        0.0488,
+        0.0,
+        0.0464,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0464,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        0.5
+      ],
+      "states": [
+        0.2142,
+        0.2159,
+        0.193,
+        0.1908,
+        0.2172,
+        0.1962,
+        0.1745,
+        0.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -57.5368,
+        -75.0,
+        -55.3196,
+        -55.4027,
+        -75.0,
+        -60.4747,
+        -61.0186,
+        -57.8091,
+        -75.0,
+        -67.7699,
+        -75.0,
+        -64.6781,
+        -64.5307,
+        -63.365,
+        -66.9956,
+        -54.6363,
+        -66.1329,
+        -67.1564,
+        -64.2555,
+        -66.4156,
+        -63.1621,
+        -56.4764,
+        -66.9701,
+        -67.69,
+        -75.0,
+        -68.4097,
+        -64.821,
+        -66.6876,
+        -67.0935,
+        -67.4831,
+        -68.6074,
+        -64.4187,
+        -63.3595,
+        0.0,
+        0.0
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [
+        {
+          "type": "DENDRITIC_COINCIDENCE",
+          "step": 8,
+          "time_ms": 320.0,
+          "payload": {
+            "active_plateaus": 12
+          }
+        }
+      ],
+      "dynamic_details": {
+        "temporal_coding": {
+          "scheme": "T8_COMBINED",
+          "window_steps": 10,
+          "total_bursts": 0,
+          "burst_stats": {
+            "burst_count": 0,
+            "mean_burst_length_ms": 0.0,
+            "mean_spikes_per_burst": 0.0,
+            "mean_isi_ms": 0.0,
+            "burst_frequency_hz": 0.0
+          },
+          "r_global": 0.2921,
+          "r_local": 0.954,
+          "plv": 0.213,
+          "dominant_frequency_hz": 40.0
+        },
+        "last_stage_audit": {
+          "r_global": 0.2921193838119507,
+          "r_local": 0.9539829641580582,
+          "plv": 0.21304712196191153,
+          "margin": 0.0
+        }
+      }
+    },
+    {
+      "step": 9,
+      "time_ms": 360.0,
+      "inputs": [
+        0.1816,
+        0.2099,
+        0.2028,
+        0.2138,
+        0.1915,
+        0.2032,
+        0.2125,
+        0.0
+      ],
+      "activations": [
+        0.1816,
+        0.2099,
+        0.2028,
+        0.2138,
+        0.1915,
+        0.2032,
+        0.2125,
+        0.0,
+        0.0464,
+        0.0441,
+        0.0441,
+        0.0441,
+        0.0464,
+        0.0441,
+        0.0441,
+        0.0,
+        0.0441,
+        0.0,
+        0.0,
+        0.0441,
+        0.0,
+        0.0,
+        0.0,
+        0.0464,
+        0.0,
+        0.0441,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0441,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        0.5
+      ],
+      "states": [
+        0.1816,
+        0.2099,
+        0.2028,
+        0.2138,
+        0.1915,
+        0.2032,
+        0.2125,
+        0.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -55.9585,
+        -75.0,
+        -52.7694,
+        -53.5546,
+        -75.0,
+        -59.2067,
+        -59.6315,
+        -55.7721,
+        -75.0,
+        -67.2283,
+        -75.0,
+        -65.387,
+        -64.0709,
+        -62.1368,
+        -66.2946,
+        -50.1741,
+        -65.3132,
+        -66.3655,
+        -63.3069,
+        -66.7617,
+        -62.7371,
+        -52.3864,
+        -66.0586,
+        -67.3408,
+        -75.0,
+        -67.4419,
+        -64.9287,
+        -65.1169,
+        -66.5774,
+        -66.4453,
+        -67.9708,
+        -65.661,
+        -62.5322,
+        0.0,
+        0.0
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [
+        {
+          "type": "DENDRITIC_COINCIDENCE",
+          "step": 9,
+          "time_ms": 360.0,
+          "payload": {
+            "active_plateaus": 13
+          }
+        }
+      ],
+      "dynamic_details": {
+        "temporal_coding": {
+          "scheme": "T8_COMBINED",
+          "window_steps": 10,
+          "total_bursts": 0,
+          "burst_stats": {
+            "burst_count": 0,
+            "mean_burst_length_ms": 0.0,
+            "mean_spikes_per_burst": 0.0,
+            "mean_isi_ms": 0.0,
+            "burst_frequency_hz": 0.0
+          },
+          "r_global": 0.3073,
+          "r_local": 0.9613,
+          "plv": 0.7956,
+          "dominant_frequency_hz": 40.0
+        },
+        "last_stage_audit": {
+          "r_global": 0.3072845935821533,
+          "r_local": 0.9612517654895782,
+          "plv": 0.8301265835762024,
+          "margin": 0.0
+        }
+      }
+    },
+    {
+      "step": 10,
+      "time_ms": 400.0,
+      "inputs": [
+        0.2091,
+        0.1868,
+        0.1927,
+        0.1924,
+        0.1761,
+        0.2097,
+        0.1906,
+        0.0
+      ],
+      "activations": [
+        0.2091,
+        0.1868,
+        0.1927,
+        0.1924,
+        0.1761,
+        0.2097,
+        0.1906,
+        0.0,
+        0.0441,
+        0.042,
+        0.042,
+        0.042,
+        0.0441,
+        0.042,
+        0.042,
+        0.0,
+        0.042,
+        0.0488,
+        0.0488,
+        0.042,
+        0.0,
+        0.0,
+        0.0,
+        0.0441,
+        0.0,
+        0.042,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0488,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0488,
+        0.0,
+        0.0,
+        0.042,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        0.5
+      ],
+      "states": [
+        0.2091,
+        0.1868,
+        0.1927,
+        0.1924,
+        0.1761,
+        0.2097,
+        0.1906,
+        0.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -52.4785,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -59.3351,
+        -58.2885,
+        -52.5872,
+        -75.0,
+        -67.6645,
+        -75.0,
+        -63.8974,
+        -61.8643,
+        -61.2974,
+        -66.8543,
+        -75.0,
+        -64.0297,
+        -66.0357,
+        -62.8195,
+        -65.53,
+        -61.4736,
+        -75.0,
+        -65.9861,
+        -66.6039,
+        -75.0,
+        -68.2818,
+        -64.9385,
+        -64.5764,
+        -65.402,
+        -66.566,
+        -66.9661,
+        -63.5076,
+        -61.7286,
+        0.0,
+        0.0
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [
+        {
+          "type": "DENDRITIC_COINCIDENCE",
+          "step": 10,
+          "time_ms": 400.0,
+          "payload": {
+            "active_plateaus": 17
+          }
+        }
+      ],
+      "dynamic_details": {
+        "temporal_coding": {
+          "scheme": "T8_COMBINED",
+          "window_steps": 10,
+          "total_bursts": 0,
+          "burst_stats": {
+            "burst_count": 0,
+            "mean_burst_length_ms": 0.0,
+            "mean_spikes_per_burst": 0.0,
+            "mean_isi_ms": 0.0,
+            "burst_frequency_hz": 0.0
+          },
+          "r_global": 0.3266,
+          "r_local": 0.9758,
+          "plv": 0.8489,
+          "dominant_frequency_hz": 40.0
+        },
+        "last_stage_audit": {
+          "r_global": 0.32659104466438293,
+          "r_local": 0.9757551848888397,
+          "plv": 0.8242844343185425,
+          "margin": 0.0
+        }
+      }
+    },
+    {
+      "step": 11,
+      "time_ms": 440.0,
+      "inputs": [
+        0.0096,
+        0.0089,
+        0.0133,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9711
+      ],
+      "activations": [
+        0.0096,
+        0.0089,
+        0.0133,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9711,
+        0.042,
+        0.0887,
+        0.0887,
+        0.0887,
+        0.042,
+        0.0887,
+        0.0887,
+        0.0488,
+        0.0887,
+        0.0464,
+        0.0464,
+        0.0887,
+        0.0,
+        0.0,
+        0.0488,
+        0.042,
+        0.0,
+        0.0887,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0464,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0464,
+        0.0,
+        0.0,
+        0.0887,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        0.5
+      ],
+      "states": [
+        0.0096,
+        0.0089,
+        0.0133,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9711,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -54.9008,
+        -52.0235,
+        -75.0,
+        -75.0,
+        -67.1449,
+        -75.0,
+        -63.7901,
+        -62.2602,
+        -60.8237,
+        -65.6668,
+        -75.0,
+        -63.624,
+        -64.4449,
+        -60.5765,
+        -62.7633,
+        -60.1684,
+        -75.0,
+        -64.3904,
+        -67.3377,
+        -75.0,
+        -67.6931,
+        -65.6634,
+        -60.699,
+        -66.3364,
+        -65.8646,
+        -66.4336,
+        -61.5923,
+        -59.5481,
+        0.0,
+        0.0
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 0.0,
+      "signals": [],
+      "events": [
+        {
+          "type": "DENDRITIC_COINCIDENCE",
+          "step": 11,
+          "time_ms": 440.0,
+          "payload": {
+            "active_plateaus": 19
+          }
+        }
+      ],
+      "dynamic_details": {
+        "temporal_coding": {
+          "scheme": "T8_COMBINED",
+          "window_steps": 10,
+          "total_bursts": 0,
+          "burst_stats": {
+            "burst_count": 0,
+            "mean_burst_length_ms": 0.0,
+            "mean_spikes_per_burst": 0.0,
+            "mean_isi_ms": 0.0,
+            "burst_frequency_hz": 0.0
+          },
+          "r_global": 0.3412,
+          "r_local": 0.9922,
+          "plv": 0.8231,
+          "dominant_frequency_hz": 40.0
+        },
+        "last_stage_audit": {
+          "r_global": 0.34119558334350586,
+          "r_local": 0.9922004789113998,
+          "plv": 0.814232349395752,
+          "margin": 0.0
+        }
+      }
+    },
+    {
+      "step": 12,
+      "time_ms": 480.0,
+      "inputs": [
+        0.0,
+        0.0,
+        0.008,
+        0.0,
+        0.0,
+        0.026,
+        0.0,
+        1.0
+      ],
+      "activations": [
+        0.0,
+        0.0,
+        0.008,
+        0.0,
+        0.0,
+        0.026,
+        0.0,
+        1.0,
+        0.0887,
+        0.0844,
+        0.0844,
+        0.0844,
+        0.0887,
+        0.0844,
+        0.0844,
+        0.0464,
+        0.0844,
+        0.0441,
+        0.0441,
+        0.0844,
+        0.0,
+        0.0488,
+        0.0464,
+        0.0887,
+        0.0,
+        0.0844,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0441,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0441,
+        0.0,
+        0.0,
+        0.0844,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        0.5
+      ],
+      "states": [
+        0.0,
+        0.0,
+        0.008,
+        0.0,
+        0.0,
+        0.026,
+        0.0,
+        1.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -75.0,
+        -52.7551,
+        -75.0,
+        -75.0,
+        -75.0,
+        -67.6897,
+        -75.0,
+        -61.3376,
+        -61.4036,
+        -58.1397,
+        -62.9362,
+        -75.0,
+        -62.2271,
+        -63.5298,
+        -59.8829,
+        -61.0182,
+        -59.1454,
+        -75.0,
+        -63.9392,
+        -62.3641,
+        -75.0,
+        -66.7163,
+        -60.2851,
+        -60.364,
+        -63.0355,
+        -65.4789,
+        -66.1815,
+        -61.097,
+        -60.5515,
+        0.0,
+        0.0
+      ],
+      "output": 0.0,
+      "target": 0.0,
+      "error": 0.0,
+      "mask": 1.0,
+      "signals": [],
+      "events": [
+        {
+          "type": "DENDRITIC_COINCIDENCE",
+          "step": 12,
+          "time_ms": 480.0,
+          "payload": {
+            "active_plateaus": 19
+          }
+        },
+        {
+          "type": "ACTION_SELECTED",
+          "step": 12,
+          "time_ms": 480.0,
+          "node_id": 48,
+          "magnitude": 0.0,
+          "payload": {
+            "action": 0
+          }
+        }
+      ],
+      "dynamic_details": {
+        "temporal_coding": {
+          "scheme": "T8_COMBINED",
+          "window_steps": 10,
+          "total_bursts": 0,
+          "burst_stats": {
+            "burst_count": 0,
+            "mean_burst_length_ms": 0.0,
+            "mean_spikes_per_burst": 0.0,
+            "mean_isi_ms": 0.0,
+            "burst_frequency_hz": 0.0
+          },
+          "r_global": 0.3451,
+          "r_local": 0.999,
+          "plv": 0.7958,
+          "dominant_frequency_hz": 40.0
+        },
+        "last_stage_audit": {
+          "r_global": 0.34511637687683105,
+          "r_local": 0.9990078955888748,
+          "plv": 0.7870464324951172,
+          "margin": 0.0
+        }
+      }
+    }
+  ],
+  "events": [
+    {
+      "type": "TRIAL_STARTED",
+      "step": 0,
+      "time_ms": 0.0,
+      "payload": {
+        "context_id": 0
+      }
+    },
+    {
+      "type": "DENDRITIC_COINCIDENCE",
+      "step": 8,
+      "time_ms": 320.0,
+      "payload": {
+        "active_plateaus": 12
+      }
+    },
+    {
+      "type": "DENDRITIC_COINCIDENCE",
+      "step": 9,
+      "time_ms": 360.0,
+      "payload": {
+        "active_plateaus": 13
+      }
+    },
+    {
+      "type": "DENDRITIC_COINCIDENCE",
+      "step": 10,
+      "time_ms": 400.0,
+      "payload": {
+        "active_plateaus": 17
+      }
+    },
+    {
+      "type": "DENDRITIC_COINCIDENCE",
+      "step": 11,
+      "time_ms": 440.0,
+      "payload": {
+        "active_plateaus": 19
+      }
+    },
+    {
+      "type": "DENDRITIC_COINCIDENCE",
+      "step": 12,
+      "time_ms": 480.0,
+      "payload": {
+        "active_plateaus": 19
+      }
+    },
+    {
+      "type": "ACTION_SELECTED",
+      "step": 12,
+      "time_ms": 480.0,
+      "node_id": 48,
+      "magnitude": 0.0,
+      "payload": {
+        "action": 0
+      }
+    }
+  ],
+  "snapshots": {}
+}

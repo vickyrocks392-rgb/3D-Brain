@@ -1,0 +1,677 @@
+{
+  "experiment_id": "EXP_014",
+  "title": "Temporal Neural Coding, Burst Dynamics, Dendritic Coincidence & Population Resonance",
+  "phase": 14,
+  "timestamp": "2026-09-29 16:06:47",
+  "elapsed_total_seconds": 31.83,
+  "primary_conditions_matrix": {
+    "COND_A_PHASE13_BASELINE": {
+      "family": "A",
+      "accuracy_mean": 0.4267,
+      "accuracy_std": 0.1147,
+      "winner_margin_mean": 0.2507,
+      "persistence_stability_mean": 0.0,
+      "chatter_ratio_mean": 0.0,
+      "seed_accuracies": [
+        0.44,
+        0.56,
+        0.28
+      ],
+      "elapsed_seconds": 0.44
+    },
+    "COND_B_BURST_CODING": {
+      "family": "B",
+      "accuracy_mean": 0.4133,
+      "accuracy_std": 0.0998,
+      "winner_margin_mean": 0.236,
+      "persistence_stability_mean": 0.0,
+      "chatter_ratio_mean": 0.0,
+      "seed_accuracies": [
+        0.44,
+        0.52,
+        0.28
+      ],
+      "elapsed_seconds": 0.56
+    },
+    "COND_C_CALCIUM_COINCIDENCE": {
+      "family": "C",
+      "accuracy_mean": 0.44,
+      "accuracy_std": 0.1306,
+      "winner_margin_mean": 0.2507,
+      "persistence_stability_mean": 0.0,
+      "chatter_ratio_mean": 0.0,
+      "seed_accuracies": [
+        0.44,
+        0.6,
+        0.28
+      ],
+      "elapsed_seconds": 0.52
+    },
+    "COND_D_TEMPORAL_CODING": {
+      "family": "D",
+      "accuracy_mean": 0.4267,
+      "accuracy_std": 0.1147,
+      "winner_margin_mean": 0.2507,
+      "persistence_stability_mean": 0.0,
+      "chatter_ratio_mean": 0.0,
+      "seed_accuracies": [
+        0.44,
+        0.56,
+        0.28
+      ],
+      "elapsed_seconds": 0.64
+    },
+    "COND_E_POPULATION_CODING": {
+      "family": "E",
+      "accuracy_mean": 0.4267,
+      "accuracy_std": 0.1147,
+      "winner_margin_mean": 0.2507,
+      "persistence_stability_mean": 0.0,
+      "chatter_ratio_mean": 0.0,
+      "seed_accuracies": [
+        0.44,
+        0.56,
+        0.28
+      ],
+      "elapsed_seconds": 0.41
+    },
+    "COND_F_BURST_PLUS_TEMPORAL": {
+      "family": "F",
+      "accuracy_mean": 0.4133,
+      "accuracy_std": 0.0998,
+      "winner_margin_mean": 0.236,
+      "persistence_stability_mean": 0.0,
+      "chatter_ratio_mean": 0.0,
+      "seed_accuracies": [
+        0.44,
+        0.52,
+        0.28
+      ],
+      "elapsed_seconds": 0.68
+    },
+    "COND_G_BURST_PLUS_POPULATION": {
+      "family": "G",
+      "accuracy_mean": 0.4133,
+      "accuracy_std": 0.0998,
+      "winner_margin_mean": 0.236,
+      "persistence_stability_mean": 0.0,
+      "chatter_ratio_mean": 0.0,
+      "seed_accuracies": [
+        0.44,
+        0.52,
+        0.28
+      ],
+      "elapsed_seconds": 0.44
+    },
+    "COND_H_BURST_PLUS_CALCIUM": {
+      "family": "H",
+      "accuracy_mean": 0.44,
+      "accuracy_std": 0.1306,
+      "winner_margin_mean": 0.2507,
+      "persistence_stability_mean": 0.0,
+      "chatter_ratio_mean": 0.0,
+      "seed_accuracies": [
+        0.44,
+        0.6,
+        0.28
+      ],
+      "elapsed_seconds": 0.66
+    },
+    "COND_I_BURST_CALCIUM_POPULATION": {
+      "family": "I",
+      "accuracy_mean": 0.4267,
+      "accuracy_std": 0.1147,
+      "winner_margin_mean": 0.236,
+      "persistence_stability_mean": 0.0,
+      "chatter_ratio_mean": 0.0,
+      "seed_accuracies": [
+        0.44,
+        0.56,
+        0.28
+      ],
+      "elapsed_seconds": 0.55
+    },
+    "COND_J_LOCAL_RESONANCE": {
+      "family": "J",
+      "accuracy_mean": 0.4267,
+      "accuracy_std": 0.1147,
+      "winner_margin_mean": 0.236,
+      "persistence_stability_mean": 0.0,
+      "chatter_ratio_mean": 0.0,
+      "seed_accuracies": [
+        0.44,
+        0.56,
+        0.28
+      ],
+      "elapsed_seconds": 0.79
+    },
+    "COND_K_GLOBAL_RESONANCE": {
+      "family": "K",
+      "accuracy_mean": 0.4267,
+      "accuracy_std": 0.1147,
+      "winner_margin_mean": 0.236,
+      "persistence_stability_mean": 0.0,
+      "chatter_ratio_mean": 0.0,
+      "seed_accuracies": [
+        0.44,
+        0.56,
+        0.28
+      ],
+      "elapsed_seconds": 0.79
+    },
+    "COND_L_INTEGRATED_CANDIDATE": {
+      "family": "L",
+      "accuracy_mean": 0.4267,
+      "accuracy_std": 0.1147,
+      "winner_margin_mean": 0.236,
+      "persistence_stability_mean": 0.0,
+      "chatter_ratio_mean": 0.0,
+      "seed_accuracies": [
+        0.44,
+        0.56,
+        0.28
+      ],
+      "elapsed_seconds": 0.78
+    }
+  },
+  "delay_sweeps": {
+    "Phase 13 Baseline (A)": {
+      "0ms": 0.4889,
+      "50ms": 0.5111,
+      "100ms": 0.5111,
+      "250ms": 0.4667,
+      "500ms": 0.4667,
+      "1000ms": 0.3778,
+      "2000ms": 0.3778
+    },
+    "Burst Dynamics (B)": {
+      "0ms": 0.4889,
+      "50ms": 0.4889,
+      "100ms": 0.4889,
+      "250ms": 0.4667,
+      "500ms": 0.4667,
+      "1000ms": 0.3556,
+      "2000ms": 0.3778
+    },
+    "Temporal Coding (D)": {
+      "0ms": 0.4889,
+      "50ms": 0.5111,
+      "100ms": 0.5111,
+      "250ms": 0.4667,
+      "500ms": 0.4667,
+      "1000ms": 0.3778,
+      "2000ms": 0.3778
+    },
+    "Local Resonance (J)": {
+      "0ms": 0.4889,
+      "50ms": 0.5111,
+      "100ms": 0.5111,
+      "250ms": 0.4222,
+      "500ms": 0.4667,
+      "1000ms": 0.3556,
+      "2000ms": 0.3778
+    },
+    "Integrated Candidate (L)": {
+      "0ms": 0.4889,
+      "50ms": 0.5111,
+      "100ms": 0.5111,
+      "250ms": 0.4222,
+      "500ms": 0.4667,
+      "1000ms": 0.3556,
+      "2000ms": 0.3778
+    }
+  },
+  "temporal_window_sweeps": {
+    "W_1_steps": {
+      "window_steps": 1,
+      "temporal_mi_bits": 0.0089,
+      "action_mi_bits": 0.0,
+      "probe_accuracy": 0.5556
+    },
+    "W_2_steps": {
+      "window_steps": 2,
+      "temporal_mi_bits": 0.0,
+      "action_mi_bits": 0.0,
+      "probe_accuracy": 0.5
+    },
+    "W_5_steps": {
+      "window_steps": 5,
+      "temporal_mi_bits": 0.0,
+      "action_mi_bits": 0.0,
+      "probe_accuracy": 0.5
+    },
+    "W_10_steps": {
+      "window_steps": 10,
+      "temporal_mi_bits": 0.0,
+      "action_mi_bits": 0.0,
+      "probe_accuracy": 0.5
+    },
+    "W_20_steps": {
+      "window_steps": 20,
+      "temporal_mi_bits": 0.0,
+      "action_mi_bits": 0.0,
+      "probe_accuracy": 0.5
+    },
+    "W_50_steps": {
+      "window_steps": 50,
+      "temporal_mi_bits": 0.0,
+      "action_mi_bits": 0.0,
+      "probe_accuracy": 0.5
+    },
+    "W_100_steps": {
+      "window_steps": 100,
+      "temporal_mi_bits": 0.0,
+      "action_mi_bits": 0.0,
+      "probe_accuracy": 0.5
+    }
+  },
+  "coincidence_window_sweeps": {
+    "dt_0ms": {
+      "delta_t_ms": 0.0,
+      "accuracy": 0.44,
+      "winner_margin": 0.685,
+      "total_coincidences": 1
+    },
+    "dt_1ms": {
+      "delta_t_ms": 1.0,
+      "accuracy": 0.44,
+      "winner_margin": 0.685,
+      "total_coincidences": 561
+    },
+    "dt_2ms": {
+      "delta_t_ms": 2.0,
+      "accuracy": 0.44,
+      "winner_margin": 0.685,
+      "total_coincidences": 573
+    },
+    "dt_5ms": {
+      "delta_t_ms": 5.0,
+      "accuracy": 0.44,
+      "winner_margin": 0.685,
+      "total_coincidences": 585
+    },
+    "dt_10ms": {
+      "delta_t_ms": 10.0,
+      "accuracy": 0.44,
+      "winner_margin": 0.685,
+      "total_coincidences": 587
+    },
+    "dt_20ms": {
+      "delta_t_ms": 20.0,
+      "accuracy": 0.44,
+      "winner_margin": 0.685,
+      "total_coincidences": 587
+    },
+    "dt_50ms": {
+      "delta_t_ms": 50.0,
+      "accuracy": 0.44,
+      "winner_margin": 0.685,
+      "total_coincidences": 587
+    }
+  },
+  "robustness_sweeps": {
+    "jitter_sweep": {
+      "+/-1%": {
+        "jitter_fraction": 0.01,
+        "feature_separation": 9.6288,
+        "information_retention_ratio": 0.993
+      },
+      "+/-5%": {
+        "jitter_fraction": 0.05,
+        "feature_separation": 11.3273,
+        "information_retention_ratio": 0.965
+      },
+      "+/-10%": {
+        "jitter_fraction": 0.1,
+        "feature_separation": 11.6627,
+        "information_retention_ratio": 0.93
+      },
+      "+/-20%": {
+        "jitter_fraction": 0.2,
+        "feature_separation": 10.651,
+        "information_retention_ratio": 0.86
+      },
+      "+/-50%": {
+        "jitter_fraction": 0.5,
+        "feature_separation": 10.1178,
+        "information_retention_ratio": 0.65
+      }
+    },
+    "dropout_sweep": {
+      "0%": {
+        "dropout_fraction": 0.0,
+        "feature_separation": 13.1248,
+        "information_retention_ratio": 1.0
+      },
+      "5%": {
+        "dropout_fraction": 0.05,
+        "feature_separation": 12.1409,
+        "information_retention_ratio": 0.96
+      },
+      "10%": {
+        "dropout_fraction": 0.1,
+        "feature_separation": 10.48,
+        "information_retention_ratio": 0.92
+      },
+      "20%": {
+        "dropout_fraction": 0.2,
+        "feature_separation": 10.6867,
+        "information_retention_ratio": 0.84
+      },
+      "30%": {
+        "dropout_fraction": 0.3,
+        "feature_separation": 9.3028,
+        "information_retention_ratio": 0.76
+      },
+      "50%": {
+        "dropout_fraction": 0.5,
+        "feature_separation": 7.7205,
+        "information_retention_ratio": 0.6
+      }
+    }
+  },
+  "causal_interventions": {
+    "INTACT_TRAINED": {
+      "accuracy": 0.44,
+      "margin": 0.685
+    },
+    "C1_REMOVE_BURSTS": {
+      "accuracy": 0.44,
+      "margin": 0.6635
+    },
+    "C2_REMOVE_COINCIDENCE": {
+      "accuracy": 0.44,
+      "margin": 0.685
+    },
+    "C3_REMOVE_NMDA": {
+      "accuracy": 0.44,
+      "margin": 0.685
+    },
+    "C4_REMOVE_TEMPORAL": {
+      "accuracy": 0.44,
+      "margin": 0.685
+    },
+    "C5_SHUFFLE_TIMING": {
+      "accuracy": 0.44,
+      "margin": 0.685
+    },
+    "C6_SHUFFLE_BURSTS": {
+      "accuracy": 0.44,
+      "margin": 0.6505
+    },
+    "C7_SHUFFLE_COUNTS": {
+      "accuracy": 0.56,
+      "margin": 0.6186
+    },
+    "C8_DESTROY_PHASE": {
+      "accuracy": 0.44,
+      "margin": 0.685
+    },
+    "C9_DESTROY_POPULATION": {
+      "accuracy": 0.44,
+      "margin": 0.685
+    },
+    "C10_DESTROY_SPATIAL": {
+      "accuracy": 0.44,
+      "margin": 0.685
+    },
+    "C11_RANDOMIZE_RESONANCE": {
+      "accuracy": 0.44,
+      "margin": 0.685
+    },
+    "C12_FREEZE_INTERFACE": {
+      "accuracy": 0.56,
+      "margin": 0.0
+    }
+  },
+  "information_bottleneck_audit": {
+    "1_CONTEXT_VECTOR": {
+      "stage_idx": 1,
+      "stage_name": "1_CONTEXT_VECTOR",
+      "dimension": 40,
+      "centroid_dist": 62.4006,
+      "separation_ratio": 5.3902,
+      "linear_probe_acc": 1.0,
+      "nonlinear_probe_acc": 1.0,
+      "mutual_info_bits": 1.0,
+      "incremental_loss_bits": 0.0,
+      "effective_dimensionality": 1.39,
+      "snr": 4.646,
+      "temporal_stability": 1.0
+    },
+    "2_DENDRITIC_VOLTAGE": {
+      "stage_idx": 2,
+      "stage_name": "2_DENDRITIC_VOLTAGE",
+      "dimension": 40,
+      "centroid_dist": 183.3149,
+      "separation_ratio": 0.4282,
+      "linear_probe_acc": 0.8889,
+      "nonlinear_probe_acc": 1.0,
+      "mutual_info_bits": 0.4967,
+      "incremental_loss_bits": 0.5032,
+      "effective_dimensionality": 6.78,
+      "snr": 1.309,
+      "temporal_stability": 0.889
+    },
+    "3_NMDA_CONDUCTANCE": {
+      "stage_idx": 3,
+      "stage_name": "3_NMDA_CONDUCTANCE",
+      "dimension": 40,
+      "centroid_dist": 7.8952,
+      "separation_ratio": 163.7486,
+      "linear_probe_acc": 1.0,
+      "nonlinear_probe_acc": 1.0,
+      "mutual_info_bits": 1.0,
+      "incremental_loss_bits": 0.0,
+      "effective_dimensionality": 1.01,
+      "snr": 25.607,
+      "temporal_stability": 1.0
+    },
+    "4_CALCIUM_STATE": {
+      "stage_idx": 4,
+      "stage_name": "4_CALCIUM_STATE",
+      "dimension": 32,
+      "centroid_dist": 3.2983,
+      "separation_ratio": 0.0096,
+      "linear_probe_acc": 0.6667,
+      "nonlinear_probe_acc": 0.6667,
+      "mutual_info_bits": 0.0817,
+      "incremental_loss_bits": 0.9183,
+      "effective_dimensionality": 1.07,
+      "snr": 0.196,
+      "temporal_stability": 0.667
+    },
+    "5_SOMATIC_VOLTAGE": {
+      "stage_idx": 5,
+      "stage_name": "5_SOMATIC_VOLTAGE",
+      "dimension": 40,
+      "centroid_dist": 62.4006,
+      "separation_ratio": 5.3902,
+      "linear_probe_acc": 1.0,
+      "nonlinear_probe_acc": 1.0,
+      "mutual_info_bits": 1.0,
+      "incremental_loss_bits": 0.0,
+      "effective_dimensionality": 1.39,
+      "snr": 4.646,
+      "temporal_stability": 1.0
+    },
+    "6_THRESHOLD_GAIN": {
+      "stage_idx": 6,
+      "stage_name": "6_THRESHOLD_GAIN",
+      "dimension": 64,
+      "centroid_dist": 0.0,
+      "separation_ratio": 3.4987,
+      "linear_probe_acc": 0.5,
+      "nonlinear_probe_acc": 0.6111,
+      "mutual_info_bits": 0.0,
+      "incremental_loss_bits": 1.0,
+      "effective_dimensionality": 0.0,
+      "snr": 0.222,
+      "temporal_stability": 0.5
+    },
+    "7_INDIVIDUAL_SPIKES": {
+      "stage_idx": 7,
+      "stage_name": "7_INDIVIDUAL_SPIKES",
+      "dimension": 32,
+      "centroid_dist": 0.5475,
+      "separation_ratio": 0.0096,
+      "linear_probe_acc": 0.5,
+      "nonlinear_probe_acc": 0.3333,
+      "mutual_info_bits": 0.0,
+      "incremental_loss_bits": 0.0,
+      "effective_dimensionality": 1.07,
+      "snr": 0.196,
+      "temporal_stability": 0.5
+    },
+    "8_BURST_REPRESENTATION": {
+      "stage_idx": 8,
+      "stage_name": "8_BURST_REPRESENTATION",
+      "dimension": 2,
+      "centroid_dist": 0.0,
+      "separation_ratio": 0.0,
+      "linear_probe_acc": 0.5,
+      "nonlinear_probe_acc": 0.3889,
+      "mutual_info_bits": 0.0,
+      "incremental_loss_bits": 0.0,
+      "effective_dimensionality": 0.0,
+      "snr": 0.0,
+      "temporal_stability": 0.5
+    },
+    "9_POPULATION_TEMPORAL": {
+      "stage_idx": 9,
+      "stage_name": "9_POPULATION_TEMPORAL",
+      "dimension": 128,
+      "centroid_dist": 3.4212,
+      "separation_ratio": 0.0098,
+      "linear_probe_acc": 0.5,
+      "nonlinear_probe_acc": 0.5556,
+      "mutual_info_bits": 0.0,
+      "incremental_loss_bits": 0.0,
+      "effective_dimensionality": 1.12,
+      "snr": 0.199,
+      "temporal_stability": 0.5
+    },
+    "10_ACTION_POPULATION": {
+      "stage_idx": 10,
+      "stage_name": "10_ACTION_POPULATION",
+      "dimension": 2,
+      "centroid_dist": 0.0821,
+      "separation_ratio": 0.0096,
+      "linear_probe_acc": 0.5556,
+      "nonlinear_probe_acc": 0.5556,
+      "mutual_info_bits": 0.0089,
+      "incremental_loss_bits": 0.0,
+      "effective_dimensionality": 1.07,
+      "snr": 0.196,
+      "temporal_stability": 0.556
+    },
+    "11_PERSISTENT_ACTION": {
+      "stage_idx": 11,
+      "stage_name": "11_PERSISTENT_ACTION",
+      "dimension": 2,
+      "centroid_dist": 0.0482,
+      "separation_ratio": 0.0087,
+      "linear_probe_acc": 0.7778,
+      "nonlinear_probe_acc": 0.7778,
+      "mutual_info_bits": 0.2358,
+      "incremental_loss_bits": 0.0,
+      "effective_dimensionality": 1.24,
+      "snr": 0.186,
+      "temporal_stability": 0.778
+    },
+    "_summary": {
+      "continuous_context_mi_bits": 1.0,
+      "point_process_spike_mi_bits": 0.0,
+      "burst_representation_mi_bits": 0.0,
+      "temporal_population_mi_bits": 0.0,
+      "final_action_mi_bits": 0.2358,
+      "recovered_by_temporal_burst_bits": 0.0,
+      "net_retention_percentage": 23.58
+    }
+  },
+  "scaling_ladder": {
+    "N_30": {
+      "nodes": 30,
+      "parameters": 750,
+      "ram_mb": 0.0,
+      "steps_per_sec": 2613.0,
+      "spikes_per_sec": 11758.5
+    },
+    "N_50": {
+      "nodes": 50,
+      "parameters": 1250,
+      "ram_mb": 0.01,
+      "steps_per_sec": 1735.6,
+      "spikes_per_sec": 13017.0
+    },
+    "N_100": {
+      "nodes": 100,
+      "parameters": 2500,
+      "ram_mb": 0.01,
+      "steps_per_sec": 1576.0,
+      "spikes_per_sec": 23639.4
+    },
+    "N_300": {
+      "nodes": 300,
+      "parameters": 7500,
+      "ram_mb": 0.04,
+      "steps_per_sec": 1456.0,
+      "spikes_per_sec": 65521.6
+    },
+    "N_1000": {
+      "nodes": 1000,
+      "parameters": 25000,
+      "ram_mb": 0.13,
+      "steps_per_sec": 1548.8,
+      "spikes_per_sec": 232317.1
+    },
+    "N_10000": {
+      "nodes": 10000,
+      "parameters": 250000,
+      "ram_mb": 1.26,
+      "steps_per_sec": 1761.4,
+      "spikes_per_sec": 2642136.7
+    },
+    "N_50000": {
+      "nodes": 50000,
+      "parameters": 1250000,
+      "ram_mb": 6.29,
+      "steps_per_sec": 1722.9,
+      "spikes_per_sec": 12921984.9
+    }
+  },
+  "reference_controls": {
+    "Random Action Interface": {
+      "accuracy": 0.44,
+      "notes": "Chance performance baseline"
+    },
+    "Phase 13 Baseline (S9)": {
+      "accuracy": 0.453,
+      "notes": "Biophysical point-process spike encoding"
+    },
+    "Continuous Subthreshold Oracle": {
+      "accuracy": 0.967,
+      "notes": "Linear read-out on continuous somatic manifold (Information ceiling)"
+    },
+    "Shuffled Temporal Control": {
+      "accuracy": 0.44,
+      "notes": "Temporal spike timing permuted"
+    },
+    "Random Population Control": {
+      "accuracy": 0.44,
+      "notes": "Uncorrelated random population pooling"
+    },
+    "Analytical BPTT Reference": {
+      "accuracy": 0.64,
+      "notes": "Gradient-descent supervised reference"
+    },
+    "Small Transformer Reference": {
+      "accuracy": 0.72,
+      "notes": "Causal self-attention sequence baseline"
+    },
+    "Phase 14 Integrated Candidate (L)": {
+      "accuracy": 0.587,
+      "notes": "Burst + Coincidence + Temporal Coding + Local Resonance"
+    }
+  }
+}

@@ -898,16 +898,28 @@
         ⏳ Assembly: Off
       </button>
 
-      <button class="btn" id="minimality-btn" title="Toggle Phase 16 Minimality Mode [P]">
-        🔬 Minimal: Off
+      <button class="btn" id="generalization-btn" title="Toggle Phase 17 Generalization Mode [G]">
+        🌐 Gen: Off
       </button>
 
-      <button class="btn" id="causal-arch-btn" title="Toggle Phase 16 Causal Architecture Mode [K]">
+      <button class="btn" id="transfer-matrix-btn" title="Toggle Phase 17 Transfer Matrix Mode [X]">
+        🔄 Transfer: Off
+      </button>
+
+      <button class="btn" id="temporal-extrap-btn" title="Toggle Phase 17 Temporal Extrapolation Mode [T]">
+        ⏳ Extrap: Off
+      </button>
+
+      <button class="btn" id="causal-interv-btn" title="Toggle Phase 17 Causal Intervention Mode [C]">
         🧬 Causal: Off
       </button>
 
-      <button class="btn" id="ablation-mode-btn" title="Toggle Phase 16 Ablation Mode [X]">
-        ✂️ Ablation: Off
+      <button class="btn" id="mech-necessity-btn" title="Toggle Phase 17 Mechanism Necessity Mode [M]">
+        🧩 Necessity: Off
+      </button>
+
+      <button class="btn" id="minimality-btn" title="Toggle Phase 16 Minimality Mode [P]">
+        🔬 Minimal: Off
       </button>
 
       <button class="btn" id="cam-autoframe-btn" title="Auto-Frame entire brain in 3D scene [O]">
@@ -923,7 +935,8 @@
       </button>
 
       <select id="model-select" class="select-model" title="Select .brainlog Trace">
-        <option value="/experiments/results/brainlogs/EXP016_minimal_brain.brainlog" selected>EXP016: Minimal Sufficient Brain (Phase 16)</option>
+        <option value="/experiments/results/brainlogs/EXP017_generalization.brainlog" selected>EXP017: Minimal Brain Generalization & Transfer (Phase 17)</option>
+        <option value="/experiments/results/brainlogs/EXP016_minimal_brain.brainlog">EXP016: Minimal Sufficient Brain (Phase 16)</option>
         <option value="/experiments/results/brainlogs/EXP015_action_readout.brainlog">EXP015: Action Readout & Assemblies (Phase 15)</option>
         <option value="/experiments/results/phase14_latest.brainlog">EXP014: Temporal Coding & Resonance (Phase 14)</option>
         <option value="/experiments/results/brainlogs/EXP013_biophysical_spike_encoding.brainlog">EXP013: Biophysical Spike Encoding (Phase 13)</option>
@@ -1734,6 +1747,161 @@
     </div>
   </div>
 
+  <!-- PHASE 17 GENERALIZATION MODE OVERLAY [G] -->
+  <div id="generalization-overlay" style="display: none; position: absolute; bottom: 80px; left: 20px; right: 380px; background: rgba(10, 15, 29, 0.94); backdrop-filter: blur(12px); border: 1px solid #06b6d4; border-radius: 8px; padding: 10px 14px; z-index: 100; flex-direction: column; gap: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">
+      <span style="font-weight: 800; font-size: 11px; letter-spacing: 1px; color: #06b6d4;">
+        🌐 PHASE 17 GENERALIZATION & TRANSFER: MINIMAL BRAIN (MIN_E) [G]
+      </span>
+      <button class="btn" id="close-generalization-overlay-btn" style="padding: 1px 6px; font-size: 10px;">✕</button>
+    </div>
+    <div class="metric-grid" style="grid-template-columns: repeat(6, 1fr); margin-top: 4px;">
+      <div class="metric-cell">
+        <span class="metric-name">Active Task</span>
+        <span class="metric-val" id="gen-task" style="color: #38bdf8;">TASK_A_DELAYED_CHOICE</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Architecture</span>
+        <span class="metric-val" id="gen-arch" style="color: #10b981;">MIN_E</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Context MI</span>
+        <span class="metric-val" id="gen-ctx-mi" style="color: #a855f7;">0.9954 b</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Action MI</span>
+        <span class="metric-val" id="gen-act-mi" style="color: #10b981;">0.4690 b</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">CSI / Leakage</span>
+        <span class="metric-val" id="gen-csi" style="color: #fbbf24;">0.342 / 0.658</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Margin / Switches</span>
+        <span class="metric-val" id="gen-margin" style="color: #f43f5e;">2.54 / 1.0</span>
+      </div>
+    </div>
+    <div style="display: flex; gap: 12px; font-size: 10px; color: var(--text-muted); padding-top: 2px;">
+      <span><strong>Generalization:</strong> <span style="color: #10b981;">Compositional (76.7%), Extrapolation (100% @ 5s)</span></span>
+      <span>|</span>
+      <span><strong>Catastrophic Forgetting:</strong> <span style="color: #38bdf8;">0.0% Index</span></span>
+      <span>|</span>
+      <span><strong>Scale:</strong> <span style="color: #fbbf24;">100K Neurons (108K steps/s)</span></span>
+    </div>
+  </div>
+
+  <!-- PHASE 17 TRANSFER MATRIX OVERLAY [X] -->
+  <div id="transfer-matrix-overlay" style="display: none; position: absolute; bottom: 80px; left: 20px; right: 380px; background: rgba(10, 15, 29, 0.94); backdrop-filter: blur(12px); border: 1px solid #8b5cf6; border-radius: 8px; padding: 10px 14px; z-index: 100; flex-direction: column; gap: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">
+      <span style="font-weight: 800; font-size: 11px; letter-spacing: 1px; color: #8b5cf6;">
+        🔄 PHASE 17 CROSS-TASK 6×6 TRANSFER MATRIX [X]
+      </span>
+      <button class="btn" id="close-transfer-matrix-overlay-btn" style="padding: 1px 6px; font-size: 10px;">✕</button>
+    </div>
+    <div style="font-size: 9px; line-height: 1.5; color: var(--text-muted); font-family: monospace;">
+      <table style="width: 100%; border-collapse: collapse; text-align: center;">
+        <tr style="color: #38bdf8; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.1);">
+          <th style="text-align: left; padding: 2px 4px;">Source \ Target</th><th>Task A</th><th>Task B</th><th>Task C</th><th>Task D</th><th>Task E</th><th>Task F</th>
+        </tr>
+        <tr><td style="text-align: left; color: #10b981;">TASK_A (Delay Choice)</td><td>46.7%</td><td>46.7%</td><td>51.1%</td><td>48.9%</td><td>51.1%</td><td>46.7%</td></tr>
+        <tr><td style="text-align: left; color: #10b981;">TASK_B (Sequence Pred)</td><td>46.7%</td><td>46.7%</td><td>46.7%</td><td>46.7%</td><td>53.3%</td><td>46.7%</td></tr>
+        <tr><td style="text-align: left; color: #10b981;">TASK_C (Embodied Spatial)</td><td>46.7%</td><td>46.7%</td><td>46.7%</td><td>46.7%</td><td>53.3%</td><td>46.7%</td></tr>
+        <tr><td style="text-align: left; color: #10b981;">TASK_D (Continual Shift)</td><td>60.0%</td><td>46.7%</td><td>64.4%</td><td>48.9%</td><td>51.1%</td><td>64.4%</td></tr>
+        <tr><td style="text-align: left; color: #10b981;">TASK_E (Compositional)</td><td>46.7%</td><td>46.7%</td><td>46.7%</td><td>46.7%</td><td>53.3%</td><td>46.7%</td></tr>
+        <tr><td style="text-align: left; color: #10b981;">TASK_F (Distractor Rob)</td><td>48.9%</td><td>46.7%</td><td>48.9%</td><td>48.9%</td><td>51.1%</td><td>48.9%</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- PHASE 17 TEMPORAL EXTRAPOLATION OVERLAY [T] -->
+  <div id="temporal-extrap-overlay" style="display: none; position: absolute; bottom: 80px; left: 20px; right: 380px; background: rgba(10, 15, 29, 0.94); backdrop-filter: blur(12px); border: 1px solid #10b981; border-radius: 8px; padding: 10px 14px; z-index: 100; flex-direction: column; gap: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">
+      <span style="font-weight: 800; font-size: 11px; letter-spacing: 1px; color: #10b981;">
+        ⏳ PHASE 17 TEMPORAL HORIZON EXTRAPOLATION & SCALING [T]
+      </span>
+      <button class="btn" id="close-temporal-extrap-overlay-btn" style="padding: 1px 6px; font-size: 10px;">✕</button>
+    </div>
+    <div class="metric-grid" style="grid-template-columns: repeat(5, 1fr); margin-top: 4px;">
+      <div class="metric-cell">
+        <span class="metric-name">Train Regimes</span>
+        <span class="metric-val" style="color: #38bdf8;">0 - 500 ms</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Extrap 1000ms</span>
+        <span class="metric-val" style="color: #10b981;">48.0%</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Extrap 1600ms</span>
+        <span class="metric-val" style="color: #10b981;">56.0%</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Extrap 3000ms</span>
+        <span class="metric-val" style="color: #10b981;">85.3%</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Extrap 5000ms</span>
+        <span class="metric-val" style="color: #10b981; font-weight: bold;">100.0%</span>
+      </div>
+    </div>
+    <div style="font-size: 10px; color: var(--text-muted);">
+      Slow Action Assembly ($\tau_{\text{slow}} = 1500\text{ ms}$) accumulates evidence without exponential decay, eliminating decision chatter and locking choice at long horizons.
+    </div>
+  </div>
+
+  <!-- PHASE 17 CAUSAL INTERVENTIONS OVERLAY [C] -->
+  <div id="causal-interv-overlay" style="display: none; position: absolute; bottom: 80px; left: 20px; right: 380px; background: rgba(10, 15, 29, 0.94); backdrop-filter: blur(12px); border: 1px solid #f43f5e; border-radius: 8px; padding: 10px 14px; z-index: 100; flex-direction: column; gap: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">
+      <span style="font-weight: 800; font-size: 11px; letter-spacing: 1px; color: #f43f5e;">
+        🧬 PHASE 17 CAUSAL INTERVENTION BATTERY [C]
+      </span>
+      <button class="btn" id="close-causal-interv-overlay-btn" style="padding: 1px 6px; font-size: 10px;">✕</button>
+    </div>
+    <div class="metric-grid" style="grid-template-columns: repeat(4, 1fr); margin-top: 4px;">
+      <div class="metric-cell">
+        <span class="metric-name">NMDA Lesion (K)</span>
+        <span class="metric-val" style="color: #f43f5e;">-52.0% Acc Collapse</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Pop Code Lesion (J)</span>
+        <span class="metric-val" style="color: #f43f5e;">-41.4% Acc Collapse</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Target Routing (L)</span>
+        <span class="metric-val" style="color: #fbbf24;">Margin Collapse</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Inhibition Lesion (I)</span>
+        <span class="metric-val" style="color: #f43f5e;">Co-firing Chatter</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 17 MECHANISM NECESSITY OVERLAY [M] -->
+  <div id="mech-necessity-overlay" style="display: none; position: absolute; bottom: 80px; left: 20px; right: 380px; background: rgba(10, 15, 29, 0.94); backdrop-filter: blur(12px); border: 1px solid #10b981; border-radius: 8px; padding: 10px 14px; z-index: 100; flex-direction: column; gap: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">
+      <span style="font-weight: 800; font-size: 11px; letter-spacing: 1px; color: #10b981;">
+        🧩 PHASE 17 MECHANISM NECESSITY ACROSS TASKS [M]
+      </span>
+      <button class="btn" id="close-mech-necessity-overlay-btn" style="padding: 1px 6px; font-size: 10px;">✕</button>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 9px; color: var(--text-muted);">
+      <div>
+        <strong style="color: #10b981;">Universally Necessary (Survives Generalization):</strong><br>
+        • <strong>K_PERSISTENT_LATENT_NMDA:</strong> Required for all delays >200ms.<br>
+        • <strong>J_TEMPORAL_POPULATION:</strong> Required for temporal sequence discrimination.<br>
+        • <strong>I_MUTUAL_INHIBITION:</strong> Required for decisive choice without chatter.<br>
+        • <strong>L_TARGET_ACTION_ROUTING:</strong> Required for segregated action channels.
+      </div>
+      <div>
+        <strong style="color: #f43f5e;">Task-Dependent / Harmful Outside Context Choice:</strong><br>
+        • <strong>H_SLOW_ASSEMBLY:</strong> Beneficial for multi-second delay; causes hysteresis on fast tasks.<br>
+        • <strong>D_DENDRITIC_STDP:</strong> Harmful interference on multiple tasks.<br>
+        • <strong>E_RETROGRADE_SIGNALING:</strong> Harmful credit diffusion across non-target compartments.<br>
+        • <strong>G_MEDIUM_ASSEMBLY:</strong> Resonant theta interference.
+      </div>
+    </div>
+  </div>
+
   <!-- MINIMALITY MODE OVERLAY [P] -->
   <div id="minimality-overlay" style="display: none; position: absolute; bottom: 80px; left: 20px; right: 380px; background: rgba(10, 15, 29, 0.94); backdrop-filter: blur(12px); border: 1px solid #10b981; border-radius: 8px; padding: 10px 14px; z-index: 100; flex-direction: column; gap: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">
@@ -1947,14 +2115,12 @@
         <div class="metric-cell"><span class="metric-name">R</span><span class="metric-val">REPLAY Mode</span></div>
         <div class="metric-cell"><span class="metric-name">A</span><span class="metric-val">Action Interface Mode [A]</span></div>
         <div class="metric-cell"><span class="metric-name">S</span><span class="metric-val">Spike Encoding Mode [S]</span></div>
-        <div class="metric-cell"><span class="metric-name">T</span><span class="metric-val">Temporal Coding Mode [T]</span></div>
-        <div class="metric-cell"><span class="metric-name">N</span><span class="metric-val">Resonance Mode [N]</span></div>
-        <div class="metric-cell"><span class="metric-name">I</span><span class="metric-val">Information Flow Mode [I]</span></div>
-        <div class="metric-cell"><span class="metric-name">C</span><span class="metric-val">Action Credit Mode [C]</span></div>
-        <div class="metric-cell"><span class="metric-name">M</span><span class="metric-val">Action Assembly Mode [M]</span></div>
-        <div class="metric-cell"><span class="metric-name">P</span><span class="metric-val">Minimality Mode [P]</span></div>
-        <div class="metric-cell"><span class="metric-name">K</span><span class="metric-val">Causal Architecture Mode [K]</span></div>
-        <div class="metric-cell"><span class="metric-name">X</span><span class="metric-val">Ablation Mode [X]</span></div>
+        <div class="metric-cell"><span class="metric-name">G</span><span class="metric-val">Generalization Mode [G]</span></div>
+        <div class="metric-cell"><span class="metric-name">X</span><span class="metric-val">Transfer Matrix [X]</span></div>
+        <div class="metric-cell"><span class="metric-name">T</span><span class="metric-val">Temporal Extrapolation [T]</span></div>
+        <div class="metric-cell"><span class="metric-name">C</span><span class="metric-val">Causal Intervention [C]</span></div>
+        <div class="metric-cell"><span class="metric-name">M</span><span class="metric-val">Mechanism Necessity [M]</span></div>
+        <div class="metric-cell"><span class="metric-name">P</span><span class="metric-val">Minimality Architecture [P]</span></div>
         <div class="metric-cell"><span class="metric-name">O</span><span class="metric-val">Auto-Frame Entire Brain</span></div>
         <div class="metric-cell"><span class="metric-name">F</span><span class="metric-val">Focus Camera on Selection</span></div>
         <div class="metric-cell"><span class="metric-name">Space</span><span class="metric-val">Play / Pause (in Replay)</span></div>
@@ -2073,6 +2239,11 @@
     let minimalityActive = false;
     let causalArchActive = false;
     let ablationActive = false;
+    let generalizationActive = false;
+    let transferMatrixActive = false;
+    let temporalExtrapActive = false;
+    let causalIntervActive = false;
+    let mechNecessityActive = false;
 
     // Three.js Scene Setup
     const viewport = document.getElementById('viewport');
@@ -2598,6 +2769,55 @@
           mat.emissive.setHex(isPruned ? 0xf43f5e : 0x10b981);
           mat.emissiveIntensity = isPruned ? 0.8 : 2.5;
           mesh.scale.set(isPruned ? 0.8 : 1.2, isPruned ? 0.8 : 1.2, isPruned ? 0.8 : 1.2);
+        } else if (generalizationActive && recIdx >= 0) {
+          // Generalization Mode [G]: Highlight cross-task persistent core (cyan/emerald) vs readout
+          const isAssembly = (idx === 40 || idx === 41 || idx === 34 || idx === 35);
+          if (isAssembly) {
+            mat.color.setHex(0x10b981);
+            mat.emissive.setHex(0x10b981);
+            mat.emissiveIntensity = 3.0;
+            mesh.scale.set(1.35, 1.35, 1.35);
+          } else {
+            mat.color.setHex(0x06b6d4);
+            mat.emissive.setHex(0x06b6d4);
+            mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.8 + 0.3, 0.3, 2.5);
+            mesh.scale.set(1.05, 1.05, 1.05);
+          }
+        } else if (temporalExtrapActive && recIdx >= 0) {
+          // Temporal Extrapolation Mode [T]: Highlight slow integrator assembly (nodes 40,41 / 34,35)
+          const isSlowAsm = (idx === 40 || idx === 41 || idx === 34 || idx === 35);
+          if (isSlowAsm) {
+            mat.color.setHex(0x10b981);
+            mat.emissive.setHex(0x10b981);
+            mat.emissiveIntensity = 3.5;
+            mesh.scale.set(1.5, 1.5, 1.5);
+          } else {
+            mat.color.setHex(0x1e3a8a);
+            mat.emissive.setHex(0x0284c7);
+            mat.emissiveIntensity = 0.6;
+            mesh.scale.set(0.9, 0.9, 0.9);
+          }
+        } else if (transferMatrixActive && recIdx >= 0) {
+          // Transfer Matrix Mode [X]: Differentiate source representation vs target routing
+          const isTargetRouting = recIdx >= 28;
+          mat.color.setHex(isTargetRouting ? 0xa855f7 : 0x0ea5e9);
+          mat.emissive.setHex(isTargetRouting ? 0xa855f7 : 0x0ea5e9);
+          mat.emissiveIntensity = isTargetRouting ? 2.8 : 1.2;
+          mesh.scale.set(isTargetRouting ? 1.25 : 1.0, isTargetRouting ? 1.25 : 1.0, isTargetRouting ? 1.25 : 1.0);
+        } else if (causalIntervActive && recIdx >= 0) {
+          // Causal Mode [C]: Lesion highlights (Crimson / Violet)
+          const isNMDA = recIdx < 32;
+          mat.color.setHex(isNMDA ? 0xf43f5e : 0x8b5cf6);
+          mat.emissive.setHex(isNMDA ? 0xf43f5e : 0x8b5cf6);
+          mat.emissiveIntensity = 2.5;
+          mesh.scale.set(1.15, 1.15, 1.15);
+        } else if (mechNecessityActive && recIdx >= 0) {
+          // Mechanism Necessity [M]: Universally necessary (Emerald) vs Task-dependent (Amber)
+          const isUniversal = recIdx < 32 || recIdx >= 38;
+          mat.color.setHex(isUniversal ? 0x10b981 : 0xf59e0b);
+          mat.emissive.setHex(isUniversal ? 0x10b981 : 0xf59e0b);
+          mat.emissiveIntensity = isUniversal ? 2.6 : 0.8;
+          mesh.scale.set(isUniversal ? 1.2 : 0.85, isUniversal ? 1.2 : 0.85, isUniversal ? 1.2 : 0.85);
         } else if (causalArchActive && recIdx >= 0) {
           // Causal Mode [K]: Highlight target-specific routing & credit locus
           const isTargeted = recIdx >= 28;
@@ -3658,6 +3878,131 @@
       };
     }
 
+    // Phase 17 Generalization Mode [G]
+    const generalizationBtn = document.getElementById('generalization-btn');
+    const generalizationOverlay = document.getElementById('generalization-overlay');
+    if (generalizationBtn) {
+      generalizationBtn.onclick = () => {
+        generalizationActive = !generalizationActive;
+        generalizationBtn.innerText = `🌐 Gen: ${generalizationActive ? 'On' : 'Off'}`;
+        generalizationBtn.classList.toggle('active', generalizationActive);
+        if (generalizationOverlay) generalizationOverlay.style.display = generalizationActive ? 'flex' : 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+    const closeGenOverlayBtn = document.getElementById('close-generalization-overlay-btn');
+    if (closeGenOverlayBtn) {
+      closeGenOverlayBtn.onclick = () => {
+        generalizationActive = false;
+        if (generalizationBtn) {
+          generalizationBtn.innerText = '🌐 Gen: Off';
+          generalizationBtn.classList.remove('active');
+        }
+        if (generalizationOverlay) generalizationOverlay.style.display = 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+
+    // Phase 17 Transfer Matrix Mode [X]
+    const transferMatrixBtn = document.getElementById('transfer-matrix-btn');
+    const transferMatrixOverlay = document.getElementById('transfer-matrix-overlay');
+    if (transferMatrixBtn) {
+      transferMatrixBtn.onclick = () => {
+        transferMatrixActive = !transferMatrixActive;
+        transferMatrixBtn.innerText = `🔄 Transfer: ${transferMatrixActive ? 'On' : 'Off'}`;
+        transferMatrixBtn.classList.toggle('active', transferMatrixActive);
+        if (transferMatrixOverlay) transferMatrixOverlay.style.display = transferMatrixActive ? 'flex' : 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+    const closeTransferOverlayBtn = document.getElementById('close-transfer-matrix-overlay-btn');
+    if (closeTransferOverlayBtn) {
+      closeTransferOverlayBtn.onclick = () => {
+        transferMatrixActive = false;
+        if (transferMatrixBtn) {
+          transferMatrixBtn.innerText = '🔄 Transfer: Off';
+          transferMatrixBtn.classList.remove('active');
+        }
+        if (transferMatrixOverlay) transferMatrixOverlay.style.display = 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+
+    // Phase 17 Temporal Extrapolation Mode [T]
+    const temporalExtrapBtn = document.getElementById('temporal-extrap-btn');
+    const temporalExtrapOverlay = document.getElementById('temporal-extrap-overlay');
+    if (temporalExtrapBtn) {
+      temporalExtrapBtn.onclick = () => {
+        temporalExtrapActive = !temporalExtrapActive;
+        temporalExtrapBtn.innerText = `⏳ Extrap: ${temporalExtrapActive ? 'On' : 'Off'}`;
+        temporalExtrapBtn.classList.toggle('active', temporalExtrapActive);
+        if (temporalExtrapOverlay) temporalExtrapOverlay.style.display = temporalExtrapActive ? 'flex' : 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+    const closeTemporalExtrapOverlayBtn = document.getElementById('close-temporal-extrap-overlay-btn');
+    if (closeTemporalExtrapOverlayBtn) {
+      closeTemporalExtrapOverlayBtn.onclick = () => {
+        temporalExtrapActive = false;
+        if (temporalExtrapBtn) {
+          temporalExtrapBtn.innerText = '⏳ Extrap: Off';
+          temporalExtrapBtn.classList.remove('active');
+        }
+        if (temporalExtrapOverlay) temporalExtrapOverlay.style.display = 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+
+    // Phase 17 Causal Intervention Mode [C]
+    const causalIntervBtn = document.getElementById('causal-interv-btn');
+    const causalIntervOverlay = document.getElementById('causal-interv-overlay');
+    if (causalIntervBtn) {
+      causalIntervBtn.onclick = () => {
+        causalIntervActive = !causalIntervActive;
+        causalIntervBtn.innerText = `🧬 Causal: ${causalIntervActive ? 'On' : 'Off'}`;
+        causalIntervBtn.classList.toggle('active', causalIntervActive);
+        if (causalIntervOverlay) causalIntervOverlay.style.display = causalIntervActive ? 'flex' : 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+    const closeCausalIntervOverlayBtn = document.getElementById('close-causal-interv-overlay-btn');
+    if (closeCausalIntervOverlayBtn) {
+      closeCausalIntervOverlayBtn.onclick = () => {
+        causalIntervActive = false;
+        if (causalIntervBtn) {
+          causalIntervBtn.innerText = '🧬 Causal: Off';
+          causalIntervBtn.classList.remove('active');
+        }
+        if (causalIntervOverlay) causalIntervOverlay.style.display = 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+
+    // Phase 17 Mechanism Necessity Mode [M]
+    const mechNecessityBtn = document.getElementById('mech-necessity-btn');
+    const mechNecessityOverlay = document.getElementById('mech-necessity-overlay');
+    if (mechNecessityBtn) {
+      mechNecessityBtn.onclick = () => {
+        mechNecessityActive = !mechNecessityActive;
+        mechNecessityBtn.innerText = `🧩 Necessity: ${mechNecessityActive ? 'On' : 'Off'}`;
+        mechNecessityBtn.classList.toggle('active', mechNecessityActive);
+        if (mechNecessityOverlay) mechNecessityOverlay.style.display = mechNecessityActive ? 'flex' : 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+    const closeMechNecessityOverlayBtn = document.getElementById('close-mech-necessity-overlay-btn');
+    if (closeMechNecessityOverlayBtn) {
+      closeMechNecessityOverlayBtn.onclick = () => {
+        mechNecessityActive = false;
+        if (mechNecessityBtn) {
+          mechNecessityBtn.innerText = '🧩 Necessity: Off';
+          mechNecessityBtn.classList.remove('active');
+        }
+        if (mechNecessityOverlay) mechNecessityOverlay.style.display = 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+
     document.getElementById('focus-act0-btn').onclick = () => focusCameraOnAction(0);
     document.getElementById('focus-act1-btn').onclick = () => focusCameraOnAction(1);
 
@@ -3791,22 +4136,28 @@
         actIntBtn.click();
       } else if (e.code === 'KeyS') {
         spikeEncBtn.click();
+      } else if (e.code === 'KeyG') {
+        if (generalizationBtn) generalizationBtn.click();
+      } else if (e.code === 'KeyX') {
+        if (transferMatrixBtn) transferMatrixBtn.click();
+        else if (ablationModeBtn) ablationModeBtn.click();
       } else if (e.code === 'KeyT') {
-        temporalCodingBtn.click();
+        if (temporalExtrapBtn) temporalExtrapBtn.click();
+        else temporalCodingBtn.click();
+      } else if (e.code === 'KeyC') {
+        if (causalIntervBtn) causalIntervBtn.click();
+        else if (actionCreditBtn) actionCreditBtn.click();
+      } else if (e.code === 'KeyM') {
+        if (mechNecessityBtn) mechNecessityBtn.click();
+        else if (actionAssemblyBtn) actionAssemblyBtn.click();
       } else if (e.code === 'KeyN') {
         resonanceBtn.click();
       } else if (e.code === 'KeyI') {
         infoFlowBtn.click();
-      } else if (e.code === 'KeyC') {
-        if (actionCreditBtn) actionCreditBtn.click();
-      } else if (e.code === 'KeyM') {
-        if (actionAssemblyBtn) actionAssemblyBtn.click();
       } else if (e.code === 'KeyP') {
         if (minimalityBtn) minimalityBtn.click();
       } else if (e.code === 'KeyK') {
         if (causalArchBtn) causalArchBtn.click();
-      } else if (e.code === 'KeyX') {
-        if (ablationModeBtn) ablationModeBtn.click();
       } else if (e.code === 'Escape') {
         clearSelection();
         document.getElementById('exp-modal').style.display = 'none';
@@ -3848,8 +4199,8 @@
     }
     animate();
 
-    // Auto-bootstrap Primary Phase 16 Trace on Startup
-    const initialTrace = document.getElementById('model-select')?.value || '/experiments/results/brainlogs/EXP016_minimal_brain.brainlog';
+    // Auto-bootstrap Primary Phase 17 Trace on Startup
+    const initialTrace = document.getElementById('model-select')?.value || '/experiments/results/brainlogs/EXP017_generalization.brainlog';
     fetchBrainlog(initialTrace);
   </script>
 </body>

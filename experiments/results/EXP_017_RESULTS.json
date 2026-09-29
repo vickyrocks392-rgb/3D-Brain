@@ -1,0 +1,783 @@
+{
+  "metadata": {
+    "experiment_id": "EXP_017",
+    "title": "Generalization, Transfer & Task-Independent Validation of Minimal Brain",
+    "date": "2026-09-30",
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "architecture": "MIN_E",
+    "runtime_seconds": 307.25
+  },
+  "stages": {
+    "stage_a_reproduction": {
+      "mean_accuracy": 0.6,
+      "std_accuracy": 0.098,
+      "sem_accuracy": 0.0566,
+      "seed_accuracies": [
+        0.48,
+        0.6,
+        0.72
+      ],
+      "mean_margin": 2.3128,
+      "mean_confidence": 0.2991,
+      "credit_specificity_index": 0.3339,
+      "credit_precision": 0.0,
+      "credit_leakage": 0.6661,
+      "decision_switches": 0.9867,
+      "complexity": {
+        "architecture_name": "MIN_E",
+        "preset": "MIN_E",
+        "mechanism_count": 8,
+        "active_mechanisms": [
+          "A_TARGET_SPECIFIC_TEACHING",
+          "B_DENDRITIC_TEACHING",
+          "C_DENDRITIC_ELIGIBILITY",
+          "H_SLOW_ACTION_ASSEMBLY",
+          "I_MUTUAL_INHIBITION",
+          "J_TEMPORAL_POPULATION",
+          "K_PERSISTENT_LATENT_NMDA",
+          "L_TARGET_ACTION_ROUTING"
+        ],
+        "removed_mechanisms": [
+          "D_DENDRITIC_STDP",
+          "E_RETROGRADE_SIGNALING",
+          "F_FAST_ACTION_ASSEMBLY",
+          "G_MEDIUM_ACTION_ASSEMBLY"
+        ],
+        "neurons": 42,
+        "synapses": 851,
+        "readout_synapses": 80,
+        "trainable_parameters": 80,
+        "plastic_parameters": 80,
+        "state_variables": 282,
+        "direct_readout": false
+      }
+    },
+    "stage_b_temporal_extrapolation": {
+      "0": {
+        "delay_steps": 0,
+        "delay_ms": 0,
+        "mean_accuracy": 0.37333333333333335,
+        "sem_accuracy": 0.10385174618264821,
+        "csi": 0.8788213333333333,
+        "switches": 0.41333333333333333,
+        "margin": 0.3015559407075246,
+        "extrapolation_regime": "IN_DISTRIBUTION"
+      },
+      "80": {
+        "delay_steps": 2,
+        "delay_ms": 80,
+        "mean_accuracy": 0.49333333333333335,
+        "sem_accuracy": 0.0217732421580727,
+        "csi": 0.8471466666666667,
+        "switches": 0.5199999999999999,
+        "margin": 0.4069371982415517,
+        "extrapolation_regime": "IN_DISTRIBUTION"
+      },
+      "200": {
+        "delay_steps": 5,
+        "delay_ms": 200,
+        "mean_accuracy": 0.49333333333333335,
+        "sem_accuracy": 0.010886621079036356,
+        "csi": 0.8554826666666667,
+        "switches": 0.8266666666666667,
+        "margin": 0.42139168858528137,
+        "extrapolation_regime": "IN_DISTRIBUTION"
+      },
+      "400": {
+        "delay_steps": 10,
+        "delay_ms": 400,
+        "mean_accuracy": 0.4666666666666666,
+        "sem_accuracy": 0.02880329199292382,
+        "csi": 0.643232,
+        "switches": 1.0133333333333334,
+        "margin": 0.2324564496676127,
+        "extrapolation_regime": "IN_DISTRIBUTION"
+      },
+      "600": {
+        "delay_steps": 15,
+        "delay_ms": 600,
+        "mean_accuracy": 0.36000000000000004,
+        "sem_accuracy": 3.2049378106392736e-17,
+        "csi": 0.32477333333333336,
+        "switches": 0.8666666666666667,
+        "margin": 0.7704955311616262,
+        "extrapolation_regime": "EXTRAPOLATION"
+      },
+      "1000": {
+        "delay_steps": 25,
+        "delay_ms": 1000,
+        "mean_accuracy": 0.48,
+        "sem_accuracy": 0.032659863237109045,
+        "csi": 0.35415066666666667,
+        "switches": 1.0666666666666667,
+        "margin": 0.5768377415339152,
+        "extrapolation_regime": "EXTRAPOLATION"
+      },
+      "1600": {
+        "delay_steps": 40,
+        "delay_ms": 1600,
+        "mean_accuracy": 0.56,
+        "sem_accuracy": 0.032659863237109045,
+        "csi": 0.3895853333333333,
+        "switches": 1.0666666666666667,
+        "margin": 0.30835292577743534,
+        "extrapolation_regime": "EXTRAPOLATION"
+      },
+      "3000": {
+        "delay_steps": 75,
+        "delay_ms": 3000,
+        "mean_accuracy": 0.8533333333333334,
+        "sem_accuracy": 0.11975283186939982,
+        "csi": 0.45949066666666666,
+        "switches": 1.3466666666666667,
+        "margin": 0.5384928627808888,
+        "extrapolation_regime": "EXTRAPOLATION"
+      },
+      "5000": {
+        "delay_steps": 125,
+        "delay_ms": 5000,
+        "mean_accuracy": 1.0,
+        "sem_accuracy": 0.0,
+        "csi": 0.07643466666666666,
+        "switches": 1.4933333333333334,
+        "margin": 0.9999990661938986,
+        "extrapolation_regime": "EXTRAPOLATION"
+      }
+    },
+    "stage_c_transfer_matrix": {
+      "tasks": [
+        "TASK_A",
+        "TASK_B",
+        "TASK_C",
+        "TASK_D",
+        "TASK_E",
+        "TASK_F"
+      ],
+      "zero_shot": {
+        "TASK_A": {
+          "TASK_A": 0.4666666666666666,
+          "TASK_B": 0.4666666666666666,
+          "TASK_C": 0.5111111111111111,
+          "TASK_D": 0.48888888888888893,
+          "TASK_E": 0.5111111111111111,
+          "TASK_F": 0.4666666666666666
+        },
+        "TASK_B": {
+          "TASK_A": 0.4666666666666666,
+          "TASK_B": 0.4666666666666666,
+          "TASK_C": 0.4666666666666666,
+          "TASK_D": 0.4666666666666666,
+          "TASK_E": 0.5333333333333333,
+          "TASK_F": 0.4666666666666666
+        },
+        "TASK_C": {
+          "TASK_A": 0.4666666666666666,
+          "TASK_B": 0.4666666666666666,
+          "TASK_C": 0.4666666666666666,
+          "TASK_D": 0.4666666666666666,
+          "TASK_E": 0.5333333333333333,
+          "TASK_F": 0.4666666666666666
+        },
+        "TASK_D": {
+          "TASK_A": 0.6000000000000001,
+          "TASK_B": 0.4666666666666666,
+          "TASK_C": 0.6444444444444445,
+          "TASK_D": 0.48888888888888893,
+          "TASK_E": 0.5111111111111111,
+          "TASK_F": 0.6444444444444445
+        },
+        "TASK_E": {
+          "TASK_A": 0.4666666666666666,
+          "TASK_B": 0.4666666666666666,
+          "TASK_C": 0.4666666666666666,
+          "TASK_D": 0.4666666666666666,
+          "TASK_E": 0.5333333333333333,
+          "TASK_F": 0.4666666666666666
+        },
+        "TASK_F": {
+          "TASK_A": 0.48888888888888893,
+          "TASK_B": 0.4666666666666666,
+          "TASK_C": 0.48888888888888893,
+          "TASK_D": 0.48888888888888893,
+          "TASK_E": 0.5111111111111111,
+          "TASK_F": 0.48888888888888893
+        }
+      },
+      "few_shot_5": {
+        "TASK_A": {
+          "TASK_A": 0.4666666666666666,
+          "TASK_B": 0.4444444444444445,
+          "TASK_C": 0.48888888888888893,
+          "TASK_D": 0.5111111111111111,
+          "TASK_E": 0.5333333333333333,
+          "TASK_F": 0.4666666666666666
+        },
+        "TASK_B": {
+          "TASK_A": 0.4666666666666666,
+          "TASK_B": 0.4666666666666666,
+          "TASK_C": 0.4666666666666666,
+          "TASK_D": 0.4666666666666666,
+          "TASK_E": 0.5333333333333333,
+          "TASK_F": 0.4666666666666666
+        },
+        "TASK_C": {
+          "TASK_A": 0.4444444444444444,
+          "TASK_B": 0.4666666666666666,
+          "TASK_C": 0.4666666666666666,
+          "TASK_D": 0.4222222222222222,
+          "TASK_E": 0.5333333333333333,
+          "TASK_F": 0.4222222222222222
+        },
+        "TASK_D": {
+          "TASK_A": 0.4666666666666666,
+          "TASK_B": 0.48888888888888893,
+          "TASK_C": 0.5111111111111111,
+          "TASK_D": 0.48888888888888893,
+          "TASK_E": 0.5333333333333333,
+          "TASK_F": 0.48888888888888893
+        },
+        "TASK_E": {
+          "TASK_A": 0.4222222222222222,
+          "TASK_B": 0.4666666666666666,
+          "TASK_C": 0.4666666666666666,
+          "TASK_D": 0.4666666666666666,
+          "TASK_E": 0.5333333333333333,
+          "TASK_F": 0.37777777777777777
+        },
+        "TASK_F": {
+          "TASK_A": 0.48888888888888893,
+          "TASK_B": 0.4666666666666666,
+          "TASK_C": 0.48888888888888893,
+          "TASK_D": 0.4666666666666666,
+          "TASK_E": 0.5333333333333333,
+          "TASK_F": 0.3111111111111111
+        }
+      },
+      "few_shot_25": {
+        "TASK_A": {
+          "TASK_A": 0.4666666666666666,
+          "TASK_B": 0.4666666666666666,
+          "TASK_C": 0.4666666666666666,
+          "TASK_D": 0.4666666666666666,
+          "TASK_E": 0.5111111111111111,
+          "TASK_F": 0.4666666666666666
+        },
+        "TASK_B": {
+          "TASK_A": 0.48888888888888893,
+          "TASK_B": 0.4666666666666666,
+          "TASK_C": 0.4666666666666666,
+          "TASK_D": 0.48888888888888893,
+          "TASK_E": 0.5333333333333333,
+          "TASK_F": 0.37777777777777777
+        },
+        "TASK_C": {
+          "TASK_A": 0.4666666666666666,
+          "TASK_B": 0.4666666666666666,
+          "TASK_C": 0.4666666666666666,
+          "TASK_D": 0.4444444444444445,
+          "TASK_E": 0.5333333333333333,
+          "TASK_F": 0.3111111111111111
+        },
+        "TASK_D": {
+          "TASK_A": 0.4666666666666666,
+          "TASK_B": 0.4666666666666666,
+          "TASK_C": 0.4666666666666666,
+          "TASK_D": 0.4666666666666666,
+          "TASK_E": 0.4444444444444445,
+          "TASK_F": 0.4666666666666666
+        },
+        "TASK_E": {
+          "TASK_A": 0.48888888888888893,
+          "TASK_B": 0.4666666666666666,
+          "TASK_C": 0.4666666666666666,
+          "TASK_D": 0.48888888888888893,
+          "TASK_E": 0.5333333333333333,
+          "TASK_F": 0.4000000000000001
+        },
+        "TASK_F": {
+          "TASK_A": 0.4666666666666666,
+          "TASK_B": 0.4666666666666666,
+          "TASK_C": 0.4666666666666666,
+          "TASK_D": 0.48888888888888893,
+          "TASK_E": 0.5333333333333333,
+          "TASK_F": 0.39999999999999997
+        }
+      }
+    },
+    "stage_d_continual_learning": {
+      "initial_task_a_acc": 0.5,
+      "adapted_task_b_acc": 0.45,
+      "adapted_task_c_acc": 0.5,
+      "retest_task_a_acc": 0.5,
+      "catastrophic_forgetting_index": 0.0,
+      "retained_task_a_ratio": 1.0
+    },
+    "stage_e_compositional": {
+      "seen_combinations_accuracy": 0.6666666666666666,
+      "held_out_novel_accuracy": 0.7666666666666666,
+      "compositional_generalization_gap": -0.09999999999999998,
+      "interpretation": "Partial Generalization"
+    },
+    "stage_f_distractor_robustness": {
+      "LOW": {
+        "mean_accuracy": 0.4266666666666667,
+        "sem_accuracy": 0.01088662107903634,
+        "csi": 0.5060106666666667,
+        "leakage": 0.49398933333333334,
+        "switches": 1.0266666666666666
+      },
+      "MEDIUM": {
+        "mean_accuracy": 0.37333333333333335,
+        "sem_accuracy": 0.039252270517012654,
+        "csi": 0.41300933333333334,
+        "leakage": 0.5869906666666665,
+        "switches": 0.9199999999999999
+      },
+      "HIGH": {
+        "mean_accuracy": 0.44,
+        "sem_accuracy": 0.0,
+        "csi": 0.3820946666666667,
+        "leakage": 0.6179053333333334,
+        "switches": 0.9866666666666667
+      }
+    },
+    "stage_g_mechanism_generality": {
+      "retained_mechanisms_necessity": {
+        "A_TARGET_SPECIFIC_TEACHING": {
+          "task_accuracies": {
+            "TASK_A": 0.48,
+            "TASK_B": 0.48,
+            "TASK_C": 0.48
+          },
+          "mean_accuracy": 0.48,
+          "classification": "REDUNDANT_OR_BENEFICIAL_ONLY_UNDER_SPECIAL_REGIMES"
+        },
+        "B_DENDRITIC_TEACHING": {
+          "task_accuracies": {
+            "TASK_A": 0.52,
+            "TASK_B": 0.48,
+            "TASK_C": 0.52
+          },
+          "mean_accuracy": 0.5066666666666667,
+          "classification": "REDUNDANT_OR_BENEFICIAL_ONLY_UNDER_SPECIAL_REGIMES"
+        },
+        "C_DENDRITIC_ELIGIBILITY": {
+          "task_accuracies": {
+            "TASK_A": 0.52,
+            "TASK_B": 0.52,
+            "TASK_C": 0.52
+          },
+          "mean_accuracy": 0.52,
+          "classification": "REDUNDANT_OR_BENEFICIAL_ONLY_UNDER_SPECIAL_REGIMES"
+        },
+        "H_SLOW_ACTION_ASSEMBLY": {
+          "task_accuracies": {
+            "TASK_A": 0.9066666666666666,
+            "TASK_B": 0.68,
+            "TASK_C": 0.7466666666666667
+          },
+          "mean_accuracy": 0.7777777777777778,
+          "classification": "REDUNDANT_OR_BENEFICIAL_ONLY_UNDER_SPECIAL_REGIMES"
+        },
+        "I_MUTUAL_INHIBITION": {
+          "task_accuracies": {
+            "TASK_A": 0.48,
+            "TASK_B": 0.52,
+            "TASK_C": 0.52
+          },
+          "mean_accuracy": 0.5066666666666667,
+          "classification": "REDUNDANT_OR_BENEFICIAL_ONLY_UNDER_SPECIAL_REGIMES"
+        },
+        "J_TEMPORAL_POPULATION": {
+          "task_accuracies": {
+            "TASK_A": 0.21333333333333335,
+            "TASK_B": 0.5333333333333333,
+            "TASK_C": 0.5333333333333333
+          },
+          "mean_accuracy": 0.4266666666666667,
+          "classification": "UNIVERSALLY_NECESSARY"
+        },
+        "K_PERSISTENT_LATENT_NMDA": {
+          "task_accuracies": {
+            "TASK_A": 0.10666666666666667,
+            "TASK_B": 0.16,
+            "TASK_C": 0.52
+          },
+          "mean_accuracy": 0.2622222222222222,
+          "classification": "UNIVERSALLY_NECESSARY"
+        },
+        "L_TARGET_ACTION_ROUTING": {
+          "task_accuracies": {
+            "TASK_A": 0.49333333333333335,
+            "TASK_B": 0.5066666666666667,
+            "TASK_C": 0.52
+          },
+          "mean_accuracy": 0.5066666666666667,
+          "classification": "REDUNDANT_OR_BENEFICIAL_ONLY_UNDER_SPECIAL_REGIMES"
+        }
+      },
+      "removed_mechanisms_recheck": {
+        "D_DENDRITIC_STDP": {
+          "task_accuracies": {
+            "TASK_A": 0.4533333333333333,
+            "TASK_B": 0.52,
+            "TASK_C": 0.52
+          },
+          "mean_accuracy": 0.4977777777777778,
+          "verdict": "HARMFUL_INTERFERENCE"
+        },
+        "E_RETROGRADE_SIGNALING": {
+          "task_accuracies": {
+            "TASK_A": 0.52,
+            "TASK_B": 0.5066666666666667,
+            "TASK_C": 0.52
+          },
+          "mean_accuracy": 0.5155555555555557,
+          "verdict": "HARMFUL_INTERFERENCE"
+        },
+        "F_FAST_ACTION_ASSEMBLY": {
+          "task_accuracies": {
+            "TASK_A": 0.9066666666666666,
+            "TASK_B": 0.68,
+            "TASK_C": 0.7466666666666667
+          },
+          "mean_accuracy": 0.7777777777777778,
+          "verdict": "PROVIDES_NARROW_BENEFIT"
+        },
+        "G_MEDIUM_ACTION_ASSEMBLY": {
+          "task_accuracies": {
+            "TASK_A": 0.4666666666666666,
+            "TASK_B": 0.52,
+            "TASK_C": 0.52
+          },
+          "mean_accuracy": 0.5022222222222222,
+          "verdict": "HARMFUL_INTERFERENCE"
+        }
+      }
+    },
+    "stage_h_parameter_scaling": {
+      "sensitivity": {
+        "learning_rate": {
+          "values": [
+            0.002,
+            0.005,
+            0.015,
+            0.05,
+            0.15
+          ],
+          "accuracies": [
+            0.68,
+            0.6133333333333333,
+            0.4666666666666666,
+            0.41333333333333333,
+            0.4266666666666667
+          ],
+          "robustness": "SENSITIVE"
+        },
+        "slow_assembly_tau_ms": {
+          "values": [
+            300.0,
+            750.0,
+            1500.0,
+            3000.0,
+            6000.0
+          ],
+          "accuracies": [
+            0.4666666666666666,
+            0.4666666666666666,
+            0.4666666666666666,
+            0.4666666666666666,
+            0.4666666666666666
+          ],
+          "robustness": "SENSITIVE"
+        },
+        "lateral_inhibition_w": {
+          "values": [
+            0.0,
+            0.2,
+            0.5,
+            0.8,
+            1.2
+          ],
+          "accuracies": [
+            0.48,
+            0.48,
+            0.4666666666666666,
+            0.4666666666666666,
+            0.4666666666666666
+          ],
+          "robustness": "CRITICALLY_TUNED"
+        }
+      },
+      "scaling_law": {
+        "50": {
+          "N": 50,
+          "steps_per_sec": 228261.4,
+          "spikes_per_sec": 0.0,
+          "synaptic_ops_per_sec": 228261442.2,
+          "memory_mb": 0.004,
+          "latency_ms_per_step": 0.0044
+        },
+        "100": {
+          "N": 100,
+          "steps_per_sec": 181023.0,
+          "spikes_per_sec": 0.0,
+          "synaptic_ops_per_sec": 362046094.1,
+          "memory_mb": 0.008,
+          "latency_ms_per_step": 0.0055
+        },
+        "300": {
+          "N": 300,
+          "steps_per_sec": 169091.1,
+          "spikes_per_sec": 0.0,
+          "synaptic_ops_per_sec": 1014546422.1,
+          "memory_mb": 0.023,
+          "latency_ms_per_step": 0.0059
+        },
+        "1000": {
+          "N": 1000,
+          "steps_per_sec": 174981.4,
+          "spikes_per_sec": 0.0,
+          "synaptic_ops_per_sec": 3499627868.2,
+          "memory_mb": 0.076,
+          "latency_ms_per_step": 0.0057
+        },
+        "10000": {
+          "N": 10000,
+          "steps_per_sec": 102600.4,
+          "spikes_per_sec": 0.0,
+          "synaptic_ops_per_sec": 20520078277.9,
+          "memory_mb": 0.763,
+          "latency_ms_per_step": 0.0097
+        },
+        "50000": {
+          "N": 50000,
+          "steps_per_sec": 106616.8,
+          "spikes_per_sec": 0.0,
+          "synaptic_ops_per_sec": 106616776817.5,
+          "memory_mb": 3.815,
+          "latency_ms_per_step": 0.0094
+        },
+        "100000": {
+          "N": 100000,
+          "steps_per_sec": 107989.3,
+          "spikes_per_sec": 0.0,
+          "synaptic_ops_per_sec": 215978578784.8,
+          "memory_mb": 7.629,
+          "latency_ms_per_step": 0.0093
+        }
+      }
+    },
+    "stage_i_scorecard": {
+      "TASK_A": {
+        "MIN_E": {
+          "accuracy": 0.4666666666666666,
+          "sem": 0.02880329199292382,
+          "csi": 0.643232,
+          "leakage": 0.35676800000000003,
+          "switches": 1.0133333333333334,
+          "parameters": 80,
+          "mechanisms": 8
+        },
+        "MIN_E_FROZEN": {
+          "accuracy": 0.49333333333333335,
+          "sem": 0.010886621079036356,
+          "generalization_gap": -0.026666666666666727
+        },
+        "MIN_E_ADAPTED": {
+          "accuracy": 0.4666666666666666,
+          "sem": 0.02880329199292382
+        },
+        "FULL_P15": {
+          "accuracy": 0.49333333333333335,
+          "sem": 0.010886621079036356,
+          "parameters": 80,
+          "mechanisms": 12
+        },
+        "BPTT_CONTROL": {
+          "accuracy": 0.68,
+          "type": "SUPERVISED_GRADIENT_CONTROL"
+        },
+        "TRANSFORMER_CONTROL": {
+          "accuracy": 0.72,
+          "type": "ATTENTION_SEQUENCE_CONTROL"
+        }
+      },
+      "TASK_B": {
+        "MIN_E": {
+          "accuracy": 0.52,
+          "sem": 0.0,
+          "csi": 0.284584,
+          "leakage": 0.7154159999999999,
+          "switches": 1.0133333333333334,
+          "parameters": 80,
+          "mechanisms": 8
+        },
+        "MIN_E_FROZEN": {
+          "accuracy": 0.64,
+          "sem": 0.13063945294843618,
+          "generalization_gap": -0.12
+        },
+        "MIN_E_ADAPTED": {
+          "accuracy": 0.52,
+          "sem": 0.0
+        },
+        "FULL_P15": {
+          "accuracy": 0.49333333333333335,
+          "sem": 0.010886621079036356,
+          "parameters": 80,
+          "mechanisms": 12
+        },
+        "BPTT_CONTROL": {
+          "accuracy": 0.72,
+          "type": "SUPERVISED_GRADIENT_CONTROL"
+        },
+        "TRANSFORMER_CONTROL": {
+          "accuracy": 0.76,
+          "type": "ATTENTION_SEQUENCE_CONTROL"
+        }
+      },
+      "TASK_C": {
+        "MIN_E": {
+          "accuracy": 0.52,
+          "sem": 0.0,
+          "csi": 0.496828,
+          "leakage": 0.503172,
+          "switches": 1.0133333333333334,
+          "parameters": 80,
+          "mechanisms": 8
+        },
+        "MIN_E_FROZEN": {
+          "accuracy": 0.5333333333333333,
+          "sem": 0.0435464843161454,
+          "generalization_gap": -0.013333333333333308
+        },
+        "MIN_E_ADAPTED": {
+          "accuracy": 0.52,
+          "sem": 0.0
+        },
+        "FULL_P15": {
+          "accuracy": 0.5066666666666667,
+          "sem": 0.010886621079036356,
+          "parameters": 80,
+          "mechanisms": 12
+        },
+        "BPTT_CONTROL": {
+          "accuracy": 0.64,
+          "type": "SUPERVISED_GRADIENT_CONTROL"
+        },
+        "TRANSFORMER_CONTROL": {
+          "accuracy": 0.68,
+          "type": "ATTENTION_SEQUENCE_CONTROL"
+        }
+      },
+      "TASK_D": {
+        "MIN_E": {
+          "accuracy": 0.5066666666666667,
+          "sem": 0.010886621079036356,
+          "csi": 0.7486706666666666,
+          "leakage": 0.25132933333333335,
+          "switches": 0.96,
+          "parameters": 80,
+          "mechanisms": 8
+        },
+        "MIN_E_FROZEN": {
+          "accuracy": 0.4666666666666666,
+          "sem": 0.01088662107903634,
+          "generalization_gap": 0.04000000000000009
+        },
+        "MIN_E_ADAPTED": {
+          "accuracy": 0.5066666666666667,
+          "sem": 0.010886621079036356
+        },
+        "FULL_P15": {
+          "accuracy": 0.49333333333333335,
+          "sem": 0.010886621079036356,
+          "parameters": 80,
+          "mechanisms": 12
+        },
+        "BPTT_CONTROL": {
+          "accuracy": 0.6,
+          "type": "SUPERVISED_GRADIENT_CONTROL"
+        },
+        "TRANSFORMER_CONTROL": {
+          "accuracy": 0.64,
+          "type": "ATTENTION_SEQUENCE_CONTROL"
+        }
+      },
+      "TASK_E": {
+        "MIN_E": {
+          "accuracy": 0.4533333333333333,
+          "sem": 0.01088662107903634,
+          "csi": 0.46486933333333336,
+          "leakage": 0.5351306666666666,
+          "switches": 0.9199999999999999,
+          "parameters": 80,
+          "mechanisms": 8
+        },
+        "MIN_E_FROZEN": {
+          "accuracy": 0.5599999999999999,
+          "sem": 0.06531972647421809,
+          "generalization_gap": -0.10666666666666663
+        },
+        "MIN_E_ADAPTED": {
+          "accuracy": 0.4533333333333333,
+          "sem": 0.01088662107903634
+        },
+        "FULL_P15": {
+          "accuracy": 0.49333333333333335,
+          "sem": 0.010886621079036356,
+          "parameters": 80,
+          "mechanisms": 12
+        },
+        "BPTT_CONTROL": {
+          "accuracy": 0.6,
+          "type": "SUPERVISED_GRADIENT_CONTROL"
+        },
+        "TRANSFORMER_CONTROL": {
+          "accuracy": 0.64,
+          "type": "ATTENTION_SEQUENCE_CONTROL"
+        }
+      },
+      "TASK_F": {
+        "MIN_E": {
+          "accuracy": 0.44,
+          "sem": 0.0,
+          "csi": 0.3820946666666667,
+          "leakage": 0.6179053333333334,
+          "switches": 0.9866666666666667,
+          "parameters": 80,
+          "mechanisms": 8
+        },
+        "MIN_E_FROZEN": {
+          "accuracy": 0.5733333333333334,
+          "sem": 0.07620634755325444,
+          "generalization_gap": -0.13333333333333336
+        },
+        "MIN_E_ADAPTED": {
+          "accuracy": 0.44,
+          "sem": 0.0
+        },
+        "FULL_P15": {
+          "accuracy": 0.49333333333333335,
+          "sem": 0.010886621079036356,
+          "parameters": 80,
+          "mechanisms": 12
+        },
+        "BPTT_CONTROL": {
+          "accuracy": 0.6,
+          "type": "SUPERVISED_GRADIENT_CONTROL"
+        },
+        "TRANSFORMER_CONTROL": {
+          "accuracy": 0.64,
+          "type": "ATTENTION_SEQUENCE_CONTROL"
+        }
+      }
+    }
+  },
+  "brainlog_path": "/Users/kalachanddash/Documents/3D-Brain/experiments/results/brainlogs/EXP017_generalization.brainlog"
+}

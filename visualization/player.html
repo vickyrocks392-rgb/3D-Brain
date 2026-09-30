@@ -910,6 +910,10 @@
         🔄 Replay: Off
       </button>
 
+      <button class="btn" id="p21-btn" title="Toggle Phase 21 Episodic/Replay/Consolidation/Transfer Overlays [E][R][C][T]">
+        🧠 Phase 21: Off
+      </button>
+
       <button class="btn" id="credit-horizon-btn" title="Toggle Phase 19/20 Credit Horizon Mode [T]">
         ⏱️ Horizon: Off
       </button>
@@ -959,7 +963,8 @@
       </button>
 
       <select id="model-select" class="select-model" title="Select .brainlog Trace">
-        <option value="/experiments/results/brainlogs/EXP020_routing_replay.brainlog" selected>EXP020: Context-Gated Routing & Sparse Replay (Phase 20)</option>
+        <option value="/experiments/results/brainlogs/EXP021_episodic_transfer.brainlog" selected>EXP021: Episodic Memory, Replay & Transfer (Phase 21)</option>
+        <option value="/experiments/results/brainlogs/EXP020_routing_replay.brainlog">EXP020: Context-Gated Routing & Sparse Replay (Phase 20)</option>
         <option value="/experiments/results/brainlogs/EXP019_credit_consolidation.brainlog">EXP019: Biological Credit Horizon & Synaptic Consolidation (Phase 19)</option>
         <option value="/experiments/results/brainlogs/EXP018_audit.brainlog">EXP018: Scientific Audit & Benchmark Integrity (Phase 18)</option>
         <option value="/experiments/results/brainlogs/EXP017_generalization.brainlog">EXP017: Minimal Brain Generalization & Transfer (Phase 17)</option>
@@ -2396,6 +2401,96 @@
     </div>
   </div>
 
+<!-- PHASE 21 EPISODIC MEMORY OVERLAY [E] -->
+  <div id="episodic-overlay" style="display: none; position: absolute; bottom: 80px; left: 20px; right: 380px; background: rgba(10, 15, 29, 0.95); backdrop-filter: blur(14px); border: 1px solid #22d3ee; border-radius: 8px; padding: 10px 14px; z-index: 100; flex-direction: column; gap: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.6);">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">
+      <span style="font-weight: 800; font-size: 11px; letter-spacing: 1px; color: #22d3ee;">🧠 PHASE 21 EPISODIC MEMORY [E]</span>
+      <button class="btn" id="close-episodic-btn" style="padding: 1px 6px; font-size: 10px;">✕</button>
+    </div>
+    <div class="metric-grid" style="grid-template-columns: repeat(6, 1fr); margin-top: 4px;">
+      <div class="metric-cell"><span class="metric-name">Phase</span><span class="metric-val" id="ep-phase" style="color: #22d3ee;">EPISODE_CREATION</span></div>
+      <div class="metric-cell"><span class="metric-name">Episodes Stored</span><span class="metric-val" id="ep-count" style="color: #38bdf8;">0 / 32</span></div>
+      <div class="metric-cell"><span class="metric-name">Memory Bytes</span><span class="metric-val" id="ep-bytes" style="color: #f59e0b;">0 B</span></div>
+      <div class="metric-cell"><span class="metric-name">Top Score</span><span class="metric-val" id="ep-score" style="color: #10b981;">n/a</span></div>
+      <div class="metric-cell"><span class="metric-name">Retrieval Sparsity</span><span class="metric-val" id="ep-sparsity" style="color: #a855f7;">n/a</span></div>
+      <div class="metric-cell"><span class="metric-name">Retrieval Latency</span><span class="metric-val" id="ep-latency" style="color: #f43f5e;">n/a</span></div>
+    </div>
+    <div style="font-size: 10px; font-family: monospace; background: rgba(0,0,0,0.3); border-radius: 4px; padding: 6px 8px; display: flex; justify-content: space-between;">
+      <span>Selected: <strong id="ep-selected" style="color: #22d3ee;">none</strong></span>
+      <span>Competitors: <strong id="ep-competitors" style="color: #38bdf8;">none</strong></span>
+      <span>Key Sparsity: <strong id="ep-keysparse" style="color: #a855f7;">n/a</strong></span>
+      <span>Errors: <strong id="ep-errors" style="color: #f43f5e;">0</strong></span>
+      <span>Leakage: <strong id="ep-leakage" style="color: #10b981;">None (two-phase write)</strong></span>
+    </div>
+  </div>
+
+  <!-- PHASE 21 REPLAY OVERLAY [R] -->
+  <div id="p21-replay-overlay" style="display: none; position: absolute; bottom: 80px; left: 20px; right: 380px; background: rgba(10, 15, 29, 0.95); backdrop-filter: blur(14px); border: 1px solid #fb923c; border-radius: 8px; padding: 10px 14px; z-index: 100; flex-direction: column; gap: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.6);">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">
+      <span style="font-weight: 800; font-size: 11px; letter-spacing: 1px; color: #fb923c;">🔁 PHASE 21 REPLAY CONTENT AUDIT [R]</span>
+      <button class="btn" id="close-p21-replay-btn" style="padding: 1px 6px; font-size: 10px;">✕</button>
+    </div>
+    <div class="metric-grid" style="grid-template-columns: repeat(6, 1fr); margin-top: 4px;">
+      <div class="metric-cell"><span class="metric-name">Condition</span><span class="metric-val" id="r21-condition" style="color: #fb923c;">B6_BOTH</span></div>
+      <div class="metric-cell"><span class="metric-name">Content Protocol</span><span class="metric-val" id="r21-content" style="color: #22d3ee;">R1_EXACT</span></div>
+      <div class="metric-cell"><span class="metric-name">Replay Events</span><span class="metric-val" id="r21-events" style="color: #10b981;">0</span></div>
+      <div class="metric-cell"><span class="metric-name">Replay FLOPs</span><span class="metric-val" id="r21-flops" style="color: #a855f7;">0</span></div>
+      <div class="metric-cell"><span class="metric-name">Diversity</span><span class="metric-val" id="r21-diversity" style="color: #38bdf8;">n/a</span></div>
+      <div class="metric-cell"><span class="metric-name">Frequency</span><span class="metric-val" id="r21-frequency" style="color: #f59e0b;">n/a</span></div>
+    </div>
+    <div style="font-size: 10px; font-family: monospace; background: rgba(0,0,0,0.3); border-radius: 4px; padding: 6px 8px; display: flex; justify-content: space-between;">
+      <span>Source: <strong id="r21-source" style="color: #fb923c;">none</strong></span>
+      <span>Sequence: <strong id="r21-seq" style="color: #22d3ee;">0</strong></span>
+      <span>Timestamps: <strong id="r21-times" style="color: #38bdf8;">none</strong></span>
+      <span>Content: <strong id="r21-payload" style="color: #a855f7;">none</strong></span>
+    </div>
+  </div>
+
+<!-- PHASE 21 CONSOLIDATION OVERLAY [C] -->
+  <div id="p21-consolidation-overlay" style="display: none; position: absolute; bottom: 80px; left: 20px; right: 380px; background: rgba(10, 15, 29, 0.95); backdrop-filter: blur(14px); border: 1px solid #c084fc; border-radius: 8px; padding: 10px 14px; z-index: 100; flex-direction: column; gap: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.6);">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">
+      <span style="font-weight: 800; font-size: 11px; letter-spacing: 1px; color: #c084fc;">🛡️ PHASE 21 REPLAY CONSOLIDATION [C]</span>
+      <button class="btn" id="close-p21-consol-btn" style="padding: 1px 6px; font-size: 10px;">✕</button>
+    </div>
+    <div class="metric-grid" style="grid-template-columns: repeat(6, 1fr); margin-top: 4px;">
+      <div class="metric-cell"><span class="metric-name">Fast Pool</span><span class="metric-val" id="c21-fast" style="color: #38bdf8;">0.000</span></div>
+      <div class="metric-cell"><span class="metric-name">Slow Pool</span><span class="metric-val" id="c21-slow" style="color: #c084fc;">0.000</span></div>
+      <div class="metric-cell"><span class="metric-name">Tag Mass</span><span class="metric-val" id="c21-tags" style="color: #f59e0b;">0.000</span></div>
+      <div class="metric-cell"><span class="metric-name">Tagged Fraction</span><span class="metric-val" id="c21-tagfrac" style="color: #fb923c;">0.000</span></div>
+      <div class="metric-cell"><span class="metric-name">Metaplasticity</span><span class="metric-val" id="c21-meta" style="color: #10b981;">0.000</span></div>
+      <div class="metric-cell"><span class="metric-name">Captured Fraction</span><span class="metric-val" id="c21-captured" style="color: #22d3ee;">0.000</span></div>
+    </div>
+    <div style="font-size: 10px; font-family: monospace; background: rgba(0,0,0,0.3); border-radius: 4px; padding: 6px 8px; display: flex; justify-content: space-between;">
+      <span>Delta Norm: <strong id="c21-delta" style="color: #c084fc;">0.000</strong></span>
+      <span>Total Captures: <strong id="c21-captures" style="color: #10b981;">0</strong></span>
+      <span>Tagging: <strong id="c21-tagging" style="color: #38bdf8;">enabled</strong></span>
+      <span>Metaplasticity: <strong id="c21-metaen" style="color: #f59e0b;">enabled</strong></span>
+      <span>Rate: <strong id="c21-rate" style="color: #fb923c;">0.100</strong></span>
+    </div>
+  </div>
+
+  <!-- PHASE 21 TRANSFER OVERLAY [T] -->
+  <div id="p21-transfer-overlay" style="display: none; position: absolute; bottom: 80px; left: 20px; right: 380px; background: rgba(10, 15, 29, 0.95); backdrop-filter: blur(14px); border: 1px solid #4ade80; border-radius: 8px; padding: 10px 14px; z-index: 100; flex-direction: column; gap: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.6);">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">
+      <span style="font-weight: 800; font-size: 11px; letter-spacing: 1px; color: #4ade80;">🔀 PHASE 21 COMPOSITIONAL TRANSFER [T]</span>
+      <button class="btn" id="close-p21-transfer-btn" style="padding: 1px 6px; font-size: 10px;">✕</button>
+    </div>
+    <div class="metric-grid" style="grid-template-columns: repeat(6, 1fr); margin-top: 4px;">
+      <div class="metric-cell"><span class="metric-name">Phase</span><span class="metric-val" id="t21-phase" style="color: #4ade80;">COMPONENT_LEARNING</span></div>
+      <div class="metric-cell"><span class="metric-name">Component</span><span class="metric-val" id="t21-rule" style="color: #38bdf8;">none</span></div>
+      <div class="metric-cell"><span class="metric-name">Novel Combination</span><span class="metric-val" id="t21-combo" style="color: #22d3ee;">none</span></div>
+      <div class="metric-cell"><span class="metric-name">Predicted</span><span class="metric-val" id="t21-pred" style="color: #fb923c;">—</span></div>
+      <div class="metric-cell"><span class="metric-name">Target</span><span class="metric-val" id="t21-target" style="color: #c084fc;">—</span></div>
+      <div class="metric-cell"><span class="metric-name">Zero-Shot Valid</span><span class="metric-val" id="t21-zeroshot" style="color: #10b981;">true</span></div>
+    </div>
+    <div style="font-size: 10px; font-family: monospace; background: rgba(0,0,0,0.3); border-radius: 4px; padding: 6px 8px; display: flex; justify-content: space-between;">
+      <span>Components: <strong id="t21-components" style="color: #4ade80;">none</strong></span>
+      <span>Scores: <strong id="t21-scores" style="color: #38bdf8;">none</strong></span>
+      <span>Plasticity in Eval: <strong id="t21-plast" style="color: #10b981;">0</strong></span>
+      <span>Replay in Eval: <strong id="t21-replay" style="color: #10b981;">0</strong></span>
+      <span>Weights Changed: <strong id="t21-changed" style="color: #10b981;">false</strong></span>
+    </div>
+  </div>
   <!-- SPIKE RASTER DRAWER -->
   <div id="raster-drawer">
     <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -3463,8 +3558,111 @@
         if (repHorizonEl) repHorizonEl.innerText = '60,000 ms (100%)';
       }
 
-      // 14. Update Spike Raster if visible
+      // 14. Update Phase 21 Episodic / Replay / Consolidation / Transfer Overlays [E][R][C][T]
+      if (p21Active) {
+        updatePhase21Overlays(dyn, frame);
+      }
+
+      // 15. Update Spike Raster if visible
       drawSpikeRaster(stepIndex);
+    }
+
+    /**
+     * =========================================================================
+     * PHASE 21 OVERLAY UPDATES [E][R][C][T]
+     * =========================================================================
+     * Populates the four Phase 21 overlays from frame.dynamic_details:
+     *   episodic / replay / consolidation / transfer (+ phase label).
+     * All values shown are real telemetry written by generate_phase21_brainlog.
+     */
+    function updatePhase21Overlays(dyn, frame) {
+      const setText = (id, val) => {
+        const el = document.getElementById(id);
+        if (el && val !== undefined && val !== null && val !== '') el.innerText = val;
+      };
+      const fmt = (v, d = 4) => (typeof v === 'number' ? v.toFixed(d) : 'n/a');
+
+      // Phase label (shared).
+      setText('ep-phase', dyn.phase || 'n/a');
+      setText('t21-phase', dyn.phase || 'n/a');
+
+      // ---- [E] Episodic memory -------------------------------------------
+      const ep = dyn.episodic;
+      if (ep) {
+        setText('ep-count', `${ep.episodic_memory_records} / ${ep.capacity}`);
+        setText('ep-bytes', `${(ep.episodic_memory_bytes || 0).toLocaleString()} B`);
+        setText('ep-keysparse', fmt(ep.mean_key_sparsity, 3));
+        const lr = ep.last_retrieval || {};
+        if (lr.top_scores && lr.top_scores.length) {
+          setText('ep-score', Number(lr.top_scores[0]).toFixed(4));
+          setText('ep-selected', `#${lr.retrieved ? lr.retrieved[0] : '?'} (${Number(lr.top_scores[0]).toFixed(3)})`);
+        }
+        if (lr.sparsity !== undefined) setText('ep-sparsity', Number(lr.sparsity).toFixed(3));
+        if (lr.latency_us !== undefined) setText('ep-latency', `${Number(lr.latency_us).toFixed(1)} µs`);
+        if (lr.competitors && lr.competitors.length) {
+          setText('ep-competitors', lr.competitors.map(c => `#${c}`).join(', '));
+        }
+        const evs = (frame && frame.events) || [];
+        const fails = evs.filter(e => e.type === 'EPISODE_RETRIEVAL_FAILED').length;
+        setText('ep-errors', String(fails));
+      }
+
+      // ---- [R] Replay content audit --------------------------------------
+      const rep = dyn.replay;
+      if (rep) {
+        setText('r21-condition', rep.condition || 'n/a');
+        setText('r21-content', rep.content || 'n/a');
+        setText('r21-events', String(rep.total_replay_events ?? 0));
+        setText('r21-flops', Number(rep.total_replay_flops || 0).toLocaleString());
+        setText('r21-diversity', fmt(rep.replay_diversity, 3));
+        setText('r21-frequency', fmt(rep.replay_frequency, 3));
+        const last = rep.last_replay || {};
+        if (last.content) {
+          setText('r21-source', (last.source_tasks || []).join(', ') || 'none');
+          setText('r21-seq', String(last.sequence_length ?? 0));
+          setText('r21-times', (last.timestamps_ms || []).join(', ') || 'none');
+          setText('r21-payload',
+            `ids=[${(last.episode_ids || []).join(',')}] ` +
+            `pe=[${(last.prediction_errors || []).join(',')}]`);
+        }
+      }
+
+      // ---- [C] Consolidation ---------------------------------------------
+      const con = dyn.consolidation;
+      if (con) {
+        setText('c21-fast', fmt(con.fast_norm, 3));
+        setText('c21-slow', fmt(con.slow_norm, 3));
+        setText('c21-tags', fmt(con.tag_mass, 3));
+        setText('c21-tagfrac', fmt(con.tagged_fraction, 3));
+        setText('c21-meta', fmt(con.metaplasticity, 3));
+        setText('c21-captured', fmt(con.captured_fraction_last, 3));
+        setText('c21-delta', fmt(con.delta_norm_last, 4));
+        setText('c21-captures', String(con.total_captures ?? 0));
+        setText('c21-tagging', con.tagging_enabled ? 'enabled' : 'disabled');
+        setText('c21-metaen', con.metaplasticity_enabled ? 'enabled' : 'disabled');
+        setText('c21-rate', fmt(con.consolidation_rate, 3));
+      }
+
+      // ---- [T] Compositional transfer ------------------------------------
+      const tr = dyn.transfer;
+      if (tr) {
+        setText('t21-rule', tr.rule || 'n/a');
+        setText('t21-combo', tr.combination || 'n/a');
+        if (tr.predicted !== undefined) setText('t21-pred', String(tr.predicted));
+        if (tr.target !== undefined) setText('t21-target', String(tr.target));
+        if (tr.component_scores) {
+          setText('t21-components',
+            Object.keys(tr.component_scores).join(', ') || 'none');
+          setText('t21-scores',
+            Object.entries(tr.component_scores).map(([k, v]) => `${k}=${v}`).join(' '));
+        }
+        if (tr.weights_unchanged !== undefined) {
+          setText('t21-changed', String(!tr.weights_unchanged));
+        }
+        if (tr.zero_shot_valid !== undefined) setText('t21-zeroshot', String(tr.zero_shot_valid));
+        if (tr.plasticity_calls !== undefined) setText('t21-plast', String(tr.plasticity_calls));
+        if (tr.replay_calls !== undefined) setText('t21-replay', String(tr.replay_calls));
+      }
     }
 
     /**
@@ -4650,6 +4848,42 @@
         if (replay) renderFrame(replay.currentStep);
       };
     }
+
+    // Phase 21 Episodic / Replay / Consolidation / Transfer Overlays [E][R][C][T]
+    let p21Active = false;
+    const p21Btn = document.getElementById('p21-btn');
+    const p21OverlayIds = ['episodic-overlay', 'p21-replay-overlay',
+                           'p21-consolidation-overlay', 'p21-transfer-overlay'];
+    const p21Closed = new Set();   // overlays the user explicitly dismissed
+
+    function setP21Active(on) {
+      p21Active = on;
+      if (p21Btn) {
+        p21Btn.innerText = `🧠 Phase 21: ${on ? 'On' : 'Off'}`;
+        p21Btn.classList.toggle('active', on);
+      }
+      p21OverlayIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = (on && !p21Closed.has(id)) ? 'flex' : 'none';
+      });
+      if (replay) renderFrame(replay.currentStep);
+    }
+
+    if (p21Btn) p21Btn.onclick = () => setP21Active(!p21Active);
+
+    [['close-episodic-btn', 'episodic-overlay'],
+     ['close-p21-replay-btn', 'p21-replay-overlay'],
+     ['close-p21-consol-btn', 'p21-consolidation-overlay'],
+     ['close-p21-transfer-btn', 'p21-transfer-overlay']].forEach(([btnId, ovId]) => {
+      const btn = document.getElementById(btnId);
+      if (btn) {
+        btn.onclick = () => {
+          p21Closed.add(ovId);
+          const el = document.getElementById(ovId);
+          if (el) el.style.display = 'none';
+        };
+      }
+    });
 
     document.getElementById('focus-act0-btn').onclick = () => focusCameraOnAction(0);
     document.getElementById('focus-act1-btn').onclick = () => focusCameraOnAction(1);

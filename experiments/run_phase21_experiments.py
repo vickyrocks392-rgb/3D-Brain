@@ -561,7 +561,3 @@ def holm_bonferroni(pvalues: Dict[str, float], alpha: float = 0.05) -> Dict[str,
 
 if __name__ == "__main__":
     main()
-
-
-if __name__ == "__main__":
-    main()

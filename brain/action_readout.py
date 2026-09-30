@@ -36,6 +36,7 @@ import numpy as np
 
 
 from brain.synaptic_consolidation import ConsolidationMode, SynapticConsolidationModule
+from brain.modular_routing import ModularActionReadout, RoutingCondition
 
 
 class InputRepresentationType(str, Enum):
@@ -222,6 +223,10 @@ class ActionReadout:
             seed=seed,
         )
 
+        # Context-Gated Modular Routing Subsystem (Phase 20 Track A)
+        self.routing_condition: RoutingCondition = RoutingCondition.A0_SHARED_LINEAR
+        self.modular_readout: Optional[ModularActionReadout] = None
+
     def _init_synapse_records(self) -> None:
         """Create structured records for synapse inspection."""
         for j in range(self.input_dim):
@@ -242,6 +247,8 @@ class ActionReadout:
     def freeze(self, freeze_state: bool = True) -> None:
         """Freeze or unfreeze readout plasticity."""
         self.is_frozen = freeze_state
+        if self.modular_readout is not None:
+            self.modular_readout.set_frozen(freeze_state)
 
     def lesion(self, action_target: Optional[int] = None, fraction: float = 1.0) -> None:
         """Lesion action readout connections."""
@@ -272,6 +279,8 @@ class ActionReadout:
         self.retro_history.clear()
         self.last_weight_delta.fill(0.0)
         self.consolidation_module.reset()
+        if self.modular_readout is not None:
+            self.modular_readout.reset()
 
     def set_consolidation_mode(self, mode: Union[ConsolidationMode, str], **kwargs) -> None:
         """Configure active synaptic consolidation mechanism."""
@@ -281,6 +290,31 @@ class ActionReadout:
             input_dim=self.input_dim,
             num_actions=self.num_actions,
             mode=mode,
+            seed=self.seed,
+            **kwargs,
+        )
+        if self.modular_readout is not None:
+            self.modular_readout.set_consolidation_mode(mode, **kwargs)
+
+    def set_routing_mode(
+        self,
+        condition: Union[RoutingCondition, str],
+        num_branches: int = 3,
+        **kwargs,
+    ) -> None:
+        """Configure context-gated modular routing condition."""
+        if isinstance(condition, str):
+            condition = RoutingCondition(condition)
+        self.routing_condition = condition
+        self.modular_readout = ModularActionReadout(
+            input_dim=self.input_dim,
+            num_actions=self.num_actions,
+            num_branches=1 if condition == RoutingCondition.A0_SHARED_LINEAR else num_branches,
+            routing_condition=condition,
+            lr=self.lr,
+            tau_eligibility_ms=self.tau_eligibility_ms,
+            dt_ms=self.dt_ms,
+            consolidation_mode=self.consolidation_module.mode,
             seed=self.seed,
             **kwargs,
         )
@@ -311,11 +345,13 @@ class ActionReadout:
             res = substrate_state.get("resonance_features", np.zeros(self.input_dim))
             raw = np.asarray(res, dtype=np.float32).flatten()
         else:  # I6_COMBINED_TEMPORAL (Default)
-            # Structured fusion of context, bursts, temporal features, and NMDA conductance
-            ctx = substrate_state.get("context_vector", np.zeros(min(20, self.input_dim)))
+            # Structured fusion of sensory cues, context, temporal features, and NMDA conductance
+            sensory = substrate_state.get("sensory_input", np.zeros(8, dtype=np.float32))
+            ctx = substrate_state.get("context_vector", np.zeros(min(12, self.input_dim)))
+            norm_ctx = np.clip((ctx.flatten()[:12] + 70.0) / 20.0, -1.0, 1.0)
             nmda = substrate_state.get("g_nmda", np.zeros(min(10, self.input_dim)))
             temp = substrate_state.get("temporal_population", np.zeros(min(10, self.input_dim)))
-            raw = np.concatenate([ctx.flatten(), nmda.flatten()[:10], temp.flatten()[:10]])
+            raw = np.concatenate([sensory.flatten()[:8], norm_ctx, nmda.flatten()[:10], temp.flatten()[:10]])
 
         # Dimension match: zero-pad or truncate to input_dim
         if len(raw) < self.input_dim:
@@ -334,17 +370,30 @@ class ActionReadout:
         self,
         substrate_state: Dict[str, Any],
         v_dend: Optional[np.ndarray] = None,
+        oracle_context_id: Optional[int] = None,
+        is_choice_step: bool = False,
     ) -> np.ndarray:
         """Compute feedforward evidence for action populations.
         
         Args:
             substrate_state: dictionary containing upstream brain representations
             v_dend: optional dendritic compartment potentials of action neurons
+            oracle_context_id: optional context id for oracle routing control (A5)
+            is_choice_step: whether this step is an action choice step
             
         Returns:
             drives: [num_actions] continuous evidence driving action assemblies
         """
         x = self.format_input_representation(substrate_state)
+
+        # Delegate to Modular Readout if active
+        if self.modular_readout is not None:
+            drives = self.modular_readout.forward(
+                x, v_dend=v_dend, oracle_context_id=oracle_context_id, is_choice_step=is_choice_step
+            )
+            self.last_drives = drives.astype(np.float32)
+            return self.last_drives
+
         w_base = self.consolidation_module.compute_effective_weights(self.weights)
         w_eff = w_base * self.lesion_mask
 
@@ -547,6 +596,32 @@ class ActionReadout:
 
         x = self.format_input_representation(substrate_state)
         K = self.num_actions
+
+        # Delegate to Modular Readout if active
+        if self.modular_readout is not None:
+            self.modular_readout.update_eligibility(x, action_probs, v_dend=v_dend)
+            teaching = self.compute_teaching_signals(
+                target_action=target_action,
+                reward=reward,
+                action_probs=action_probs,
+                v_dend=v_dend,
+            )
+            retrograde = self.compute_retrograde_signals(
+                action_activations=action_activations,
+                v_dend=v_dend,
+            )
+            routing_telem = self.modular_readout.step_plasticity(
+                x=x,
+                teaching_signal=teaching,
+                reward=reward,
+                is_reward_step=is_reward_step,
+            )
+            active_b = self.modular_readout.branches[self.modular_readout.last_active_branch]
+            self.last_weight_delta = active_b.last_delta_w.copy()
+            self._update_synapse_records(teaching, retrograde, np.zeros_like(self.weights), self.last_weight_delta, target_action)
+            telemetry = self._compute_credit_telemetry(target_action)
+            telemetry.update({f"routing_{k}": v for k, v in routing_telem.items()})
+            return telemetry
 
         # 1. Update eligibility traces: e_jk(t)
         # e_jk = decay * e_jk + x_j * y_k

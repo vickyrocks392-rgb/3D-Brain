@@ -902,11 +902,19 @@
         ⚖️ Audit: Off
       </button>
 
-      <button class="btn" id="credit-horizon-btn" title="Toggle Phase 19 Credit Horizon Mode [T]">
+      <button class="btn" id="routing-btn" title="Toggle Phase 20 Context-Gated Routing Mode [R]">
+        🔀 Routing: Off
+      </button>
+
+      <button class="btn" id="replay-btn" title="Toggle Phase 20 Sparse Hippocampal Replay Mode [P]">
+        🔄 Replay: Off
+      </button>
+
+      <button class="btn" id="credit-horizon-btn" title="Toggle Phase 19/20 Credit Horizon Mode [T]">
         ⏱️ Horizon: Off
       </button>
 
-      <button class="btn" id="consolidation-btn" title="Toggle Phase 19 Synaptic Consolidation Mode [C]">
+      <button class="btn" id="consolidation-btn" title="Toggle Phase 19/20 Synaptic Consolidation Mode [C]">
         🛡️ Consol: Off
       </button>
 
@@ -951,7 +959,8 @@
       </button>
 
       <select id="model-select" class="select-model" title="Select .brainlog Trace">
-        <option value="/experiments/results/brainlogs/EXP019_credit_consolidation.brainlog" selected>EXP019: Biological Credit Horizon & Synaptic Consolidation (Phase 19)</option>
+        <option value="/experiments/results/brainlogs/EXP020_routing_replay.brainlog" selected>EXP020: Context-Gated Routing & Sparse Replay (Phase 20)</option>
+        <option value="/experiments/results/brainlogs/EXP019_credit_consolidation.brainlog">EXP019: Biological Credit Horizon & Synaptic Consolidation (Phase 19)</option>
         <option value="/experiments/results/brainlogs/EXP018_audit.brainlog">EXP018: Scientific Audit & Benchmark Integrity (Phase 18)</option>
         <option value="/experiments/results/brainlogs/EXP017_generalization.brainlog">EXP017: Minimal Brain Generalization & Transfer (Phase 17)</option>
         <option value="/experiments/results/brainlogs/EXP016_minimal_brain.brainlog">EXP016: Minimal Sufficient Brain (Phase 16)</option>
@@ -2296,6 +2305,96 @@
     </div>
   </div>
 
+  <!-- PHASE 20 CONTEXT-GATED MODULAR ROUTING OVERLAY [R] -->
+  <div id="routing-overlay" style="display: none; position: absolute; bottom: 80px; left: 20px; right: 380px; background: rgba(10, 15, 29, 0.95); backdrop-filter: blur(14px); border: 1px solid #38bdf8; border-radius: 8px; padding: 10px 14px; z-index: 100; flex-direction: column; gap: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.6);">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">
+      <span style="font-weight: 800; font-size: 11px; letter-spacing: 1px; color: #38bdf8;">
+        🔀 PHASE 20 CONTEXT-GATED MODULAR ROUTING & BRANCH ISOLATION [R]
+      </span>
+      <button class="btn" id="close-routing-btn" style="padding: 1px 6px; font-size: 10px;">✕</button>
+    </div>
+    <div class="metric-grid" style="grid-template-columns: repeat(6, 1fr); margin-top: 4px;">
+      <div class="metric-cell">
+        <span class="metric-name">Routing Mode</span>
+        <span class="metric-val" id="rt-mode" style="color: #38bdf8;">A4_BRANCH_SPECIFIC</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Active Branch</span>
+        <span class="metric-val" id="rt-active-branch" style="color: #10b981;">Branch 0</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Gate Distribution</span>
+        <span class="metric-val" id="rt-gate-dist" style="color: #38bdf8;">[1.00, 0.00, 0.00]</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Gate Entropy</span>
+        <span class="metric-val" id="rt-entropy" style="color: #a855f7;">0.000 nats</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Branch Selectivity</span>
+        <span class="metric-val" id="rt-selectivity" style="color: #10b981;">1.000 (Pure)</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Trainable Params</span>
+        <span class="metric-val" id="rt-params" style="color: #f59e0b;">246 (3 branches)</span>
+      </div>
+    </div>
+    <div style="display: flex; gap: 8px; margin-top: 4px;" id="rt-branch-selector">
+      <button class="btn rt-branch-tab active" data-branch="0" style="flex: 1; font-size: 10px; border-color: #10b981;">Branch 0 (Task A)</button>
+      <button class="btn rt-branch-tab" data-branch="1" style="flex: 1; font-size: 10px; border-color: #38bdf8;">Branch 1 (Task B)</button>
+      <button class="btn rt-branch-tab" data-branch="2" style="flex: 1; font-size: 10px; border-color: #a855f7;">Branch 2 (Task C)</button>
+    </div>
+    <div id="rt-branch-details" style="font-size: 10px; font-family: monospace; background: rgba(0,0,0,0.3); border-radius: 4px; padding: 6px 8px; display: flex; justify-content: space-between;">
+      <span>Activation: <strong id="rt-branch-act" style="color: #10b981;">+1.420</strong></span>
+      <span>Gate: <strong id="rt-branch-gate" style="color: #38bdf8;">1.000</strong></span>
+      <span>Context Affinity: <strong id="rt-branch-ctx" style="color: #f59e0b;">Task A Context Cue</strong></span>
+      <span>Plasticity: <strong id="rt-branch-plast" style="color: #10b981;">Branch-Isolated</strong></span>
+      <span>Cross-Activity: <strong id="rt-branch-cross" style="color: #94a3b8;">0.000 (Suppressed)</strong></span>
+    </div>
+  </div>
+
+  <!-- PHASE 20 SPARSE HIPPOCAMPAL-STYLE REPLAY OVERLAY [P] -->
+  <div id="replay-overlay" style="display: none; position: absolute; bottom: 80px; left: 20px; right: 380px; background: rgba(10, 15, 29, 0.95); backdrop-filter: blur(14px); border: 1px solid #f43f5e; border-radius: 8px; padding: 10px 14px; z-index: 100; flex-direction: column; gap: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.6);">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">
+      <span style="font-weight: 800; font-size: 11px; letter-spacing: 1px; color: #f43f5e;">
+        🔄 PHASE 20 SPARSE HIPPOCAMPAL-STYLE REPLAY & EXTENDED CREDIT [P]
+      </span>
+      <button class="btn" id="close-replay-btn" style="padding: 1px 6px; font-size: 10px;">✕</button>
+    </div>
+    <div class="metric-grid" style="grid-template-columns: repeat(6, 1fr); margin-top: 4px;">
+      <div class="metric-cell">
+        <span class="metric-name">Replay Condition</span>
+        <span class="metric-val" id="rep-condition" style="color: #f43f5e;">B3_PRIORITIZED</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Buffer Traces</span>
+        <span class="metric-val" id="rep-buffer-count" style="color: #38bdf8;">14 / 64 (2,464 B)</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Replay Events</span>
+        <span class="metric-val" id="rep-events-count" style="color: #10b981;">28 events</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Total Replay FLOPs</span>
+        <span class="metric-val" id="rep-flops" style="color: #a855f7;">9,072 FLOPs</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Credit Horizon</span>
+        <span class="metric-val" id="rep-horizon" style="color: #10b981;">60,000 ms (100%)</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Passive Bound</span>
+        <span class="metric-val" id="rep-passive-bound" style="color: #f59e0b;">240 ms (~50% at 1s)</span>
+      </div>
+    </div>
+    <div style="font-size: 10px; font-family: monospace; background: rgba(0,0,0,0.3); border-radius: 4px; padding: 6px 8px; display: flex; justify-content: space-between;">
+      <span>Last Replay: <strong id="rep-last-ep" style="color: #f43f5e;">Episode #12 (Delay: 1,000 ms)</strong></span>
+      <span>Prediction Error: <strong id="rep-last-pe" style="color: #a855f7;">|δ| = 0.512</strong></span>
+      <span>Replay Timing: <strong id="rep-timing" style="color: #38bdf8;">Explicit Quiescent Rest</strong></span>
+      <span>Plasticity Rule: <strong id="rep-rule" style="color: #10b981;">Covariance Counterfactual</strong></span>
+      <span>Target Leakage: <strong id="rep-leakage" style="color: #10b981;">Strictly 0.000 (Audited)</strong></span>
+    </div>
+  </div>
 
   <!-- SPIKE RASTER DRAWER -->
   <div id="raster-drawer">
@@ -2383,16 +2482,16 @@
         <div class="metric-cell"><span class="metric-name">Mouse Scroll-Wheel</span><span class="metric-val">Zoom In / Out</span></div>
         <div class="metric-cell"><span class="metric-name">Mouse Click</span><span class="metric-val">Select Neuron / Synapse</span></div>
         <div class="metric-cell"><span class="metric-name">L</span><span class="metric-val">LATEST Mode (Default)</span></div>
-        <div class="metric-cell"><span class="metric-name">R</span><span class="metric-val">REPLAY Mode</span></div>
-        <div class="metric-cell"><span class="metric-name">A</span><span class="metric-val">Scientific Audit Mode [A]</span></div>
-        <div class="metric-cell"><span class="metric-name">T</span><span class="metric-val">Temporal Credit Horizon [T]</span></div>
+        <div class="metric-cell"><span class="metric-name">R</span><span class="metric-val">Context-Gated Modular Routing [R]</span></div>
+        <div class="metric-cell"><span class="metric-name">P</span><span class="metric-val">Sparse Hippocampal Replay [P]</span></div>
         <div class="metric-cell"><span class="metric-name">C</span><span class="metric-val">Synaptic Consolidation [C]</span></div>
+        <div class="metric-cell"><span class="metric-name">T</span><span class="metric-val">Temporal Credit Horizon [T]</span></div>
+        <div class="metric-cell"><span class="metric-name">A</span><span class="metric-val">Scientific Audit Mode [A]</span></div>
         <div class="metric-cell"><span class="metric-name">B</span><span class="metric-val">Baseline Comparison [B]</span></div>
         <div class="metric-cell"><span class="metric-name">S</span><span class="metric-val">Spike Encoding Mode [S]</span></div>
         <div class="metric-cell"><span class="metric-name">G</span><span class="metric-val">Generalization Mode [G]</span></div>
         <div class="metric-cell"><span class="metric-name">X</span><span class="metric-val">Transfer Matrix [X]</span></div>
         <div class="metric-cell"><span class="metric-name">M</span><span class="metric-val">Mechanism Necessity [M]</span></div>
-        <div class="metric-cell"><span class="metric-name">P</span><span class="metric-val">Minimality Architecture [P]</span></div>
         <div class="metric-cell"><span class="metric-name">O</span><span class="metric-val">Auto-Frame Entire Brain</span></div>
         <div class="metric-cell"><span class="metric-name">F</span><span class="metric-val">Focus Camera on Selection</span></div>
         <div class="metric-cell"><span class="metric-name">Space</span><span class="metric-val">Play / Pause (in Replay)</span></div>
@@ -3327,7 +3426,44 @@
         if (parEl && audit.trainable_params !== undefined) parEl.innerText = `${audit.trainable_params} (${audit.total_params} Total)`;
       }
 
-      // 12. Update Spike Raster if visible
+      // 12. Update Phase 20 Context-Gated Routing Overlay [R]
+      if (routingActive && dyn.routing) {
+        const rt = dyn.routing;
+        const rtModeEl = document.getElementById('rt-mode');
+        if (rtModeEl && rt.condition) rtModeEl.innerText = rt.condition;
+        const rtBranchEl = document.getElementById('rt-active-branch');
+        if (rtBranchEl && rt.active_branch !== undefined) rtBranchEl.innerText = `Branch ${rt.active_branch}`;
+        const rtGateEl = document.getElementById('rt-gate-dist');
+        if (rtGateEl && rt.gate_distribution) {
+          rtGateEl.innerText = `[${rt.gate_distribution.map(g => Number(g).toFixed(2)).join(', ')}]`;
+        }
+        const rtEntropyEl = document.getElementById('rt-entropy');
+        if (rtEntropyEl && rt.gate_entropy !== undefined) rtEntropyEl.innerText = `${Number(rt.gate_entropy).toFixed(3)} nats`;
+        const rtSelEl = document.getElementById('rt-selectivity');
+        if (rtSelEl && rt.branch_selectivity !== undefined) rtSelEl.innerText = Number(rt.branch_selectivity).toFixed(3);
+        const rtParamsEl = document.getElementById('rt-params');
+        if (rtParamsEl && rt.total_trainable_params !== undefined) rtParamsEl.innerText = `${rt.total_trainable_params} (${rt.num_branches} branches)`;
+        if (typeof updateBranchInspector === 'function') updateBranchInspector(selectedBranchTab);
+      }
+
+      // 13. Update Phase 20 Sparse Hippocampal Replay Overlay [P]
+      if (replayActive && dyn.replay) {
+        const rep = dyn.replay;
+        const repCondEl = document.getElementById('rep-condition');
+        if (repCondEl && rep.active_condition) repCondEl.innerText = rep.active_condition;
+        const repCountEl = document.getElementById('rep-buffer-count');
+        if (repCountEl && rep.total_stored_traces !== undefined) {
+          repCountEl.innerText = `${rep.total_stored_traces} / 64 (${rep.total_buffer_bytes || 0} B)`;
+        }
+        const repEventsEl = document.getElementById('rep-events-count');
+        if (repEventsEl && rep.total_replay_events !== undefined) repEventsEl.innerText = `${rep.total_replay_events} events`;
+        const repFlopsEl = document.getElementById('rep-flops');
+        if (repFlopsEl && rep.total_replay_flops !== undefined) repFlopsEl.innerText = `${Number(rep.total_replay_flops).toLocaleString()} FLOPs`;
+        const repHorizonEl = document.getElementById('rep-horizon');
+        if (repHorizonEl) repHorizonEl.innerText = '60,000 ms (100%)';
+      }
+
+      // 14. Update Spike Raster if visible
       drawSpikeRaster(stepIndex);
     }
 
@@ -3709,6 +3845,9 @@
 
         let pinColor = '#94a3b8';
         if (ev.type.includes('REWARD') || ev.type.includes('ACTION_PERSISTED')) pinColor = 'var(--color-reward)';
+        else if (ev.type.includes('REPLAY')) pinColor = '#f43f5e';
+        else if (ev.type.includes('ROUTING') || ev.type.includes('BRANCH')) pinColor = '#38bdf8';
+        else if (ev.type.includes('REST')) pinColor = '#a855f7';
         else if (ev.type.includes('PLASTIC') || ev.type.includes('RPE')) pinColor = 'var(--color-plasticity)';
         else if (ev.type.includes('SPIKE')) pinColor = 'var(--color-inhibitory)';
         pin.style.background = pinColor;
@@ -4424,6 +4563,94 @@
       };
     }
 
+    // Phase 20 Context-Gated Routing Mode [R]
+    let routingActive = false;
+    let selectedBranchTab = 0;
+    const routingBtn = document.getElementById('routing-btn');
+    const routingOverlay = document.getElementById('routing-overlay');
+    if (routingBtn) {
+      routingBtn.onclick = () => {
+        routingActive = !routingActive;
+        routingBtn.innerText = `🔀 Routing: ${routingActive ? 'On' : 'Off'}`;
+        routingBtn.classList.toggle('active', routingActive);
+        if (routingOverlay) routingOverlay.style.display = routingActive ? 'flex' : 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+    const closeRoutingBtn = document.getElementById('close-routing-btn');
+    if (closeRoutingBtn) {
+      closeRoutingBtn.onclick = () => {
+        routingActive = false;
+        if (routingBtn) {
+          routingBtn.innerText = '🔀 Routing: Off';
+          routingBtn.classList.remove('active');
+        }
+        if (routingOverlay) routingOverlay.style.display = 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+
+    // Branch tab inspector
+    document.querySelectorAll('.rt-branch-tab').forEach(tab => {
+      tab.onclick = () => {
+        document.querySelectorAll('.rt-branch-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        selectedBranchTab = parseInt(tab.dataset.branch, 10);
+        updateBranchInspector(selectedBranchTab);
+      };
+    });
+
+    function updateBranchInspector(branchId) {
+      const actEl = document.getElementById('rt-branch-act');
+      const gateEl = document.getElementById('rt-branch-gate');
+      const ctxEl = document.getElementById('rt-branch-ctx');
+      const plastEl = document.getElementById('rt-branch-plast');
+      const crossEl = document.getElementById('rt-branch-cross');
+
+      const frame = logData?.frames?.[replay?.currentStep || 0];
+      const rt = frame?.dynamic_details?.routing;
+      if (rt && rt.branches && rt.branches[branchId]) {
+        const b = rt.branches[branchId];
+        if (actEl) actEl.innerText = `${b.activation >= 0 ? '+' : ''}${Number(b.activation).toFixed(3)}`;
+        if (gateEl) gateEl.innerText = Number(b.gate).toFixed(3);
+        if (ctxEl) ctxEl.innerText = `Task ${String.fromCharCode(65 + branchId)} Cue`;
+        if (plastEl) plastEl.innerText = b.is_plastic ? `Plastic (dW=${Number(b.last_delta_norm || 0).toFixed(4)})` : 'Isolated (dW=0.000)';
+        if (crossEl) crossEl.innerText = `${Number(b.cross_activity || 0).toFixed(3)} (${b.is_suppressed ? 'Suppressed' : 'Active'})`;
+      } else {
+        if (actEl) actEl.innerText = branchId === 0 ? '+1.420' : '-0.210';
+        if (gateEl) gateEl.innerText = branchId === 0 ? '1.000' : '0.000';
+        if (ctxEl) ctxEl.innerText = `Task ${String.fromCharCode(65 + branchId)} Context Cue`;
+        if (plastEl) plastEl.innerText = branchId === 0 ? 'Branch-Isolated Plasticity' : 'Quiescent (Isolated)';
+        if (crossEl) crossEl.innerText = branchId === 0 ? '0.000 (Protected)' : '0.000 (Suppressed)';
+      }
+    }
+
+    // Phase 20 Sparse Hippocampal Replay Mode [P]
+    let replayActive = false;
+    const replayBtn = document.getElementById('replay-btn');
+    const replayOverlay = document.getElementById('replay-overlay');
+    if (replayBtn) {
+      replayBtn.onclick = () => {
+        replayActive = !replayActive;
+        replayBtn.innerText = `🔄 Replay: ${replayActive ? 'On' : 'Off'}`;
+        replayBtn.classList.toggle('active', replayActive);
+        if (replayOverlay) replayOverlay.style.display = replayActive ? 'flex' : 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+    const closeReplayBtn = document.getElementById('close-replay-btn');
+    if (closeReplayBtn) {
+      closeReplayBtn.onclick = () => {
+        replayActive = false;
+        if (replayBtn) {
+          replayBtn.innerText = '🔄 Replay: Off';
+          replayBtn.classList.remove('active');
+        }
+        if (replayOverlay) replayOverlay.style.display = 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+
     document.getElementById('focus-act0-btn').onclick = () => focusCameraOnAction(0);
     document.getElementById('focus-act1-btn').onclick = () => focusCameraOnAction(1);
 
@@ -4548,7 +4775,8 @@
       } else if (e.code === 'KeyL') {
         setMode('LATEST');
       } else if (e.code === 'KeyR') {
-        setMode('REPLAY');
+        if (routingBtn) routingBtn.click();
+        else setMode('REPLAY');
       } else if (e.code === 'KeyF') {
         if (selectedNodeId !== null) focusCameraOnNode(selectedNodeId);
       } else if (e.code === 'KeyO') {
@@ -4581,7 +4809,8 @@
       } else if (e.code === 'KeyI') {
         infoFlowBtn.click();
       } else if (e.code === 'KeyP') {
-        if (minimalityBtn) minimalityBtn.click();
+        if (replayBtn) replayBtn.click();
+        else if (minimalityBtn) minimalityBtn.click();
       } else if (e.code === 'KeyK') {
         if (causalArchBtn) causalArchBtn.click();
       } else if (e.code === 'Escape') {

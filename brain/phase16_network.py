@@ -129,6 +129,10 @@ class Phase16Network(Phase15Network):
         # Audit events
         self.recent_computational_events: List[ComputationalEvent] = []
 
+        # Phase 20 Replay Buffer Subsystem
+        self.replay_buffer: Optional[Any] = None
+        self.replay_condition: Optional[Any] = None
+
         # Apply preset configuration
         self.apply_preset(preset)
 
@@ -235,6 +239,102 @@ class Phase16Network(Phase15Network):
     def set_consolidation_mode(self, mode: Any, **kwargs) -> None:
         """Set active synaptic consolidation mechanism on action readout."""
         self.action_readout.set_consolidation_mode(mode, **kwargs)
+
+    def set_routing_mode(self, condition: Any, num_branches: int = 3, **kwargs) -> None:
+        """Set active context-gated modular routing condition on action readout."""
+        self.action_readout.set_routing_mode(condition, num_branches=num_branches, **kwargs)
+
+    def set_replay_buffer(
+        self,
+        buffer: Any,
+        condition: Any = "B0_NO_REPLAY",
+    ) -> None:
+        """Attach hippocampal episodic replay buffer and active condition."""
+        from brain.hippocampal_replay import ReplayCondition
+        self.replay_buffer = buffer
+        self.replay_condition = ReplayCondition(condition) if isinstance(condition, str) else condition
+
+    def step_quiescent_rest(
+        self,
+        rest_steps: int = 10,
+        condition: Optional[Any] = None,
+        budget: Optional[int] = None,
+    ) -> Dict[str, Any]:
+        """Execute quiescent rest period with sparse counterfactual replay."""
+        from brain.hippocampal_replay import ReplayCondition
+        from brain.modular_routing import RoutingCondition
+        cond = self.replay_condition if condition is None else (ReplayCondition(condition) if isinstance(condition, str) else condition)
+        if cond is None:
+            cond = ReplayCondition.B0_NO_REPLAY
+
+        # 1. Step through silent rest steps without sensory input or external reward
+        for _ in range(rest_steps):
+            x_rest = np.zeros(self.input_dim, dtype=np.float32)
+            self.step(x_rest, reward=0.0)
+
+        # 2. Check if replay is attached and enabled
+        if self.replay_buffer is None or cond == ReplayCondition.B0_NO_REPLAY:
+            return {
+                "rest_steps": rest_steps,
+                "replayed_events_count": 0,
+                "replay_flops": 0,
+                "condition": cond.value,
+            }
+
+        batch = self.replay_buffer.sample_replay_batch(cond, budget=budget)
+        flops_per_event = 4 * self.readout_input_dim * self.output_dim + 2 * self.output_dim
+        total_flops = len(batch) * flops_per_event
+        self.replay_buffer.total_replay_events += len(batch)
+        self.replay_buffer.total_replay_flops += total_flops
+
+        # 3. Apply counterfactual synaptic updates for each replayed trace
+        for trace in batch:
+            trace.is_replayed = True
+            trace.replay_count += 1
+            r_val = trace.reward_val
+            target_act = trace.target_action
+
+            # Compute teaching signal from saved trace
+            teaching = np.zeros(self.output_dim, dtype=np.float32)
+            if target_act is not None and 0 <= target_act < self.output_dim:
+                teaching.fill(-1.0 / max(1, self.output_dim - 1))
+                teaching[target_act] = 1.0
+                pe = max(0.1, float(trace.prediction_error))
+                teaching *= pe
+            else:
+                teaching.fill(float(r_val))
+
+            # Zero-center context vector to implement biophysical covariance plasticity rule
+            cv_centered = trace.context_vector - np.mean(trace.context_vector)
+            replay_elig = np.outer(cv_centered, teaching)
+            if self.action_readout.modular_readout is not None:
+                self.action_readout.modular_readout.step_plasticity(
+                    x=trace.context_vector,
+                    teaching_signal=teaching,
+                    reward=r_val,
+                    is_reward_step=True,
+                    replay_eligibility=replay_elig,
+                )
+                self.action_readout.weights = self.action_readout.modular_readout.branches[0].weights.copy()
+            else:
+                raw_delta = self.action_readout.lr * replay_elig
+                delta_w, _ = self.action_readout.consolidation_module.modulate_plasticity_step(
+                    base_weights=self.action_readout.weights,
+                    raw_delta_w=raw_delta,
+                    eligibility=np.abs(replay_elig),
+                    teaching_signal=teaching,
+                    reward=r_val,
+                    is_reward_step=True,
+                )
+                self.action_readout.weights += delta_w * self.action_readout.lesion_mask
+                self.action_readout.weights = np.clip(self.action_readout.weights, self.action_readout.w_min, self.action_readout.w_max)
+
+        return {
+            "rest_steps": rest_steps,
+            "replayed_events_count": len(batch),
+            "replay_flops": total_flops,
+            "condition": cond.value,
+        }
 
     def set_frozen(self, frozen: bool) -> None:
         """Freeze or unfreeze synaptic plasticity."""
@@ -446,6 +546,7 @@ class Phase16Network(Phase15Network):
         # Substrate state packaging for readout
         raster_arr = np.array(self.action_raster_history) if len(self.action_raster_history) > 0 else np.zeros((1, len(spikes)))
         substrate_state = {
+            "sensory_input": x.copy(),
             "context_vector": ctx_vector,
             "v_soma": soma_v,
             "v_dend": dend_v,
@@ -460,7 +561,9 @@ class Phase16Network(Phase15Network):
 
         # 4. Action Readout Forward Pass
         action_dend_v = np.array([np.mean(dend_v[:len(dend_v)//2]), np.mean(dend_v[len(dend_v)//2:])])[:self.output_dim]
-        readout_drives = self.action_readout.forward(substrate_state, v_dend=action_dend_v)
+        readout_drives = self.action_readout.forward(
+            substrate_state, v_dend=action_dend_v, oracle_context_id=ctx_val, is_choice_step=is_choice_step
+        )
 
         # Target Routing Ablation (Mechanism L)
         if not self.is_mechanism_active(Phase16Mechanism.L_TARGET_ACTION_ROUTING):

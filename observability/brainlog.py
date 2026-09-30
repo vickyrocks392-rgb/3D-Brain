@@ -22,7 +22,7 @@ class BrainLog:
         frames: List[TelemetryFrame],
         events: List[ComputationalEvent],
         snapshots: Dict[int, dict],
-        version: str = "3.3",
+        version: str = "3.4",
     ):
         self.version = version
         self.metadata = metadata
@@ -67,8 +67,12 @@ class BrainLogValidator:
             data = filepath_or_dict
 
         version = data.get("brainlog_version")
-        if version not in ["1.0", "2.0", "2.1", "2.2", "2.3", "2.4", "2.5", "2.6", "2.7", "2.8", "2.9", "3.0", "3.1", "3.2", "3.3"]:
-            return False, f"Missing, incompatible or unsupported brainlog_version '{version}' (expected '1.0' through '3.3')"
+        valid_versions = [
+            "1.0", "2.0", "2.1", "2.2", "2.3", "2.4", "2.5", "2.6", "2.7", "2.8",
+            "2.9", "3.0", "3.1", "3.2", "3.3", "3.4"
+        ]
+        if version not in valid_versions:
+            return False, f"Missing, incompatible or unsupported brainlog_version '{version}' (expected '1.0' through '3.4')"
 
         if "metadata" not in data or not isinstance(data["metadata"], dict):
             return False, "Missing or invalid 'metadata' object"

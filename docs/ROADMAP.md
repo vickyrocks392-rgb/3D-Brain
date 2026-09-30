@@ -25,7 +25,11 @@ Phase 8: Balanced Excitation/Inhibition & Asynchronous-Irregular Regimes (COMPLE
    ↓
 Phase 9: Three-Factor Credit Assignment & Active Functional Reorganization (COMPLETE - AUDITED NEGATIVE RESULTS)
    ↓
-Phase 10: Dendritic Compartmentalization, Slow NMDA Conductances & Spatial Feedback Alignment (RECOMMENDED)
+Phase 16: Minimal Sufficient Brain & Architectural Pruning (COMPLETE - CANDIDATE MIN_E ISOLATED)
+   ↓
+Phase 17: Multi-Task Generalization & Transfer Matrix (COMPLETE - 6 TASK FAMILIES EVALUATED)
+   ↓
+Phase 18: Scientific Audit, Reproducibility & Benchmark Integrity (COMPLETE - 12 DIMENSION AUDIT EXECUTED)
 ```
 
 ---
@@ -232,8 +236,20 @@ Phase 10: Dendritic Compartmentalization, Slow NMDA Conductances & Spatial Feedb
 
 ---
 
-## Phase 10: Dendritic Compartmentalization, Slow NMDA Conductances & Spatial Feedback Alignment
-* **Status**: **RECOMMENDED (PENDING AUTHORIZATION)**
-* **Objective**: Decouple feedforward sensory drive from top-down teaching signals using two-compartment (somatic + dendritic) neurons, introduce slow NMDA-like conductances to maintain working memory attractors across long delays, and replace scalar global RPE with targeted spatial feedback alignment.
+## Phase 18: Scientific Audit, Reproducibility & Benchmark Integrity
+* **Status**: **COMPLETE (HEADLINE CLAIMS FALSIFIED & RE-ESTABLISHED)**
+* **Objective**: Subject all Phase 17 headline claims to rigorous, independent falsification testing across 12 dimensions: temporal extrapolation, task leakage, matched controls, catastrophic forgetting, compositional novelty, distractor noise, information metrics, parameter accounting, scaling operations, mechanism necessity, blinded causal interventions, and frozen architectural generalization.
+* **Key Findings**:
+  * [x] **5000 ms Horizon Extrapolation (FALSIFIED / IMPLEMENTATION ARTIFACT)**: Original 100% result was caused by continuous supervision leakage ($M_k(t) = \pm 1$) during delay steps; un-leaked accuracy collapses to chance ($42.7\% \pm 1.9\%$).
+  * [x] **100K Throughput Benchmark (FALSIFIED / METRICALLY INVALID)**: Clamped dimension bug `min(N, 120)` in benchmark harness inflated operations; real measured execution achieves $220.9\text{ steps/s}$ ($441.8\text{M syn-ops/s}$) and $43.2\text{ MB}$ delta RSS.
+  * [x] **Catastrophic Forgetting (FALSIFIED / METRICALLY INVALID)**: Retention ratio $1.00$ was an artifact of dividing chance accuracy by chance accuracy ($0.50 / 0.50$); when Task A is genuinely learned ($83.3\%$), subsequent learning of Task B causes severe forgetting (retention $0.20$, Task A collapses to $16.7\%$).
+  * [x] **Compositional Generalization (FALSIFIED / IMPLEMENTATION ARTIFACT)**: Test evaluation had online plasticity active and sensory input contained shortcut channel $x[4+\text{id}]=0.4$; true frozen zero-shot accuracy is sub-chance ($33.3\% \pm 3.8\%$).
+  * [x] **Surviving Biophysical Substrate**: Persistent NMDA conductances ($g_{\text{nmda}}$) genuinely preserve working memory across hundreds of milliseconds ($76.0\%$ held-out CV accuracy, $p < 0.01$). Dendritic eligibility and teaching reliably assign credit without global backpropagation over shorter horizons.
+* **Exit Gate Evaluation**:
+  * Baseline Reproduction: **PASS** (100% exact numerical match with reference Phase 17 code).
+  * Independent Falsification: **COMPLETE** (All 12 dimensions audited).
+  * Telemetry & Visualization: **PASS** (BrainLog v3.4 and 3D Observatory Audit mode [A] verified).
+  * Test Suite: **PASS** (275 tests passing, 0 failures).
+* **Transformer Alternative**: `RESEARCH ONGOING — NO FINAL ALTERNATIVE SELECTED`.
 
 

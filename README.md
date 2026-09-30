@@ -76,12 +76,20 @@ The foundation of 3D-Brain is comprehensively documented in the following charte
 * **[Experiment 007 Specification](file:///Users/kalachanddash/Documents/3D-Brain/experiments/EXPERIMENT_007_SPECIFICATION.md)**: Formal protocol investigating spiking dynamics, STDP, modularity emergence, oscillatory limit cycles, and synchronization-memory trade-offs.
 * **[Experiment 007 Results Report](file:///Users/kalachanddash/Documents/3D-Brain/experiments/EXPERIMENT_007_RESULTS.md)**: Empirical evaluation across 7 controls, 4 topologies, 3 tasks, 6 causal ablations, and $N=100\text{K}$ scaling ladder.
 * **[Phase 7 Implementation Report](file:///Users/kalachanddash/Documents/3D-Brain/docs/PHASE_7_IMPLEMENTATION_REPORT.md)**: Complete 26-section report detailing biophysical equations, empirical verifications, negative results, and exit-gate audit.
+* **[Phase 18 Audit Protocol](file:///Users/kalachanddash/Documents/3D-Brain/research/PHASE_18_AUDIT_PROTOCOL.md)**: Pre-registered audit protocol, falsification triggers, tolerances, and scientific classification standards.
+* **[Phase 18 Baseline Reproduction](file:///Users/kalachanddash/Documents/3D-Brain/research/PHASE_18_BASELINE_REPRODUCTION.md)**: 100% numerical reproduction of original Phase 17 baseline figures under reference conditions.
+* **[Phase 18 Scientific Results](file:///Users/kalachanddash/Documents/3D-Brain/research/PHASE_18_RESULTS.md)**: Master audit classification matrix, rigorous falsifications, and genuine surviving claims.
+* **[Phase 18 Information Metric Audit](file:///Users/kalachanddash/Documents/3D-Brain/research/PHASE_18_INFORMATION_METRIC_AUDIT.md)**: Cross-validation, finite-sample MI bias corrections, and probe leakage analysis.
+* **[Phase 18 Parameter Accounting](file:///Users/kalachanddash/Documents/3D-Brain/research/PHASE_18_PARAMETER_ACCOUNTING.md)**: Exhaustive accounting across plastic, fixed, structural parameters, and dynamic state variables.
+* **[Phase 18 Benchmark Scaling Audit](file:///Users/kalachanddash/Documents/3D-Brain/research/PHASE_18_BENCHMARK_AUDIT.md)**: Rigorous deconstruction and real measured execution of the 100K scaling benchmark.
+* **[Phase 18 Generalization Audit](file:///Users/kalachanddash/Documents/3D-Brain/research/PHASE_18_GENERALIZATION_AUDIT.md)**: Task generator audit, delay interval leakage, continual forgetting, and compositional novelty.
+* **[Phase 18 Mechanism Audit](file:///Users/kalachanddash/Documents/3D-Brain/research/PHASE_18_MECHANISM_AUDIT.md)**: Re-ablation across unseen task regimes and blinded causal interventions.
 
 ---
 
 ## 4. Running Benchmarks & 3D Visualization
 
-### Execute Automated Test Suite (113 Tests)
+### Execute Automated Test Suite (275 Tests)
 ```bash
 python3 -m pytest tests -v
 ```
@@ -236,9 +244,31 @@ Phase 9 investigated whether three-factor synaptic plasticity with eligibility t
 
 ---
 
-## 7. Next Steps
+---
 
-Phase 9 is **COMPLETE (AUDITED WITH HONEST NEGATIVE FINDINGS)**.
-* Recommended Next Phase: **Phase 10: Dendritic Compartmentalization, Slow NMDA Conductances, and Spatial Feedback Alignment** (Pending explicit user authorization).
+## 7. Phase 18 — Scientific Audit, Reproducibility & Benchmark Integrity
+
+Phase 18 executed an aggressive, independent audit to determine whether the headline claims of Phase 17 were genuine properties of the Phase 16 minimal brain (`MIN_E`) or artifacts of evaluation leakage, task-generator shortcuts, accounting errors, and metric bias.
+
+### 7.1 Master Audit Classifications
+
+| Dimension | Phase 17 Claim | Audited Reality | Classification | Root Cause / Mechanism |
+|:---|:---:|:---:|:---:|:---|
+| **5000 ms Extrapolation** | 100.0% Acc | **42.7% ± 1.9%** | **IMPLEMENTATION ARTIFACT** | Target action $M_k(t)$ leaked during delay steps, supervising readout prior to choice |
+| **100K Throughput** | 215.98B syn-ops/s | **441.8M syn-ops/s** | **METRICALLY INVALID** | Dim clamped via `min(N, 120)` in benchmark code; real measured: 220.9 step/s, 43.2 MB RSS |
+| **Catastrophic Forgetting** | 0.0% (Ret = 1.00) | **Retention = 0.20** | **METRICALLY INVALID** | Baseline Task A accuracy was at chance (50.0%); retraining Task B collapses Task A to 16.7% |
+| **Compositional Gen.** | 76.7% novel XOR | **33.3% ± 3.8%** | **IMPLEMENTATION ARTIFACT** | Online learning active during test + shortcut channel $x[4+\text{id}]=0.4$; collapses zero-shot |
+| **Distractor Robustness** | Robust (44.0%) | **Sub-chance (44.0%)** | **NOT REPRODUCED** | 44.0% is at or below binary 50% chance level under high noise |
+| **Parameter Parsimony** | 80 parameters | **82 plastic / 2,018 total** | **PARTIALLY REPRODUCED** | 80 weights + 2 biases; 1,920 fixed upstream synapses; 282 state variables |
+| **NMDA Context Retention** | Essential ($K$) | **76.0% Held-Out CV** | **ROBUSTLY REPRODUCED** | NMDA conductances ($g_{\text{nmda}}$) genuinely preserve working memory across hundreds of ms |
+| **Dendritic Credit ($B, C$)**| Essential | **Margin +2.545** | **ROBUSTLY REPRODUCED** | Dendritic eligibility and teaching solve delayed credit without global BPTT |
+| **Assembly Pruning ($F, G$)**| Redundant | **Hysteresis Confirmed** | **ROBUSTLY REPRODUCED** | Fast/Medium assemblies redundant; slow assembly causes hysteresis on fast tasks |
+
+### 7.2 Current Project Status & Recommendations
+
+* **Current Status**: **Phase 18 COMPLETE**.
+* **Transformer Alternative Status**: `RESEARCH ONGOING — NO FINAL ALTERNATIVE SELECTED`.
+* **Scientific Stance**: Falsified claims are formally downgraded. Genuine biophysical properties (persistent NMDA conductances, dendritic eligibility, local mutual inhibition) remain solid foundations.
+* **Phase 19 Recommendation**: Do not add speculative mechanisms. Focus on resolving the temporal credit assignment boundary and non-interfering continual synaptic consolidation.
 
 

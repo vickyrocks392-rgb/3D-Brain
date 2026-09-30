@@ -898,6 +898,10 @@
         ⏳ Assembly: Off
       </button>
 
+      <button class="btn" id="audit-btn" title="Toggle Phase 18 Scientific Audit Mode [A]">
+        ⚖️ Audit: Off
+      </button>
+
       <button class="btn" id="generalization-btn" title="Toggle Phase 17 Generalization Mode [G]">
         🌐 Gen: Off
       </button>
@@ -935,7 +939,8 @@
       </button>
 
       <select id="model-select" class="select-model" title="Select .brainlog Trace">
-        <option value="/experiments/results/brainlogs/EXP017_generalization.brainlog" selected>EXP017: Minimal Brain Generalization & Transfer (Phase 17)</option>
+        <option value="/experiments/results/brainlogs/EXP018_audit.brainlog" selected>EXP018: Scientific Audit & Benchmark Integrity (Phase 18)</option>
+        <option value="/experiments/results/brainlogs/EXP017_generalization.brainlog">EXP017: Minimal Brain Generalization & Transfer (Phase 17)</option>
         <option value="/experiments/results/brainlogs/EXP016_minimal_brain.brainlog">EXP016: Minimal Sufficient Brain (Phase 16)</option>
         <option value="/experiments/results/brainlogs/EXP015_action_readout.brainlog">EXP015: Action Readout & Assemblies (Phase 15)</option>
         <option value="/experiments/results/phase14_latest.brainlog">EXP014: Temporal Coding & Resonance (Phase 14)</option>
@@ -2025,6 +2030,68 @@
     </div>
   </div>
 
+  <!-- PHASE 18 AUDIT MODE OVERLAY [A] -->
+  <div id="audit-overlay" style="display: none; position: absolute; bottom: 80px; left: 20px; right: 380px; background: rgba(10, 15, 29, 0.95); backdrop-filter: blur(14px); border: 1px solid #38bdf8; border-radius: 8px; padding: 10px 14px; z-index: 100; flex-direction: column; gap: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.6);">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">
+      <span style="font-weight: 800; font-size: 11px; letter-spacing: 1px; color: #38bdf8;">
+        ⚖️ PHASE 18 SCIENTIFIC AUDIT & BENCHMARK INTEGRITY [A]
+      </span>
+      <button class="btn" id="close-audit-overlay-btn" style="padding: 1px 6px; font-size: 10px;">✕</button>
+    </div>
+    <div class="metric-grid" style="grid-template-columns: repeat(6, 1fr); margin-top: 4px;">
+      <div class="metric-cell">
+        <span class="metric-name">Reproduction</span>
+        <span class="metric-val" id="audit-reprod" style="color: #10b981;">VERIFIED (100%)</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Active Task / Seed</span>
+        <span class="metric-val" id="audit-task-seed" style="color: #38bdf8;">TASK_A (s=42)</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">5000ms Horizon</span>
+        <span class="metric-val" id="audit-5000ms" style="color: #f43f5e;">42.7% (Un-leaked)</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Retention / Forgetting</span>
+        <span class="metric-val" id="audit-forgetting" style="color: #fbbf24;">0.20 (80% Loss)</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Composition (XOR)</span>
+        <span class="metric-val" id="audit-composition" style="color: #f43f5e;">33.3% (Sub-chance)</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Distractor Noise</span>
+        <span class="metric-val" id="audit-distractor" style="color: #f43f5e;">44.0% (Sub-chance)</span>
+      </div>
+    </div>
+    <div class="metric-grid" style="grid-template-columns: repeat(6, 1fr); margin-top: 2px;">
+      <div class="metric-cell">
+        <span class="metric-name">Context MI / CV</span>
+        <span class="metric-val" id="audit-ctx-mi" style="color: #10b981;">0.995 b / 76.0%</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Action MI / CSI</span>
+        <span class="metric-val" id="audit-act-mi" style="color: #38bdf8;">0.469 b / 0.596</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">100K Throughput</span>
+        <span class="metric-val" id="audit-throughput" style="color: #10b981;">220.9 step/s</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">100K Syn-Ops/s</span>
+        <span class="metric-val" id="audit-syn-ops" style="color: #38bdf8;">441.8 M/s (Real)</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Peak RSS (100K)</span>
+        <span class="metric-val" id="audit-rss" style="color: #fbbf24;">43.2 MB (Delta)</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Trainable Params</span>
+        <span class="metric-val" id="audit-params" style="color: #a855f7;">82 (2018 Total)</span>
+      </div>
+    </div>
+  </div>
+
 
   <!-- SPIKE RASTER DRAWER -->
   <div id="raster-drawer">
@@ -2113,7 +2180,7 @@
         <div class="metric-cell"><span class="metric-name">Mouse Click</span><span class="metric-val">Select Neuron / Synapse</span></div>
         <div class="metric-cell"><span class="metric-name">L</span><span class="metric-val">LATEST Mode (Default)</span></div>
         <div class="metric-cell"><span class="metric-name">R</span><span class="metric-val">REPLAY Mode</span></div>
-        <div class="metric-cell"><span class="metric-name">A</span><span class="metric-val">Action Interface Mode [A]</span></div>
+        <div class="metric-cell"><span class="metric-name">A</span><span class="metric-val">Scientific Audit Mode [A]</span></div>
         <div class="metric-cell"><span class="metric-name">S</span><span class="metric-val">Spike Encoding Mode [S]</span></div>
         <div class="metric-cell"><span class="metric-name">G</span><span class="metric-val">Generalization Mode [G]</span></div>
         <div class="metric-cell"><span class="metric-name">X</span><span class="metric-val">Transfer Matrix [X]</span></div>
@@ -2244,6 +2311,7 @@
     let temporalExtrapActive = false;
     let causalIntervActive = false;
     let mechNecessityActive = false;
+    let auditActive = false;
 
     // Three.js Scene Setup
     const viewport = document.getElementById('viewport');
@@ -2741,6 +2809,26 @@
           mat.emissive.setHex(col);
           mat.emissiveIntensity = 2.2;
           mesh.scale.set(1.15, 1.15, 1.15);
+        } else if (auditActive && recIdx >= 0) {
+          // Audit Mode [A]: Visual mapping of audited biophysical roles vs pruned components
+          const isSlowAsm = (idx === 34 || idx === 35);
+          const isPruned = (idx >= 36 && idx <= 41);
+          if (isSlowAsm) {
+            mat.color.setHex(0xf59e0b); // Gold slow assembly (audited hysteresis)
+            mat.emissive.setHex(0xf59e0b);
+            mat.emissiveIntensity = 3.0;
+            mesh.scale.set(1.35, 1.35, 1.35);
+          } else if (isPruned) {
+            mat.color.setHex(0x334155); // Dimmed pruned mechanisms
+            mat.emissive.setHex(0x1e293b);
+            mat.emissiveIntensity = 0.2;
+            mesh.scale.set(0.75, 0.75, 0.75);
+          } else {
+            mat.color.setHex(0x38bdf8); // Cyan NMDA persistent context
+            mat.emissive.setHex(0x0284c7);
+            mat.emissiveIntensity = THREE.MathUtils.clamp(absAct * 1.8 + 0.3, 0.3, 2.8);
+            mesh.scale.set(1.1, 1.1, 1.1);
+          }
         } else if (minimalityActive && recIdx >= 0) {
           // Minimality Mode [P]: Highlight Retained mechanisms (Emerald green & Cyan) vs Pruned mechanisms (Dimmed slate)
           const isSlowAsm = (idx === 34 || idx === 35);
@@ -3007,6 +3095,31 @@
         if (ctxEl && min.context_mi !== undefined) ctxEl.innerText = `${Number(min.context_mi).toFixed(4)} b`;
         const actEl = document.getElementById('min-act-mi');
         if (actEl && min.action_mi !== undefined) actEl.innerText = `${Number(min.action_mi).toFixed(4)} b`;
+      }
+
+      // 11b. Update Phase 18 Scientific Audit Mode Overlay [A]
+      if (auditActive) {
+        const audit = dyn.audit || {};
+        const reprodEl = document.getElementById('audit-reprod');
+        if (reprodEl && audit.reproduction_status) reprodEl.innerText = `${audit.reproduction_status} (100%)`;
+        const taskSeedEl = document.getElementById('audit-task-seed');
+        if (taskSeedEl && audit.current_task) taskSeedEl.innerText = `${audit.current_task.replace('TASK_', '')} (s=42)`;
+        const el5k = document.getElementById('audit-5000ms');
+        if (el5k && audit.unleaked_5000ms_acc !== undefined) el5k.innerText = `${(audit.unleaked_5000ms_acc * 100).toFixed(1)}% (Un-leaked)`;
+        const forgEl = document.getElementById('audit-forgetting');
+        if (forgEl && audit.retention_ratio !== undefined) forgEl.innerText = `${Number(audit.retention_ratio).toFixed(2)} (80% Loss)`;
+        const compEl = document.getElementById('audit-composition');
+        if (compEl && audit.frozen_xor_acc !== undefined) compEl.innerText = `${(audit.frozen_xor_acc * 100).toFixed(1)}% (Sub-chance)`;
+        const distEl = document.getElementById('audit-distractor');
+        if (distEl && audit.distractor_acc !== undefined) distEl.innerText = `${(audit.distractor_acc * 100).toFixed(1)}% (Sub-chance)`;
+        const tputEl = document.getElementById('audit-throughput');
+        if (tputEl && audit.real_throughput_step_s !== undefined) tputEl.innerText = `${Number(audit.real_throughput_step_s).toFixed(1)} step/s`;
+        const synEl = document.getElementById('audit-syn-ops');
+        if (synEl && audit.real_syn_ops_s !== undefined) synEl.innerText = `${(audit.real_syn_ops_s / 1e6).toFixed(1)} M/s (Real)`;
+        const rssEl = document.getElementById('audit-rss');
+        if (rssEl && audit.real_rss_mb !== undefined) rssEl.innerText = `${Number(audit.real_rss_mb).toFixed(1)} MB (Delta)`;
+        const parEl = document.getElementById('audit-params');
+        if (parEl && audit.trainable_params !== undefined) parEl.innerText = `${audit.trainable_params} (${audit.total_params} Total)`;
       }
 
       // 12. Update Spike Raster if visible
@@ -4003,6 +4116,31 @@
       };
     }
 
+    // Phase 18 Scientific Audit Mode [A]
+    const auditBtn = document.getElementById('audit-btn');
+    const auditOverlay = document.getElementById('audit-overlay');
+    if (auditBtn) {
+      auditBtn.onclick = () => {
+        auditActive = !auditActive;
+        auditBtn.innerText = `⚖️ Audit: ${auditActive ? 'On' : 'Off'}`;
+        auditBtn.classList.toggle('active', auditActive);
+        if (auditOverlay) auditOverlay.style.display = auditActive ? 'flex' : 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+    const closeAuditOverlayBtn = document.getElementById('close-audit-overlay-btn');
+    if (closeAuditOverlayBtn) {
+      closeAuditOverlayBtn.onclick = () => {
+        auditActive = false;
+        if (auditBtn) {
+          auditBtn.innerText = '⚖️ Audit: Off';
+          auditBtn.classList.remove('active');
+        }
+        if (auditOverlay) auditOverlay.style.display = 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+
     document.getElementById('focus-act0-btn').onclick = () => focusCameraOnAction(0);
     document.getElementById('focus-act1-btn').onclick = () => focusCameraOnAction(1);
 
@@ -4133,7 +4271,8 @@
       } else if (e.code === 'KeyO') {
         autoFrameCamera();
       } else if (e.code === 'KeyA') {
-        actIntBtn.click();
+        if (auditBtn) auditBtn.click();
+        else actIntBtn.click();
       } else if (e.code === 'KeyS') {
         spikeEncBtn.click();
       } else if (e.code === 'KeyG') {
@@ -4199,8 +4338,8 @@
     }
     animate();
 
-    // Auto-bootstrap Primary Phase 17 Trace on Startup
-    const initialTrace = document.getElementById('model-select')?.value || '/experiments/results/brainlogs/EXP017_generalization.brainlog';
+    // Auto-bootstrap Primary Phase 18 Audited Trace on Startup
+    const initialTrace = document.getElementById('model-select')?.value || '/experiments/results/brainlogs/EXP018_audit.brainlog';
     fetchBrainlog(initialTrace);
   </script>
 </body>

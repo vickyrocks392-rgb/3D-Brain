@@ -1,0 +1,4000 @@
+{
+  "phase": 21,
+  "date": "2026-09-30",
+  "preregistration": "PREREG-PHASE21-001",
+  "specification": "EXPSPEC-PHASE21-001",
+  "seeds": [
+    42,
+    101,
+    2024,
+    777,
+    999
+  ],
+  "chance_accuracy": 0.5,
+  "total_runtime_sec": 9.26,
+  "track_a_episodic_memory": {
+    "A0_NO_MEMORY": {
+      "retrieval_accuracy": {
+        "mean": 0.0,
+        "std": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 5,
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "action_agreement": {
+        "mean": 0.0,
+        "std": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 5,
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "contextual_confusion": {
+        "mean": 1.0,
+        "std": 0.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 5,
+        "values": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "incorrect_retrieval_rate": {
+        "mean": 1.0,
+        "std": 0.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 5,
+        "values": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "retrieval_latency_us": {
+        "mean": 0.0,
+        "std": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 5,
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "retrieval_sparsity": {
+        "mean": 0.0,
+        "std": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 5,
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "memory_bytes": 45420,
+      "dictionary_parameters": 480,
+      "seed_runs": [
+        {
+          "condition": "A0_NO_MEMORY",
+          "ablation": "NONE",
+          "n_episodes": 60,
+          "retrieval_accuracy": 0.0,
+          "action_agreement": 0.0,
+          "partial_observation_accuracy": 0.0,
+          "contextual_confusion": 1.0,
+          "incorrect_retrieval_rate": 1.0,
+          "temporal_confusion": 1.0,
+          "retrieval_latency_us": 0.0,
+          "retrieval_sparsity": 0.0,
+          "memory_bytes": 45420,
+          "dictionary_parameters": 480,
+          "records_stored": 60
+        },
+        {
+          "condition": "A0_NO_MEMORY",
+          "ablation": "NONE",
+          "n_episodes": 60,
+          "retrieval_accuracy": 0.0,
+          "action_agreement": 0.0,
+          "partial_observation_accuracy": 0.0,
+          "contextual_confusion": 1.0,
+          "incorrect_retrieval_rate": 1.0,
+          "temporal_confusion": 1.0,
+          "retrieval_latency_us": 0.0,
+          "retrieval_sparsity": 0.0,
+          "memory_bytes": 45420,
+          "dictionary_parameters": 480,
+          "records_stored": 60
+        },
+        {
+          "condition": "A0_NO_MEMORY",
+          "ablation": "NONE",
+          "n_episodes": 60,
+          "retrieval_accuracy": 0.0,
+          "action_agreement": 0.0,
+          "partial_observation_accuracy": 0.0,
+          "contextual_confusion": 1.0,
+          "incorrect_retrieval_rate": 1.0,
+          "temporal_confusion": 1.0,
+          "retrieval_latency_us": 0.0,
+          "retrieval_sparsity": 0.0,
+          "memory_bytes": 45420,
+          "dictionary_parameters": 480,
+          "records_stored": 60
+        },
+        {
+          "condition": "A0_NO_MEMORY",
+          "ablation": "NONE",
+          "n_episodes": 60,
+          "retrieval_accuracy": 0.0,
+          "action_agreement": 0.0,
+          "partial_observation_accuracy": 0.0,
+          "contextual_confusion": 1.0,
+          "incorrect_retrieval_rate": 1.0,
+          "temporal_confusion": 1.0,
+          "retrieval_latency_us": 0.0,
+          "retrieval_sparsity": 0.0,
+          "memory_bytes": 45420,
+          "dictionary_parameters": 480,
+          "records_stored": 60
+        },
+        {
+          "condition": "A0_NO_MEMORY",
+          "ablation": "NONE",
+          "n_episodes": 60,
+          "retrieval_accuracy": 0.0,
+          "action_agreement": 0.0,
+          "partial_observation_accuracy": 0.0,
+          "contextual_confusion": 1.0,
+          "incorrect_retrieval_rate": 1.0,
+          "temporal_confusion": 1.0,
+          "retrieval_latency_us": 0.0,
+          "retrieval_sparsity": 0.0,
+          "memory_bytes": 45420,
+          "dictionary_parameters": 480,
+          "records_stored": 60
+        }
+      ]
+    },
+    "A1_PASSIVE_BUFFER": {
+      "retrieval_accuracy": {
+        "mean": 0.013333,
+        "std": 0.013944,
+        "ci95": [
+          -0.003978,
+          0.030645
+        ],
+        "n": 5,
+        "values": [
+          0.016667,
+          0.033333,
+          0.016667,
+          0.0,
+          0.0
+        ]
+      },
+      "action_agreement": {
+        "mean": 0.496667,
+        "std": 0.072072,
+        "ci95": [
+          0.407191,
+          0.586142
+        ],
+        "n": 5,
+        "values": [
+          0.383333,
+          0.583333,
+          0.5,
+          0.516667,
+          0.5
+        ]
+      },
+      "contextual_confusion": {
+        "mean": 0.973333,
+        "std": 0.025276,
+        "ci95": [
+          0.941954,
+          1.004713
+        ],
+        "n": 5,
+        "values": [
+          0.95,
+          0.966667,
+          1.0,
+          1.0,
+          0.95
+        ]
+      },
+      "incorrect_retrieval_rate": {
+        "mean": 0.986667,
+        "std": 0.013944,
+        "ci95": [
+          0.969355,
+          1.003978
+        ],
+        "n": 5,
+        "values": [
+          0.983333,
+          0.966667,
+          0.983333,
+          1.0,
+          1.0
+        ]
+      },
+      "retrieval_latency_us": {
+        "mean": 52.203223,
+        "std": 0.599741,
+        "ci95": [
+          51.458666,
+          52.947781
+        ],
+        "n": 5,
+        "values": [
+          53.23675,
+          51.899317,
+          51.8008,
+          51.8625,
+          52.21675
+        ]
+      },
+      "retrieval_sparsity": {
+        "mean": 0.05,
+        "std": 0.0,
+        "ci95": [
+          0.05,
+          0.05
+        ],
+        "n": 5,
+        "values": [
+          0.05,
+          0.05,
+          0.05,
+          0.05,
+          0.05
+        ]
+      },
+      "memory_bytes": 45420,
+      "dictionary_parameters": 480,
+      "seed_runs": [
+        {
+          "condition": "A1_PASSIVE_BUFFER",
+          "ablation": "NONE",
+          "n_episodes": 60,
+          "retrieval_accuracy": 0.016666666666666666,
+          "action_agreement": 0.38333333333333336,
+          "partial_observation_accuracy": 0.05,
+          "contextual_confusion": 0.95,
+          "incorrect_retrieval_rate": 0.9833333333333333,
+          "temporal_confusion": 0.9833333333333333,
+          "retrieval_latency_us": 53.23674998483815,
+          "retrieval_sparsity": 0.04999999999999998,
+          "memory_bytes": 45420,
+          "dictionary_parameters": 480,
+          "records_stored": 60
+        },
+        {
+          "condition": "A1_PASSIVE_BUFFER",
+          "ablation": "NONE",
+          "n_episodes": 60,
+          "retrieval_accuracy": 0.03333333333333333,
+          "action_agreement": 0.5833333333333334,
+          "partial_observation_accuracy": 0.03333333333333333,
+          "contextual_confusion": 0.9666666666666667,
+          "incorrect_retrieval_rate": 0.9666666666666667,
+          "temporal_confusion": 0.9666666666666667,
+          "retrieval_latency_us": 51.8993166982303,
+          "retrieval_sparsity": 0.04999999999999998,
+          "memory_bytes": 45420,
+          "dictionary_parameters": 480,
+          "records_stored": 60
+        },
+        {
+          "condition": "A1_PASSIVE_BUFFER",
+          "ablation": "NONE",
+          "n_episodes": 60,
+          "retrieval_accuracy": 0.016666666666666666,
+          "action_agreement": 0.5,
+          "partial_observation_accuracy": 0.0,
+          "contextual_confusion": 1.0,
+          "incorrect_retrieval_rate": 0.9833333333333333,
+          "temporal_confusion": 0.9833333333333333,
+          "retrieval_latency_us": 51.800800019918825,
+          "retrieval_sparsity": 0.04999999999999998,
+          "memory_bytes": 45420,
+          "dictionary_parameters": 480,
+          "records_stored": 60
+        },
+        {
+          "condition": "A1_PASSIVE_BUFFER",
+          "ablation": "NONE",
+          "n_episodes": 60,
+          "retrieval_accuracy": 0.0,
+          "action_agreement": 0.5166666666666667,
+          "partial_observation_accuracy": 0.0,
+          "contextual_confusion": 1.0,
+          "incorrect_retrieval_rate": 1.0,
+          "temporal_confusion": 1.0,
+          "retrieval_latency_us": 51.86249989795518,
+          "retrieval_sparsity": 0.04999999999999998,
+          "memory_bytes": 45420,
+          "dictionary_parameters": 480,
+          "records_stored": 60
+        },
+        {
+          "condition": "A1_PASSIVE_BUFFER",
+          "ablation": "NONE",
+          "n_episodes": 60,
+          "retrieval_accuracy": 0.0,
+          "action_agreement": 0.5,
+          "partial_observation_accuracy": 0.05,
+          "contextual_confusion": 0.95,
+          "incorrect_retrieval_rate": 1.0,
+          "temporal_confusion": 1.0,
+          "retrieval_latency_us": 52.21674997907636,
+          "retrieval_sparsity": 0.04999999999999998,
+          "memory_bytes": 45420,
+          "dictionary_parameters": 480,
+          "records_stored": 60
+        }
+      ]
+    },
+    "A2_INDEXED": {
+      "retrieval_accuracy": {
+        "mean": 1.0,
+        "std": 0.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 5,
+        "values": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "action_agreement": {
+        "mean": 1.0,
+        "std": 0.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 5,
+        "values": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "contextual_confusion": {
+        "mean": 0.0,
+        "std": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 5,
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "incorrect_retrieval_rate": {
+        "mean": 0.0,
+        "std": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 5,
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "retrieval_latency_us": {
+        "mean": 94.137103,
+        "std": 0.144659,
+        "ci95": [
+          93.957514,
+          94.316692
+        ],
+        "n": 5,
+        "values": [
+          94.197283,
+          93.907633,
+          94.2903,
+          94.1889,
+          94.1014
+        ]
+      },
+      "retrieval_sparsity": {
+        "mean": 0.05,
+        "std": 0.0,
+        "ci95": [
+          0.05,
+          0.05
+        ],
+        "n": 5,
+        "values": [
+          0.05,
+          0.05,
+          0.05,
+          0.05,
+          0.05
+        ]
+      },
+      "memory_bytes": 45420,
+      "dictionary_parameters": 480,
+      "seed_runs": [
+        {
+          "condition": "A2_INDEXED",
+          "ablation": "NONE",
+          "n_episodes": 60,
+          "retrieval_accuracy": 1.0,
+          "action_agreement": 1.0,
+          "partial_observation_accuracy": 1.0,
+          "contextual_confusion": 0.0,
+          "incorrect_retrieval_rate": 0.0,
+          "temporal_confusion": 0.0,
+          "retrieval_latency_us": 94.19728344255418,
+          "retrieval_sparsity": 0.04999999999999998,
+          "memory_bytes": 45420,
+          "dictionary_parameters": 480,
+          "records_stored": 60
+        },
+        {
+          "condition": "A2_INDEXED",
+          "ablation": "NONE",
+          "n_episodes": 60,
+          "retrieval_accuracy": 1.0,
+          "action_agreement": 1.0,
+          "partial_observation_accuracy": 1.0,
+          "contextual_confusion": 0.0,
+          "incorrect_retrieval_rate": 0.0,
+          "temporal_confusion": 0.0,
+          "retrieval_latency_us": 93.90763343617436,
+          "retrieval_sparsity": 0.04999999999999998,
+          "memory_bytes": 45420,
+          "dictionary_parameters": 480,
+          "records_stored": 60
+        },
+        {
+          "condition": "A2_INDEXED",
+          "ablation": "NONE",
+          "n_episodes": 60,
+          "retrieval_accuracy": 1.0,
+          "action_agreement": 1.0,
+          "partial_observation_accuracy": 1.0,
+          "contextual_confusion": 0.0,
+          "incorrect_retrieval_rate": 0.0,
+          "temporal_confusion": 0.0,
+          "retrieval_latency_us": 94.29029990618194,
+          "retrieval_sparsity": 0.04999999999999998,
+          "memory_bytes": 45420,
+          "dictionary_parameters": 480,
+          "records_stored": 60
+        },
+        {
+          "condition": "A2_INDEXED",
+          "ablation": "NONE",
+          "n_episodes": 60,
+          "retrieval_accuracy": 1.0,
+          "action_agreement": 1.0,
+          "partial_observation_accuracy": 1.0,
+          "contextual_confusion": 0.0,
+          "incorrect_retrieval_rate": 0.0,
+          "temporal_confusion": 0.0,
+          "retrieval_latency_us": 94.1888999780834,
+          "retrieval_sparsity": 0.04999999999999998,
+          "memory_bytes": 45420,
+          "dictionary_parameters": 480,
+          "records_stored": 60
+        },
+        {
+          "condition": "A2_INDEXED",
+          "ablation": "NONE",
+          "n_episodes": 60,
+          "retrieval_accuracy": 1.0,
+          "action_agreement": 1.0,
+          "partial_observation_accuracy": 1.0,
+          "contextual_confusion": 0.0,
+          "incorrect_retrieval_rate": 0.0,
+          "temporal_confusion": 0.0,
+          "retrieval_latency_us": 94.10140008488573,
+          "retrieval_sparsity": 0.04999999999999998,
+          "memory_bytes": 45420,
+          "dictionary_parameters": 480,
+          "records_stored": 60
+        }
+      ]
+    },
+    "A3_SPARSE_CONTENT": {
+      "retrieval_accuracy": {
+        "mean": 0.986667,
+        "std": 0.007454,
+        "ci95": [
+          0.977413,
+          0.99592
+        ],
+        "n": 5,
+        "values": [
+          0.983333,
+          0.983333,
+          0.983333,
+          0.983333,
+          1.0
+        ]
+      },
+      "action_agreement": {
+        "mean": 0.996667,
+        "std": 0.007454,
+        "ci95": [
+          0.987413,
+          1.00592
+        ],
+        "n": 5,
+        "values": [
+          1.0,
+          1.0,
+          0.983333,
+          1.0,
+          1.0
+        ]
+      },
+      "contextual_confusion": {
+        "mean": 0.013333,
+        "std": 0.007454,
+        "ci95": [
+          0.00408,
+          0.022587
+        ],
+        "n": 5,
+        "values": [
+          0.016667,
+          0.016667,
+          0.016667,
+          0.016667,
+          0.0
+        ]
+      },
+      "incorrect_retrieval_rate": {
+        "mean": 0.013333,
+        "std": 0.007454,
+        "ci95": [
+          0.00408,
+          0.022587
+        ],
+        "n": 5,
+        "values": [
+          0.016667,
+          0.016667,
+          0.016667,
+          0.016667,
+          0.0
+        ]
+      },
+      "retrieval_latency_us": {
+        "mean": 29.38151,
+        "std": 0.297856,
+        "ci95": [
+          29.011733,
+          29.751287
+        ],
+        "n": 5,
+        "values": [
+          29.22565,
+          29.874317,
+          29.410333,
+          29.098633,
+          29.298617
+        ]
+      },
+      "retrieval_sparsity": {
+        "mean": 0.05,
+        "std": 0.0,
+        "ci95": [
+          0.05,
+          0.05
+        ],
+        "n": 5,
+        "values": [
+          0.05,
+          0.05,
+          0.05,
+          0.05,
+          0.05
+        ]
+      },
+      "memory_bytes": 45420,
+      "dictionary_parameters": 480,
+      "seed_runs": [
+        {
+          "condition": "A3_SPARSE_CONTENT",
+          "ablation": "NONE",
+          "n_episodes": 60,
+          "retrieval_accuracy": 0.9833333333333333,
+          "action_agreement": 1.0,
+          "partial_observation_accuracy": 0.9833333333333333,
+          "contextual_confusion": 0.01666666666666672,
+          "incorrect_retrieval_rate": 0.016666666666666666,
+          "temporal_confusion": 0.016666666666666666,
+          "retrieval_latency_us": 29.225649905129103,
+          "retrieval_sparsity": 0.04999999999999998,
+          "memory_bytes": 45420,
+          "dictionary_parameters": 480,
+          "records_stored": 60
+        },
+        {
+          "condition": "A3_SPARSE_CONTENT",
+          "ablation": "NONE",
+          "n_episodes": 60,
+          "retrieval_accuracy": 0.9833333333333333,
+          "action_agreement": 1.0,
+          "partial_observation_accuracy": 0.9833333333333333,
+          "contextual_confusion": 0.01666666666666672,
+          "incorrect_retrieval_rate": 0.016666666666666666,
+          "temporal_confusion": 0.016666666666666666,
+          "retrieval_latency_us": 29.87431660888736,
+          "retrieval_sparsity": 0.04999999999999998,
+          "memory_bytes": 45420,
+          "dictionary_parameters": 480,
+          "records_stored": 60
+        },
+        {
+          "condition": "A3_SPARSE_CONTENT",
+          "ablation": "NONE",
+          "n_episodes": 60,
+          "retrieval_accuracy": 0.9833333333333333,
+          "action_agreement": 0.9833333333333333,
+          "partial_observation_accuracy": 0.9833333333333333,
+          "contextual_confusion": 0.01666666666666672,
+          "incorrect_retrieval_rate": 0.016666666666666666,
+          "temporal_confusion": 0.016666666666666666,
+          "retrieval_latency_us": 29.410333278671413,
+          "retrieval_sparsity": 0.04999999999999998,
+          "memory_bytes": 45420,
+          "dictionary_parameters": 480,
+          "records_stored": 60
+        },
+        {
+          "condition": "A3_SPARSE_CONTENT",
+          "ablation": "NONE",
+          "n_episodes": 60,
+          "retrieval_accuracy": 0.9833333333333333,
+          "action_agreement": 1.0,
+          "partial_observation_accuracy": 0.9833333333333333,
+          "contextual_confusion": 0.01666666666666672,
+          "incorrect_retrieval_rate": 0.016666666666666666,
+          "temporal_confusion": 0.016666666666666666,
+          "retrieval_latency_us": 29.098633316001116,
+          "retrieval_sparsity": 0.04999999999999998,
+          "memory_bytes": 45420,
+          "dictionary_parameters": 480,
+          "records_stored": 60
+        },
+        {
+          "condition": "A3_SPARSE_CONTENT",
+          "ablation": "NONE",
+          "n_episodes": 60,
+          "retrieval_accuracy": 1.0,
+          "action_agreement": 1.0,
+          "partial_observation_accuracy": 1.0,
+          "contextual_confusion": 0.0,
+          "incorrect_retrieval_rate": 0.0,
+          "temporal_confusion": 0.0,
+          "retrieval_latency_us": 29.298616664164,
+          "retrieval_sparsity": 0.04999999999999998,
+          "memory_bytes": 45420,
+          "dictionary_parameters": 480,
+          "records_stored": 60
+        }
+      ]
+    },
+    "capacity_curve": {
+      "curve": [
+        {
+          "capacity": 10,
+          "retrieval_accuracy": 1.0,
+          "memory_bytes": 7570,
+          "records_stored": 10,
+          "retrieval_cost_flops": 2400,
+          "retrieval_latency_us": 15.041400001791772,
+          "retrieval_sparsity": 0.3
+        },
+        {
+          "capacity": 25,
+          "retrieval_accuracy": 1.0,
+          "memory_bytes": 18925,
+          "records_stored": 25,
+          "retrieval_cost_flops": 15000,
+          "retrieval_latency_us": 19.196799985365942,
+          "retrieval_sparsity": 0.12
+        },
+        {
+          "capacity": 50,
+          "retrieval_accuracy": 0.98,
+          "memory_bytes": 37850,
+          "records_stored": 50,
+          "retrieval_cost_flops": 60000,
+          "retrieval_latency_us": 26.35415994518553,
+          "retrieval_sparsity": 0.06
+        },
+        {
+          "capacity": 100,
+          "retrieval_accuracy": 0.99,
+          "memory_bytes": 75700,
+          "records_stored": 100,
+          "retrieval_cost_flops": 240000,
+          "retrieval_latency_us": 42.244560054314206,
+          "retrieval_sparsity": 0.03
+        },
+        {
+          "capacity": 250,
+          "retrieval_accuracy": 0.968,
+          "memory_bytes": 189250,
+          "records_stored": 250,
+          "retrieval_cost_flops": 1500000,
+          "retrieval_latency_us": 88.26200801195228,
+          "retrieval_sparsity": 0.012
+        },
+        {
+          "capacity": 500,
+          "retrieval_accuracy": 0.944,
+          "memory_bytes": 378500,
+          "records_stored": 500,
+          "retrieval_cost_flops": 6000000,
+          "retrieval_latency_us": 167.07331602265185,
+          "retrieval_sparsity": 0.006
+        },
+        {
+          "capacity": 1000,
+          "retrieval_accuracy": 0.918,
+          "memory_bytes": 757000,
+          "records_stored": 1000,
+          "retrieval_cost_flops": 24000000,
+          "retrieval_latency_us": 328.8057859945184,
+          "retrieval_sparsity": 0.003
+        }
+      ]
+    },
+    "memory_ablations": {
+      "NONE": {
+        "retrieval_accuracy": 0.9833333333333333,
+        "contextual_confusion": 0.01666666666666672
+      },
+      "REMOVE_MEMORY": {
+        "retrieval_accuracy": 0.0,
+        "contextual_confusion": 1.0
+      },
+      "RANDOMIZE_RETRIEVAL": {
+        "retrieval_accuracy": 0.0,
+        "contextual_confusion": 0.95
+      },
+      "SHUFFLE_IDENTITY": {
+        "retrieval_accuracy": 0.016666666666666666,
+        "contextual_confusion": 0.9666666666666667
+      },
+      "WRONG_EPISODE": {
+        "retrieval_accuracy": 0.0,
+        "contextual_confusion": 1.0
+      },
+      "REDUCE_CAPACITY": {
+        "retrieval_accuracy": 0.1,
+        "contextual_confusion": 0.9
+      }
+    }
+  },
+  "track_b_replay_consolidation": {
+    "B0_NO_REPLAY": {
+      "acc_a_pre": {
+        "mean": 0.65,
+        "std": 0.423896,
+        "ci95": [
+          0.123748,
+          1.176252
+        ],
+        "n": 5,
+        "values": [
+          0.9,
+          0.975,
+          1.0,
+          0.2,
+          0.175
+        ]
+      },
+      "acc_a_post": {
+        "mean": 0.62,
+        "std": 0.397414,
+        "ci95": [
+          0.126625,
+          1.113375
+        ],
+        "n": 5,
+        "values": [
+          0.85,
+          0.975,
+          0.9,
+          0.2,
+          0.175
+        ]
+      },
+      "forgetting_abs": {
+        "mean": 0.03,
+        "std": 0.044721,
+        "ci95": [
+          -0.02552,
+          0.08552
+        ],
+        "n": 5,
+        "values": [
+          0.05,
+          0.0,
+          0.1,
+          0.0,
+          0.0
+        ]
+      },
+      "retention_ratio": {
+        "mean": 0.96888,
+        "std": 0.045412,
+        "ci95": [
+          0.912502,
+          1.025258
+        ],
+        "n": 5,
+        "values": [
+          0.9444,
+          1.0,
+          0.9,
+          1.0,
+          1.0
+        ]
+      },
+      "captures": {
+        "mean": 0.0,
+        "std": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 5,
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "replay_events": {
+        "mean": 0.0,
+        "std": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 5,
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "seed_runs": [
+        {
+          "condition": "B0_NO_REPLAY",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.9,
+          "acc_a_post": 0.85,
+          "forgetting_abs": 0.05,
+          "retention_ratio": 0.9444,
+          "backward_transfer": -0.05,
+          "interference": 0.05,
+          "slow_pool_norm_pre": 0.0,
+          "slow_pool_norm_post": 0.0,
+          "captures": 0,
+          "replay_events": 0,
+          "memory_bytes": 0
+        },
+        {
+          "condition": "B0_NO_REPLAY",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.975,
+          "acc_a_post": 0.975,
+          "forgetting_abs": 0.0,
+          "retention_ratio": 1.0,
+          "backward_transfer": 0.0,
+          "interference": 0.0,
+          "slow_pool_norm_pre": 0.0,
+          "slow_pool_norm_post": 0.0,
+          "captures": 0,
+          "replay_events": 0,
+          "memory_bytes": 0
+        },
+        {
+          "condition": "B0_NO_REPLAY",
+          "content": "R1_EXACT",
+          "acc_a_pre": 1.0,
+          "acc_a_post": 0.9,
+          "forgetting_abs": 0.1,
+          "retention_ratio": 0.9,
+          "backward_transfer": -0.1,
+          "interference": 0.1,
+          "slow_pool_norm_pre": 0.0,
+          "slow_pool_norm_post": 0.0,
+          "captures": 0,
+          "replay_events": 0,
+          "memory_bytes": 0
+        },
+        {
+          "condition": "B0_NO_REPLAY",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.2,
+          "acc_a_post": 0.2,
+          "forgetting_abs": 0.0,
+          "retention_ratio": 1.0,
+          "backward_transfer": 0.0,
+          "interference": 0.0,
+          "slow_pool_norm_pre": 0.0,
+          "slow_pool_norm_post": 0.0,
+          "captures": 0,
+          "replay_events": 0,
+          "memory_bytes": 0
+        },
+        {
+          "condition": "B0_NO_REPLAY",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.175,
+          "acc_a_post": 0.175,
+          "forgetting_abs": 0.0,
+          "retention_ratio": 1.0,
+          "backward_transfer": 0.0,
+          "interference": 0.0,
+          "slow_pool_norm_pre": 0.0,
+          "slow_pool_norm_post": 0.0,
+          "captures": 0,
+          "replay_events": 0,
+          "memory_bytes": 0
+        }
+      ]
+    },
+    "B1_RANDOM": {
+      "acc_a_pre": {
+        "mean": 0.65,
+        "std": 0.412689,
+        "ci95": [
+          0.137661,
+          1.162339
+        ],
+        "n": 5,
+        "values": [
+          0.9,
+          0.95,
+          1.0,
+          0.225,
+          0.175
+        ]
+      },
+      "acc_a_post": {
+        "mean": 0.645,
+        "std": 0.418853,
+        "ci95": [
+          0.125009,
+          1.164991
+        ],
+        "n": 5,
+        "values": [
+          0.9,
+          0.975,
+          0.975,
+          0.175,
+          0.2
+        ]
+      },
+      "forgetting_abs": {
+        "mean": 0.015,
+        "std": 0.022361,
+        "ci95": [
+          -0.01276,
+          0.04276
+        ],
+        "n": 5,
+        "values": [
+          0.0,
+          0.0,
+          0.025,
+          0.05,
+          0.0
+        ]
+      },
+      "retention_ratio": {
+        "mean": 0.9844,
+        "std": 0.132187,
+        "ci95": [
+          0.820295,
+          1.148505
+        ],
+        "n": 5,
+        "values": [
+          1.0,
+          1.0263,
+          0.975,
+          0.7778,
+          1.1429
+        ]
+      },
+      "captures": {
+        "mean": 4800.0,
+        "std": 0.0,
+        "ci95": [
+          4800.0,
+          4800.0
+        ],
+        "n": 5,
+        "values": [
+          4800.0,
+          4800.0,
+          4800.0,
+          4800.0,
+          4800.0
+        ]
+      },
+      "replay_events": {
+        "mean": 480.0,
+        "std": 0.0,
+        "ci95": [
+          480.0,
+          480.0
+        ],
+        "n": 5,
+        "values": [
+          480.0,
+          480.0,
+          480.0,
+          480.0,
+          480.0
+        ]
+      },
+      "seed_runs": [
+        {
+          "condition": "B1_RANDOM",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.9,
+          "acc_a_post": 0.9,
+          "forgetting_abs": 0.0,
+          "retention_ratio": 1.0,
+          "backward_transfer": 0.0,
+          "interference": 0.0,
+          "slow_pool_norm_pre": 41.302624,
+          "slow_pool_norm_post": 153.781418,
+          "captures": 4800,
+          "replay_events": 480,
+          "memory_bytes": 305664
+        },
+        {
+          "condition": "B1_RANDOM",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.95,
+          "acc_a_post": 0.975,
+          "forgetting_abs": 0.0,
+          "retention_ratio": 1.0263,
+          "backward_transfer": 0.025,
+          "interference": 0.0,
+          "slow_pool_norm_pre": 31.975498,
+          "slow_pool_norm_post": 116.645638,
+          "captures": 4800,
+          "replay_events": 480,
+          "memory_bytes": 305664
+        },
+        {
+          "condition": "B1_RANDOM",
+          "content": "R1_EXACT",
+          "acc_a_pre": 1.0,
+          "acc_a_post": 0.975,
+          "forgetting_abs": 0.025,
+          "retention_ratio": 0.975,
+          "backward_transfer": -0.025,
+          "interference": 0.025,
+          "slow_pool_norm_pre": 41.021252,
+          "slow_pool_norm_post": 145.822144,
+          "captures": 4800,
+          "replay_events": 480,
+          "memory_bytes": 305664
+        },
+        {
+          "condition": "B1_RANDOM",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.225,
+          "acc_a_post": 0.175,
+          "forgetting_abs": 0.05,
+          "retention_ratio": 0.7778,
+          "backward_transfer": -0.05,
+          "interference": 0.05,
+          "slow_pool_norm_pre": 30.252167,
+          "slow_pool_norm_post": 123.459938,
+          "captures": 4800,
+          "replay_events": 480,
+          "memory_bytes": 305664
+        },
+        {
+          "condition": "B1_RANDOM",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.175,
+          "acc_a_post": 0.2,
+          "forgetting_abs": 0.0,
+          "retention_ratio": 1.1429,
+          "backward_transfer": 0.025,
+          "interference": 0.0,
+          "slow_pool_norm_pre": 25.632965,
+          "slow_pool_norm_post": 108.802933,
+          "captures": 4800,
+          "replay_events": 480,
+          "memory_bytes": 305664
+        }
+      ]
+    },
+    "B2_EVENT_TRIGGERED": {
+      "acc_a_pre": {
+        "mean": 0.65,
+        "std": 0.412689,
+        "ci95": [
+          0.137661,
+          1.162339
+        ],
+        "n": 5,
+        "values": [
+          0.9,
+          0.95,
+          1.0,
+          0.225,
+          0.175
+        ]
+      },
+      "acc_a_post": {
+        "mean": 0.645,
+        "std": 0.418853,
+        "ci95": [
+          0.125009,
+          1.164991
+        ],
+        "n": 5,
+        "values": [
+          0.9,
+          0.975,
+          0.975,
+          0.175,
+          0.2
+        ]
+      },
+      "forgetting_abs": {
+        "mean": 0.015,
+        "std": 0.022361,
+        "ci95": [
+          -0.01276,
+          0.04276
+        ],
+        "n": 5,
+        "values": [
+          0.0,
+          0.0,
+          0.025,
+          0.05,
+          0.0
+        ]
+      },
+      "retention_ratio": {
+        "mean": 0.9844,
+        "std": 0.132187,
+        "ci95": [
+          0.820295,
+          1.148505
+        ],
+        "n": 5,
+        "values": [
+          1.0,
+          1.0263,
+          0.975,
+          0.7778,
+          1.1429
+        ]
+      },
+      "captures": {
+        "mean": 4800.0,
+        "std": 0.0,
+        "ci95": [
+          4800.0,
+          4800.0
+        ],
+        "n": 5,
+        "values": [
+          4800.0,
+          4800.0,
+          4800.0,
+          4800.0,
+          4800.0
+        ]
+      },
+      "replay_events": {
+        "mean": 466.8,
+        "std": 5.357238,
+        "ci95": [
+          460.149177,
+          473.450823
+        ],
+        "n": 5,
+        "values": [
+          467.0,
+          472.0,
+          472.0,
+          460.0,
+          463.0
+        ]
+      },
+      "seed_runs": [
+        {
+          "condition": "B2_EVENT_TRIGGERED",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.9,
+          "acc_a_post": 0.9,
+          "forgetting_abs": 0.0,
+          "retention_ratio": 1.0,
+          "backward_transfer": 0.0,
+          "interference": 0.0,
+          "slow_pool_norm_pre": 41.293053,
+          "slow_pool_norm_post": 153.759048,
+          "captures": 4800,
+          "replay_events": 467,
+          "memory_bytes": 305664
+        },
+        {
+          "condition": "B2_EVENT_TRIGGERED",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.95,
+          "acc_a_post": 0.975,
+          "forgetting_abs": 0.0,
+          "retention_ratio": 1.0263,
+          "backward_transfer": 0.025,
+          "interference": 0.0,
+          "slow_pool_norm_pre": 31.987503,
+          "slow_pool_norm_post": 116.659157,
+          "captures": 4800,
+          "replay_events": 472,
+          "memory_bytes": 305664
+        },
+        {
+          "condition": "B2_EVENT_TRIGGERED",
+          "content": "R1_EXACT",
+          "acc_a_pre": 1.0,
+          "acc_a_post": 0.975,
+          "forgetting_abs": 0.025,
+          "retention_ratio": 0.975,
+          "backward_transfer": -0.025,
+          "interference": 0.025,
+          "slow_pool_norm_pre": 41.018791,
+          "slow_pool_norm_post": 145.816498,
+          "captures": 4800,
+          "replay_events": 472,
+          "memory_bytes": 305664
+        },
+        {
+          "condition": "B2_EVENT_TRIGGERED",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.225,
+          "acc_a_post": 0.175,
+          "forgetting_abs": 0.05,
+          "retention_ratio": 0.7778,
+          "backward_transfer": -0.05,
+          "interference": 0.05,
+          "slow_pool_norm_pre": 30.255581,
+          "slow_pool_norm_post": 123.461411,
+          "captures": 4800,
+          "replay_events": 460,
+          "memory_bytes": 305664
+        },
+        {
+          "condition": "B2_EVENT_TRIGGERED",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.175,
+          "acc_a_post": 0.2,
+          "forgetting_abs": 0.0,
+          "retention_ratio": 1.1429,
+          "backward_transfer": 0.025,
+          "interference": 0.0,
+          "slow_pool_norm_pre": 25.621738,
+          "slow_pool_norm_post": 108.77961,
+          "captures": 4800,
+          "replay_events": 463,
+          "memory_bytes": 305664
+        }
+      ]
+    },
+    "B3_PRIORITIZED": {
+      "acc_a_pre": {
+        "mean": 0.65,
+        "std": 0.412689,
+        "ci95": [
+          0.137661,
+          1.162339
+        ],
+        "n": 5,
+        "values": [
+          0.9,
+          0.95,
+          1.0,
+          0.225,
+          0.175
+        ]
+      },
+      "acc_a_post": {
+        "mean": 0.645,
+        "std": 0.418853,
+        "ci95": [
+          0.125009,
+          1.164991
+        ],
+        "n": 5,
+        "values": [
+          0.9,
+          0.975,
+          0.975,
+          0.175,
+          0.2
+        ]
+      },
+      "forgetting_abs": {
+        "mean": 0.015,
+        "std": 0.022361,
+        "ci95": [
+          -0.01276,
+          0.04276
+        ],
+        "n": 5,
+        "values": [
+          0.0,
+          0.0,
+          0.025,
+          0.05,
+          0.0
+        ]
+      },
+      "retention_ratio": {
+        "mean": 0.9844,
+        "std": 0.132187,
+        "ci95": [
+          0.820295,
+          1.148505
+        ],
+        "n": 5,
+        "values": [
+          1.0,
+          1.0263,
+          0.975,
+          0.7778,
+          1.1429
+        ]
+      },
+      "captures": {
+        "mean": 4800.0,
+        "std": 0.0,
+        "ci95": [
+          4800.0,
+          4800.0
+        ],
+        "n": 5,
+        "values": [
+          4800.0,
+          4800.0,
+          4800.0,
+          4800.0,
+          4800.0
+        ]
+      },
+      "replay_events": {
+        "mean": 480.0,
+        "std": 0.0,
+        "ci95": [
+          480.0,
+          480.0
+        ],
+        "n": 5,
+        "values": [
+          480.0,
+          480.0,
+          480.0,
+          480.0,
+          480.0
+        ]
+      },
+      "seed_runs": [
+        {
+          "condition": "B3_PRIORITIZED",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.9,
+          "acc_a_post": 0.9,
+          "forgetting_abs": 0.0,
+          "retention_ratio": 1.0,
+          "backward_transfer": 0.0,
+          "interference": 0.0,
+          "slow_pool_norm_pre": 41.296646,
+          "slow_pool_norm_post": 153.769852,
+          "captures": 4800,
+          "replay_events": 480,
+          "memory_bytes": 305664
+        },
+        {
+          "condition": "B3_PRIORITIZED",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.95,
+          "acc_a_post": 0.975,
+          "forgetting_abs": 0.0,
+          "retention_ratio": 1.0263,
+          "backward_transfer": 0.025,
+          "interference": 0.0,
+          "slow_pool_norm_pre": 31.9888,
+          "slow_pool_norm_post": 116.671112,
+          "captures": 4800,
+          "replay_events": 480,
+          "memory_bytes": 305664
+        },
+        {
+          "condition": "B3_PRIORITIZED",
+          "content": "R1_EXACT",
+          "acc_a_pre": 1.0,
+          "acc_a_post": 0.975,
+          "forgetting_abs": 0.025,
+          "retention_ratio": 0.975,
+          "backward_transfer": -0.025,
+          "interference": 0.025,
+          "slow_pool_norm_pre": 41.021843,
+          "slow_pool_norm_post": 145.828995,
+          "captures": 4800,
+          "replay_events": 480,
+          "memory_bytes": 305664
+        },
+        {
+          "condition": "B3_PRIORITIZED",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.225,
+          "acc_a_post": 0.175,
+          "forgetting_abs": 0.05,
+          "retention_ratio": 0.7778,
+          "backward_transfer": -0.05,
+          "interference": 0.05,
+          "slow_pool_norm_pre": 30.266251,
+          "slow_pool_norm_post": 123.473969,
+          "captures": 4800,
+          "replay_events": 480,
+          "memory_bytes": 305664
+        },
+        {
+          "condition": "B3_PRIORITIZED",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.175,
+          "acc_a_post": 0.2,
+          "forgetting_abs": 0.0,
+          "retention_ratio": 1.1429,
+          "backward_transfer": 0.025,
+          "interference": 0.0,
+          "slow_pool_norm_pre": 25.631481,
+          "slow_pool_norm_post": 108.801186,
+          "captures": 4800,
+          "replay_events": 480,
+          "memory_bytes": 305664
+        }
+      ]
+    },
+    "B4_DUAL_TIMESCALE": {
+      "acc_a_pre": {
+        "mean": 0.65,
+        "std": 0.412689,
+        "ci95": [
+          0.137661,
+          1.162339
+        ],
+        "n": 5,
+        "values": [
+          0.9,
+          0.95,
+          1.0,
+          0.225,
+          0.175
+        ]
+      },
+      "acc_a_post": {
+        "mean": 0.645,
+        "std": 0.418853,
+        "ci95": [
+          0.125009,
+          1.164991
+        ],
+        "n": 5,
+        "values": [
+          0.9,
+          0.975,
+          0.975,
+          0.175,
+          0.2
+        ]
+      },
+      "forgetting_abs": {
+        "mean": 0.015,
+        "std": 0.022361,
+        "ci95": [
+          -0.01276,
+          0.04276
+        ],
+        "n": 5,
+        "values": [
+          0.0,
+          0.0,
+          0.025,
+          0.05,
+          0.0
+        ]
+      },
+      "retention_ratio": {
+        "mean": 0.9844,
+        "std": 0.132187,
+        "ci95": [
+          0.820295,
+          1.148505
+        ],
+        "n": 5,
+        "values": [
+          1.0,
+          1.0263,
+          0.975,
+          0.7778,
+          1.1429
+        ]
+      },
+      "captures": {
+        "mean": 4800.0,
+        "std": 0.0,
+        "ci95": [
+          4800.0,
+          4800.0
+        ],
+        "n": 5,
+        "values": [
+          4800.0,
+          4800.0,
+          4800.0,
+          4800.0,
+          4800.0
+        ]
+      },
+      "replay_events": {
+        "mean": 480.0,
+        "std": 0.0,
+        "ci95": [
+          480.0,
+          480.0
+        ],
+        "n": 5,
+        "values": [
+          480.0,
+          480.0,
+          480.0,
+          480.0,
+          480.0
+        ]
+      },
+      "seed_runs": [
+        {
+          "condition": "B4_DUAL_TIMESCALE",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.9,
+          "acc_a_post": 0.9,
+          "forgetting_abs": 0.0,
+          "retention_ratio": 1.0,
+          "backward_transfer": 0.0,
+          "interference": 0.0,
+          "slow_pool_norm_pre": 41.296646,
+          "slow_pool_norm_post": 153.769852,
+          "captures": 4800,
+          "replay_events": 480,
+          "memory_bytes": 305664
+        },
+        {
+          "condition": "B4_DUAL_TIMESCALE",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.95,
+          "acc_a_post": 0.975,
+          "forgetting_abs": 0.0,
+          "retention_ratio": 1.0263,
+          "backward_transfer": 0.025,
+          "interference": 0.0,
+          "slow_pool_norm_pre": 31.9888,
+          "slow_pool_norm_post": 116.671112,
+          "captures": 4800,
+          "replay_events": 480,
+          "memory_bytes": 305664
+        },
+        {
+          "condition": "B4_DUAL_TIMESCALE",
+          "content": "R1_EXACT",
+          "acc_a_pre": 1.0,
+          "acc_a_post": 0.975,
+          "forgetting_abs": 0.025,
+          "retention_ratio": 0.975,
+          "backward_transfer": -0.025,
+          "interference": 0.025,
+          "slow_pool_norm_pre": 41.021843,
+          "slow_pool_norm_post": 145.828995,
+          "captures": 4800,
+          "replay_events": 480,
+          "memory_bytes": 305664
+        },
+        {
+          "condition": "B4_DUAL_TIMESCALE",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.225,
+          "acc_a_post": 0.175,
+          "forgetting_abs": 0.05,
+          "retention_ratio": 0.7778,
+          "backward_transfer": -0.05,
+          "interference": 0.05,
+          "slow_pool_norm_pre": 30.266251,
+          "slow_pool_norm_post": 123.473969,
+          "captures": 4800,
+          "replay_events": 480,
+          "memory_bytes": 305664
+        },
+        {
+          "condition": "B4_DUAL_TIMESCALE",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.175,
+          "acc_a_post": 0.2,
+          "forgetting_abs": 0.0,
+          "retention_ratio": 1.1429,
+          "backward_transfer": 0.025,
+          "interference": 0.0,
+          "slow_pool_norm_pre": 25.631481,
+          "slow_pool_norm_post": 108.801186,
+          "captures": 4800,
+          "replay_events": 480,
+          "memory_bytes": 305664
+        }
+      ]
+    },
+    "B5_METAPLASTICITY": {
+      "acc_a_pre": {
+        "mean": 0.65,
+        "std": 0.412689,
+        "ci95": [
+          0.137661,
+          1.162339
+        ],
+        "n": 5,
+        "values": [
+          0.9,
+          0.95,
+          1.0,
+          0.225,
+          0.175
+        ]
+      },
+      "acc_a_post": {
+        "mean": 0.645,
+        "std": 0.418853,
+        "ci95": [
+          0.125009,
+          1.164991
+        ],
+        "n": 5,
+        "values": [
+          0.9,
+          0.975,
+          0.975,
+          0.175,
+          0.2
+        ]
+      },
+      "forgetting_abs": {
+        "mean": 0.015,
+        "std": 0.022361,
+        "ci95": [
+          -0.01276,
+          0.04276
+        ],
+        "n": 5,
+        "values": [
+          0.0,
+          0.0,
+          0.025,
+          0.05,
+          0.0
+        ]
+      },
+      "retention_ratio": {
+        "mean": 0.9844,
+        "std": 0.132187,
+        "ci95": [
+          0.820295,
+          1.148505
+        ],
+        "n": 5,
+        "values": [
+          1.0,
+          1.0263,
+          0.975,
+          0.7778,
+          1.1429
+        ]
+      },
+      "captures": {
+        "mean": 4800.0,
+        "std": 0.0,
+        "ci95": [
+          4800.0,
+          4800.0
+        ],
+        "n": 5,
+        "values": [
+          4800.0,
+          4800.0,
+          4800.0,
+          4800.0,
+          4800.0
+        ]
+      },
+      "replay_events": {
+        "mean": 480.0,
+        "std": 0.0,
+        "ci95": [
+          480.0,
+          480.0
+        ],
+        "n": 5,
+        "values": [
+          480.0,
+          480.0,
+          480.0,
+          480.0,
+          480.0
+        ]
+      },
+      "seed_runs": [
+        {
+          "condition": "B5_METAPLASTICITY",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.9,
+          "acc_a_post": 0.9,
+          "forgetting_abs": 0.0,
+          "retention_ratio": 1.0,
+          "backward_transfer": 0.0,
+          "interference": 0.0,
+          "slow_pool_norm_pre": 41.296646,
+          "slow_pool_norm_post": 153.769852,
+          "captures": 4800,
+          "replay_events": 480,
+          "memory_bytes": 305664
+        },
+        {
+          "condition": "B5_METAPLASTICITY",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.95,
+          "acc_a_post": 0.975,
+          "forgetting_abs": 0.0,
+          "retention_ratio": 1.0263,
+          "backward_transfer": 0.025,
+          "interference": 0.0,
+          "slow_pool_norm_pre": 31.9888,
+          "slow_pool_norm_post": 116.671112,
+          "captures": 4800,
+          "replay_events": 480,
+          "memory_bytes": 305664
+        },
+        {
+          "condition": "B5_METAPLASTICITY",
+          "content": "R1_EXACT",
+          "acc_a_pre": 1.0,
+          "acc_a_post": 0.975,
+          "forgetting_abs": 0.025,
+          "retention_ratio": 0.975,
+          "backward_transfer": -0.025,
+          "interference": 0.025,
+          "slow_pool_norm_pre": 41.021843,
+          "slow_pool_norm_post": 145.828995,
+          "captures": 4800,
+          "replay_events": 480,
+          "memory_bytes": 305664
+        },
+        {
+          "condition": "B5_METAPLASTICITY",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.225,
+          "acc_a_post": 0.175,
+          "forgetting_abs": 0.05,
+          "retention_ratio": 0.7778,
+          "backward_transfer": -0.05,
+          "interference": 0.05,
+          "slow_pool_norm_pre": 30.266251,
+          "slow_pool_norm_post": 123.473969,
+          "captures": 4800,
+          "replay_events": 480,
+          "memory_bytes": 305664
+        },
+        {
+          "condition": "B5_METAPLASTICITY",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.175,
+          "acc_a_post": 0.2,
+          "forgetting_abs": 0.0,
+          "retention_ratio": 1.1429,
+          "backward_transfer": 0.025,
+          "interference": 0.0,
+          "slow_pool_norm_pre": 25.631481,
+          "slow_pool_norm_post": 108.801186,
+          "captures": 4800,
+          "replay_events": 480,
+          "memory_bytes": 305664
+        }
+      ]
+    },
+    "B6_BOTH": {
+      "acc_a_pre": {
+        "mean": 0.65,
+        "std": 0.412689,
+        "ci95": [
+          0.137661,
+          1.162339
+        ],
+        "n": 5,
+        "values": [
+          0.9,
+          0.95,
+          1.0,
+          0.225,
+          0.175
+        ]
+      },
+      "acc_a_post": {
+        "mean": 0.645,
+        "std": 0.418853,
+        "ci95": [
+          0.125009,
+          1.164991
+        ],
+        "n": 5,
+        "values": [
+          0.9,
+          0.975,
+          0.975,
+          0.175,
+          0.2
+        ]
+      },
+      "forgetting_abs": {
+        "mean": 0.015,
+        "std": 0.022361,
+        "ci95": [
+          -0.01276,
+          0.04276
+        ],
+        "n": 5,
+        "values": [
+          0.0,
+          0.0,
+          0.025,
+          0.05,
+          0.0
+        ]
+      },
+      "retention_ratio": {
+        "mean": 0.9844,
+        "std": 0.132187,
+        "ci95": [
+          0.820295,
+          1.148505
+        ],
+        "n": 5,
+        "values": [
+          1.0,
+          1.0263,
+          0.975,
+          0.7778,
+          1.1429
+        ]
+      },
+      "captures": {
+        "mean": 4800.0,
+        "std": 0.0,
+        "ci95": [
+          4800.0,
+          4800.0
+        ],
+        "n": 5,
+        "values": [
+          4800.0,
+          4800.0,
+          4800.0,
+          4800.0,
+          4800.0
+        ]
+      },
+      "replay_events": {
+        "mean": 480.0,
+        "std": 0.0,
+        "ci95": [
+          480.0,
+          480.0
+        ],
+        "n": 5,
+        "values": [
+          480.0,
+          480.0,
+          480.0,
+          480.0,
+          480.0
+        ]
+      },
+      "seed_runs": [
+        {
+          "condition": "B6_BOTH",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.9,
+          "acc_a_post": 0.9,
+          "forgetting_abs": 0.0,
+          "retention_ratio": 1.0,
+          "backward_transfer": 0.0,
+          "interference": 0.0,
+          "slow_pool_norm_pre": 41.296646,
+          "slow_pool_norm_post": 153.769852,
+          "captures": 4800,
+          "replay_events": 480,
+          "memory_bytes": 305664
+        },
+        {
+          "condition": "B6_BOTH",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.95,
+          "acc_a_post": 0.975,
+          "forgetting_abs": 0.0,
+          "retention_ratio": 1.0263,
+          "backward_transfer": 0.025,
+          "interference": 0.0,
+          "slow_pool_norm_pre": 31.9888,
+          "slow_pool_norm_post": 116.671112,
+          "captures": 4800,
+          "replay_events": 480,
+          "memory_bytes": 305664
+        },
+        {
+          "condition": "B6_BOTH",
+          "content": "R1_EXACT",
+          "acc_a_pre": 1.0,
+          "acc_a_post": 0.975,
+          "forgetting_abs": 0.025,
+          "retention_ratio": 0.975,
+          "backward_transfer": -0.025,
+          "interference": 0.025,
+          "slow_pool_norm_pre": 41.021843,
+          "slow_pool_norm_post": 145.828995,
+          "captures": 4800,
+          "replay_events": 480,
+          "memory_bytes": 305664
+        },
+        {
+          "condition": "B6_BOTH",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.225,
+          "acc_a_post": 0.175,
+          "forgetting_abs": 0.05,
+          "retention_ratio": 0.7778,
+          "backward_transfer": -0.05,
+          "interference": 0.05,
+          "slow_pool_norm_pre": 30.266251,
+          "slow_pool_norm_post": 123.473969,
+          "captures": 4800,
+          "replay_events": 480,
+          "memory_bytes": 305664
+        },
+        {
+          "condition": "B6_BOTH",
+          "content": "R1_EXACT",
+          "acc_a_pre": 0.175,
+          "acc_a_post": 0.2,
+          "forgetting_abs": 0.0,
+          "retention_ratio": 1.1429,
+          "backward_transfer": 0.025,
+          "interference": 0.0,
+          "slow_pool_norm_pre": 25.631481,
+          "slow_pool_norm_post": 108.801186,
+          "captures": 4800,
+          "replay_events": 480,
+          "memory_bytes": 305664
+        }
+      ]
+    },
+    "content_audit": {
+      "R1_EXACT": {
+        "acc_a_post": 0.9,
+        "forgetting_abs": 0.0,
+        "retention_ratio": 1.0
+      },
+      "R2_PARTIAL": {
+        "acc_a_post": 0.9,
+        "forgetting_abs": 0.0,
+        "retention_ratio": 1.0
+      },
+      "R3_LATENT_ONLY": {
+        "acc_a_post": 0.9,
+        "forgetting_abs": 0.0,
+        "retention_ratio": 1.0
+      },
+      "R4_SHUFFLED": {
+        "acc_a_post": 0.9,
+        "forgetting_abs": 0.0,
+        "retention_ratio": 1.0
+      },
+      "R5_REVERSED": {
+        "acc_a_post": 0.9,
+        "forgetting_abs": 0.0,
+        "retention_ratio": 1.0
+      },
+      "R6_WRONG_EPISODE": {
+        "acc_a_post": 0.9,
+        "forgetting_abs": 0.0,
+        "retention_ratio": 1.0
+      },
+      "R7_RANDOM_SYNTHETIC": {
+        "acc_a_post": 0.9,
+        "forgetting_abs": 0.0,
+        "retention_ratio": 1.0
+      }
+    },
+    "transfer_without_replay": {
+      "learn_test_no_replay": {
+        "acc_a_post": 0.85,
+        "forgetting_abs": 0.05
+      },
+      "learn_rest_replay_test": {
+        "acc_a_post": 0.9,
+        "forgetting_abs": 0.0
+      },
+      "learnA_replayA_learnB_testA": {
+        "acc_a_post": 0.9,
+        "forgetting_abs": 0.0
+      },
+      "learnA_noreplayA_learnB_testA": {
+        "acc_a_post": 0.85,
+        "forgetting_abs": 0.05
+      }
+    }
+  },
+  "track_c_compositional_transfer": {
+    "combinations": {
+      "AB": {
+        "accuracy": {
+          "mean": 1.0,
+          "std": 0.0,
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 5,
+          "values": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "linear_probe_accuracy": {
+          "mean": 1.0,
+          "std": 0.0,
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 5,
+          "values": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "chance": 0.5,
+        "n_trials_per_seed": 80
+      },
+      "ABC": {
+        "accuracy": {
+          "mean": 1.0,
+          "std": 0.0,
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 5,
+          "values": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "linear_probe_accuracy": {
+          "mean": 1.0,
+          "std": 0.0,
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 5,
+          "values": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "chance": 0.5,
+        "n_trials_per_seed": 80
+      },
+      "AC": {
+        "accuracy": {
+          "mean": 1.0,
+          "std": 0.0,
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 5,
+          "values": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "linear_probe_accuracy": {
+          "mean": 1.0,
+          "std": 0.0,
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 5,
+          "values": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "chance": 0.5,
+        "n_trials_per_seed": 80
+      },
+      "BC": {
+        "accuracy": {
+          "mean": 1.0,
+          "std": 0.0,
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 5,
+          "values": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "linear_probe_accuracy": {
+          "mean": 1.0,
+          "std": 0.0,
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 5,
+          "values": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "chance": 0.5,
+        "n_trials_per_seed": 80
+      },
+      "XOR": {
+        "accuracy": {
+          "mean": 1.0,
+          "std": 0.0,
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 5,
+          "values": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "linear_probe_accuracy": {
+          "mean": 1.0,
+          "std": 0.0,
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 5,
+          "values": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "chance": 0.5,
+        "n_trials_per_seed": 80
+      }
+    },
+    "mean_combination_accuracy": {
+      "mean": 1.0,
+      "std": 0.0,
+      "ci95": [
+        1.0,
+        1.0
+      ],
+      "n": 5,
+      "values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "component_rule_accuracy": {
+      "A_SHAPE": {
+        "mean": 1.0,
+        "std": 0.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 5,
+        "values": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "B_COLOR": {
+        "mean": 1.0,
+        "std": 0.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 5,
+        "values": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "C_TEMPORAL": {
+        "mean": 1.0,
+        "std": 0.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 5,
+        "values": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "shuffled_label_control": {
+      "mean": 0.545,
+      "std": 0.053473,
+      "ci95": [
+        0.478615,
+        0.611385
+      ],
+      "n": 5,
+      "values": [
+        0.4875,
+        0.5,
+        0.6,
+        0.6,
+        0.5375
+      ]
+    },
+    "zero_shot_audit": {
+      "weights_unchanged": true,
+      "plasticity_calls": 0,
+      "replay_calls": 0,
+      "target_access": 0,
+      "zero_shot_valid": true
+    },
+    "all_zero_shot_valid": true,
+    "cka_ab_vs_bc": {
+      "mean": 0.0,
+      "std": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "n": 5,
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "episodic_memory_bytes": 71640,
+    "parameters": 24,
+    "seed_runs": [
+      {
+        "component_rule_accuracy": {
+          "A_SHAPE": 1.0,
+          "B_COLOR": 1.0,
+          "C_TEMPORAL": 1.0
+        },
+        "combinations": {
+          "AB": {
+            "accuracy": 1.0,
+            "chance": 0.5,
+            "n_trials": 80,
+            "linear_probe_accuracy": 1.0
+          },
+          "AC": {
+            "accuracy": 1.0,
+            "chance": 0.5,
+            "n_trials": 80,
+            "linear_probe_accuracy": 1.0
+          },
+          "BC": {
+            "accuracy": 1.0,
+            "chance": 0.5,
+            "n_trials": 80,
+            "linear_probe_accuracy": 1.0
+          },
+          "ABC": {
+            "accuracy": 1.0,
+            "chance": 0.5,
+            "n_trials": 80,
+            "linear_probe_accuracy": 1.0
+          },
+          "XOR": {
+            "accuracy": 1.0,
+            "chance": 0.5,
+            "n_trials": 80,
+            "linear_probe_accuracy": 1.0
+          }
+        },
+        "mean_combination_accuracy": 1.0,
+        "chance": 0.5,
+        "shuffled_label_accuracy": 0.4875,
+        "linear_control_probe": 1.0,
+        "cka_ab_vs_bc": 0.0,
+        "zero_shot_audit": {
+          "weights_unchanged": true,
+          "plasticity_calls": 0,
+          "replay_calls": 0,
+          "target_access": 0,
+          "zero_shot_valid": true
+        },
+        "episodic_memory_bytes": 71640,
+        "episodic_memory_records": 120,
+        "parameters": 24
+      },
+      {
+        "component_rule_accuracy": {
+          "A_SHAPE": 1.0,
+          "B_COLOR": 1.0,
+          "C_TEMPORAL": 1.0
+        },
+        "combinations": {
+          "AB": {
+            "accuracy": 1.0,
+            "chance": 0.5,
+            "n_trials": 80,
+            "linear_probe_accuracy": 1.0
+          },
+          "AC": {
+            "accuracy": 1.0,
+            "chance": 0.5,
+            "n_trials": 80,
+            "linear_probe_accuracy": 1.0
+          },
+          "BC": {
+            "accuracy": 1.0,
+            "chance": 0.5,
+            "n_trials": 80,
+            "linear_probe_accuracy": 1.0
+          },
+          "ABC": {
+            "accuracy": 1.0,
+            "chance": 0.5,
+            "n_trials": 80,
+            "linear_probe_accuracy": 1.0
+          },
+          "XOR": {
+            "accuracy": 1.0,
+            "chance": 0.5,
+            "n_trials": 80,
+            "linear_probe_accuracy": 1.0
+          }
+        },
+        "mean_combination_accuracy": 1.0,
+        "chance": 0.5,
+        "shuffled_label_accuracy": 0.5,
+        "linear_control_probe": 1.0,
+        "cka_ab_vs_bc": 0.0,
+        "zero_shot_audit": {
+          "weights_unchanged": true,
+          "plasticity_calls": 0,
+          "replay_calls": 0,
+          "target_access": 0,
+          "zero_shot_valid": true
+        },
+        "episodic_memory_bytes": 71640,
+        "episodic_memory_records": 120,
+        "parameters": 24
+      },
+      {
+        "component_rule_accuracy": {
+          "A_SHAPE": 1.0,
+          "B_COLOR": 1.0,
+          "C_TEMPORAL": 1.0
+        },
+        "combinations": {
+          "AB": {
+            "accuracy": 1.0,
+            "chance": 0.5,
+            "n_trials": 80,
+            "linear_probe_accuracy": 1.0
+          },
+          "AC": {
+            "accuracy": 1.0,
+            "chance": 0.5,
+            "n_trials": 80,
+            "linear_probe_accuracy": 1.0
+          },
+          "BC": {
+            "accuracy": 1.0,
+            "chance": 0.5,
+            "n_trials": 80,
+            "linear_probe_accuracy": 1.0
+          },
+          "ABC": {
+            "accuracy": 1.0,
+            "chance": 0.5,
+            "n_trials": 80,
+            "linear_probe_accuracy": 1.0
+          },
+          "XOR": {
+            "accuracy": 1.0,
+            "chance": 0.5,
+            "n_trials": 80,
+            "linear_probe_accuracy": 1.0
+          }
+        },
+        "mean_combination_accuracy": 1.0,
+        "chance": 0.5,
+        "shuffled_label_accuracy": 0.6,
+        "linear_control_probe": 1.0,
+        "cka_ab_vs_bc": 0.0,
+        "zero_shot_audit": {
+          "weights_unchanged": true,
+          "plasticity_calls": 0,
+          "replay_calls": 0,
+          "target_access": 0,
+          "zero_shot_valid": true
+        },
+        "episodic_memory_bytes": 71640,
+        "episodic_memory_records": 120,
+        "parameters": 24
+      },
+      {
+        "component_rule_accuracy": {
+          "A_SHAPE": 1.0,
+          "B_COLOR": 1.0,
+          "C_TEMPORAL": 1.0
+        },
+        "combinations": {
+          "AB": {
+            "accuracy": 1.0,
+            "chance": 0.5,
+            "n_trials": 80,
+            "linear_probe_accuracy": 1.0
+          },
+          "AC": {
+            "accuracy": 1.0,
+            "chance": 0.5,
+            "n_trials": 80,
+            "linear_probe_accuracy": 1.0
+          },
+          "BC": {
+            "accuracy": 1.0,
+            "chance": 0.5,
+            "n_trials": 80,
+            "linear_probe_accuracy": 1.0
+          },
+          "ABC": {
+            "accuracy": 1.0,
+            "chance": 0.5,
+            "n_trials": 80,
+            "linear_probe_accuracy": 1.0
+          },
+          "XOR": {
+            "accuracy": 1.0,
+            "chance": 0.5,
+            "n_trials": 80,
+            "linear_probe_accuracy": 1.0
+          }
+        },
+        "mean_combination_accuracy": 1.0,
+        "chance": 0.5,
+        "shuffled_label_accuracy": 0.6,
+        "linear_control_probe": 1.0,
+        "cka_ab_vs_bc": 0.0,
+        "zero_shot_audit": {
+          "weights_unchanged": true,
+          "plasticity_calls": 0,
+          "replay_calls": 0,
+          "target_access": 0,
+          "zero_shot_valid": true
+        },
+        "episodic_memory_bytes": 71640,
+        "episodic_memory_records": 120,
+        "parameters": 24
+      },
+      {
+        "component_rule_accuracy": {
+          "A_SHAPE": 1.0,
+          "B_COLOR": 1.0,
+          "C_TEMPORAL": 1.0
+        },
+        "combinations": {
+          "AB": {
+            "accuracy": 1.0,
+            "chance": 0.5,
+            "n_trials": 80,
+            "linear_probe_accuracy": 1.0
+          },
+          "AC": {
+            "accuracy": 1.0,
+            "chance": 0.5,
+            "n_trials": 80,
+            "linear_probe_accuracy": 1.0
+          },
+          "BC": {
+            "accuracy": 1.0,
+            "chance": 0.5,
+            "n_trials": 80,
+            "linear_probe_accuracy": 1.0
+          },
+          "ABC": {
+            "accuracy": 1.0,
+            "chance": 0.5,
+            "n_trials": 80,
+            "linear_probe_accuracy": 1.0
+          },
+          "XOR": {
+            "accuracy": 1.0,
+            "chance": 0.5,
+            "n_trials": 80,
+            "linear_probe_accuracy": 1.0
+          }
+        },
+        "mean_combination_accuracy": 1.0,
+        "chance": 0.5,
+        "shuffled_label_accuracy": 0.5375,
+        "linear_control_probe": 1.0,
+        "cka_ab_vs_bc": 0.0,
+        "zero_shot_audit": {
+          "weights_unchanged": true,
+          "plasticity_calls": 0,
+          "replay_calls": 0,
+          "target_access": 0,
+          "zero_shot_valid": true
+        },
+        "episodic_memory_bytes": 71640,
+        "episodic_memory_records": 120,
+        "parameters": 24
+      }
+    ],
+    "retrieval_dependence": {
+      "with_memory": {
+        "mean_combination_accuracy": 1.0,
+        "ab": 1.0,
+        "abc": 1.0
+      },
+      "memory_removed": {
+        "mean_combination_accuracy": 1.0,
+        "ab": 1.0,
+        "abc": 1.0
+      },
+      "retrieval_randomized": {
+        "mean_combination_accuracy": 1.0,
+        "ab": 1.0,
+        "abc": 1.0
+      },
+      "no_memory": {
+        "mean_combination_accuracy": 1.0,
+        "ab": 1.0,
+        "abc": 1.0
+      }
+    }
+  },
+  "tracks_d_e_integrated_and_baselines": {
+    "integrated": {
+      "D0_PHASE20_BASELINE": {
+        "acc_a_pre_mean": 0.65,
+        "acc_a_post_mean": 0.62,
+        "acc_a_post_std": 0.35545745174352444,
+        "forgetting_mean": 0.030000000000000006,
+        "retention_mean": 0.9688800000000001,
+        "n_seeds": 5,
+        "accounting": {
+          "neural_parameters_trainable": 80,
+          "neural_parameters_fixed": 3200,
+          "dynamic_state_variables": 160,
+          "episodic_memory_bytes": 0,
+          "replay_buffer_bytes": 0,
+          "consolidation_slow_pool_bytes": 640,
+          "structural_hyperparameters": 40,
+          "computational_workspace_peak_bytes": 640,
+          "external_memory_included_in_parameters": false,
+          "flops_replay_total": 0,
+          "flops_retrieval_total": 0,
+          "total_external_memory_bytes": 320
+        },
+        "seed_runs": [
+          {
+            "condition": "D0_PHASE20_BASELINE",
+            "config": {
+              "memory": false,
+              "replay": false,
+              "consolidation": false,
+              "routing": false
+            },
+            "acc_a_pre": 0.9,
+            "acc_a_post": 0.85,
+            "forgetting_abs": 0.05,
+            "retention_ratio": 0.9444,
+            "backward_transfer": -0.05,
+            "accounting": {
+              "neural_parameters_trainable": 80,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 0,
+              "replay_buffer_bytes": 0,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 40,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 0,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 320
+            }
+          },
+          {
+            "condition": "D0_PHASE20_BASELINE",
+            "config": {
+              "memory": false,
+              "replay": false,
+              "consolidation": false,
+              "routing": false
+            },
+            "acc_a_pre": 0.975,
+            "acc_a_post": 0.975,
+            "forgetting_abs": 0.0,
+            "retention_ratio": 1.0,
+            "backward_transfer": 0.0,
+            "accounting": {
+              "neural_parameters_trainable": 80,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 0,
+              "replay_buffer_bytes": 0,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 40,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 0,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 320
+            }
+          },
+          {
+            "condition": "D0_PHASE20_BASELINE",
+            "config": {
+              "memory": false,
+              "replay": false,
+              "consolidation": false,
+              "routing": false
+            },
+            "acc_a_pre": 1.0,
+            "acc_a_post": 0.9,
+            "forgetting_abs": 0.1,
+            "retention_ratio": 0.9,
+            "backward_transfer": -0.1,
+            "accounting": {
+              "neural_parameters_trainable": 80,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 0,
+              "replay_buffer_bytes": 0,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 40,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 0,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 320
+            }
+          },
+          {
+            "condition": "D0_PHASE20_BASELINE",
+            "config": {
+              "memory": false,
+              "replay": false,
+              "consolidation": false,
+              "routing": false
+            },
+            "acc_a_pre": 0.2,
+            "acc_a_post": 0.2,
+            "forgetting_abs": 0.0,
+            "retention_ratio": 1.0,
+            "backward_transfer": 0.0,
+            "accounting": {
+              "neural_parameters_trainable": 80,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 0,
+              "replay_buffer_bytes": 0,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 40,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 0,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 320
+            }
+          },
+          {
+            "condition": "D0_PHASE20_BASELINE",
+            "config": {
+              "memory": false,
+              "replay": false,
+              "consolidation": false,
+              "routing": false
+            },
+            "acc_a_pre": 0.175,
+            "acc_a_post": 0.175,
+            "forgetting_abs": 0.0,
+            "retention_ratio": 1.0,
+            "backward_transfer": 0.0,
+            "accounting": {
+              "neural_parameters_trainable": 80,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 0,
+              "replay_buffer_bytes": 0,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 40,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 0,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 320
+            }
+          }
+        ]
+      },
+      "D1_EPISODIC_MEMORY": {
+        "acc_a_pre_mean": 0.65,
+        "acc_a_post_mean": 0.62,
+        "acc_a_post_std": 0.35545745174352444,
+        "forgetting_mean": 0.030000000000000006,
+        "retention_mean": 0.9688800000000001,
+        "n_seeds": 5,
+        "accounting": {
+          "neural_parameters_trainable": 560,
+          "neural_parameters_fixed": 3200,
+          "dynamic_state_variables": 160,
+          "episodic_memory_bytes": 305664,
+          "replay_buffer_bytes": 305664,
+          "consolidation_slow_pool_bytes": 640,
+          "structural_hyperparameters": 40,
+          "computational_workspace_peak_bytes": 640,
+          "external_memory_included_in_parameters": false,
+          "flops_replay_total": 0,
+          "flops_retrieval_total": 0,
+          "total_external_memory_bytes": 305984
+        },
+        "seed_runs": [
+          {
+            "condition": "D1_EPISODIC_MEMORY",
+            "config": {
+              "memory": true,
+              "replay": false,
+              "consolidation": false,
+              "routing": false
+            },
+            "acc_a_pre": 0.9,
+            "acc_a_post": 0.85,
+            "forgetting_abs": 0.05,
+            "retention_ratio": 0.9444,
+            "backward_transfer": -0.05,
+            "accounting": {
+              "neural_parameters_trainable": 560,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 305664,
+              "replay_buffer_bytes": 305664,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 40,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 0,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 305984
+            }
+          },
+          {
+            "condition": "D1_EPISODIC_MEMORY",
+            "config": {
+              "memory": true,
+              "replay": false,
+              "consolidation": false,
+              "routing": false
+            },
+            "acc_a_pre": 0.975,
+            "acc_a_post": 0.975,
+            "forgetting_abs": 0.0,
+            "retention_ratio": 1.0,
+            "backward_transfer": 0.0,
+            "accounting": {
+              "neural_parameters_trainable": 560,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 305664,
+              "replay_buffer_bytes": 305664,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 40,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 0,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 305984
+            }
+          },
+          {
+            "condition": "D1_EPISODIC_MEMORY",
+            "config": {
+              "memory": true,
+              "replay": false,
+              "consolidation": false,
+              "routing": false
+            },
+            "acc_a_pre": 1.0,
+            "acc_a_post": 0.9,
+            "forgetting_abs": 0.1,
+            "retention_ratio": 0.9,
+            "backward_transfer": -0.1,
+            "accounting": {
+              "neural_parameters_trainable": 560,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 305664,
+              "replay_buffer_bytes": 305664,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 40,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 0,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 305984
+            }
+          },
+          {
+            "condition": "D1_EPISODIC_MEMORY",
+            "config": {
+              "memory": true,
+              "replay": false,
+              "consolidation": false,
+              "routing": false
+            },
+            "acc_a_pre": 0.2,
+            "acc_a_post": 0.2,
+            "forgetting_abs": 0.0,
+            "retention_ratio": 1.0,
+            "backward_transfer": 0.0,
+            "accounting": {
+              "neural_parameters_trainable": 560,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 305664,
+              "replay_buffer_bytes": 305664,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 40,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 0,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 305984
+            }
+          },
+          {
+            "condition": "D1_EPISODIC_MEMORY",
+            "config": {
+              "memory": true,
+              "replay": false,
+              "consolidation": false,
+              "routing": false
+            },
+            "acc_a_pre": 0.175,
+            "acc_a_post": 0.175,
+            "forgetting_abs": 0.0,
+            "retention_ratio": 1.0,
+            "backward_transfer": 0.0,
+            "accounting": {
+              "neural_parameters_trainable": 560,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 305664,
+              "replay_buffer_bytes": 305664,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 40,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 0,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 305984
+            }
+          }
+        ]
+      },
+      "D2_REPLAY_CONSOLIDATION": {
+        "acc_a_pre_mean": 0.65,
+        "acc_a_post_mean": 0.645,
+        "acc_a_post_std": 0.3746331538985838,
+        "forgetting_mean": 0.015000000000000003,
+        "retention_mean": 0.9844000000000002,
+        "n_seeds": 5,
+        "accounting": {
+          "neural_parameters_trainable": 80,
+          "neural_parameters_fixed": 3200,
+          "dynamic_state_variables": 160,
+          "episodic_memory_bytes": 0,
+          "replay_buffer_bytes": 0,
+          "consolidation_slow_pool_bytes": 640,
+          "structural_hyperparameters": 40,
+          "computational_workspace_peak_bytes": 640,
+          "external_memory_included_in_parameters": false,
+          "flops_replay_total": 0,
+          "flops_retrieval_total": 0,
+          "total_external_memory_bytes": 320
+        },
+        "seed_runs": [
+          {
+            "condition": "D2_REPLAY_CONSOLIDATION",
+            "config": {
+              "memory": false,
+              "replay": true,
+              "consolidation": true,
+              "routing": false
+            },
+            "acc_a_pre": 0.9,
+            "acc_a_post": 0.9,
+            "forgetting_abs": 0.0,
+            "retention_ratio": 1.0,
+            "backward_transfer": 0.0,
+            "accounting": {
+              "neural_parameters_trainable": 80,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 0,
+              "replay_buffer_bytes": 0,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 40,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 0,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 320
+            }
+          },
+          {
+            "condition": "D2_REPLAY_CONSOLIDATION",
+            "config": {
+              "memory": false,
+              "replay": true,
+              "consolidation": true,
+              "routing": false
+            },
+            "acc_a_pre": 0.95,
+            "acc_a_post": 0.975,
+            "forgetting_abs": 0.0,
+            "retention_ratio": 1.0263,
+            "backward_transfer": 0.025,
+            "accounting": {
+              "neural_parameters_trainable": 80,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 0,
+              "replay_buffer_bytes": 0,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 40,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 0,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 320
+            }
+          },
+          {
+            "condition": "D2_REPLAY_CONSOLIDATION",
+            "config": {
+              "memory": false,
+              "replay": true,
+              "consolidation": true,
+              "routing": false
+            },
+            "acc_a_pre": 1.0,
+            "acc_a_post": 0.975,
+            "forgetting_abs": 0.025,
+            "retention_ratio": 0.975,
+            "backward_transfer": -0.025,
+            "accounting": {
+              "neural_parameters_trainable": 80,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 0,
+              "replay_buffer_bytes": 0,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 40,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 0,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 320
+            }
+          },
+          {
+            "condition": "D2_REPLAY_CONSOLIDATION",
+            "config": {
+              "memory": false,
+              "replay": true,
+              "consolidation": true,
+              "routing": false
+            },
+            "acc_a_pre": 0.225,
+            "acc_a_post": 0.175,
+            "forgetting_abs": 0.05,
+            "retention_ratio": 0.7778,
+            "backward_transfer": -0.05,
+            "accounting": {
+              "neural_parameters_trainable": 80,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 0,
+              "replay_buffer_bytes": 0,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 40,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 0,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 320
+            }
+          },
+          {
+            "condition": "D2_REPLAY_CONSOLIDATION",
+            "config": {
+              "memory": false,
+              "replay": true,
+              "consolidation": true,
+              "routing": false
+            },
+            "acc_a_pre": 0.175,
+            "acc_a_post": 0.2,
+            "forgetting_abs": 0.0,
+            "retention_ratio": 1.1429,
+            "backward_transfer": 0.025,
+            "accounting": {
+              "neural_parameters_trainable": 80,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 0,
+              "replay_buffer_bytes": 0,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 40,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 0,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 320
+            }
+          }
+        ]
+      },
+      "D3_MEMORY_REPLAY": {
+        "acc_a_pre_mean": 0.65,
+        "acc_a_post_mean": 0.645,
+        "acc_a_post_std": 0.3746331538985838,
+        "forgetting_mean": 0.015000000000000003,
+        "retention_mean": 0.9844000000000002,
+        "n_seeds": 5,
+        "accounting": {
+          "neural_parameters_trainable": 560,
+          "neural_parameters_fixed": 3200,
+          "dynamic_state_variables": 160,
+          "episodic_memory_bytes": 305664,
+          "replay_buffer_bytes": 305664,
+          "consolidation_slow_pool_bytes": 640,
+          "structural_hyperparameters": 40,
+          "computational_workspace_peak_bytes": 640,
+          "external_memory_included_in_parameters": false,
+          "flops_replay_total": 153600,
+          "flops_retrieval_total": 0,
+          "total_external_memory_bytes": 305984
+        },
+        "seed_runs": [
+          {
+            "condition": "D3_MEMORY_REPLAY",
+            "config": {
+              "memory": true,
+              "replay": true,
+              "consolidation": false,
+              "routing": false
+            },
+            "acc_a_pre": 0.9,
+            "acc_a_post": 0.9,
+            "forgetting_abs": 0.0,
+            "retention_ratio": 1.0,
+            "backward_transfer": 0.0,
+            "accounting": {
+              "neural_parameters_trainable": 560,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 305664,
+              "replay_buffer_bytes": 305664,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 40,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 153600,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 305984
+            }
+          },
+          {
+            "condition": "D3_MEMORY_REPLAY",
+            "config": {
+              "memory": true,
+              "replay": true,
+              "consolidation": false,
+              "routing": false
+            },
+            "acc_a_pre": 0.95,
+            "acc_a_post": 0.975,
+            "forgetting_abs": 0.0,
+            "retention_ratio": 1.0263,
+            "backward_transfer": 0.025,
+            "accounting": {
+              "neural_parameters_trainable": 560,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 305664,
+              "replay_buffer_bytes": 305664,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 40,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 153600,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 305984
+            }
+          },
+          {
+            "condition": "D3_MEMORY_REPLAY",
+            "config": {
+              "memory": true,
+              "replay": true,
+              "consolidation": false,
+              "routing": false
+            },
+            "acc_a_pre": 1.0,
+            "acc_a_post": 0.975,
+            "forgetting_abs": 0.025,
+            "retention_ratio": 0.975,
+            "backward_transfer": -0.025,
+            "accounting": {
+              "neural_parameters_trainable": 560,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 305664,
+              "replay_buffer_bytes": 305664,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 40,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 153600,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 305984
+            }
+          },
+          {
+            "condition": "D3_MEMORY_REPLAY",
+            "config": {
+              "memory": true,
+              "replay": true,
+              "consolidation": false,
+              "routing": false
+            },
+            "acc_a_pre": 0.225,
+            "acc_a_post": 0.175,
+            "forgetting_abs": 0.05,
+            "retention_ratio": 0.7778,
+            "backward_transfer": -0.05,
+            "accounting": {
+              "neural_parameters_trainable": 560,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 305664,
+              "replay_buffer_bytes": 305664,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 40,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 153600,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 305984
+            }
+          },
+          {
+            "condition": "D3_MEMORY_REPLAY",
+            "config": {
+              "memory": true,
+              "replay": true,
+              "consolidation": false,
+              "routing": false
+            },
+            "acc_a_pre": 0.175,
+            "acc_a_post": 0.2,
+            "forgetting_abs": 0.0,
+            "retention_ratio": 1.1429,
+            "backward_transfer": 0.025,
+            "accounting": {
+              "neural_parameters_trainable": 560,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 305664,
+              "replay_buffer_bytes": 305664,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 40,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 153600,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 305984
+            }
+          }
+        ]
+      },
+      "D4_MEMORY_REPLAY_CONSOLIDATION": {
+        "acc_a_pre_mean": 0.65,
+        "acc_a_post_mean": 0.645,
+        "acc_a_post_std": 0.3746331538985838,
+        "forgetting_mean": 0.015000000000000003,
+        "retention_mean": 0.9844000000000002,
+        "n_seeds": 5,
+        "accounting": {
+          "neural_parameters_trainable": 560,
+          "neural_parameters_fixed": 3200,
+          "dynamic_state_variables": 160,
+          "episodic_memory_bytes": 305664,
+          "replay_buffer_bytes": 305664,
+          "consolidation_slow_pool_bytes": 640,
+          "structural_hyperparameters": 40,
+          "computational_workspace_peak_bytes": 640,
+          "external_memory_included_in_parameters": false,
+          "flops_replay_total": 153600,
+          "flops_retrieval_total": 0,
+          "total_external_memory_bytes": 305984
+        },
+        "seed_runs": [
+          {
+            "condition": "D4_MEMORY_REPLAY_CONSOLIDATION",
+            "config": {
+              "memory": true,
+              "replay": true,
+              "consolidation": true,
+              "routing": false
+            },
+            "acc_a_pre": 0.9,
+            "acc_a_post": 0.9,
+            "forgetting_abs": 0.0,
+            "retention_ratio": 1.0,
+            "backward_transfer": 0.0,
+            "accounting": {
+              "neural_parameters_trainable": 560,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 305664,
+              "replay_buffer_bytes": 305664,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 40,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 153600,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 305984
+            }
+          },
+          {
+            "condition": "D4_MEMORY_REPLAY_CONSOLIDATION",
+            "config": {
+              "memory": true,
+              "replay": true,
+              "consolidation": true,
+              "routing": false
+            },
+            "acc_a_pre": 0.95,
+            "acc_a_post": 0.975,
+            "forgetting_abs": 0.0,
+            "retention_ratio": 1.0263,
+            "backward_transfer": 0.025,
+            "accounting": {
+              "neural_parameters_trainable": 560,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 305664,
+              "replay_buffer_bytes": 305664,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 40,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 153600,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 305984
+            }
+          },
+          {
+            "condition": "D4_MEMORY_REPLAY_CONSOLIDATION",
+            "config": {
+              "memory": true,
+              "replay": true,
+              "consolidation": true,
+              "routing": false
+            },
+            "acc_a_pre": 1.0,
+            "acc_a_post": 0.975,
+            "forgetting_abs": 0.025,
+            "retention_ratio": 0.975,
+            "backward_transfer": -0.025,
+            "accounting": {
+              "neural_parameters_trainable": 560,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 305664,
+              "replay_buffer_bytes": 305664,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 40,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 153600,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 305984
+            }
+          },
+          {
+            "condition": "D4_MEMORY_REPLAY_CONSOLIDATION",
+            "config": {
+              "memory": true,
+              "replay": true,
+              "consolidation": true,
+              "routing": false
+            },
+            "acc_a_pre": 0.225,
+            "acc_a_post": 0.175,
+            "forgetting_abs": 0.05,
+            "retention_ratio": 0.7778,
+            "backward_transfer": -0.05,
+            "accounting": {
+              "neural_parameters_trainable": 560,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 305664,
+              "replay_buffer_bytes": 305664,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 40,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 153600,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 305984
+            }
+          },
+          {
+            "condition": "D4_MEMORY_REPLAY_CONSOLIDATION",
+            "config": {
+              "memory": true,
+              "replay": true,
+              "consolidation": true,
+              "routing": false
+            },
+            "acc_a_pre": 0.175,
+            "acc_a_post": 0.2,
+            "forgetting_abs": 0.0,
+            "retention_ratio": 1.1429,
+            "backward_transfer": 0.025,
+            "accounting": {
+              "neural_parameters_trainable": 560,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 305664,
+              "replay_buffer_bytes": 305664,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 40,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 153600,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 305984
+            }
+          }
+        ]
+      },
+      "D5_FULL_ROUTING": {
+        "acc_a_pre_mean": 0.65,
+        "acc_a_post_mean": 0.645,
+        "acc_a_post_std": 0.3746331538985838,
+        "forgetting_mean": 0.015000000000000003,
+        "retention_mean": 0.9844000000000002,
+        "n_seeds": 5,
+        "accounting": {
+          "neural_parameters_trainable": 683,
+          "neural_parameters_fixed": 3200,
+          "dynamic_state_variables": 160,
+          "episodic_memory_bytes": 305664,
+          "replay_buffer_bytes": 305664,
+          "consolidation_slow_pool_bytes": 640,
+          "structural_hyperparameters": 43,
+          "computational_workspace_peak_bytes": 640,
+          "external_memory_included_in_parameters": false,
+          "flops_replay_total": 153600,
+          "flops_retrieval_total": 0,
+          "total_external_memory_bytes": 305984
+        },
+        "seed_runs": [
+          {
+            "condition": "D5_FULL_ROUTING",
+            "config": {
+              "memory": true,
+              "replay": true,
+              "consolidation": true,
+              "routing": true
+            },
+            "acc_a_pre": 0.9,
+            "acc_a_post": 0.9,
+            "forgetting_abs": 0.0,
+            "retention_ratio": 1.0,
+            "backward_transfer": 0.0,
+            "accounting": {
+              "neural_parameters_trainable": 683,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 305664,
+              "replay_buffer_bytes": 305664,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 43,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 153600,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 305984
+            }
+          },
+          {
+            "condition": "D5_FULL_ROUTING",
+            "config": {
+              "memory": true,
+              "replay": true,
+              "consolidation": true,
+              "routing": true
+            },
+            "acc_a_pre": 0.95,
+            "acc_a_post": 0.975,
+            "forgetting_abs": 0.0,
+            "retention_ratio": 1.0263,
+            "backward_transfer": 0.025,
+            "accounting": {
+              "neural_parameters_trainable": 683,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 305664,
+              "replay_buffer_bytes": 305664,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 43,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 153600,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 305984
+            }
+          },
+          {
+            "condition": "D5_FULL_ROUTING",
+            "config": {
+              "memory": true,
+              "replay": true,
+              "consolidation": true,
+              "routing": true
+            },
+            "acc_a_pre": 1.0,
+            "acc_a_post": 0.975,
+            "forgetting_abs": 0.025,
+            "retention_ratio": 0.975,
+            "backward_transfer": -0.025,
+            "accounting": {
+              "neural_parameters_trainable": 683,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 305664,
+              "replay_buffer_bytes": 305664,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 43,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 153600,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 305984
+            }
+          },
+          {
+            "condition": "D5_FULL_ROUTING",
+            "config": {
+              "memory": true,
+              "replay": true,
+              "consolidation": true,
+              "routing": true
+            },
+            "acc_a_pre": 0.225,
+            "acc_a_post": 0.175,
+            "forgetting_abs": 0.05,
+            "retention_ratio": 0.7778,
+            "backward_transfer": -0.05,
+            "accounting": {
+              "neural_parameters_trainable": 683,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 305664,
+              "replay_buffer_bytes": 305664,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 43,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 153600,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 305984
+            }
+          },
+          {
+            "condition": "D5_FULL_ROUTING",
+            "config": {
+              "memory": true,
+              "replay": true,
+              "consolidation": true,
+              "routing": true
+            },
+            "acc_a_pre": 0.175,
+            "acc_a_post": 0.2,
+            "forgetting_abs": 0.0,
+            "retention_ratio": 1.1429,
+            "backward_transfer": 0.025,
+            "accounting": {
+              "neural_parameters_trainable": 683,
+              "neural_parameters_fixed": 3200,
+              "dynamic_state_variables": 160,
+              "episodic_memory_bytes": 305664,
+              "replay_buffer_bytes": 305664,
+              "consolidation_slow_pool_bytes": 640,
+              "structural_hyperparameters": 43,
+              "computational_workspace_peak_bytes": 640,
+              "external_memory_included_in_parameters": false,
+              "flops_replay_total": 153600,
+              "flops_retrieval_total": 0,
+              "total_external_memory_bytes": 305984
+            }
+          }
+        ]
+      }
+    },
+    "baselines": {
+      "baselines": [
+        {
+          "system": "MIN_E_PLUS_PHASE21",
+          "trainable_parameters": 683,
+          "fixed_parameters": 2000,
+          "state_variables": 282,
+          "external_memory_bytes": 71640,
+          "external_memory_included_in_parameters": false,
+          "sequence_length": 15,
+          "training_examples": 2400,
+          "optimization_steps": 2400,
+          "total_parameters": 2683,
+          "flops_per_step": 504,
+          "flops_per_trial": 7560,
+          "total_training_flops": 18144000,
+          "peak_rss_mb": 0.0
+        },
+        {
+          "system": "SIMPLE_RECURRENT",
+          "trainable_parameters": 80,
+          "fixed_parameters": 1920,
+          "state_variables": 120,
+          "external_memory_bytes": 0,
+          "external_memory_included_in_parameters": false,
+          "sequence_length": 15,
+          "training_examples": 2400,
+          "optimization_steps": 2400,
+          "total_parameters": 2000,
+          "flops_per_step": 6560,
+          "flops_per_trial": 98400,
+          "total_training_flops": 236160000,
+          "peak_rss_mb": 0.0
+        },
+        {
+          "system": "BPTT_RECURRENT",
+          "trainable_parameters": 2041,
+          "fixed_parameters": 0,
+          "state_variables": 40,
+          "external_memory_bytes": 0,
+          "external_memory_included_in_parameters": false,
+          "sequence_length": 15,
+          "training_examples": 2400,
+          "optimization_steps": 2400,
+          "total_parameters": 2041,
+          "flops_per_step": 6560,
+          "flops_per_trial": 98400,
+          "total_training_flops": 236160000,
+          "peak_rss_mb": 0.0
+        },
+        {
+          "system": "CAUSAL_TRANSFORMER",
+          "trainable_parameters": 2322,
+          "fixed_parameters": 0,
+          "state_variables": 4096,
+          "external_memory_bytes": 0,
+          "external_memory_included_in_parameters": false,
+          "sequence_length": 15,
+          "training_examples": 2400,
+          "optimization_steps": 2400,
+          "total_parameters": 2322,
+          "flops_per_step": 1056,
+          "flops_per_trial": 15840,
+          "total_training_flops": 38016000,
+          "peak_rss_mb": 0.0
+        }
+      ],
+      "note": "Exact benchmark measurements only. No claim is made that 3D-Brain beats Transformers. External memory is reported separately and is NOT included in any parameter count.",
+      "memory_accounting_is_separate": true
+    }
+  },
+  "primary_endpoints": {
+    "P1_retrieval_accuracy_A3_vs_A0": {
+      "a3": {
+        "mean": 0.986667,
+        "std": 0.007454,
+        "ci95": [
+          0.977413,
+          0.99592
+        ],
+        "n": 5,
+        "values": [
+          0.983333,
+          0.983333,
+          0.983333,
+          0.983333,
+          1.0
+        ]
+      },
+      "a0": {
+        "mean": 0.0,
+        "std": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 5,
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "cohens_d": 132.3752,
+      "p_raw": 7.815402717796377e-10
+    },
+    "P2_discrimination_A3_vs_A1": {
+      "a3": {
+        "mean": 0.986667,
+        "std": 0.007454,
+        "ci95": [
+          0.977413,
+          0.99592
+        ],
+        "n": 5,
+        "values": [
+          0.983333,
+          0.983333,
+          0.983333,
+          0.983333,
+          1.0
+        ]
+      },
+      "a1": {
+        "mean": 0.013333,
+        "std": 0.013944,
+        "ci95": [
+          -0.003978,
+          0.030645
+        ],
+        "n": 5,
+        "values": [
+          0.016667,
+          0.033333,
+          0.016667,
+          0.0,
+          0.0
+        ]
+      },
+      "cohens_d": 51.2202,
+      "p_raw": 3.4851852762697006e-08
+    },
+    "P3_post_rest_retention_B6_vs_B0": {
+      "b6": {
+        "mean": 0.645,
+        "std": 0.418853,
+        "ci95": [
+          0.125009,
+          1.164991
+        ],
+        "n": 5,
+        "values": [
+          0.9,
+          0.975,
+          0.975,
+          0.175,
+          0.2
+        ]
+      },
+      "b0": {
+        "mean": 0.62,
+        "std": 0.397414,
+        "ci95": [
+          0.126625,
+          1.113375
+        ],
+        "n": 5,
+        "values": [
+          0.85,
+          0.975,
+          0.9,
+          0.2,
+          0.175
+        ]
+      },
+      "cohens_d": 0.6325,
+      "p_raw": 0.23019964108049867
+    },
+    "P4_exact_vs_shuffled_replay": {
+      "exact_forgetting": 0.0,
+      "shuffled_forgetting": 0.0,
+      "delta": 0.0
+    },
+    "P5_zero_shot_combination_accuracy": {
+      "mean_excl_xor": {
+        "mean": 1.0,
+        "std": 0.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "n": 5,
+        "values": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "chance": 0.5,
+      "all_zero_shot_valid": true,
+      "shuffled_label_control": {
+        "mean": 0.545,
+        "std": 0.053473,
+        "ci95": [
+          0.478615,
+          0.611385
+        ],
+        "n": 5,
+        "values": [
+          0.4875,
+          0.5,
+          0.6,
+          0.6,
+          0.5375
+        ]
+      },
+      "cohens_d": 0.0,
+      "p_raw": 0.0
+    },
+    "P6_transfer_with_memory_ablated": {
+      "with_memory": 1.0,
+      "memory_removed": 1.0,
+      "delta": 0.0
+    },
+    "P7_integrated_retention_D4_vs_D0": {
+      "d4": 0.645,
+      "d0": 0.62,
+      "delta": 0.025
+    },
+    "holm_bonferroni": {
+      "raw": {
+        "P1": 7.815402717796377e-10,
+        "P2": 3.4851852762697006e-08,
+        "P3": 0.23019964108049867,
+        "P4": 1.0,
+        "P5": 0.0,
+        "P6": 1.0,
+        "P7": 0.0
+      },
+      "corrected": {
+        "P5": 0.0,
+        "P7": 0.0,
+        "P1": 0.0,
+        "P2": 0.0,
+        "P3": 0.690599,
+        "P4": 1.0,
+        "P6": 1.0
+      },
+      "alpha": 0.05,
+      "significant": {
+        "P5": true,
+        "P7": true,
+        "P1": true,
+        "P2": true,
+        "P3": false,
+        "P4": false,
+        "P6": false
+      }
+    }
+  },
+  "leakage_audit": {
+    "checks": {
+      "zero_shot_frozen_evaluation": {
+        "status": "PASS",
+        "detail": {
+          "weights_unchanged": true,
+          "plasticity_calls": 0,
+          "replay_calls": 0,
+          "target_access": 0,
+          "zero_shot_valid": true
+        }
+      },
+      "shuffled_label_control_at_chance": {
+        "status": "PASS",
+        "detail": "shuffled-label accuracy=0.545 (chance=0.5)"
+      },
+      "no_episode_label_shortcut": {
+        "status": "PASS",
+        "detail": "contextual confusion (identical initial obs)=0.013; low value means order, not context, drives retrieval"
+      },
+      "no_memory_no_retrieval": {
+        "status": "PASS",
+        "detail": "A0 (no memory) must retrieve nothing"
+      },
+      "retrieval_sparsity_reported": {
+        "status": "PASS",
+        "detail": "retrieval sparsity=0.0500"
+      },
+      "memory_reported_separately_from_parameters": {
+        "status": "PASS",
+        "detail": "external_memory_included_in_parameters=False in all accounting rows"
+      },
+      "chance_normalization_not_used_as_sole_endpoint": {
+        "status": "PASS",
+        "detail": "raw accuracies reported alongside every chance-normalized quantity"
+      },
+      "multiple_comparison_control": {
+        "status": "PASS",
+        "detail": "Holm-Bonferroni applied across the pre-registered P1-P7 family"
+      }
+    },
+    "all_passed": true
+  }
+}

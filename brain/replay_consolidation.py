@@ -52,6 +52,14 @@ class ReplayContent(str, Enum):
 
 class ConsolidationAblation(str, Enum):
     """Causal interventions on consolidation (preregistered)."""
+
+    NONE = "NONE"
+    REMOVE_CONSOLIDATION = "REMOVE_CONSOLIDATION"
+    ALTER_RATE = "ALTER_RATE"
+    REMOVE_TAGGING = "REMOVE_TAGGING"
+    REMOVE_METAPLASTICITY = "REMOVE_METAPLASTICITY"
+
+
 class ConsolidationModule:
     """Dual-timescale synaptic pools with tagging and metaplasticity.
 
@@ -204,6 +212,7 @@ class ReplayConsolidationEngine:
         replay_budget: int = 4,
         surprise_threshold: float = 0.4,
         priority_alpha: float = 1.0,
+        replay_step_lr: float = 0.002,
         condition: ReplayConsolidationCondition = ReplayConsolidationCondition.B0_NO_REPLAY,
         content: ReplayContent = ReplayContent.R1_EXACT,
         seed: int = 42,
@@ -212,6 +221,7 @@ class ReplayConsolidationEngine:
         self.replay_budget = max(1, int(replay_budget))
         self.surprise_threshold = float(surprise_threshold)
         self.priority_alpha = float(priority_alpha)
+        self.replay_step_lr = float(replay_step_lr)
         self.condition = condition
         self.content = content
         self.rng = np.random.default_rng(seed)
@@ -318,6 +328,7 @@ class ReplayConsolidationEngine:
         items = self._transform(batch)
         n_cols = self.consolidation.shape[1]
         ones = np.ones(n_cols, dtype=np.float32)
+        W = self.consolidation.weights_fast
 
         for item in items:
             ctx = item["context"]
@@ -325,9 +336,16 @@ class ReplayConsolidationEngine:
             elig = np.outer(np.abs(ctx), ones)
             self.consolidation.update_metaplasticity(float(np.mean(np.abs(ctx))))
             self.consolidation.set_tags(elig)
-            # Zero-centred covariance-style replay drive into the fast pool.
+
+            # Zero-centred covariance replay drive. The step is normalised by
+            # the drive magnitude so that repeated replay cannot swamp the
+            # task-relevant weights with an unbounded random walk.
             centred = ctx - float(np.mean(ctx))
-            self.consolidation.weights_fast += 0.01 * np.outer(centred, ones)
+            drive = np.outer(centred, ones)
+            scale = float(np.linalg.norm(drive))
+            if scale > 1e-8:
+                drive = drive / scale * self.consolidation.weights_fast.shape[0] ** 0.5
+            W += self.replay_step_lr * drive
 
         self.consolidation.decay_tags(dt_ms * num_rest_steps)
         capture = self.consolidation.consolidate()

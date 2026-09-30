@@ -35,6 +35,9 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 import numpy as np
 
 
+from brain.synaptic_consolidation import ConsolidationMode, SynapticConsolidationModule
+
+
 class InputRepresentationType(str, Enum):
     """Source representation feeding into the action readout."""
     I0_INSTANTANEOUS_SPIKES = "I0_INSTANTANEOUS_SPIKES"
@@ -211,6 +214,14 @@ class ActionReadout:
         self.is_lesioned: bool = False
         self.lesion_mask: np.ndarray = np.ones((self.input_dim, self.num_actions), dtype=np.float32)
 
+        # Synaptic Consolidation Subsystem (Track B)
+        self.consolidation_module = SynapticConsolidationModule(
+            input_dim=self.input_dim,
+            num_actions=self.num_actions,
+            mode=ConsolidationMode.NONE,
+            seed=seed,
+        )
+
     def _init_synapse_records(self) -> None:
         """Create structured records for synapse inspection."""
         for j in range(self.input_dim):
@@ -253,13 +264,26 @@ class ActionReadout:
         self.weights = new_weights.astype(np.float32).copy()
 
     def reset_state(self) -> None:
-        """Reset dynamic eligibility, STDP buffers, and signals."""
+        """Reset dynamic eligibility, STDP buffers, signals, and consolidation transients."""
         self.eligibility.fill(0.0)
         self.dendritic_eligibility.fill(0.0)
         self.pre_history.clear()
         self.post_history.clear()
         self.retro_history.clear()
         self.last_weight_delta.fill(0.0)
+        self.consolidation_module.reset()
+
+    def set_consolidation_mode(self, mode: Union[ConsolidationMode, str], **kwargs) -> None:
+        """Configure active synaptic consolidation mechanism."""
+        if isinstance(mode, str):
+            mode = ConsolidationMode(mode)
+        self.consolidation_module = SynapticConsolidationModule(
+            input_dim=self.input_dim,
+            num_actions=self.num_actions,
+            mode=mode,
+            seed=self.seed,
+            **kwargs,
+        )
 
     # -------------------------------------------------------------------------
     # Input Selection (I0 to I6)
@@ -321,7 +345,8 @@ class ActionReadout:
             drives: [num_actions] continuous evidence driving action assemblies
         """
         x = self.format_input_representation(substrate_state)
-        w_eff = self.weights * self.lesion_mask
+        w_base = self.consolidation_module.compute_effective_weights(self.weights)
+        w_eff = w_base * self.lesion_mask
 
         # Raw linear projection: u_k = sum_j (w_jk * x_j) + b_k
         raw_drives = (x @ w_eff) + self.biases
@@ -605,6 +630,16 @@ class ActionReadout:
             effective_signal = teaching[np.newaxis, :] + retro_term
             delta_w = self.lr * (self.dendritic_eligibility * effective_signal) + delta_stdp
 
+        # Modulate weight update via Synaptic Consolidation Subsystem
+        delta_w, consol_telem = self.consolidation_module.modulate_plasticity_step(
+            base_weights=self.weights,
+            raw_delta_w=delta_w,
+            eligibility=self.dendritic_eligibility,
+            teaching_signal=teaching,
+            reward=reward,
+            is_reward_step=is_reward_step,
+        )
+
         # Apply weight updates with bounds
         self.weights += delta_w * self.lesion_mask
         self.weights = np.clip(self.weights, self.w_min, self.w_max)
@@ -613,7 +648,9 @@ class ActionReadout:
         # Update inspection synapse records
         self._update_synapse_records(teaching, retrograde, delta_stdp, delta_w, target_action)
 
-        return self._compute_credit_telemetry(target_action)
+        telemetry = self._compute_credit_telemetry(target_action)
+        telemetry.update({f"consol_{k}": v for k, v in consol_telem.items()})
+        return telemetry
 
     def _update_synapse_records(
         self,

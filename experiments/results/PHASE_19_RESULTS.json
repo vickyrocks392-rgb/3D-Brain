@@ -1,0 +1,1984 @@
+{
+  "phase": 19,
+  "date": "2026-09-30",
+  "seeds": [
+    42,
+    101,
+    2024,
+    777,
+    999
+  ],
+  "total_runtime_sec": 981.05,
+  "track_a_credit_horizon": {
+    "delay_sweep": {
+      "0": {
+        "MIN_E": {
+          "delay_ms": 0,
+          "delay_steps": 0,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.4533333333333333,
+          "mean_csi": 0.8300993333333334,
+          "mean_train_time_sec": 0.22749999999999998,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_ELIGIBILITY": {
+          "delay_ms": 0,
+          "delay_steps": 0,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.006666666666666666,
+          "mean_csi": 0.4117766666666666,
+          "mean_train_time_sec": 0.19090000000000001,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_TARGET_TEACHING": {
+          "delay_ms": 0,
+          "delay_steps": 0,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.42666666666666664,
+          "mean_csi": 0.4870953333333333,
+          "mean_train_time_sec": 0.2185,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_NMDA": {
+          "delay_ms": 0,
+          "delay_steps": 0,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.48,
+          "mean_csi": 0.6170753333333334,
+          "mean_train_time_sec": 0.22702,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "BPTT_RECURRENT": {
+          "delay_ms": 0,
+          "delay_steps": 0,
+          "mean_eval_accuracy": 1.0,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.9199999999999999,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.015339999999999998,
+          "accuracies": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "SIMPLE_RECURRENT_CONTROL": {
+          "delay_ms": 0,
+          "delay_steps": 0,
+          "mean_eval_accuracy": 1.0,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.9199999999999999,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.0086,
+          "accuracies": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "CAUSAL_TRANSFORMER": {
+          "delay_ms": 0,
+          "delay_steps": 0,
+          "mean_eval_accuracy": 0.7,
+          "std_eval_accuracy": 0.2449489742783178,
+          "mean_train_accuracy": 0.9333333333333332,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.011199999999999998,
+          "accuracies": [
+            0.5,
+            0.5,
+            1.0,
+            1.0,
+            0.5
+          ]
+        }
+      },
+      "40": {
+        "MIN_E": {
+          "delay_ms": 40,
+          "delay_steps": 1,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.4333333333333334,
+          "mean_csi": 0.7869906666666666,
+          "mean_train_time_sec": 0.25095999999999996,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_ELIGIBILITY": {
+          "delay_ms": 40,
+          "delay_steps": 1,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.006666666666666666,
+          "mean_csi": 0.3766373333333333,
+          "mean_train_time_sec": 0.21256,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_TARGET_TEACHING": {
+          "delay_ms": 40,
+          "delay_steps": 1,
+          "mean_eval_accuracy": 0.4,
+          "std_eval_accuracy": 0.20000000000000004,
+          "mean_train_accuracy": 0.44000000000000006,
+          "mean_csi": 0.4877513333333333,
+          "mean_train_time_sec": 0.25672,
+          "accuracies": [
+            0.0,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_NMDA": {
+          "delay_ms": 40,
+          "delay_steps": 1,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.48,
+          "mean_csi": 0.6040493333333334,
+          "mean_train_time_sec": 0.25288000000000005,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "BPTT_RECURRENT": {
+          "delay_ms": 40,
+          "delay_steps": 1,
+          "mean_eval_accuracy": 1.0,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.9,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.01634,
+          "accuracies": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "SIMPLE_RECURRENT_CONTROL": {
+          "delay_ms": 40,
+          "delay_steps": 1,
+          "mean_eval_accuracy": 1.0,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.9066666666666666,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.00912,
+          "accuracies": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "CAUSAL_TRANSFORMER": {
+          "delay_ms": 40,
+          "delay_steps": 1,
+          "mean_eval_accuracy": 0.6,
+          "std_eval_accuracy": 0.2,
+          "mean_train_accuracy": 0.9333333333333332,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.011099999999999999,
+          "accuracies": [
+            0.5,
+            0.5,
+            1.0,
+            0.5,
+            0.5
+          ]
+        }
+      },
+      "80": {
+        "MIN_E": {
+          "delay_ms": 80,
+          "delay_steps": 2,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.4333333333333333,
+          "mean_csi": 0.7865,
+          "mean_train_time_sec": 0.27574,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_ELIGIBILITY": {
+          "delay_ms": 80,
+          "delay_steps": 2,
+          "mean_eval_accuracy": 0.4,
+          "std_eval_accuracy": 0.20000000000000004,
+          "mean_train_accuracy": 0.006666666666666666,
+          "mean_csi": 0.33303,
+          "mean_train_time_sec": 0.23652,
+          "accuracies": [
+            0.0,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_TARGET_TEACHING": {
+          "delay_ms": 80,
+          "delay_steps": 2,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.4533333333333333,
+          "mean_csi": 0.4875333333333334,
+          "mean_train_time_sec": 0.27224000000000004,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_NMDA": {
+          "delay_ms": 80,
+          "delay_steps": 2,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.47333333333333333,
+          "mean_csi": 0.5953613333333334,
+          "mean_train_time_sec": 0.28364,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "BPTT_RECURRENT": {
+          "delay_ms": 80,
+          "delay_steps": 2,
+          "mean_eval_accuracy": 1.0,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.8866666666666667,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.017640000000000003,
+          "accuracies": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "SIMPLE_RECURRENT_CONTROL": {
+          "delay_ms": 80,
+          "delay_steps": 2,
+          "mean_eval_accuracy": 1.0,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.8866666666666667,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.00984,
+          "accuracies": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "CAUSAL_TRANSFORMER": {
+          "delay_ms": 80,
+          "delay_steps": 2,
+          "mean_eval_accuracy": 0.8,
+          "std_eval_accuracy": 0.2449489742783178,
+          "mean_train_accuracy": 0.9333333333333333,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.012219999999999998,
+          "accuracies": [
+            0.5,
+            1.0,
+            1.0,
+            1.0,
+            0.5
+          ]
+        }
+      },
+      "120": {
+        "MIN_E": {
+          "delay_ms": 120,
+          "delay_steps": 3,
+          "mean_eval_accuracy": 0.6,
+          "std_eval_accuracy": 0.2,
+          "mean_train_accuracy": 0.45999999999999996,
+          "mean_csi": 0.7382786666666666,
+          "mean_train_time_sec": 0.31132,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            1.0
+          ]
+        },
+        "MIN_E_NO_ELIGIBILITY": {
+          "delay_ms": 120,
+          "delay_steps": 3,
+          "mean_eval_accuracy": 0.33999999999999997,
+          "std_eval_accuracy": 0.20591260281974,
+          "mean_train_accuracy": 0.02,
+          "mean_csi": 0.32183666666666666,
+          "mean_train_time_sec": 0.26008,
+          "accuracies": [
+            0.0,
+            0.5,
+            0.5,
+            0.5,
+            0.2
+          ]
+        },
+        "MIN_E_NO_TARGET_TEACHING": {
+          "delay_ms": 120,
+          "delay_steps": 3,
+          "mean_eval_accuracy": 0.3,
+          "std_eval_accuracy": 0.24494897427831783,
+          "mean_train_accuracy": 0.4,
+          "mean_csi": 0.4774360000000001,
+          "mean_train_time_sec": 0.28702,
+          "accuracies": [
+            0.0,
+            0.0,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_NMDA": {
+          "delay_ms": 120,
+          "delay_steps": 3,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.47333333333333333,
+          "mean_csi": 0.585742,
+          "mean_train_time_sec": 0.30944000000000005,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "BPTT_RECURRENT": {
+          "delay_ms": 120,
+          "delay_steps": 3,
+          "mean_eval_accuracy": 1.0,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.8933333333333333,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.018420000000000002,
+          "accuracies": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "SIMPLE_RECURRENT_CONTROL": {
+          "delay_ms": 120,
+          "delay_steps": 3,
+          "mean_eval_accuracy": 1.0,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.8733333333333334,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.010839999999999999,
+          "accuracies": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "CAUSAL_TRANSFORMER": {
+          "delay_ms": 120,
+          "delay_steps": 3,
+          "mean_eval_accuracy": 0.8,
+          "std_eval_accuracy": 0.2449489742783178,
+          "mean_train_accuracy": 0.9199999999999999,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.011379999999999998,
+          "accuracies": [
+            0.5,
+            1.0,
+            1.0,
+            0.5,
+            1.0
+          ]
+        }
+      },
+      "240": {
+        "MIN_E": {
+          "delay_ms": 240,
+          "delay_steps": 6,
+          "mean_eval_accuracy": 0.8,
+          "std_eval_accuracy": 0.2449489742783178,
+          "mean_train_accuracy": 0.4866666666666667,
+          "mean_csi": 0.7434499999999999,
+          "mean_train_time_sec": 0.37107999999999997,
+          "accuracies": [
+            0.5,
+            1.0,
+            0.5,
+            1.0,
+            1.0
+          ]
+        },
+        "MIN_E_NO_ELIGIBILITY": {
+          "delay_ms": 240,
+          "delay_steps": 6,
+          "mean_eval_accuracy": 0.4,
+          "std_eval_accuracy": 0.20000000000000004,
+          "mean_train_accuracy": 0.17333333333333334,
+          "mean_csi": 0.331638,
+          "mean_train_time_sec": 0.33906000000000003,
+          "accuracies": [
+            0.0,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_TARGET_TEACHING": {
+          "delay_ms": 240,
+          "delay_steps": 6,
+          "mean_eval_accuracy": 0.42666666666666664,
+          "std_eval_accuracy": 0.1466666666666667,
+          "mean_train_accuracy": 0.4133333333333334,
+          "mean_csi": 0.44754933333333335,
+          "mean_train_time_sec": 0.36663999999999997,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.13333333333333333,
+            0.5
+          ]
+        },
+        "MIN_E_NO_NMDA": {
+          "delay_ms": 240,
+          "delay_steps": 6,
+          "mean_eval_accuracy": 0.5066666666666666,
+          "std_eval_accuracy": 0.01333333333333333,
+          "mean_train_accuracy": 0.4666666666666667,
+          "mean_csi": 0.5603266666666668,
+          "mean_train_time_sec": 0.38174,
+          "accuracies": [
+            0.5,
+            0.5333333333333333,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "BPTT_RECURRENT": {
+          "delay_ms": 240,
+          "delay_steps": 6,
+          "mean_eval_accuracy": 1.0,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.8800000000000001,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.03084,
+          "accuracies": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "SIMPLE_RECURRENT_CONTROL": {
+          "delay_ms": 240,
+          "delay_steps": 6,
+          "mean_eval_accuracy": 0.9,
+          "std_eval_accuracy": 0.2,
+          "mean_train_accuracy": 0.8933333333333333,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.01236,
+          "accuracies": [
+            1.0,
+            1.0,
+            1.0,
+            0.5,
+            1.0
+          ]
+        },
+        "CAUSAL_TRANSFORMER": {
+          "delay_ms": 240,
+          "delay_steps": 6,
+          "mean_eval_accuracy": 0.6,
+          "std_eval_accuracy": 0.2,
+          "mean_train_accuracy": 0.8933333333333333,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.011920000000000002,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            1.0
+          ]
+        }
+      },
+      "480": {
+        "MIN_E": {
+          "delay_ms": 480,
+          "delay_steps": 12,
+          "mean_eval_accuracy": 0.5133333333333333,
+          "std_eval_accuracy": 0.02666666666666666,
+          "mean_train_accuracy": 0.33333333333333337,
+          "mean_csi": 0.5499873333333334,
+          "mean_train_time_sec": 0.52698,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5666666666666667,
+            0.5
+          ]
+        },
+        "MIN_E_NO_ELIGIBILITY": {
+          "delay_ms": 480,
+          "delay_steps": 12,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.44000000000000006,
+          "mean_csi": 0.3723853333333333,
+          "mean_train_time_sec": 0.54008,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_TARGET_TEACHING": {
+          "delay_ms": 480,
+          "delay_steps": 12,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.47333333333333333,
+          "mean_csi": 0.48374000000000006,
+          "mean_train_time_sec": 0.56728,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_NMDA": {
+          "delay_ms": 480,
+          "delay_steps": 12,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.33999999999999997,
+          "mean_csi": 0.5307286666666667,
+          "mean_train_time_sec": 0.52268,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "BPTT_RECURRENT": {
+          "delay_ms": 480,
+          "delay_steps": 12,
+          "mean_eval_accuracy": 1.0,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.8133333333333335,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.027959999999999995,
+          "accuracies": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "SIMPLE_RECURRENT_CONTROL": {
+          "delay_ms": 480,
+          "delay_steps": 12,
+          "mean_eval_accuracy": 1.0,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.9400000000000001,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.016220000000000002,
+          "accuracies": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "CAUSAL_TRANSFORMER": {
+          "delay_ms": 480,
+          "delay_steps": 12,
+          "mean_eval_accuracy": 0.6,
+          "std_eval_accuracy": 0.20000000000000004,
+          "mean_train_accuracy": 0.8333333333333334,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.012759999999999999,
+          "accuracies": [
+            0.5,
+            1.0,
+            0.5,
+            0.5,
+            0.5
+          ]
+        }
+      },
+      "1000": {
+        "MIN_E": {
+          "delay_ms": 1000,
+          "delay_steps": 25,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.44666666666666666,
+          "mean_csi": 0.402808,
+          "mean_train_time_sec": 0.9111800000000001,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_ELIGIBILITY": {
+          "delay_ms": 1000,
+          "delay_steps": 25,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.47333333333333333,
+          "mean_csi": 0.40838066666666667,
+          "mean_train_time_sec": 0.92548,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_TARGET_TEACHING": {
+          "delay_ms": 1000,
+          "delay_steps": 25,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.5,
+          "mean_csi": 0.47619799999999984,
+          "mean_train_time_sec": 0.9581200000000001,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_NMDA": {
+          "delay_ms": 1000,
+          "delay_steps": 25,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.18000000000000002,
+          "mean_csi": 0.49879799999999996,
+          "mean_train_time_sec": 0.80176,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "BPTT_RECURRENT": {
+          "delay_ms": 1000,
+          "delay_steps": 25,
+          "mean_eval_accuracy": 0.9,
+          "std_eval_accuracy": 0.20000000000000004,
+          "mean_train_accuracy": 0.7133333333333333,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.04178,
+          "accuracies": [
+            1.0,
+            0.5,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "SIMPLE_RECURRENT_CONTROL": {
+          "delay_ms": 1000,
+          "delay_steps": 25,
+          "mean_eval_accuracy": 0.8,
+          "std_eval_accuracy": 0.2449489742783178,
+          "mean_train_accuracy": 0.7066666666666667,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.02414,
+          "accuracies": [
+            1.0,
+            0.5,
+            0.5,
+            1.0,
+            1.0
+          ]
+        },
+        "CAUSAL_TRANSFORMER": {
+          "delay_ms": 1000,
+          "delay_steps": 25,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.6666666666666666,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.01494,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        }
+      },
+      "1520": {
+        "MIN_E": {
+          "delay_ms": 1520,
+          "delay_steps": 38,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.45999999999999996,
+          "mean_csi": 0.4002766666666667,
+          "mean_train_time_sec": 1.30778,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_ELIGIBILITY": {
+          "delay_ms": 1520,
+          "delay_steps": 38,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.48,
+          "mean_csi": 0.4386893333333333,
+          "mean_train_time_sec": 1.3236599999999998,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_TARGET_TEACHING": {
+          "delay_ms": 1520,
+          "delay_steps": 38,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.5066666666666666,
+          "mean_csi": 0.48711800000000005,
+          "mean_train_time_sec": 1.36316,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_NMDA": {
+          "delay_ms": 1520,
+          "delay_steps": 38,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.08,
+          "mean_csi": 0.4689,
+          "mean_train_time_sec": 1.0611799999999998,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "BPTT_RECURRENT": {
+          "delay_ms": 1520,
+          "delay_steps": 38,
+          "mean_eval_accuracy": 0.9,
+          "std_eval_accuracy": 0.2,
+          "mean_train_accuracy": 0.7266666666666668,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.055459999999999995,
+          "accuracies": [
+            1.0,
+            1.0,
+            0.5,
+            1.0,
+            1.0
+          ]
+        },
+        "SIMPLE_RECURRENT_CONTROL": {
+          "delay_ms": 1520,
+          "delay_steps": 38,
+          "mean_eval_accuracy": 0.8,
+          "std_eval_accuracy": 0.2449489742783178,
+          "mean_train_accuracy": 0.8,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.03219999999999999,
+          "accuracies": [
+            1.0,
+            0.5,
+            1.0,
+            0.5,
+            1.0
+          ]
+        },
+        "CAUSAL_TRANSFORMER": {
+          "delay_ms": 1520,
+          "delay_steps": 38,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.4133333333333333,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.016239999999999997,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        }
+      },
+      "2000": {
+        "MIN_E": {
+          "delay_ms": 2000,
+          "delay_steps": 50,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.45999999999999996,
+          "mean_csi": 0.40564999999999996,
+          "mean_train_time_sec": 1.669,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_ELIGIBILITY": {
+          "delay_ms": 2000,
+          "delay_steps": 50,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.48,
+          "mean_csi": 0.44933199999999995,
+          "mean_train_time_sec": 1.65644,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_TARGET_TEACHING": {
+          "delay_ms": 2000,
+          "delay_steps": 50,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.5133333333333333,
+          "mean_csi": 0.49033266666666664,
+          "mean_train_time_sec": 1.7966000000000002,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_NMDA": {
+          "delay_ms": 2000,
+          "delay_steps": 50,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.04,
+          "mean_csi": 0.435922,
+          "mean_train_time_sec": 1.31928,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "BPTT_RECURRENT": {
+          "delay_ms": 2000,
+          "delay_steps": 50,
+          "mean_eval_accuracy": 0.6,
+          "std_eval_accuracy": 0.2,
+          "mean_train_accuracy": 0.56,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.06756,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            1.0
+          ]
+        },
+        "SIMPLE_RECURRENT_CONTROL": {
+          "delay_ms": 2000,
+          "delay_steps": 50,
+          "mean_eval_accuracy": 0.7,
+          "std_eval_accuracy": 0.4,
+          "mean_train_accuracy": 0.6599999999999999,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.039520000000000007,
+          "accuracies": [
+            1.0,
+            0.5,
+            1.0,
+            0.0,
+            1.0
+          ]
+        },
+        "CAUSAL_TRANSFORMER": {
+          "delay_ms": 2000,
+          "delay_steps": 50,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.15999999999999998,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.01836,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        }
+      },
+      "3000": {
+        "MIN_E": {
+          "delay_ms": 3000,
+          "delay_steps": 75,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.44666666666666666,
+          "mean_csi": 0.4116633333333334,
+          "mean_train_time_sec": 2.3871200000000004,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_ELIGIBILITY": {
+          "delay_ms": 3000,
+          "delay_steps": 75,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.47333333333333333,
+          "mean_csi": 0.4511233333333333,
+          "mean_train_time_sec": 2.4160399999999997,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_TARGET_TEACHING": {
+          "delay_ms": 3000,
+          "delay_steps": 75,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.5133333333333333,
+          "mean_csi": 0.4912393333333333,
+          "mean_train_time_sec": 2.5941400000000003,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_NMDA": {
+          "delay_ms": 3000,
+          "delay_steps": 75,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.03333333333333334,
+          "mean_csi": 0.35226466666666667,
+          "mean_train_time_sec": 1.88506,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "BPTT_RECURRENT": {
+          "delay_ms": 3000,
+          "delay_steps": 75,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.4472135954999579,
+          "mean_train_accuracy": 0.5399999999999999,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.09337999999999999,
+          "accuracies": [
+            1.0,
+            1.0,
+            0.5,
+            0.0,
+            0.0
+          ]
+        },
+        "SIMPLE_RECURRENT_CONTROL": {
+          "delay_ms": 3000,
+          "delay_steps": 75,
+          "mean_eval_accuracy": 0.7,
+          "std_eval_accuracy": 0.2449489742783178,
+          "mean_train_accuracy": 0.44000000000000006,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.05494,
+          "accuracies": [
+            0.5,
+            1.0,
+            0.5,
+            0.5,
+            1.0
+          ]
+        },
+        "CAUSAL_TRANSFORMER": {
+          "delay_ms": 3000,
+          "delay_steps": 75,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.026666666666666665,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.02318,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        }
+      },
+      "4000": {
+        "MIN_E": {
+          "delay_ms": 4000,
+          "delay_steps": 100,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.4600000000000001,
+          "mean_csi": 0.411636,
+          "mean_train_time_sec": 3.24702,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_ELIGIBILITY": {
+          "delay_ms": 4000,
+          "delay_steps": 100,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.48,
+          "mean_csi": 0.4621346666666667,
+          "mean_train_time_sec": 3.20428,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_TARGET_TEACHING": {
+          "delay_ms": 4000,
+          "delay_steps": 100,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.5133333333333333,
+          "mean_csi": 0.4915046666666666,
+          "mean_train_time_sec": 3.4365,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_NMDA": {
+          "delay_ms": 4000,
+          "delay_steps": 100,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.3266666666666666,
+          "mean_csi": 0.35512,
+          "mean_train_time_sec": 2.499,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "BPTT_RECURRENT": {
+          "delay_ms": 4000,
+          "delay_steps": 100,
+          "mean_eval_accuracy": 0.6,
+          "std_eval_accuracy": 0.20000000000000004,
+          "mean_train_accuracy": 0.4733333333333333,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.12,
+          "accuracies": [
+            1.0,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "SIMPLE_RECURRENT_CONTROL": {
+          "delay_ms": 4000,
+          "delay_steps": 100,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.31622776601683794,
+          "mean_train_accuracy": 0.5,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.07036,
+          "accuracies": [
+            0.0,
+            0.5,
+            0.5,
+            0.5,
+            1.0
+          ]
+        },
+        "CAUSAL_TRANSFORMER": {
+          "delay_ms": 4000,
+          "delay_steps": 100,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.02,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.02948,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        }
+      },
+      "5000": {
+        "MIN_E": {
+          "delay_ms": 5000,
+          "delay_steps": 125,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.4600000000000001,
+          "mean_csi": 0.42503599999999997,
+          "mean_train_time_sec": 4.021940000000001,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_ELIGIBILITY": {
+          "delay_ms": 5000,
+          "delay_steps": 125,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.48,
+          "mean_csi": 0.46488199999999996,
+          "mean_train_time_sec": 4.0102,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_TARGET_TEACHING": {
+          "delay_ms": 5000,
+          "delay_steps": 125,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.5133333333333333,
+          "mean_csi": 0.491552,
+          "mean_train_time_sec": 4.31922,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "MIN_E_NO_NMDA": {
+          "delay_ms": 5000,
+          "delay_steps": 125,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.4,
+          "mean_csi": 0.368918,
+          "mean_train_time_sec": 3.2470800000000004,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "BPTT_RECURRENT": {
+          "delay_ms": 5000,
+          "delay_steps": 125,
+          "mean_eval_accuracy": 0.6,
+          "std_eval_accuracy": 0.37416573867739417,
+          "mean_train_accuracy": 0.6133333333333334,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.1464,
+          "accuracies": [
+            1.0,
+            0.5,
+            0.0,
+            1.0,
+            0.5
+          ]
+        },
+        "SIMPLE_RECURRENT_CONTROL": {
+          "delay_ms": 5000,
+          "delay_steps": 125,
+          "mean_eval_accuracy": 0.7,
+          "std_eval_accuracy": 0.2449489742783178,
+          "mean_train_accuracy": 0.6866666666666668,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.08608,
+          "accuracies": [
+            1.0,
+            0.5,
+            0.5,
+            0.5,
+            1.0
+          ]
+        },
+        "CAUSAL_TRANSFORMER": {
+          "delay_ms": 5000,
+          "delay_steps": 125,
+          "mean_eval_accuracy": 0.5,
+          "std_eval_accuracy": 0.0,
+          "mean_train_accuracy": 0.02,
+          "mean_csi": 0.5,
+          "mean_train_time_sec": 0.03706,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        }
+      }
+    },
+    "empirical_horizons_ms": {
+      "MIN_E": 240,
+      "MIN_E_NO_ELIGIBILITY": 0,
+      "MIN_E_NO_TARGET_TEACHING": 0,
+      "MIN_E_NO_NMDA": 0,
+      "BPTT_RECURRENT": 1520,
+      "SIMPLE_RECURRENT_CONTROL": 5000,
+      "CAUSAL_TRANSFORMER": 120
+    },
+    "tau_eligibility_sweep": {
+      "50.0": {
+        "tau_elig_ms": 50.0,
+        "mean_accuracy": 0.5,
+        "std_accuracy": 0.0
+      },
+      "150.0": {
+        "tau_elig_ms": 150.0,
+        "mean_accuracy": 0.5,
+        "std_accuracy": 0.0
+      },
+      "300.0": {
+        "tau_elig_ms": 300.0,
+        "mean_accuracy": 0.5,
+        "std_accuracy": 0.0
+      },
+      "600.0": {
+        "tau_elig_ms": 600.0,
+        "mean_accuracy": 0.5,
+        "std_accuracy": 0.0
+      },
+      "1200.0": {
+        "tau_elig_ms": 1200.0,
+        "mean_accuracy": 0.5,
+        "std_accuracy": 0.0
+      },
+      "2500.0": {
+        "tau_elig_ms": 2500.0,
+        "mean_accuracy": 0.5,
+        "std_accuracy": 0.0
+      }
+    }
+  },
+  "track_b_synaptic_consolidation": {
+    "reversal_benchmark": {
+      "NONE": {
+        "mode": "NONE",
+        "mean_acc_a_pre": 0.6,
+        "std_acc_a_pre": 0.2,
+        "mean_acc_b": 0.7,
+        "std_acc_b": 0.2449489742783178,
+        "mean_acc_a_post": 0.3,
+        "std_acc_a_post": 0.24494897427831783,
+        "mean_relative_retention": 0.6,
+        "mean_relative_forgetting": 0.4,
+        "mean_stability_plasticity_product": 0.15,
+        "mean_stabilized_synapses": 0.0,
+        "mean_cumulative_turnover": 84.68884,
+        "individual_retentions": [
+          1.0,
+          0.0,
+          1.0,
+          1.0,
+          0.0
+        ]
+      },
+      "DUAL_TIMESCALE": {
+        "mode": "DUAL_TIMESCALE",
+        "mean_acc_a_pre": 0.7,
+        "std_acc_a_pre": 0.2449489742783178,
+        "mean_acc_b": 0.6,
+        "std_acc_b": 0.2,
+        "mean_acc_a_post": 0.4,
+        "std_acc_a_post": 0.2,
+        "mean_relative_retention": 0.7,
+        "mean_relative_forgetting": 0.30000000000000004,
+        "mean_stability_plasticity_product": 0.2,
+        "mean_stabilized_synapses": 31.0,
+        "mean_cumulative_turnover": 119.18890000000002,
+        "individual_retentions": [
+          1.0,
+          1.0,
+          0.5,
+          1.0,
+          0.0
+        ]
+      },
+      "SYNAPTIC_TAGGING": {
+        "mode": "SYNAPTIC_TAGGING",
+        "mean_acc_a_pre": 0.5,
+        "std_acc_a_pre": 0.0,
+        "mean_acc_b": 0.4,
+        "std_acc_b": 0.2,
+        "mean_acc_a_post": 0.6,
+        "std_acc_a_post": 0.2,
+        "mean_relative_retention": 1.2,
+        "mean_relative_forgetting": -0.19999999999999996,
+        "mean_stability_plasticity_product": 0.2,
+        "mean_stabilized_synapses": 78.4,
+        "mean_cumulative_turnover": 30.522000000000002,
+        "individual_retentions": [
+          1.0,
+          1.0,
+          1.0,
+          2.0,
+          1.0
+        ]
+      },
+      "METAPLASTICITY": {
+        "mode": "METAPLASTICITY",
+        "mean_acc_a_pre": 0.6,
+        "std_acc_a_pre": 0.2,
+        "mean_acc_b": 0.4,
+        "std_acc_b": 0.2,
+        "mean_acc_a_post": 0.6,
+        "std_acc_a_post": 0.2,
+        "mean_relative_retention": 1.0,
+        "mean_relative_forgetting": 0.0,
+        "mean_stability_plasticity_product": 0.2,
+        "mean_stabilized_synapses": 80.0,
+        "mean_cumulative_turnover": 3.30178,
+        "individual_retentions": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "LOCAL_ELASTIC": {
+        "mode": "LOCAL_ELASTIC",
+        "mean_acc_a_pre": 0.65,
+        "std_acc_a_pre": 0.2,
+        "mean_acc_b": 0.7,
+        "std_acc_b": 0.2449489742783178,
+        "mean_acc_a_post": 0.3,
+        "std_acc_a_post": 0.24494897427831783,
+        "mean_relative_retention": 0.6,
+        "mean_relative_forgetting": 0.4,
+        "mean_stability_plasticity_product": 0.15,
+        "mean_stabilized_synapses": 0.0,
+        "mean_cumulative_turnover": 88.27511999999999,
+        "individual_retentions": [
+          1.0,
+          0.0,
+          1.0,
+          1.0,
+          0.0
+        ]
+      }
+    },
+    "multitask_sequences": {
+      "A_B_C": {
+        "NONE": {
+          "A_after_stage_0_A": 0.6900000000000001,
+          "B_after_stage_1_B": 0.7,
+          "A_after_stage_1_B": 0.3,
+          "B_after_stage_2_C": 0.77,
+          "C_after_stage_2_C": 0.5,
+          "A_after_stage_2_C": 0.21999999999999997
+        },
+        "DUAL_TIMESCALE": {
+          "A_after_stage_0_A": 0.6900000000000001,
+          "B_after_stage_1_B": 0.8,
+          "A_after_stage_1_B": 0.2,
+          "B_after_stage_2_C": 0.78,
+          "C_after_stage_2_C": 0.5,
+          "A_after_stage_2_C": 0.21000000000000002
+        },
+        "SYNAPTIC_TAGGING": {
+          "A_after_stage_0_A": 0.5,
+          "B_after_stage_1_B": 0.5,
+          "A_after_stage_1_B": 0.5,
+          "B_after_stage_2_C": 0.5,
+          "C_after_stage_2_C": 0.5,
+          "A_after_stage_2_C": 0.5
+        },
+        "METAPLASTICITY": {
+          "A_after_stage_0_A": 0.6,
+          "B_after_stage_1_B": 0.4,
+          "A_after_stage_1_B": 0.6,
+          "B_after_stage_2_C": 0.4,
+          "C_after_stage_2_C": 0.6,
+          "A_after_stage_2_C": 0.6
+        }
+      },
+      "A_B_C_A": {
+        "NONE": {
+          "A_after_stage_0_A": 0.6900000000000001,
+          "B_after_stage_1_B": 0.7,
+          "A_after_stage_1_B": 0.3,
+          "B_after_stage_2_C": 0.77,
+          "C_after_stage_2_C": 0.5,
+          "A_after_stage_2_C": 0.21999999999999997,
+          "B_after_stage_3_A": 0.5,
+          "C_after_stage_3_A": 0.5,
+          "A_after_stage_3_A": 0.5
+        },
+        "DUAL_TIMESCALE": {
+          "A_after_stage_0_A": 0.6900000000000001,
+          "B_after_stage_1_B": 0.8,
+          "A_after_stage_1_B": 0.2,
+          "B_after_stage_2_C": 0.78,
+          "C_after_stage_2_C": 0.5,
+          "A_after_stage_2_C": 0.21000000000000002,
+          "B_after_stage_3_A": 0.5,
+          "C_after_stage_3_A": 0.5,
+          "A_after_stage_3_A": 0.5
+        },
+        "SYNAPTIC_TAGGING": {
+          "A_after_stage_0_A": 0.5,
+          "B_after_stage_1_B": 0.5,
+          "A_after_stage_1_B": 0.5,
+          "B_after_stage_2_C": 0.5,
+          "C_after_stage_2_C": 0.5,
+          "A_after_stage_2_C": 0.5,
+          "B_after_stage_3_A": 0.44000000000000006,
+          "C_after_stage_3_A": 0.5,
+          "A_after_stage_3_A": 0.55
+        },
+        "METAPLASTICITY": {
+          "A_after_stage_0_A": 0.6,
+          "B_after_stage_1_B": 0.4,
+          "A_after_stage_1_B": 0.6,
+          "B_after_stage_2_C": 0.4,
+          "C_after_stage_2_C": 0.6,
+          "A_after_stage_2_C": 0.6,
+          "B_after_stage_3_A": 0.4,
+          "C_after_stage_3_A": 0.6,
+          "A_after_stage_3_A": 0.6
+        }
+      }
+    },
+    "causal_ablations": {
+      "dual_timescale_tau_slow": {
+        "3.0": {
+          "tau_slow": 3.0,
+          "mean_retention": 1.2
+        },
+        "6.0": {
+          "tau_slow": 6.0,
+          "mean_retention": 1.28
+        },
+        "10.0": {
+          "tau_slow": 10.0,
+          "mean_retention": 0.71
+        },
+        "15.0": {
+          "tau_slow": 15.0,
+          "mean_retention": 0.17332
+        },
+        "25.0": {
+          "tau_slow": 25.0,
+          "mean_retention": 0.0
+        }
+      },
+      "tag_threshold_disruption": {
+        "0.05": {
+          "tag_threshold": 0.05,
+          "mean_retention": 1.0
+        },
+        "0.15": {
+          "tag_threshold": 0.15,
+          "mean_retention": 1.0
+        },
+        "0.3": {
+          "tag_threshold": 0.3,
+          "mean_retention": 1.18666
+        },
+        "0.5": {
+          "tag_threshold": 0.5,
+          "mean_retention": 1.2
+        },
+        "10.0": {
+          "tag_threshold": 10.0,
+          "mean_retention": 0.08
+        }
+      },
+      "metaplasticity_beta": {
+        "0.5": {
+          "metaplasticity_beta": 0.5,
+          "mean_retention": 0.96
+        },
+        "2.0": {
+          "metaplasticity_beta": 2.0,
+          "mean_retention": 0.9
+        },
+        "6.0": {
+          "metaplasticity_beta": 6.0,
+          "mean_retention": 1.0
+        },
+        "15.0": {
+          "metaplasticity_beta": 15.0,
+          "mean_retention": 1.0
+        }
+      }
+    }
+  },
+  "track_c_transformer_baseline": {
+    "delay_sweep": {
+      "0": {
+        "MIN_E": {
+          "mean_accuracy": 0.5,
+          "std_accuracy": 0.0,
+          "mean_train_time_sec": 0.22782,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "BPTT_RECURRENT": {
+          "mean_accuracy": 1.0,
+          "std_accuracy": 0.0,
+          "mean_train_time_sec": 0.015360000000000002,
+          "accuracies": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "CAUSAL_TRANSFORMER": {
+          "mean_accuracy": 0.7,
+          "std_accuracy": 0.2449489742783178,
+          "mean_train_time_sec": 0.011880000000000002,
+          "accuracies": [
+            0.5,
+            0.5,
+            1.0,
+            1.0,
+            0.5
+          ]
+        },
+        "SIMPLE_RECURRENT_CONTROL": {
+          "mean_accuracy": 1.0,
+          "std_accuracy": 0.0,
+          "mean_train_time_sec": 0.00872,
+          "accuracies": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      },
+      "240": {
+        "MIN_E": {
+          "mean_accuracy": 0.8,
+          "std_accuracy": 0.2449489742783178,
+          "mean_train_time_sec": 0.37355999999999995,
+          "accuracies": [
+            0.5,
+            1.0,
+            0.5,
+            1.0,
+            1.0
+          ]
+        },
+        "BPTT_RECURRENT": {
+          "mean_accuracy": 1.0,
+          "std_accuracy": 0.0,
+          "mean_train_time_sec": 0.021660000000000002,
+          "accuracies": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "CAUSAL_TRANSFORMER": {
+          "mean_accuracy": 0.6,
+          "std_accuracy": 0.2,
+          "mean_train_time_sec": 0.011739999999999999,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            1.0
+          ]
+        },
+        "SIMPLE_RECURRENT_CONTROL": {
+          "mean_accuracy": 0.9,
+          "std_accuracy": 0.2,
+          "mean_train_time_sec": 0.012320000000000001,
+          "accuracies": [
+            1.0,
+            1.0,
+            1.0,
+            0.5,
+            1.0
+          ]
+        }
+      },
+      "1000": {
+        "MIN_E": {
+          "mean_accuracy": 0.5,
+          "std_accuracy": 0.0,
+          "mean_train_time_sec": 0.90994,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "BPTT_RECURRENT": {
+          "mean_accuracy": 0.9,
+          "std_accuracy": 0.20000000000000004,
+          "mean_train_time_sec": 0.04146,
+          "accuracies": [
+            1.0,
+            0.5,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "CAUSAL_TRANSFORMER": {
+          "mean_accuracy": 0.5,
+          "std_accuracy": 0.0,
+          "mean_train_time_sec": 0.014500000000000002,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "SIMPLE_RECURRENT_CONTROL": {
+          "mean_accuracy": 0.8,
+          "std_accuracy": 0.2449489742783178,
+          "mean_train_time_sec": 0.02404,
+          "accuracies": [
+            1.0,
+            0.5,
+            0.5,
+            1.0,
+            1.0
+          ]
+        }
+      },
+      "5000": {
+        "MIN_E": {
+          "mean_accuracy": 0.5,
+          "std_accuracy": 0.0,
+          "mean_train_time_sec": 4.018980000000001,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "BPTT_RECURRENT": {
+          "mean_accuracy": 0.6,
+          "std_accuracy": 0.37416573867739417,
+          "mean_train_time_sec": 0.14642000000000002,
+          "accuracies": [
+            1.0,
+            0.5,
+            0.0,
+            1.0,
+            0.5
+          ]
+        },
+        "CAUSAL_TRANSFORMER": {
+          "mean_accuracy": 0.5,
+          "std_accuracy": 0.0,
+          "mean_train_time_sec": 0.03674,
+          "accuracies": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "SIMPLE_RECURRENT_CONTROL": {
+          "mean_accuracy": 0.7,
+          "std_accuracy": 0.2449489742783178,
+          "mean_train_time_sec": 0.08586,
+          "accuracies": [
+            1.0,
+            0.5,
+            0.5,
+            0.5,
+            1.0
+          ]
+        }
+      }
+    },
+    "continual_reversal": {
+      "MIN_E": {
+        "mean_acc_a_pre": 0.8,
+        "mean_acc_b": 0.9666666666666668,
+        "mean_acc_a_post": 0.04,
+        "mean_relative_retention": 0.08,
+        "retentions": [
+          0.0,
+          0.0,
+          0.4,
+          0.0,
+          0.0
+        ]
+      },
+      "BPTT_RECURRENT": {
+        "mean_acc_a_pre": 1.0,
+        "mean_acc_b": 1.0,
+        "mean_acc_a_post": 0.0,
+        "mean_relative_retention": 0.0,
+        "retentions": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "CAUSAL_TRANSFORMER": {
+        "mean_acc_a_pre": 1.0,
+        "mean_acc_b": 1.0,
+        "mean_acc_a_post": 0.0,
+        "mean_relative_retention": 0.0,
+        "retentions": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "SIMPLE_RECURRENT_CONTROL": {
+        "mean_acc_a_pre": 0.4866666666666667,
+        "mean_acc_b": 0.49333333333333335,
+        "mean_acc_a_post": 0.5,
+        "mean_relative_retention": 1.02856,
+        "retentions": [
+          1.0,
+          1.0,
+          1.0714,
+          1.0714,
+          1.0
+        ]
+      }
+    },
+    "budget_accounting": {
+      "MIN_E": {
+        "trainable_parameters": 82,
+        "fixed_parameters": 1920,
+        "total_parameters": 2002,
+        "state_variables": 282,
+        "flops": {
+          "flops_per_step": 4208,
+          "flops_per_trial": 63120
+        },
+        "peak_rss_mb": 42.765625
+      },
+      "BPTT_RECURRENT": {
+        "trainable_parameters": 2041,
+        "fixed_parameters": 0,
+        "total_parameters": 2041,
+        "state_variables": 40,
+        "flops": {
+          "flops_per_step": 12000,
+          "flops_per_trial": 180000
+        },
+        "peak_rss_mb": 42.765625
+      },
+      "CAUSAL_TRANSFORMER": {
+        "trainable_parameters": 2322,
+        "fixed_parameters": 0,
+        "total_parameters": 2322,
+        "state_variables": 4096,
+        "flops": {
+          "flops_per_step": 13920,
+          "flops_per_trial": 208800
+        },
+        "peak_rss_mb": 42.765625
+      },
+      "SIMPLE_RECURRENT_CONTROL": {
+        "trainable_parameters": 80,
+        "fixed_parameters": 1920,
+        "total_parameters": 2000,
+        "state_variables": 120,
+        "flops": {
+          "flops_per_step": 4160,
+          "flops_per_trial": 62400
+        },
+        "peak_rss_mb": 42.765625
+      }
+    }
+  }
+}

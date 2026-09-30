@@ -232,6 +232,19 @@ class Phase16Network(Phase15Network):
         """Return list of all currently removed/ablated mechanism names."""
         return [k for k, v in self.mechanism_registry.items() if not v]
 
+    def set_consolidation_mode(self, mode: Any, **kwargs) -> None:
+        """Set active synaptic consolidation mechanism on action readout."""
+        self.action_readout.set_consolidation_mode(mode, **kwargs)
+
+    def set_frozen(self, frozen: bool) -> None:
+        """Freeze or unfreeze synaptic plasticity."""
+        self.is_frozen = frozen
+        self.action_readout.is_frozen = frozen
+        if frozen:
+            self.action_readout.learning_mech = LearningMechanism.D1_FROZEN
+        else:
+            self._synchronize_readout_subsystems()
+
     def _synchronize_readout_subsystems(self) -> None:
         """Synchronize internal submodules with current mechanism registry."""
         # 1. Teaching Signal (Mechanisms A & B)

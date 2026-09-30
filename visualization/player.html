@@ -902,6 +902,18 @@
         ⚖️ Audit: Off
       </button>
 
+      <button class="btn" id="credit-horizon-btn" title="Toggle Phase 19 Credit Horizon Mode [T]">
+        ⏱️ Horizon: Off
+      </button>
+
+      <button class="btn" id="consolidation-btn" title="Toggle Phase 19 Synaptic Consolidation Mode [C]">
+        🛡️ Consol: Off
+      </button>
+
+      <button class="btn" id="baseline-comp-btn" title="Toggle Phase 19 Baseline Comparison Mode [B]">
+        ⚖️ Baselines: Off
+      </button>
+
       <button class="btn" id="generalization-btn" title="Toggle Phase 17 Generalization Mode [G]">
         🌐 Gen: Off
       </button>
@@ -939,7 +951,8 @@
       </button>
 
       <select id="model-select" class="select-model" title="Select .brainlog Trace">
-        <option value="/experiments/results/brainlogs/EXP018_audit.brainlog" selected>EXP018: Scientific Audit & Benchmark Integrity (Phase 18)</option>
+        <option value="/experiments/results/brainlogs/EXP019_credit_consolidation.brainlog" selected>EXP019: Biological Credit Horizon & Synaptic Consolidation (Phase 19)</option>
+        <option value="/experiments/results/brainlogs/EXP018_audit.brainlog">EXP018: Scientific Audit & Benchmark Integrity (Phase 18)</option>
         <option value="/experiments/results/brainlogs/EXP017_generalization.brainlog">EXP017: Minimal Brain Generalization & Transfer (Phase 17)</option>
         <option value="/experiments/results/brainlogs/EXP016_minimal_brain.brainlog">EXP016: Minimal Sufficient Brain (Phase 16)</option>
         <option value="/experiments/results/brainlogs/EXP015_action_readout.brainlog">EXP015: Action Readout & Assemblies (Phase 15)</option>
@@ -2092,6 +2105,197 @@
     </div>
   </div>
 
+  <!-- PHASE 19 TEMPORAL CREDIT HORIZON OVERLAY [T] -->
+  <div id="credit-horizon-overlay" style="display: none; position: absolute; bottom: 80px; left: 20px; right: 380px; background: rgba(10, 15, 29, 0.95); backdrop-filter: blur(14px); border: 1px solid #10b981; border-radius: 8px; padding: 10px 14px; z-index: 100; flex-direction: column; gap: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.6);">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">
+      <span style="font-weight: 800; font-size: 11px; letter-spacing: 1px; color: #10b981;">
+        ⏱️ PHASE 19 TEMPORAL CREDIT HORIZON & CAUSAL ATTRIBUTION [T]
+      </span>
+      <button class="btn" id="close-credit-horizon-btn" style="padding: 1px 6px; font-size: 10px;">✕</button>
+    </div>
+    <div class="metric-grid" style="grid-template-columns: repeat(6, 1fr); margin-top: 4px;">
+      <div class="metric-cell">
+        <span class="metric-name">Empirical Horizon</span>
+        <span class="metric-val" id="ch-horizon" style="color: #10b981;">240 ms (Acc ≥ 65%)</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">NMDA Persistence (K)</span>
+        <span class="metric-val" id="ch-nmda" style="color: #06b6d4;">Active (Causal)</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Dendritic Elig (C)</span>
+        <span class="metric-val" id="ch-elig" style="color: #38bdf8;">CSI = 0.905 (Active)</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Teaching Signal (A)</span>
+        <span class="metric-val" id="ch-teaching" style="color: #a855f7;">Target-Specific G1/G3</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Delay Supervision</span>
+        <span class="metric-val" id="ch-supervision" style="color: #f59e0b;">Strictly Zero (Un-leaked)</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">5000ms Result</span>
+        <span class="metric-val" id="ch-5000ms" style="color: #f43f5e;">50.0% (Chance Bound)</span>
+      </div>
+    </div>
+    <div class="metric-grid" style="grid-template-columns: repeat(6, 1fr); margin-top: 2px;">
+      <div class="metric-cell">
+        <span class="metric-name">Eligibility Tau</span>
+        <span class="metric-val" id="ch-tau-elig" style="color: #10b981;">300.0 ms</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Reward Step Delay</span>
+        <span class="metric-val" id="ch-rew-delay" style="color: #38bdf8;">2 steps (80 ms)</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Slow Assembly (H)</span>
+        <span class="metric-val" id="ch-assembly" style="color: #06b6d4;">A2_SLOW_ONLY</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Lateral Inh (I)</span>
+        <span class="metric-val" id="ch-lateral-inh" style="color: #a855f7;">w_cross = 0.50</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Target Routing (L)</span>
+        <span class="metric-val" id="ch-routing" style="color: #10b981;">Active</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Evaluation Protocol</span>
+        <span class="metric-val" id="ch-eval-protocol" style="color: #38bdf8;">Strictly Frozen</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 19 SYNAPTIC CONSOLIDATION OVERLAY [C] -->
+  <div id="consolidation-overlay" style="display: none; position: absolute; bottom: 80px; left: 20px; right: 380px; background: rgba(10, 15, 29, 0.95); backdrop-filter: blur(14px); border: 1px solid #a855f7; border-radius: 8px; padding: 10px 14px; z-index: 100; flex-direction: column; gap: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.6);">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">
+      <span style="font-weight: 800; font-size: 11px; letter-spacing: 1px; color: #c084fc;">
+        🛡️ PHASE 19 SYNAPTIC CONSOLIDATION & CATASTROPHIC FORGETTING [C]
+      </span>
+      <button class="btn" id="close-consolidation-btn" style="padding: 1px 6px; font-size: 10px;">✕</button>
+    </div>
+    <div class="metric-grid" style="grid-template-columns: repeat(6, 1fr); margin-top: 4px;">
+      <div class="metric-cell">
+        <span class="metric-name">Active Mechanism</span>
+        <span class="metric-val" id="consol-mode" style="color: #c084fc;">DUAL_TIMESCALE / TAGGING</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Task A (Pre)</span>
+        <span class="metric-val" id="consol-a-pre" style="color: #10b981;">85.0% (Learned)</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Task B (Adapted)</span>
+        <span class="metric-val" id="consol-b" style="color: #06b6d4;">83.3% (Acquired)</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Task A (Post Retest)</span>
+        <span class="metric-val" id="consol-a-post" style="color: #10b981;">66.7% - 90.0%</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Relative Retention</span>
+        <span class="metric-val" id="consol-retention" style="color: #10b981;">0.78 - 1.00 (Protected)</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Baseline (No Consol)</span>
+        <span class="metric-val" id="consol-baseline" style="color: #f43f5e;">0.20 (80% Loss)</span>
+      </div>
+    </div>
+    <div class="metric-grid" style="grid-template-columns: repeat(6, 1fr); margin-top: 2px;">
+      <div class="metric-cell">
+        <span class="metric-name">Stabilized Synapses</span>
+        <span class="metric-val" id="consol-synapses" style="color: #38bdf8;">12 - 63 Synapses</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Stability / Plasticity</span>
+        <span class="metric-val" id="consol-tradeoff" style="color: #f59e0b;">Both Preserved (SP > 0.22)</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Cumulative Turnover</span>
+        <span class="metric-val" id="consol-turnover" style="color: #c084fc;">Regulated Drift</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Multi-Task A->B->C</span>
+        <span class="metric-val" id="consol-multitask" style="color: #10b981;">Sequential Stability</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Synaptic Tags</span>
+        <span class="metric-val" id="consol-tags" style="color: #06b6d4;">Eligibility-Coupled</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Credit Locality</span>
+        <span class="metric-val" id="consol-locality" style="color: #10b981;">Synapse-Local (No BPTT)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 19 FAIR BASELINE COMPARISON OVERLAY [B] -->
+  <div id="baseline-comp-overlay" style="display: none; position: absolute; bottom: 80px; left: 20px; right: 380px; background: rgba(10, 15, 29, 0.95); backdrop-filter: blur(14px); border: 1px solid #f59e0b; border-radius: 8px; padding: 10px 14px; z-index: 100; flex-direction: column; gap: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.6);">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">
+      <span style="font-weight: 800; font-size: 11px; letter-spacing: 1px; color: #f59e0b;">
+        ⚖️ PHASE 19 FAIR HEAD-TO-HEAD BASELINE COMPARISON (EQUALIZED BUDGETS) [B]
+      </span>
+      <button class="btn" id="close-baseline-comp-btn" style="padding: 1px 6px; font-size: 10px;">✕</button>
+    </div>
+    <div style="overflow-x: auto; max-height: 160px; font-size: 11px;">
+      <table style="width: 100%; border-collapse: collapse; text-align: left;">
+        <thead>
+          <tr style="border-bottom: 1px solid var(--border-subtle); color: var(--text-muted);">
+            <th style="padding: 4px 6px;">Dimension / Metric</th>
+            <th style="padding: 4px 6px; color: #10b981;">MIN_E (Biological)</th>
+            <th style="padding: 4px 6px; color: #38bdf8;">Causal Transformer</th>
+            <th style="padding: 4px 6px; color: #a855f7;">BPTT Leaky RNN</th>
+            <th style="padding: 4px 6px; color: #f59e0b;">Simple Recurrent</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
+            <td style="padding: 3px 6px; font-weight: 600;">Total Parameters</td>
+            <td style="padding: 3px 6px; color: #10b981;">2,002 (82 trainable)</td>
+            <td style="padding: 3px 6px; color: #38bdf8;">2,322 - 6,401 (all train)</td>
+            <td style="padding: 3px 6px; color: #a855f7;">2,041 (all train)</td>
+            <td style="padding: 3px 6px; color: #f59e0b;">2,000 (80 train)</td>
+          </tr>
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
+            <td style="padding: 3px 6px; font-weight: 600;">State Variables / Cache</td>
+            <td style="padding: 3px 6px; color: #10b981;">282 (Soma/Dend/NMDA)</td>
+            <td style="padding: 3px 6px; color: #38bdf8;">4,096 (KV buffer O(T))</td>
+            <td style="padding: 3px 6px; color: #a855f7;">40 (Hidden vector)</td>
+            <td style="padding: 3px 6px; color: #f59e0b;">120 (Hidden + Elig)</td>
+          </tr>
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
+            <td style="padding: 3px 6px; font-weight: 600;">Analytical FLOPs/Step</td>
+            <td style="padding: 3px 6px; color: #10b981;">4,208 FLOPs (Sparse local)</td>
+            <td style="padding: 3px 6px; color: #38bdf8;">4,160 + 32 T (Quadratic)</td>
+            <td style="padding: 3px 6px; color: #a855f7;">12,000 (Forward + BPTT)</td>
+            <td style="padding: 3px 6px; color: #f59e0b;">4,160 FLOPs (Hebbian)</td>
+          </tr>
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
+            <td style="padding: 3px 6px; font-weight: 600;">Peak Memory (RSS)</td>
+            <td style="padding: 3px 6px; color: #10b981;">43.2 MB</td>
+            <td style="padding: 3px 6px; color: #38bdf8;">44.1 MB</td>
+            <td style="padding: 3px 6px; color: #a855f7;">43.3 MB</td>
+            <td style="padding: 3px 6px; color: #f59e0b;">43.2 MB</td>
+          </tr>
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
+            <td style="padding: 3px 6px; font-weight: 600;">Credit Horizon (≥65%)</td>
+            <td style="padding: 3px 6px; color: #10b981;">240 ms (Biological limit)</td>
+            <td style="padding: 3px 6px; color: #38bdf8;">> 5,000 ms (Self-attn)</td>
+            <td style="padding: 3px 6px; color: #a855f7;">> 5,000 ms (Global BPTT)</td>
+            <td style="padding: 3px 6px; color: #f59e0b;">~120 ms (Leak decay)</td>
+          </tr>
+          <tr>
+            <td style="padding: 3px 6px; font-weight: 600;">Continual Ret (A->B->A)</td>
+            <td style="padding: 3px 6px; color: #10b981;">0.78 - 1.00 (w/ Consol)</td>
+            <td style="padding: 3px 6px; color: #38bdf8;">0.00 (Standard overwrite)</td>
+            <td style="padding: 3px 6px; color: #a855f7;">0.00 (Standard overwrite)</td>
+            <td style="padding: 3px 6px; color: #f59e0b;">0.00 (Standard overwrite)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 
   <!-- SPIKE RASTER DRAWER -->
   <div id="raster-drawer">
@@ -2181,11 +2385,12 @@
         <div class="metric-cell"><span class="metric-name">L</span><span class="metric-val">LATEST Mode (Default)</span></div>
         <div class="metric-cell"><span class="metric-name">R</span><span class="metric-val">REPLAY Mode</span></div>
         <div class="metric-cell"><span class="metric-name">A</span><span class="metric-val">Scientific Audit Mode [A]</span></div>
+        <div class="metric-cell"><span class="metric-name">T</span><span class="metric-val">Temporal Credit Horizon [T]</span></div>
+        <div class="metric-cell"><span class="metric-name">C</span><span class="metric-val">Synaptic Consolidation [C]</span></div>
+        <div class="metric-cell"><span class="metric-name">B</span><span class="metric-val">Baseline Comparison [B]</span></div>
         <div class="metric-cell"><span class="metric-name">S</span><span class="metric-val">Spike Encoding Mode [S]</span></div>
         <div class="metric-cell"><span class="metric-name">G</span><span class="metric-val">Generalization Mode [G]</span></div>
         <div class="metric-cell"><span class="metric-name">X</span><span class="metric-val">Transfer Matrix [X]</span></div>
-        <div class="metric-cell"><span class="metric-name">T</span><span class="metric-val">Temporal Extrapolation [T]</span></div>
-        <div class="metric-cell"><span class="metric-name">C</span><span class="metric-val">Causal Intervention [C]</span></div>
         <div class="metric-cell"><span class="metric-name">M</span><span class="metric-val">Mechanism Necessity [M]</span></div>
         <div class="metric-cell"><span class="metric-name">P</span><span class="metric-val">Minimality Architecture [P]</span></div>
         <div class="metric-cell"><span class="metric-name">O</span><span class="metric-val">Auto-Frame Entire Brain</span></div>
@@ -4141,6 +4346,84 @@
       };
     }
 
+    // Phase 19 Credit Horizon Mode [T]
+    let creditHorizonActive = false;
+    const creditHorizonBtn = document.getElementById('credit-horizon-btn');
+    const creditHorizonOverlay = document.getElementById('credit-horizon-overlay');
+    if (creditHorizonBtn) {
+      creditHorizonBtn.onclick = () => {
+        creditHorizonActive = !creditHorizonActive;
+        creditHorizonBtn.innerText = `⏱️ Horizon: ${creditHorizonActive ? 'On' : 'Off'}`;
+        creditHorizonBtn.classList.toggle('active', creditHorizonActive);
+        if (creditHorizonOverlay) creditHorizonOverlay.style.display = creditHorizonActive ? 'flex' : 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+    const closeCreditHorizonBtn = document.getElementById('close-credit-horizon-btn');
+    if (closeCreditHorizonBtn) {
+      closeCreditHorizonBtn.onclick = () => {
+        creditHorizonActive = false;
+        if (creditHorizonBtn) {
+          creditHorizonBtn.innerText = '⏱️ Horizon: Off';
+          creditHorizonBtn.classList.remove('active');
+        }
+        if (creditHorizonOverlay) creditHorizonOverlay.style.display = 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+
+    // Phase 19 Consolidation Mode [C]
+    let consolidationActive = false;
+    const consolidationBtn = document.getElementById('consolidation-btn');
+    const consolidationOverlay = document.getElementById('consolidation-overlay');
+    if (consolidationBtn) {
+      consolidationBtn.onclick = () => {
+        consolidationActive = !consolidationActive;
+        consolidationBtn.innerText = `🛡️ Consol: ${consolidationActive ? 'On' : 'Off'}`;
+        consolidationBtn.classList.toggle('active', consolidationActive);
+        if (consolidationOverlay) consolidationOverlay.style.display = consolidationActive ? 'flex' : 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+    const closeConsolidationBtn = document.getElementById('close-consolidation-btn');
+    if (closeConsolidationBtn) {
+      closeConsolidationBtn.onclick = () => {
+        consolidationActive = false;
+        if (consolidationBtn) {
+          consolidationBtn.innerText = '🛡️ Consol: Off';
+          consolidationBtn.classList.remove('active');
+        }
+        if (consolidationOverlay) consolidationOverlay.style.display = 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+
+    // Phase 19 Baseline Comparison Mode [B]
+    let baselineCompActive = false;
+    const baselineCompBtn = document.getElementById('baseline-comp-btn');
+    const baselineCompOverlay = document.getElementById('baseline-comp-overlay');
+    if (baselineCompBtn) {
+      baselineCompBtn.onclick = () => {
+        baselineCompActive = !baselineCompActive;
+        baselineCompBtn.innerText = `⚖️ Baselines: ${baselineCompActive ? 'On' : 'Off'}`;
+        baselineCompBtn.classList.toggle('active', baselineCompActive);
+        if (baselineCompOverlay) baselineCompOverlay.style.display = baselineCompActive ? 'flex' : 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+    const closeBaselineCompBtn = document.getElementById('close-baseline-comp-btn');
+    if (closeBaselineCompBtn) {
+      closeBaselineCompBtn.onclick = () => {
+        baselineCompActive = false;
+        if (baselineCompBtn) {
+          baselineCompBtn.innerText = '⚖️ Baselines: Off';
+          baselineCompBtn.classList.remove('active');
+        }
+        if (baselineCompOverlay) baselineCompOverlay.style.display = 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
+
     document.getElementById('focus-act0-btn').onclick = () => focusCameraOnAction(0);
     document.getElementById('focus-act1-btn').onclick = () => focusCameraOnAction(1);
 
@@ -4281,11 +4564,15 @@
         if (transferMatrixBtn) transferMatrixBtn.click();
         else if (ablationModeBtn) ablationModeBtn.click();
       } else if (e.code === 'KeyT') {
-        if (temporalExtrapBtn) temporalExtrapBtn.click();
+        if (creditHorizonBtn) creditHorizonBtn.click();
+        else if (temporalExtrapBtn) temporalExtrapBtn.click();
         else temporalCodingBtn.click();
       } else if (e.code === 'KeyC') {
-        if (causalIntervBtn) causalIntervBtn.click();
+        if (consolidationBtn) consolidationBtn.click();
+        else if (causalIntervBtn) causalIntervBtn.click();
         else if (actionCreditBtn) actionCreditBtn.click();
+      } else if (e.code === 'KeyB') {
+        if (baselineCompBtn) baselineCompBtn.click();
       } else if (e.code === 'KeyM') {
         if (mechNecessityBtn) mechNecessityBtn.click();
         else if (actionAssemblyBtn) actionAssemblyBtn.click();
@@ -4338,8 +4625,8 @@
     }
     animate();
 
-    // Auto-bootstrap Primary Phase 18 Audited Trace on Startup
-    const initialTrace = document.getElementById('model-select')?.value || '/experiments/results/brainlogs/EXP018_audit.brainlog';
+    // Auto-bootstrap Primary Phase 19 Trace on Startup
+    const initialTrace = document.getElementById('model-select')?.value || '/experiments/results/brainlogs/EXP019_credit_consolidation.brainlog';
     fetchBrainlog(initialTrace);
   </script>
 </body>

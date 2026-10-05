@@ -5,7 +5,7 @@ Maintains strict determinism, forward compatibility, and backward compatibility 
 
 import json
 from pathlib import Path
-from typing import Any, Dict, List, Tuple, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 from observability.capture import TelemetryFrame
 from observability.events import ComputationalEvent
@@ -22,7 +22,9 @@ class BrainLog:
         frames: List[TelemetryFrame],
         events: List[ComputationalEvent],
         snapshots: Dict[int, dict],
-        version: str = "3.4",
+        version: str = "3.9",
+        natural_language_instruction: Optional[str] = None,
+        parsed_task: Optional[dict] = None,
     ):
         self.version = version
         self.metadata = metadata
@@ -30,9 +32,11 @@ class BrainLog:
         self.frames = frames
         self.events = events
         self.snapshots = snapshots
+        self.natural_language_instruction = natural_language_instruction
+        self.parsed_task = parsed_task
 
     def to_dict(self) -> dict:
-        return {
+        d = {
             "brainlog_version": self.version,
             "metadata": self.metadata,
             "topology": self.topology.to_dict(),
@@ -40,6 +44,11 @@ class BrainLog:
             "events": [e.to_dict() for e in self.events],
             "snapshots": self.snapshots,
         }
+        if self.natural_language_instruction is not None:
+            d["natural_language_instruction"] = self.natural_language_instruction
+        if self.parsed_task is not None:
+            d["parsed_task"] = self.parsed_task
+        return d
 
     def save(self, filepath: Union[str, Path]) -> Path:
         path = Path(filepath)
@@ -69,10 +78,10 @@ class BrainLogValidator:
         version = data.get("brainlog_version")
         valid_versions = [
             "1.0", "2.0", "2.1", "2.2", "2.3", "2.4", "2.5", "2.6", "2.7", "2.8",
-            "2.9", "3.0", "3.1", "3.2", "3.3", "3.4", "3.5", "3.6", "3.7", "3.8"
+            "2.9", "3.0", "3.1", "3.2", "3.3", "3.4", "3.5", "3.6", "3.7", "3.8", "3.9"
         ]
         if version not in valid_versions:
-            return False, f"Missing, incompatible or unsupported brainlog_version '{version}' (expected '1.0' through '3.8')"
+            return False, f"Missing, incompatible or unsupported brainlog_version '{version}' (expected '1.0' through '3.9')"
 
         if "metadata" not in data or not isinstance(data["metadata"], dict):
             return False, "Missing or invalid 'metadata' object"
@@ -119,7 +128,9 @@ class BrainLogSerializer:
         frames: List[TelemetryFrame],
         events: List[ComputationalEvent],
         snapshots: Dict[int, dict],
-        version: str = "3.1",
+        version: str = "3.9",
+        natural_language_instruction: Optional[str] = None,
+        parsed_task: Optional[dict] = None,
     ) -> Path:
         blog = BrainLog(
             metadata=metadata,
@@ -128,6 +139,8 @@ class BrainLogSerializer:
             events=events,
             snapshots=snapshots,
             version=version,
+            natural_language_instruction=natural_language_instruction,
+            parsed_task=parsed_task,
         )
         return blog.save(filepath)
 

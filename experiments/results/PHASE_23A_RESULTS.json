@@ -1,0 +1,5642 @@
+{
+  "metadata": {
+    "phase": "23A",
+    "title": "Sample-Efficiency Benchmark & Human-Driven Brain Observability",
+    "date": "2026-10-06",
+    "seeds": [
+      42,
+      101,
+      2024,
+      777,
+      999
+    ],
+    "training_budgets": [
+      5,
+      10,
+      25,
+      50,
+      100,
+      250,
+      500
+    ],
+    "tasks_evaluated": [
+      "STATIC_CLASSIFICATION",
+      "TEMPORAL_CLASSIFICATION",
+      "EPISODE_DEPENDENT_DECISION",
+      "DELAYED_CONTEXT_DECISION",
+      "SIMPLE_COMPOSITIONAL_DECISION"
+    ],
+    "architectures_evaluated": [
+      "MIN_E",
+      "MIN_E_PLUS_EPISODIC",
+      "SIMPLE_RECURRENT",
+      "GRU",
+      "CAUSAL_TRANSFORMER",
+      "TYPED_PROBABILISTIC_DECISION"
+    ],
+    "evaluation_trials_per_run": 50,
+    "total_runs": 1050,
+    "wall_clock_total_sec": 134.63,
+    "disclaimer_typed_probabilistic": "The TYPED_PROBABILISTIC_DECISION model is an independent, non-proprietary baseline inspired only by publicly describable System One interface characteristics. It is NOT the proprietary JEV model from Typesafe AI."
+  },
+  "resource_accounting": {
+    "MIN_E": {
+      "system": "MIN_E",
+      "total_parameters": 2324,
+      "trainable_parameters": 80,
+      "fixed_parameters": 2244,
+      "dynamic_state_floats": 124,
+      "external_memory_bytes": 0,
+      "flops_per_step": 4760,
+      "flops_per_trial": 28560
+    },
+    "MIN_E_PLUS_EPISODIC": {
+      "system": "MIN_E_PLUS_EPISODIC",
+      "total_parameters": 2324,
+      "trainable_parameters": 80,
+      "fixed_parameters": 2244,
+      "dynamic_state_floats": 252,
+      "external_memory_bytes": 29184,
+      "flops_per_step": 8856,
+      "flops_per_trial": 53136
+    },
+    "SIMPLE_RECURRENT": {
+      "system": "SIMPLE_RECURRENT",
+      "total_parameters": 2320,
+      "trainable_parameters": 80,
+      "fixed_parameters": 2240,
+      "dynamic_state_floats": 42,
+      "external_memory_bytes": 0,
+      "flops_per_step": 4640,
+      "flops_per_trial": 27840
+    },
+    "GRU": {
+      "system": "GRU",
+      "total_parameters": 6922,
+      "trainable_parameters": 6922,
+      "fixed_parameters": 0,
+      "dynamic_state_floats": 162,
+      "external_memory_bytes": 0,
+      "flops_per_step": 14044,
+      "flops_per_trial": 84264
+    },
+    "CAUSAL_TRANSFORMER": {
+      "system": "CAUSAL_TRANSFORMER",
+      "total_parameters": 2080,
+      "trainable_parameters": 2080,
+      "fixed_parameters": 0,
+      "dynamic_state_floats": 192,
+      "external_memory_bytes": 0,
+      "flops_per_step": 4352,
+      "flops_per_trial": 26112
+    },
+    "TYPED_PROBABILISTIC_DECISION": {
+      "system": "TYPED_PROBABILISTIC_DECISION",
+      "total_parameters": 34,
+      "trainable_parameters": 34,
+      "fixed_parameters": 0,
+      "dynamic_state_floats": 24,
+      "external_memory_bytes": 0,
+      "flops_per_step": 83,
+      "flops_per_trial": 498
+    }
+  },
+  "task_results": {
+    "STATIC_CLASSIFICATION": {
+      "systems": {
+        "MIN_E": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.488,
+                "std": 0.0743,
+                "ci95": [
+                  0.3958,
+                  0.5802
+                ],
+                "n": 5,
+                "values": [
+                  0.58,
+                  0.5,
+                  0.52,
+                  0.38,
+                  0.46
+                ]
+              },
+              "training_flops_mean": 71400,
+              "training_wall_clock_sec_mean": 0.0074
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.476,
+                "std": 0.074,
+                "ci95": [
+                  0.3841,
+                  0.5679
+                ],
+                "n": 5,
+                "values": [
+                  0.56,
+                  0.5,
+                  0.52,
+                  0.38,
+                  0.42
+                ]
+              },
+              "training_flops_mean": 142800,
+              "training_wall_clock_sec_mean": 0.0122
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.512,
+                "std": 0.0415,
+                "ci95": [
+                  0.4605,
+                  0.5635
+                ],
+                "n": 5,
+                "values": [
+                  0.56,
+                  0.46,
+                  0.52,
+                  0.54,
+                  0.48
+                ]
+              },
+              "training_flops_mean": 357000,
+              "training_wall_clock_sec_mean": 0.02954
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.496,
+                "std": 0.0385,
+                "ci95": [
+                  0.4482,
+                  0.5438
+                ],
+                "n": 5,
+                "values": [
+                  0.56,
+                  0.48,
+                  0.48,
+                  0.5,
+                  0.46
+                ]
+              },
+              "training_flops_mean": 714000,
+              "training_wall_clock_sec_mean": 0.05704
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.528,
+                "std": 0.0756,
+                "ci95": [
+                  0.4341,
+                  0.6219
+                ],
+                "n": 5,
+                "values": [
+                  0.52,
+                  0.58,
+                  0.56,
+                  0.4,
+                  0.58
+                ]
+              },
+              "training_flops_mean": 1428000,
+              "training_wall_clock_sec_mean": 0.11408
+            },
+            "250": {
+              "accuracy": {
+                "mean": 0.48,
+                "std": 0.049,
+                "ci95": [
+                  0.4192,
+                  0.5408
+                ],
+                "n": 5,
+                "values": [
+                  0.42,
+                  0.52,
+                  0.54,
+                  0.46,
+                  0.46
+                ]
+              },
+              "training_flops_mean": 3570000,
+              "training_wall_clock_sec_mean": 0.28919
+            },
+            "500": {
+              "accuracy": {
+                "mean": 0.48,
+                "std": 0.0447,
+                "ci95": [
+                  0.4245,
+                  0.5355
+                ],
+                "n": 5,
+                "values": [
+                  0.46,
+                  0.54,
+                  0.5,
+                  0.42,
+                  0.48
+                ]
+              },
+              "training_flops_mean": 7140000,
+              "training_wall_clock_sec_mean": 0.57059
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": null,
+            "threshold_80pct": null,
+            "threshold_90pct": null
+          },
+          "accounting": {
+            "system": "MIN_E",
+            "total_parameters": 2324,
+            "trainable_parameters": 80,
+            "fixed_parameters": 2244,
+            "dynamic_state_floats": 124,
+            "external_memory_bytes": 0,
+            "flops_per_step": 4760,
+            "flops_per_trial": 28560
+          }
+        },
+        "MIN_E_PLUS_EPISODIC": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.58,
+                "std": 0.049,
+                "ci95": [
+                  0.5192,
+                  0.6408
+                ],
+                "n": 5,
+                "values": [
+                  0.62,
+                  0.62,
+                  0.58,
+                  0.5,
+                  0.58
+                ]
+              },
+              "training_flops_mean": 132840,
+              "training_wall_clock_sec_mean": 0.00675
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.568,
+                "std": 0.0415,
+                "ci95": [
+                  0.5165,
+                  0.6195
+                ],
+                "n": 5,
+                "values": [
+                  0.62,
+                  0.6,
+                  0.54,
+                  0.56,
+                  0.52
+                ]
+              },
+              "training_flops_mean": 265680,
+              "training_wall_clock_sec_mean": 0.01223
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.652,
+                "std": 0.0795,
+                "ci95": [
+                  0.5533,
+                  0.7507
+                ],
+                "n": 5,
+                "values": [
+                  0.64,
+                  0.68,
+                  0.7,
+                  0.52,
+                  0.72
+                ]
+              },
+              "training_flops_mean": 664200,
+              "training_wall_clock_sec_mean": 0.02954
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.664,
+                "std": 0.0713,
+                "ci95": [
+                  0.5755,
+                  0.7525
+                ],
+                "n": 5,
+                "values": [
+                  0.6,
+                  0.64,
+                  0.68,
+                  0.62,
+                  0.78
+                ]
+              },
+              "training_flops_mean": 1328400,
+              "training_wall_clock_sec_mean": 0.05843
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.7,
+                "std": 0.0529,
+                "ci95": [
+                  0.6343,
+                  0.7657
+                ],
+                "n": 5,
+                "values": [
+                  0.68,
+                  0.76,
+                  0.72,
+                  0.62,
+                  0.72
+                ]
+              },
+              "training_flops_mean": 2656800,
+              "training_wall_clock_sec_mean": 0.11594
+            },
+            "250": {
+              "accuracy": {
+                "mean": 0.612,
+                "std": 0.1035,
+                "ci95": [
+                  0.4835,
+                  0.7405
+                ],
+                "n": 5,
+                "values": [
+                  0.6,
+                  0.7,
+                  0.68,
+                  0.44,
+                  0.64
+                ]
+              },
+              "training_flops_mean": 6642000,
+              "training_wall_clock_sec_mean": 0.29002
+            },
+            "500": {
+              "accuracy": {
+                "mean": 0.716,
+                "std": 0.1071,
+                "ci95": [
+                  0.583,
+                  0.849
+                ],
+                "n": 5,
+                "values": [
+                  0.6,
+                  0.74,
+                  0.76,
+                  0.62,
+                  0.86
+                ]
+              },
+              "training_flops_mean": 13284000,
+              "training_wall_clock_sec_mean": 0.57366
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": 100,
+            "threshold_80pct": null,
+            "threshold_90pct": null
+          },
+          "accounting": {
+            "system": "MIN_E_PLUS_EPISODIC",
+            "total_parameters": 2324,
+            "trainable_parameters": 80,
+            "fixed_parameters": 2244,
+            "dynamic_state_floats": 252,
+            "external_memory_bytes": 29184,
+            "flops_per_step": 8856,
+            "flops_per_trial": 53136
+          }
+        },
+        "SIMPLE_RECURRENT": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.652,
+                "std": 0.1474,
+                "ci95": [
+                  0.469,
+                  0.835
+                ],
+                "n": 5,
+                "values": [
+                  0.58,
+                  0.8,
+                  0.46,
+                  0.62,
+                  0.8
+                ]
+              },
+              "training_flops_mean": 69600,
+              "training_wall_clock_sec_mean": 0.00013
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.672,
+                "std": 0.1285,
+                "ci95": [
+                  0.5124,
+                  0.8316
+                ],
+                "n": 5,
+                "values": [
+                  0.68,
+                  0.68,
+                  0.5,
+                  0.64,
+                  0.86
+                ]
+              },
+              "training_flops_mean": 139200,
+              "training_wall_clock_sec_mean": 0.0002
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.724,
+                "std": 0.1099,
+                "ci95": [
+                  0.5876,
+                  0.8604
+                ],
+                "n": 5,
+                "values": [
+                  0.58,
+                  0.8,
+                  0.76,
+                  0.64,
+                  0.84
+                ]
+              },
+              "training_flops_mean": 348000,
+              "training_wall_clock_sec_mean": 0.00046
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.8,
+                "std": 0.0583,
+                "ci95": [
+                  0.7276,
+                  0.8724
+                ],
+                "n": 5,
+                "values": [
+                  0.7,
+                  0.84,
+                  0.82,
+                  0.84,
+                  0.8
+                ]
+              },
+              "training_flops_mean": 696000,
+              "training_wall_clock_sec_mean": 0.00089
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.824,
+                "std": 0.0385,
+                "ci95": [
+                  0.7762,
+                  0.8718
+                ],
+                "n": 5,
+                "values": [
+                  0.78,
+                  0.84,
+                  0.82,
+                  0.8,
+                  0.88
+                ]
+              },
+              "training_flops_mean": 1392000,
+              "training_wall_clock_sec_mean": 0.00178
+            },
+            "250": {
+              "accuracy": {
+                "mean": 0.844,
+                "std": 0.0498,
+                "ci95": [
+                  0.7822,
+                  0.9058
+                ],
+                "n": 5,
+                "values": [
+                  0.78,
+                  0.88,
+                  0.8,
+                  0.88,
+                  0.88
+                ]
+              },
+              "training_flops_mean": 3480000,
+              "training_wall_clock_sec_mean": 0.00439
+            },
+            "500": {
+              "accuracy": {
+                "mean": 0.912,
+                "std": 0.0482,
+                "ci95": [
+                  0.8522,
+                  0.9718
+                ],
+                "n": 5,
+                "values": [
+                  0.94,
+                  0.98,
+                  0.88,
+                  0.86,
+                  0.9
+                ]
+              },
+              "training_flops_mean": 6960000,
+              "training_wall_clock_sec_mean": 0.00883
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": 25,
+            "threshold_80pct": 50,
+            "threshold_90pct": 500
+          },
+          "accounting": {
+            "system": "SIMPLE_RECURRENT",
+            "total_parameters": 2320,
+            "trainable_parameters": 80,
+            "fixed_parameters": 2240,
+            "dynamic_state_floats": 42,
+            "external_memory_bytes": 0,
+            "flops_per_step": 4640,
+            "flops_per_trial": 27840
+          }
+        },
+        "GRU": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.536,
+                "std": 0.0385,
+                "ci95": [
+                  0.4882,
+                  0.5838
+                ],
+                "n": 5,
+                "values": [
+                  0.54,
+                  0.52,
+                  0.5,
+                  0.52,
+                  0.6
+                ]
+              },
+              "training_flops_mean": 210660,
+              "training_wall_clock_sec_mean": 0.00022
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.576,
+                "std": 0.1099,
+                "ci95": [
+                  0.4396,
+                  0.7124
+                ],
+                "n": 5,
+                "values": [
+                  0.62,
+                  0.5,
+                  0.74,
+                  0.46,
+                  0.56
+                ]
+              },
+              "training_flops_mean": 421320,
+              "training_wall_clock_sec_mean": 0.00036
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.62,
+                "std": 0.1049,
+                "ci95": [
+                  0.4898,
+                  0.7502
+                ],
+                "n": 5,
+                "values": [
+                  0.68,
+                  0.7,
+                  0.66,
+                  0.44,
+                  0.62
+                ]
+              },
+              "training_flops_mean": 1053300,
+              "training_wall_clock_sec_mean": 0.00085
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.708,
+                "std": 0.1346,
+                "ci95": [
+                  0.5409,
+                  0.8751
+                ],
+                "n": 5,
+                "values": [
+                  0.72,
+                  0.9,
+                  0.58,
+                  0.76,
+                  0.58
+                ]
+              },
+              "training_flops_mean": 2106600,
+              "training_wall_clock_sec_mean": 0.00166
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.832,
+                "std": 0.0179,
+                "ci95": [
+                  0.8098,
+                  0.8542
+                ],
+                "n": 5,
+                "values": [
+                  0.82,
+                  0.86,
+                  0.82,
+                  0.82,
+                  0.84
+                ]
+              },
+              "training_flops_mean": 4213200,
+              "training_wall_clock_sec_mean": 0.00332
+            },
+            "250": {
+              "accuracy": {
+                "mean": 0.808,
+                "std": 0.039,
+                "ci95": [
+                  0.7596,
+                  0.8564
+                ],
+                "n": 5,
+                "values": [
+                  0.76,
+                  0.86,
+                  0.82,
+                  0.78,
+                  0.82
+                ]
+              },
+              "training_flops_mean": 10533000,
+              "training_wall_clock_sec_mean": 0.00833
+            },
+            "500": {
+              "accuracy": {
+                "mean": 0.852,
+                "std": 0.0782,
+                "ci95": [
+                  0.7549,
+                  0.9491
+                ],
+                "n": 5,
+                "values": [
+                  0.84,
+                  0.98,
+                  0.8,
+                  0.78,
+                  0.86
+                ]
+              },
+              "training_flops_mean": 21066000,
+              "training_wall_clock_sec_mean": 0.01628
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": 50,
+            "threshold_80pct": 100,
+            "threshold_90pct": null
+          },
+          "accounting": {
+            "system": "GRU",
+            "total_parameters": 6922,
+            "trainable_parameters": 6922,
+            "fixed_parameters": 0,
+            "dynamic_state_floats": 162,
+            "external_memory_bytes": 0,
+            "flops_per_step": 14044,
+            "flops_per_trial": 84264
+          }
+        },
+        "CAUSAL_TRANSFORMER": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.444,
+                "std": 0.1126,
+                "ci95": [
+                  0.3042,
+                  0.5838
+                ],
+                "n": 5,
+                "values": [
+                  0.62,
+                  0.44,
+                  0.46,
+                  0.38,
+                  0.32
+                ]
+              },
+              "training_flops_mean": 63840,
+              "training_wall_clock_sec_mean": 0.0006
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.44,
+                "std": 0.102,
+                "ci95": [
+                  0.3134,
+                  0.5666
+                ],
+                "n": 5,
+                "values": [
+                  0.56,
+                  0.44,
+                  0.48,
+                  0.44,
+                  0.28
+                ]
+              },
+              "training_flops_mean": 127680,
+              "training_wall_clock_sec_mean": 0.00103
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.428,
+                "std": 0.089,
+                "ci95": [
+                  0.3175,
+                  0.5385
+                ],
+                "n": 5,
+                "values": [
+                  0.56,
+                  0.46,
+                  0.4,
+                  0.4,
+                  0.32
+                ]
+              },
+              "training_flops_mean": 319200,
+              "training_wall_clock_sec_mean": 0.00246
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.42,
+                "std": 0.08,
+                "ci95": [
+                  0.3207,
+                  0.5193
+                ],
+                "n": 5,
+                "values": [
+                  0.48,
+                  0.52,
+                  0.32,
+                  0.38,
+                  0.4
+                ]
+              },
+              "training_flops_mean": 638400,
+              "training_wall_clock_sec_mean": 0.00479
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.384,
+                "std": 0.1284,
+                "ci95": [
+                  0.2246,
+                  0.5434
+                ],
+                "n": 5,
+                "values": [
+                  0.42,
+                  0.58,
+                  0.38,
+                  0.26,
+                  0.28
+                ]
+              },
+              "training_flops_mean": 1276800,
+              "training_wall_clock_sec_mean": 0.00957
+            },
+            "250": {
+              "accuracy": {
+                "mean": 0.376,
+                "std": 0.0699,
+                "ci95": [
+                  0.2893,
+                  0.4627
+                ],
+                "n": 5,
+                "values": [
+                  0.46,
+                  0.42,
+                  0.34,
+                  0.38,
+                  0.28
+                ]
+              },
+              "training_flops_mean": 3192000,
+              "training_wall_clock_sec_mean": 0.02402
+            },
+            "500": {
+              "accuracy": {
+                "mean": 0.38,
+                "std": 0.149,
+                "ci95": [
+                  0.195,
+                  0.565
+                ],
+                "n": 5,
+                "values": [
+                  0.38,
+                  0.56,
+                  0.34,
+                  0.16,
+                  0.46
+                ]
+              },
+              "training_flops_mean": 6384000,
+              "training_wall_clock_sec_mean": 0.04867
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": null,
+            "threshold_80pct": null,
+            "threshold_90pct": null
+          },
+          "accounting": {
+            "system": "CAUSAL_TRANSFORMER",
+            "total_parameters": 2080,
+            "trainable_parameters": 2080,
+            "fixed_parameters": 0,
+            "dynamic_state_floats": 192,
+            "external_memory_bytes": 0,
+            "flops_per_step": 4352,
+            "flops_per_trial": 26112
+          }
+        },
+        "TYPED_PROBABILISTIC_DECISION": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.636,
+                "std": 0.074,
+                "ci95": [
+                  0.5441,
+                  0.7279
+                ],
+                "n": 5,
+                "values": [
+                  0.7,
+                  0.62,
+                  0.52,
+                  0.64,
+                  0.7
+                ]
+              },
+              "training_flops_mean": 1245,
+              "training_wall_clock_sec_mean": 0.00013
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.688,
+                "std": 0.0856,
+                "ci95": [
+                  0.5818,
+                  0.7942
+                ],
+                "n": 5,
+                "values": [
+                  0.78,
+                  0.7,
+                  0.6,
+                  0.6,
+                  0.76
+                ]
+              },
+              "training_flops_mean": 2490,
+              "training_wall_clock_sec_mean": 0.00019
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.788,
+                "std": 0.0996,
+                "ci95": [
+                  0.6644,
+                  0.9116
+                ],
+                "n": 5,
+                "values": [
+                  0.86,
+                  0.88,
+                  0.68,
+                  0.68,
+                  0.84
+                ]
+              },
+              "training_flops_mean": 6225,
+              "training_wall_clock_sec_mean": 0.00044
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.852,
+                "std": 0.0438,
+                "ci95": [
+                  0.7976,
+                  0.9064
+                ],
+                "n": 5,
+                "values": [
+                  0.86,
+                  0.86,
+                  0.9,
+                  0.86,
+                  0.78
+                ]
+              },
+              "training_flops_mean": 12450,
+              "training_wall_clock_sec_mean": 0.00083
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.896,
+                "std": 0.0434,
+                "ci95": [
+                  0.8422,
+                  0.9498
+                ],
+                "n": 5,
+                "values": [
+                  0.84,
+                  0.92,
+                  0.94,
+                  0.86,
+                  0.92
+                ]
+              },
+              "training_flops_mean": 24900,
+              "training_wall_clock_sec_mean": 0.00153
+            },
+            "250": {
+              "accuracy": {
+                "mean": 0.896,
+                "std": 0.0434,
+                "ci95": [
+                  0.8422,
+                  0.9498
+                ],
+                "n": 5,
+                "values": [
+                  0.96,
+                  0.88,
+                  0.92,
+                  0.86,
+                  0.86
+                ]
+              },
+              "training_flops_mean": 62250,
+              "training_wall_clock_sec_mean": 0.0038
+            },
+            "500": {
+              "accuracy": {
+                "mean": 0.956,
+                "std": 0.0297,
+                "ci95": [
+                  0.9192,
+                  0.9928
+                ],
+                "n": 5,
+                "values": [
+                  0.96,
+                  0.96,
+                  0.92,
+                  0.94,
+                  1.0
+                ]
+              },
+              "training_flops_mean": 124500,
+              "training_wall_clock_sec_mean": 0.0077
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": 25,
+            "threshold_80pct": 50,
+            "threshold_90pct": 500
+          },
+          "accounting": {
+            "system": "TYPED_PROBABILISTIC_DECISION",
+            "total_parameters": 34,
+            "trainable_parameters": 34,
+            "fixed_parameters": 0,
+            "dynamic_state_floats": 24,
+            "external_memory_bytes": 0,
+            "flops_per_step": 83,
+            "flops_per_trial": 498
+          }
+        }
+      },
+      "sample_efficiency_curves": {
+        "MIN_E": {
+          "5": 0.488,
+          "10": 0.476,
+          "25": 0.512,
+          "50": 0.496,
+          "100": 0.528,
+          "250": 0.48,
+          "500": 0.48
+        },
+        "MIN_E_PLUS_EPISODIC": {
+          "5": 0.58,
+          "10": 0.568,
+          "25": 0.652,
+          "50": 0.664,
+          "100": 0.7,
+          "250": 0.612,
+          "500": 0.716
+        },
+        "SIMPLE_RECURRENT": {
+          "5": 0.652,
+          "10": 0.672,
+          "25": 0.724,
+          "50": 0.8,
+          "100": 0.824,
+          "250": 0.844,
+          "500": 0.912
+        },
+        "GRU": {
+          "5": 0.536,
+          "10": 0.576,
+          "25": 0.62,
+          "50": 0.708,
+          "100": 0.832,
+          "250": 0.808,
+          "500": 0.852
+        },
+        "CAUSAL_TRANSFORMER": {
+          "5": 0.444,
+          "10": 0.44,
+          "25": 0.428,
+          "50": 0.42,
+          "100": 0.384,
+          "250": 0.376,
+          "500": 0.38
+        },
+        "TYPED_PROBABILISTIC_DECISION": {
+          "5": 0.636,
+          "10": 0.688,
+          "25": 0.788,
+          "50": 0.852,
+          "100": 0.896,
+          "250": 0.896,
+          "500": 0.956
+        }
+      },
+      "threshold_analysis": {
+        "MIN_E": {
+          "threshold_70pct": null,
+          "threshold_80pct": null,
+          "threshold_90pct": null
+        },
+        "MIN_E_PLUS_EPISODIC": {
+          "threshold_70pct": 100,
+          "threshold_80pct": null,
+          "threshold_90pct": null
+        },
+        "SIMPLE_RECURRENT": {
+          "threshold_70pct": 25,
+          "threshold_80pct": 50,
+          "threshold_90pct": 500
+        },
+        "GRU": {
+          "threshold_70pct": 50,
+          "threshold_80pct": 100,
+          "threshold_90pct": null
+        },
+        "CAUSAL_TRANSFORMER": {
+          "threshold_70pct": null,
+          "threshold_80pct": null,
+          "threshold_90pct": null
+        },
+        "TYPED_PROBABILISTIC_DECISION": {
+          "threshold_70pct": 25,
+          "threshold_80pct": 50,
+          "threshold_90pct": 500
+        }
+      },
+      "effect_sizes_vs_mine": {
+        "MIN_E_PLUS_EPISODIC": {
+          "cohens_d_budget_50": -1.623,
+          "cohens_d_budget_100": -5.671
+        },
+        "SIMPLE_RECURRENT": {
+          "cohens_d_budget_50": -3.301,
+          "cohens_d_budget_100": -4.879
+        },
+        "GRU": {
+          "cohens_d_budget_50": -1.611,
+          "cohens_d_budget_100": -4.542
+        },
+        "CAUSAL_TRANSFORMER": {
+          "cohens_d_budget_50": 1.008,
+          "cohens_d_budget_100": 1.31
+        },
+        "TYPED_PROBABILISTIC_DECISION": {
+          "cohens_d_budget_50": -7.456,
+          "cohens_d_budget_100": -6.588
+        }
+      }
+    },
+    "TEMPORAL_CLASSIFICATION": {
+      "systems": {
+        "MIN_E": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.516,
+                "std": 0.0518,
+                "ci95": [
+                  0.4517,
+                  0.5803
+                ],
+                "n": 5,
+                "values": [
+                  0.46,
+                  0.46,
+                  0.56,
+                  0.54,
+                  0.56
+                ]
+              },
+              "training_flops_mean": 190400,
+              "training_wall_clock_sec_mean": 0.01642
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.48,
+                "std": 0.051,
+                "ci95": [
+                  0.4167,
+                  0.5433
+                ],
+                "n": 5,
+                "values": [
+                  0.4,
+                  0.46,
+                  0.5,
+                  0.52,
+                  0.52
+                ]
+              },
+              "training_flops_mean": 380800,
+              "training_wall_clock_sec_mean": 0.03219
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.464,
+                "std": 0.0623,
+                "ci95": [
+                  0.3867,
+                  0.5413
+                ],
+                "n": 5,
+                "values": [
+                  0.36,
+                  0.52,
+                  0.48,
+                  0.46,
+                  0.5
+                ]
+              },
+              "training_flops_mean": 952000,
+              "training_wall_clock_sec_mean": 0.07843
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.456,
+                "std": 0.0932,
+                "ci95": [
+                  0.3403,
+                  0.5717
+                ],
+                "n": 5,
+                "values": [
+                  0.32,
+                  0.54,
+                  0.52,
+                  0.4,
+                  0.5
+                ]
+              },
+              "training_flops_mean": 1904000,
+              "training_wall_clock_sec_mean": 0.1552
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.46,
+                "std": 0.0762,
+                "ci95": [
+                  0.3655,
+                  0.5545
+                ],
+                "n": 5,
+                "values": [
+                  0.52,
+                  0.38,
+                  0.48,
+                  0.54,
+                  0.38
+                ]
+              },
+              "training_flops_mean": 3808000,
+              "training_wall_clock_sec_mean": 0.31143
+            },
+            "250": {
+              "accuracy": {
+                "mean": 0.488,
+                "std": 0.0934,
+                "ci95": [
+                  0.3721,
+                  0.6039
+                ],
+                "n": 5,
+                "values": [
+                  0.54,
+                  0.54,
+                  0.58,
+                  0.36,
+                  0.42
+                ]
+              },
+              "training_flops_mean": 9520000,
+              "training_wall_clock_sec_mean": 0.78098
+            },
+            "500": {
+              "accuracy": {
+                "mean": 0.48,
+                "std": 0.08,
+                "ci95": [
+                  0.3807,
+                  0.5793
+                ],
+                "n": 5,
+                "values": [
+                  0.5,
+                  0.5,
+                  0.34,
+                  0.54,
+                  0.52
+                ]
+              },
+              "training_flops_mean": 19040000,
+              "training_wall_clock_sec_mean": 1.54672
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": null,
+            "threshold_80pct": null,
+            "threshold_90pct": null
+          },
+          "accounting": {
+            "system": "MIN_E",
+            "total_parameters": 2324,
+            "trainable_parameters": 80,
+            "fixed_parameters": 2244,
+            "dynamic_state_floats": 124,
+            "external_memory_bytes": 0,
+            "flops_per_step": 4760,
+            "flops_per_trial": 28560
+          }
+        },
+        "MIN_E_PLUS_EPISODIC": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.504,
+                "std": 0.0456,
+                "ci95": [
+                  0.4474,
+                  0.5606
+                ],
+                "n": 5,
+                "values": [
+                  0.48,
+                  0.52,
+                  0.52,
+                  0.44,
+                  0.56
+                ]
+              },
+              "training_flops_mean": 354240,
+              "training_wall_clock_sec_mean": 0.01648
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.512,
+                "std": 0.0576,
+                "ci95": [
+                  0.4405,
+                  0.5835
+                ],
+                "n": 5,
+                "values": [
+                  0.52,
+                  0.58,
+                  0.52,
+                  0.42,
+                  0.52
+                ]
+              },
+              "training_flops_mean": 708480,
+              "training_wall_clock_sec_mean": 0.03195
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.476,
+                "std": 0.0684,
+                "ci95": [
+                  0.3911,
+                  0.5609
+                ],
+                "n": 5,
+                "values": [
+                  0.46,
+                  0.52,
+                  0.56,
+                  0.46,
+                  0.38
+                ]
+              },
+              "training_flops_mean": 1771200,
+              "training_wall_clock_sec_mean": 0.07895
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.5,
+                "std": 0.0678,
+                "ci95": [
+                  0.4158,
+                  0.5842
+                ],
+                "n": 5,
+                "values": [
+                  0.54,
+                  0.54,
+                  0.46,
+                  0.56,
+                  0.4
+                ]
+              },
+              "training_flops_mean": 3542400,
+              "training_wall_clock_sec_mean": 0.1569
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.472,
+                "std": 0.0856,
+                "ci95": [
+                  0.3658,
+                  0.5782
+                ],
+                "n": 5,
+                "values": [
+                  0.38,
+                  0.52,
+                  0.56,
+                  0.52,
+                  0.38
+                ]
+              },
+              "training_flops_mean": 7084800,
+              "training_wall_clock_sec_mean": 0.31414
+            },
+            "250": {
+              "accuracy": {
+                "mean": 0.5,
+                "std": 0.0735,
+                "ci95": [
+                  0.4088,
+                  0.5912
+                ],
+                "n": 5,
+                "values": [
+                  0.46,
+                  0.56,
+                  0.5,
+                  0.58,
+                  0.4
+                ]
+              },
+              "training_flops_mean": 17712000,
+              "training_wall_clock_sec_mean": 0.7785
+            },
+            "500": {
+              "accuracy": {
+                "mean": 0.456,
+                "std": 0.0841,
+                "ci95": [
+                  0.3515,
+                  0.5605
+                ],
+                "n": 5,
+                "values": [
+                  0.56,
+                  0.48,
+                  0.5,
+                  0.36,
+                  0.38
+                ]
+              },
+              "training_flops_mean": 35424000,
+              "training_wall_clock_sec_mean": 1.56148
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": null,
+            "threshold_80pct": null,
+            "threshold_90pct": null
+          },
+          "accounting": {
+            "system": "MIN_E_PLUS_EPISODIC",
+            "total_parameters": 2324,
+            "trainable_parameters": 80,
+            "fixed_parameters": 2244,
+            "dynamic_state_floats": 252,
+            "external_memory_bytes": 29184,
+            "flops_per_step": 8856,
+            "flops_per_trial": 53136
+          }
+        },
+        "SIMPLE_RECURRENT": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.912,
+                "std": 0.1968,
+                "ci95": [
+                  0.6677,
+                  1.1563
+                ],
+                "n": 5,
+                "values": [
+                  1.0,
+                  0.56,
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "training_flops_mean": 185600,
+              "training_wall_clock_sec_mean": 0.00024
+            },
+            "10": {
+              "accuracy": {
+                "mean": 1.0,
+                "std": 0.0,
+                "ci95": [
+                  1.0,
+                  1.0
+                ],
+                "n": 5,
+                "values": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "training_flops_mean": 371200,
+              "training_wall_clock_sec_mean": 0.00044
+            },
+            "25": {
+              "accuracy": {
+                "mean": 1.0,
+                "std": 0.0,
+                "ci95": [
+                  1.0,
+                  1.0
+                ],
+                "n": 5,
+                "values": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "training_flops_mean": 928000,
+              "training_wall_clock_sec_mean": 0.00107
+            },
+            "50": {
+              "accuracy": {
+                "mean": 1.0,
+                "std": 0.0,
+                "ci95": [
+                  1.0,
+                  1.0
+                ],
+                "n": 5,
+                "values": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "training_flops_mean": 1856000,
+              "training_wall_clock_sec_mean": 0.00212
+            },
+            "100": {
+              "accuracy": {
+                "mean": 1.0,
+                "std": 0.0,
+                "ci95": [
+                  1.0,
+                  1.0
+                ],
+                "n": 5,
+                "values": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "training_flops_mean": 3712000,
+              "training_wall_clock_sec_mean": 0.00424
+            },
+            "250": {
+              "accuracy": {
+                "mean": 1.0,
+                "std": 0.0,
+                "ci95": [
+                  1.0,
+                  1.0
+                ],
+                "n": 5,
+                "values": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "training_flops_mean": 9280000,
+              "training_wall_clock_sec_mean": 0.01072
+            },
+            "500": {
+              "accuracy": {
+                "mean": 1.0,
+                "std": 0.0,
+                "ci95": [
+                  1.0,
+                  1.0
+                ],
+                "n": 5,
+                "values": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "training_flops_mean": 18560000,
+              "training_wall_clock_sec_mean": 0.02125
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": 5,
+            "threshold_80pct": 5,
+            "threshold_90pct": 5
+          },
+          "accounting": {
+            "system": "SIMPLE_RECURRENT",
+            "total_parameters": 2320,
+            "trainable_parameters": 80,
+            "fixed_parameters": 2240,
+            "dynamic_state_floats": 42,
+            "external_memory_bytes": 0,
+            "flops_per_step": 4640,
+            "flops_per_trial": 27840
+          }
+        },
+        "GRU": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.484,
+                "std": 0.3748,
+                "ci95": [
+                  0.0187,
+                  0.9493
+                ],
+                "n": 5,
+                "values": [
+                  0.16,
+                  0.54,
+                  0.08,
+                  1.0,
+                  0.64
+                ]
+              },
+              "training_flops_mean": 561760,
+              "training_wall_clock_sec_mean": 0.00047
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.544,
+                "std": 0.326,
+                "ci95": [
+                  0.1393,
+                  0.9487
+                ],
+                "n": 5,
+                "values": [
+                  0.1,
+                  0.54,
+                  0.44,
+                  1.0,
+                  0.64
+                ]
+              },
+              "training_flops_mean": 1123520,
+              "training_wall_clock_sec_mean": 0.00083
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.644,
+                "std": 0.2377,
+                "ci95": [
+                  0.349,
+                  0.939
+                ],
+                "n": 5,
+                "values": [
+                  0.48,
+                  0.48,
+                  0.48,
+                  1.0,
+                  0.78
+                ]
+              },
+              "training_flops_mean": 2808800,
+              "training_wall_clock_sec_mean": 0.00199
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.98,
+                "std": 0.0283,
+                "ci95": [
+                  0.9449,
+                  1.0151
+                ],
+                "n": 5,
+                "values": [
+                  0.94,
+                  1.0,
+                  1.0,
+                  1.0,
+                  0.96
+                ]
+              },
+              "training_flops_mean": 5617600,
+              "training_wall_clock_sec_mean": 0.00395
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.948,
+                "std": 0.1163,
+                "ci95": [
+                  0.8036,
+                  1.0924
+                ],
+                "n": 5,
+                "values": [
+                  0.74,
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "training_flops_mean": 11235200,
+              "training_wall_clock_sec_mean": 0.00795
+            },
+            "250": {
+              "accuracy": {
+                "mean": 1.0,
+                "std": 0.0,
+                "ci95": [
+                  1.0,
+                  1.0
+                ],
+                "n": 5,
+                "values": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "training_flops_mean": 28088000,
+              "training_wall_clock_sec_mean": 0.0197
+            },
+            "500": {
+              "accuracy": {
+                "mean": 1.0,
+                "std": 0.0,
+                "ci95": [
+                  1.0,
+                  1.0
+                ],
+                "n": 5,
+                "values": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "training_flops_mean": 56176000,
+              "training_wall_clock_sec_mean": 0.03911
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": 50,
+            "threshold_80pct": 50,
+            "threshold_90pct": 50
+          },
+          "accounting": {
+            "system": "GRU",
+            "total_parameters": 6922,
+            "trainable_parameters": 6922,
+            "fixed_parameters": 0,
+            "dynamic_state_floats": 162,
+            "external_memory_bytes": 0,
+            "flops_per_step": 14044,
+            "flops_per_trial": 84264
+          }
+        },
+        "CAUSAL_TRANSFORMER": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.516,
+                "std": 0.0329,
+                "ci95": [
+                  0.4752,
+                  0.5568
+                ],
+                "n": 5,
+                "values": [
+                  0.48,
+                  0.56,
+                  0.5,
+                  0.54,
+                  0.5
+                ]
+              },
+              "training_flops_mean": 176640,
+              "training_wall_clock_sec_mean": 0.00065
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.516,
+                "std": 0.0607,
+                "ci95": [
+                  0.4407,
+                  0.5913
+                ],
+                "n": 5,
+                "values": [
+                  0.44,
+                  0.6,
+                  0.48,
+                  0.52,
+                  0.54
+                ]
+              },
+              "training_flops_mean": 353280,
+              "training_wall_clock_sec_mean": 0.0011
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.508,
+                "std": 0.0944,
+                "ci95": [
+                  0.3907,
+                  0.6253
+                ],
+                "n": 5,
+                "values": [
+                  0.36,
+                  0.62,
+                  0.52,
+                  0.5,
+                  0.54
+                ]
+              },
+              "training_flops_mean": 883200,
+              "training_wall_clock_sec_mean": 0.00268
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.452,
+                "std": 0.0832,
+                "ci95": [
+                  0.3487,
+                  0.5553
+                ],
+                "n": 5,
+                "values": [
+                  0.32,
+                  0.54,
+                  0.44,
+                  0.46,
+                  0.5
+                ]
+              },
+              "training_flops_mean": 1766400,
+              "training_wall_clock_sec_mean": 0.00549
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.496,
+                "std": 0.0767,
+                "ci95": [
+                  0.4008,
+                  0.5912
+                ],
+                "n": 5,
+                "values": [
+                  0.52,
+                  0.36,
+                  0.54,
+                  0.54,
+                  0.52
+                ]
+              },
+              "training_flops_mean": 3532800,
+              "training_wall_clock_sec_mean": 0.01075
+            },
+            "250": {
+              "accuracy": {
+                "mean": 0.476,
+                "std": 0.0865,
+                "ci95": [
+                  0.3686,
+                  0.5834
+                ],
+                "n": 5,
+                "values": [
+                  0.54,
+                  0.58,
+                  0.4,
+                  0.38,
+                  0.48
+                ]
+              },
+              "training_flops_mean": 8832000,
+              "training_wall_clock_sec_mean": 0.02702
+            },
+            "500": {
+              "accuracy": {
+                "mean": 0.5,
+                "std": 0.0316,
+                "ci95": [
+                  0.4607,
+                  0.5393
+                ],
+                "n": 5,
+                "values": [
+                  0.5,
+                  0.52,
+                  0.48,
+                  0.54,
+                  0.46
+                ]
+              },
+              "training_flops_mean": 17664000,
+              "training_wall_clock_sec_mean": 0.05386
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": null,
+            "threshold_80pct": null,
+            "threshold_90pct": null
+          },
+          "accounting": {
+            "system": "CAUSAL_TRANSFORMER",
+            "total_parameters": 2080,
+            "trainable_parameters": 2080,
+            "fixed_parameters": 0,
+            "dynamic_state_floats": 192,
+            "external_memory_bytes": 0,
+            "flops_per_step": 4352,
+            "flops_per_trial": 26112
+          }
+        },
+        "TYPED_PROBABILISTIC_DECISION": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.492,
+                "std": 0.054,
+                "ci95": [
+                  0.4249,
+                  0.5591
+                ],
+                "n": 5,
+                "values": [
+                  0.46,
+                  0.54,
+                  0.56,
+                  0.46,
+                  0.44
+                ]
+              },
+              "training_flops_mean": 3320,
+              "training_wall_clock_sec_mean": 0.00011
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.48,
+                "std": 0.051,
+                "ci95": [
+                  0.4167,
+                  0.5433
+                ],
+                "n": 5,
+                "values": [
+                  0.4,
+                  0.54,
+                  0.5,
+                  0.48,
+                  0.48
+                ]
+              },
+              "training_flops_mean": 6640,
+              "training_wall_clock_sec_mean": 0.00018
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.532,
+                "std": 0.0687,
+                "ci95": [
+                  0.4467,
+                  0.6173
+                ],
+                "n": 5,
+                "values": [
+                  0.64,
+                  0.48,
+                  0.48,
+                  0.56,
+                  0.5
+                ]
+              },
+              "training_flops_mean": 16600,
+              "training_wall_clock_sec_mean": 0.00043
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.512,
+                "std": 0.1026,
+                "ci95": [
+                  0.3847,
+                  0.6393
+                ],
+                "n": 5,
+                "values": [
+                  0.68,
+                  0.48,
+                  0.5,
+                  0.4,
+                  0.5
+                ]
+              },
+              "training_flops_mean": 33200,
+              "training_wall_clock_sec_mean": 0.00088
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.456,
+                "std": 0.0518,
+                "ci95": [
+                  0.3917,
+                  0.5203
+                ],
+                "n": 5,
+                "values": [
+                  0.48,
+                  0.44,
+                  0.52,
+                  0.46,
+                  0.38
+                ]
+              },
+              "training_flops_mean": 66400,
+              "training_wall_clock_sec_mean": 0.0017
+            },
+            "250": {
+              "accuracy": {
+                "mean": 0.584,
+                "std": 0.0329,
+                "ci95": [
+                  0.5432,
+                  0.6248
+                ],
+                "n": 5,
+                "values": [
+                  0.58,
+                  0.56,
+                  0.58,
+                  0.64,
+                  0.56
+                ]
+              },
+              "training_flops_mean": 166000,
+              "training_wall_clock_sec_mean": 0.00428
+            },
+            "500": {
+              "accuracy": {
+                "mean": 0.48,
+                "std": 0.08,
+                "ci95": [
+                  0.3807,
+                  0.5793
+                ],
+                "n": 5,
+                "values": [
+                  0.5,
+                  0.5,
+                  0.34,
+                  0.54,
+                  0.52
+                ]
+              },
+              "training_flops_mean": 332000,
+              "training_wall_clock_sec_mean": 0.00867
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": null,
+            "threshold_80pct": null,
+            "threshold_90pct": null
+          },
+          "accounting": {
+            "system": "TYPED_PROBABILISTIC_DECISION",
+            "total_parameters": 34,
+            "trainable_parameters": 34,
+            "fixed_parameters": 0,
+            "dynamic_state_floats": 24,
+            "external_memory_bytes": 0,
+            "flops_per_step": 83,
+            "flops_per_trial": 498
+          }
+        }
+      },
+      "sample_efficiency_curves": {
+        "MIN_E": {
+          "5": 0.516,
+          "10": 0.48,
+          "25": 0.464,
+          "50": 0.456,
+          "100": 0.46,
+          "250": 0.488,
+          "500": 0.48
+        },
+        "MIN_E_PLUS_EPISODIC": {
+          "5": 0.504,
+          "10": 0.512,
+          "25": 0.476,
+          "50": 0.5,
+          "100": 0.472,
+          "250": 0.5,
+          "500": 0.456
+        },
+        "SIMPLE_RECURRENT": {
+          "5": 0.912,
+          "10": 1.0,
+          "25": 1.0,
+          "50": 1.0,
+          "100": 1.0,
+          "250": 1.0,
+          "500": 1.0
+        },
+        "GRU": {
+          "5": 0.484,
+          "10": 0.544,
+          "25": 0.644,
+          "50": 0.98,
+          "100": 0.948,
+          "250": 1.0,
+          "500": 1.0
+        },
+        "CAUSAL_TRANSFORMER": {
+          "5": 0.516,
+          "10": 0.516,
+          "25": 0.508,
+          "50": 0.452,
+          "100": 0.496,
+          "250": 0.476,
+          "500": 0.5
+        },
+        "TYPED_PROBABILISTIC_DECISION": {
+          "5": 0.492,
+          "10": 0.48,
+          "25": 0.532,
+          "50": 0.512,
+          "100": 0.456,
+          "250": 0.584,
+          "500": 0.48
+        }
+      },
+      "threshold_analysis": {
+        "MIN_E": {
+          "threshold_70pct": null,
+          "threshold_80pct": null,
+          "threshold_90pct": null
+        },
+        "MIN_E_PLUS_EPISODIC": {
+          "threshold_70pct": null,
+          "threshold_80pct": null,
+          "threshold_90pct": null
+        },
+        "SIMPLE_RECURRENT": {
+          "threshold_70pct": 5,
+          "threshold_80pct": 5,
+          "threshold_90pct": 5
+        },
+        "GRU": {
+          "threshold_70pct": 50,
+          "threshold_80pct": 50,
+          "threshold_90pct": 50
+        },
+        "CAUSAL_TRANSFORMER": {
+          "threshold_70pct": null,
+          "threshold_80pct": null,
+          "threshold_90pct": null
+        },
+        "TYPED_PROBABILISTIC_DECISION": {
+          "threshold_70pct": null,
+          "threshold_80pct": null,
+          "threshold_90pct": null
+        }
+      },
+      "effect_sizes_vs_mine": {
+        "MIN_E_PLUS_EPISODIC": {
+          "cohens_d_budget_50": -0.315,
+          "cohens_d_budget_100": -0.113
+        },
+        "SIMPLE_RECURRENT": {
+          "cohens_d_budget_50": -5.839,
+          "cohens_d_budget_100": -7.091
+        },
+        "GRU": {
+          "cohens_d_budget_50": -6.612,
+          "cohens_d_budget_100": -2.963
+        },
+        "CAUSAL_TRANSFORMER": {
+          "cohens_d_budget_50": 0.08,
+          "cohens_d_budget_100": -0.55
+        },
+        "TYPED_PROBABILISTIC_DECISION": {
+          "cohens_d_budget_50": -0.326,
+          "cohens_d_budget_100": 0.07
+        }
+      }
+    },
+    "EPISODE_DEPENDENT_DECISION": {
+      "systems": {
+        "MIN_E": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.472,
+                "std": 0.0672,
+                "ci95": [
+                  0.3885,
+                  0.5555
+                ],
+                "n": 5,
+                "values": [
+                  0.5,
+                  0.46,
+                  0.36,
+                  0.52,
+                  0.52
+                ]
+              },
+              "training_flops_mean": 142800,
+              "training_wall_clock_sec_mean": 0.01277
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.484,
+                "std": 0.0727,
+                "ci95": [
+                  0.3938,
+                  0.5742
+                ],
+                "n": 5,
+                "values": [
+                  0.52,
+                  0.48,
+                  0.36,
+                  0.52,
+                  0.54
+                ]
+              },
+              "training_flops_mean": 285600,
+              "training_wall_clock_sec_mean": 0.02415
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.476,
+                "std": 0.0932,
+                "ci95": [
+                  0.3603,
+                  0.5917
+                ],
+                "n": 5,
+                "values": [
+                  0.46,
+                  0.54,
+                  0.32,
+                  0.54,
+                  0.52
+                ]
+              },
+              "training_flops_mean": 714000,
+              "training_wall_clock_sec_mean": 0.05926
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.456,
+                "std": 0.0477,
+                "ci95": [
+                  0.3967,
+                  0.5153
+                ],
+                "n": 5,
+                "values": [
+                  0.48,
+                  0.5,
+                  0.44,
+                  0.38,
+                  0.48
+                ]
+              },
+              "training_flops_mean": 1428000,
+              "training_wall_clock_sec_mean": 0.11743
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.536,
+                "std": 0.0555,
+                "ci95": [
+                  0.4671,
+                  0.6049
+                ],
+                "n": 5,
+                "values": [
+                  0.58,
+                  0.52,
+                  0.46,
+                  0.6,
+                  0.52
+                ]
+              },
+              "training_flops_mean": 2856000,
+              "training_wall_clock_sec_mean": 0.24303
+            },
+            "250": {
+              "accuracy": {
+                "mean": 0.504,
+                "std": 0.0817,
+                "ci95": [
+                  0.4025,
+                  0.6055
+                ],
+                "n": 5,
+                "values": [
+                  0.46,
+                  0.52,
+                  0.52,
+                  0.4,
+                  0.62
+                ]
+              },
+              "training_flops_mean": 7140000,
+              "training_wall_clock_sec_mean": 0.59252
+            },
+            "500": {
+              "accuracy": {
+                "mean": 0.504,
+                "std": 0.0434,
+                "ci95": [
+                  0.4502,
+                  0.5578
+                ],
+                "n": 5,
+                "values": [
+                  0.52,
+                  0.52,
+                  0.46,
+                  0.46,
+                  0.56
+                ]
+              },
+              "training_flops_mean": 14280000,
+              "training_wall_clock_sec_mean": 1.19676
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": null,
+            "threshold_80pct": null,
+            "threshold_90pct": null
+          },
+          "accounting": {
+            "system": "MIN_E",
+            "total_parameters": 2324,
+            "trainable_parameters": 80,
+            "fixed_parameters": 2244,
+            "dynamic_state_floats": 124,
+            "external_memory_bytes": 0,
+            "flops_per_step": 4760,
+            "flops_per_trial": 28560
+          }
+        },
+        "MIN_E_PLUS_EPISODIC": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.472,
+                "std": 0.0701,
+                "ci95": [
+                  0.3849,
+                  0.5591
+                ],
+                "n": 5,
+                "values": [
+                  0.48,
+                  0.52,
+                  0.36,
+                  0.54,
+                  0.46
+                ]
+              },
+              "training_flops_mean": 265680,
+              "training_wall_clock_sec_mean": 0.01269
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.492,
+                "std": 0.0522,
+                "ci95": [
+                  0.4273,
+                  0.5567
+                ],
+                "n": 5,
+                "values": [
+                  0.48,
+                  0.48,
+                  0.42,
+                  0.52,
+                  0.56
+                ]
+              },
+              "training_flops_mean": 531360,
+              "training_wall_clock_sec_mean": 0.02431
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.5,
+                "std": 0.0762,
+                "ci95": [
+                  0.4055,
+                  0.5945
+                ],
+                "n": 5,
+                "values": [
+                  0.58,
+                  0.4,
+                  0.44,
+                  0.54,
+                  0.54
+                ]
+              },
+              "training_flops_mean": 1328400,
+              "training_wall_clock_sec_mean": 0.05972
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.464,
+                "std": 0.1024,
+                "ci95": [
+                  0.3369,
+                  0.5911
+                ],
+                "n": 5,
+                "values": [
+                  0.46,
+                  0.48,
+                  0.62,
+                  0.34,
+                  0.42
+                ]
+              },
+              "training_flops_mean": 2656800,
+              "training_wall_clock_sec_mean": 0.11842
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.528,
+                "std": 0.011,
+                "ci95": [
+                  0.5144,
+                  0.5416
+                ],
+                "n": 5,
+                "values": [
+                  0.52,
+                  0.54,
+                  0.52,
+                  0.54,
+                  0.52
+                ]
+              },
+              "training_flops_mean": 5313600,
+              "training_wall_clock_sec_mean": 0.23716
+            },
+            "250": {
+              "accuracy": {
+                "mean": 0.544,
+                "std": 0.0555,
+                "ci95": [
+                  0.4751,
+                  0.6129
+                ],
+                "n": 5,
+                "values": [
+                  0.58,
+                  0.56,
+                  0.52,
+                  0.6,
+                  0.46
+                ]
+              },
+              "training_flops_mean": 13284000,
+              "training_wall_clock_sec_mean": 0.59957
+            },
+            "500": {
+              "accuracy": {
+                "mean": 0.464,
+                "std": 0.0623,
+                "ci95": [
+                  0.3867,
+                  0.5413
+                ],
+                "n": 5,
+                "values": [
+                  0.4,
+                  0.52,
+                  0.54,
+                  0.44,
+                  0.42
+                ]
+              },
+              "training_flops_mean": 26568000,
+              "training_wall_clock_sec_mean": 1.18156
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": null,
+            "threshold_80pct": null,
+            "threshold_90pct": null
+          },
+          "accounting": {
+            "system": "MIN_E_PLUS_EPISODIC",
+            "total_parameters": 2324,
+            "trainable_parameters": 80,
+            "fixed_parameters": 2244,
+            "dynamic_state_floats": 252,
+            "external_memory_bytes": 29184,
+            "flops_per_step": 8856,
+            "flops_per_trial": 53136
+          }
+        },
+        "SIMPLE_RECURRENT": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.576,
+                "std": 0.0555,
+                "ci95": [
+                  0.5071,
+                  0.6449
+                ],
+                "n": 5,
+                "values": [
+                  0.48,
+                  0.58,
+                  0.6,
+                  0.6,
+                  0.62
+                ]
+              },
+              "training_flops_mean": 139200,
+              "training_wall_clock_sec_mean": 0.00021
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.6,
+                "std": 0.051,
+                "ci95": [
+                  0.5367,
+                  0.6633
+                ],
+                "n": 5,
+                "values": [
+                  0.54,
+                  0.64,
+                  0.6,
+                  0.66,
+                  0.56
+                ]
+              },
+              "training_flops_mean": 278400,
+              "training_wall_clock_sec_mean": 0.00034
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.656,
+                "std": 0.0623,
+                "ci95": [
+                  0.5787,
+                  0.7333
+                ],
+                "n": 5,
+                "values": [
+                  0.58,
+                  0.72,
+                  0.64,
+                  0.72,
+                  0.62
+                ]
+              },
+              "training_flops_mean": 696000,
+              "training_wall_clock_sec_mean": 0.00083
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.624,
+                "std": 0.0899,
+                "ci95": [
+                  0.5124,
+                  0.7356
+                ],
+                "n": 5,
+                "values": [
+                  0.62,
+                  0.62,
+                  0.7,
+                  0.7,
+                  0.48
+                ]
+              },
+              "training_flops_mean": 1392000,
+              "training_wall_clock_sec_mean": 0.00166
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.668,
+                "std": 0.0522,
+                "ci95": [
+                  0.6033,
+                  0.7327
+                ],
+                "n": 5,
+                "values": [
+                  0.68,
+                  0.58,
+                  0.68,
+                  0.72,
+                  0.68
+                ]
+              },
+              "training_flops_mean": 2784000,
+              "training_wall_clock_sec_mean": 0.00333
+            },
+            "250": {
+              "accuracy": {
+                "mean": 0.684,
+                "std": 0.0699,
+                "ci95": [
+                  0.5973,
+                  0.7707
+                ],
+                "n": 5,
+                "values": [
+                  0.62,
+                  0.64,
+                  0.8,
+                  0.68,
+                  0.68
+                ]
+              },
+              "training_flops_mean": 6960000,
+              "training_wall_clock_sec_mean": 0.00821
+            },
+            "500": {
+              "accuracy": {
+                "mean": 0.688,
+                "std": 0.0844,
+                "ci95": [
+                  0.5832,
+                  0.7928
+                ],
+                "n": 5,
+                "values": [
+                  0.56,
+                  0.74,
+                  0.78,
+                  0.7,
+                  0.66
+                ]
+              },
+              "training_flops_mean": 13920000,
+              "training_wall_clock_sec_mean": 0.01606
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": null,
+            "threshold_80pct": null,
+            "threshold_90pct": null
+          },
+          "accounting": {
+            "system": "SIMPLE_RECURRENT",
+            "total_parameters": 2320,
+            "trainable_parameters": 80,
+            "fixed_parameters": 2240,
+            "dynamic_state_floats": 42,
+            "external_memory_bytes": 0,
+            "flops_per_step": 4640,
+            "flops_per_trial": 27840
+          }
+        },
+        "GRU": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.444,
+                "std": 0.0865,
+                "ci95": [
+                  0.3366,
+                  0.5514
+                ],
+                "n": 5,
+                "values": [
+                  0.36,
+                  0.46,
+                  0.38,
+                  0.58,
+                  0.44
+                ]
+              },
+              "training_flops_mean": 421320,
+              "training_wall_clock_sec_mean": 0.00035
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.44,
+                "std": 0.1077,
+                "ci95": [
+                  0.3063,
+                  0.5737
+                ],
+                "n": 5,
+                "values": [
+                  0.3,
+                  0.42,
+                  0.46,
+                  0.6,
+                  0.42
+                ]
+              },
+              "training_flops_mean": 842640,
+              "training_wall_clock_sec_mean": 0.00064
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.444,
+                "std": 0.0654,
+                "ci95": [
+                  0.3628,
+                  0.5252
+                ],
+                "n": 5,
+                "values": [
+                  0.34,
+                  0.42,
+                  0.5,
+                  0.48,
+                  0.48
+                ]
+              },
+              "training_flops_mean": 2106600,
+              "training_wall_clock_sec_mean": 0.00153
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.472,
+                "std": 0.0807,
+                "ci95": [
+                  0.3718,
+                  0.5722
+                ],
+                "n": 5,
+                "values": [
+                  0.4,
+                  0.48,
+                  0.56,
+                  0.38,
+                  0.54
+                ]
+              },
+              "training_flops_mean": 4213200,
+              "training_wall_clock_sec_mean": 0.00304
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.48,
+                "std": 0.086,
+                "ci95": [
+                  0.3732,
+                  0.5868
+                ],
+                "n": 5,
+                "values": [
+                  0.44,
+                  0.42,
+                  0.54,
+                  0.4,
+                  0.6
+                ]
+              },
+              "training_flops_mean": 8426400,
+              "training_wall_clock_sec_mean": 0.00616
+            },
+            "250": {
+              "accuracy": {
+                "mean": 0.524,
+                "std": 0.0385,
+                "ci95": [
+                  0.4762,
+                  0.5718
+                ],
+                "n": 5,
+                "values": [
+                  0.5,
+                  0.52,
+                  0.54,
+                  0.48,
+                  0.58
+                ]
+              },
+              "training_flops_mean": 21066000,
+              "training_wall_clock_sec_mean": 0.01529
+            },
+            "500": {
+              "accuracy": {
+                "mean": 0.524,
+                "std": 0.1268,
+                "ci95": [
+                  0.3666,
+                  0.6814
+                ],
+                "n": 5,
+                "values": [
+                  0.48,
+                  0.48,
+                  0.72,
+                  0.38,
+                  0.56
+                ]
+              },
+              "training_flops_mean": 42132000,
+              "training_wall_clock_sec_mean": 0.03006
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": null,
+            "threshold_80pct": null,
+            "threshold_90pct": null
+          },
+          "accounting": {
+            "system": "GRU",
+            "total_parameters": 6922,
+            "trainable_parameters": 6922,
+            "fixed_parameters": 0,
+            "dynamic_state_floats": 162,
+            "external_memory_bytes": 0,
+            "flops_per_step": 14044,
+            "flops_per_trial": 84264
+          }
+        },
+        "CAUSAL_TRANSFORMER": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.5,
+                "std": 0.051,
+                "ci95": [
+                  0.4367,
+                  0.5633
+                ],
+                "n": 5,
+                "values": [
+                  0.5,
+                  0.42,
+                  0.52,
+                  0.5,
+                  0.56
+                ]
+              },
+              "training_flops_mean": 130560,
+              "training_wall_clock_sec_mean": 0.00058
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.52,
+                "std": 0.051,
+                "ci95": [
+                  0.4567,
+                  0.5833
+                ],
+                "n": 5,
+                "values": [
+                  0.56,
+                  0.44,
+                  0.5,
+                  0.56,
+                  0.54
+                ]
+              },
+              "training_flops_mean": 261120,
+              "training_wall_clock_sec_mean": 0.00106
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.524,
+                "std": 0.0261,
+                "ci95": [
+                  0.4916,
+                  0.5564
+                ],
+                "n": 5,
+                "values": [
+                  0.5,
+                  0.56,
+                  0.5,
+                  0.54,
+                  0.52
+                ]
+              },
+              "training_flops_mean": 652800,
+              "training_wall_clock_sec_mean": 0.00247
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.512,
+                "std": 0.0807,
+                "ci95": [
+                  0.4118,
+                  0.6122
+                ],
+                "n": 5,
+                "values": [
+                  0.54,
+                  0.48,
+                  0.52,
+                  0.4,
+                  0.62
+                ]
+              },
+              "training_flops_mean": 1305600,
+              "training_wall_clock_sec_mean": 0.00485
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.5,
+                "std": 0.0748,
+                "ci95": [
+                  0.4071,
+                  0.5929
+                ],
+                "n": 5,
+                "values": [
+                  0.5,
+                  0.46,
+                  0.5,
+                  0.42,
+                  0.62
+                ]
+              },
+              "training_flops_mean": 2611200,
+              "training_wall_clock_sec_mean": 0.00972
+            },
+            "250": {
+              "accuracy": {
+                "mean": 0.436,
+                "std": 0.0888,
+                "ci95": [
+                  0.3258,
+                  0.5462
+                ],
+                "n": 5,
+                "values": [
+                  0.34,
+                  0.44,
+                  0.42,
+                  0.4,
+                  0.58
+                ]
+              },
+              "training_flops_mean": 6528000,
+              "training_wall_clock_sec_mean": 0.02428
+            },
+            "500": {
+              "accuracy": {
+                "mean": 0.464,
+                "std": 0.1178,
+                "ci95": [
+                  0.3177,
+                  0.6103
+                ],
+                "n": 5,
+                "values": [
+                  0.52,
+                  0.32,
+                  0.48,
+                  0.38,
+                  0.62
+                ]
+              },
+              "training_flops_mean": 13056000,
+              "training_wall_clock_sec_mean": 0.04792
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": null,
+            "threshold_80pct": null,
+            "threshold_90pct": null
+          },
+          "accounting": {
+            "system": "CAUSAL_TRANSFORMER",
+            "total_parameters": 2080,
+            "trainable_parameters": 2080,
+            "fixed_parameters": 0,
+            "dynamic_state_floats": 192,
+            "external_memory_bytes": 0,
+            "flops_per_step": 4352,
+            "flops_per_trial": 26112
+          }
+        },
+        "TYPED_PROBABILISTIC_DECISION": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.46,
+                "std": 0.0245,
+                "ci95": [
+                  0.4296,
+                  0.4904
+                ],
+                "n": 5,
+                "values": [
+                  0.42,
+                  0.46,
+                  0.48,
+                  0.48,
+                  0.46
+                ]
+              },
+              "training_flops_mean": 2490,
+              "training_wall_clock_sec_mean": 0.00011
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.46,
+                "std": 0.0316,
+                "ci95": [
+                  0.4207,
+                  0.4993
+                ],
+                "n": 5,
+                "values": [
+                  0.46,
+                  0.42,
+                  0.48,
+                  0.5,
+                  0.44
+                ]
+              },
+              "training_flops_mean": 4980,
+              "training_wall_clock_sec_mean": 0.00018
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.492,
+                "std": 0.0522,
+                "ci95": [
+                  0.4273,
+                  0.5567
+                ],
+                "n": 5,
+                "values": [
+                  0.46,
+                  0.46,
+                  0.58,
+                  0.46,
+                  0.5
+                ]
+              },
+              "training_flops_mean": 12450,
+              "training_wall_clock_sec_mean": 0.00041
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.584,
+                "std": 0.0654,
+                "ci95": [
+                  0.5028,
+                  0.6652
+                ],
+                "n": 5,
+                "values": [
+                  0.68,
+                  0.56,
+                  0.62,
+                  0.54,
+                  0.52
+                ]
+              },
+              "training_flops_mean": 24900,
+              "training_wall_clock_sec_mean": 0.0008
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.528,
+                "std": 0.0687,
+                "ci95": [
+                  0.4427,
+                  0.6133
+                ],
+                "n": 5,
+                "values": [
+                  0.5,
+                  0.64,
+                  0.5,
+                  0.54,
+                  0.46
+                ]
+              },
+              "training_flops_mean": 49800,
+              "training_wall_clock_sec_mean": 0.00155
+            },
+            "250": {
+              "accuracy": {
+                "mean": 0.548,
+                "std": 0.0769,
+                "ci95": [
+                  0.4525,
+                  0.6435
+                ],
+                "n": 5,
+                "values": [
+                  0.66,
+                  0.58,
+                  0.54,
+                  0.46,
+                  0.5
+                ]
+              },
+              "training_flops_mean": 124500,
+              "training_wall_clock_sec_mean": 0.00393
+            },
+            "500": {
+              "accuracy": {
+                "mean": 0.48,
+                "std": 0.0424,
+                "ci95": [
+                  0.4273,
+                  0.5327
+                ],
+                "n": 5,
+                "values": [
+                  0.5,
+                  0.48,
+                  0.44,
+                  0.44,
+                  0.54
+                ]
+              },
+              "training_flops_mean": 249000,
+              "training_wall_clock_sec_mean": 0.00784
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": null,
+            "threshold_80pct": null,
+            "threshold_90pct": null
+          },
+          "accounting": {
+            "system": "TYPED_PROBABILISTIC_DECISION",
+            "total_parameters": 34,
+            "trainable_parameters": 34,
+            "fixed_parameters": 0,
+            "dynamic_state_floats": 24,
+            "external_memory_bytes": 0,
+            "flops_per_step": 83,
+            "flops_per_trial": 498
+          }
+        }
+      },
+      "sample_efficiency_curves": {
+        "MIN_E": {
+          "5": 0.472,
+          "10": 0.484,
+          "25": 0.476,
+          "50": 0.456,
+          "100": 0.536,
+          "250": 0.504,
+          "500": 0.504
+        },
+        "MIN_E_PLUS_EPISODIC": {
+          "5": 0.472,
+          "10": 0.492,
+          "25": 0.5,
+          "50": 0.464,
+          "100": 0.528,
+          "250": 0.544,
+          "500": 0.464
+        },
+        "SIMPLE_RECURRENT": {
+          "5": 0.576,
+          "10": 0.6,
+          "25": 0.656,
+          "50": 0.624,
+          "100": 0.668,
+          "250": 0.684,
+          "500": 0.688
+        },
+        "GRU": {
+          "5": 0.444,
+          "10": 0.44,
+          "25": 0.444,
+          "50": 0.472,
+          "100": 0.48,
+          "250": 0.524,
+          "500": 0.524
+        },
+        "CAUSAL_TRANSFORMER": {
+          "5": 0.5,
+          "10": 0.52,
+          "25": 0.524,
+          "50": 0.512,
+          "100": 0.5,
+          "250": 0.436,
+          "500": 0.464
+        },
+        "TYPED_PROBABILISTIC_DECISION": {
+          "5": 0.46,
+          "10": 0.46,
+          "25": 0.492,
+          "50": 0.584,
+          "100": 0.528,
+          "250": 0.548,
+          "500": 0.48
+        }
+      },
+      "threshold_analysis": {
+        "MIN_E": {
+          "threshold_70pct": null,
+          "threshold_80pct": null,
+          "threshold_90pct": null
+        },
+        "MIN_E_PLUS_EPISODIC": {
+          "threshold_70pct": null,
+          "threshold_80pct": null,
+          "threshold_90pct": null
+        },
+        "SIMPLE_RECURRENT": {
+          "threshold_70pct": null,
+          "threshold_80pct": null,
+          "threshold_90pct": null
+        },
+        "GRU": {
+          "threshold_70pct": null,
+          "threshold_80pct": null,
+          "threshold_90pct": null
+        },
+        "CAUSAL_TRANSFORMER": {
+          "threshold_70pct": null,
+          "threshold_80pct": null,
+          "threshold_90pct": null
+        },
+        "TYPED_PROBABILISTIC_DECISION": {
+          "threshold_70pct": null,
+          "threshold_80pct": null,
+          "threshold_90pct": null
+        }
+      },
+      "effect_sizes_vs_mine": {
+        "MIN_E_PLUS_EPISODIC": {
+          "cohens_d_budget_50": -0.082,
+          "cohens_d_budget_100": 0.153
+        },
+        "SIMPLE_RECURRENT": {
+          "cohens_d_budget_50": -1.34,
+          "cohens_d_budget_100": -2.164
+        },
+        "GRU": {
+          "cohens_d_budget_50": -0.209,
+          "cohens_d_budget_100": 0.434
+        },
+        "CAUSAL_TRANSFORMER": {
+          "cohens_d_budget_50": -0.923,
+          "cohens_d_budget_100": 0.33
+        },
+        "TYPED_PROBABILISTIC_DECISION": {
+          "cohens_d_budget_50": -1.755,
+          "cohens_d_budget_100": 0.094
+        }
+      }
+    },
+    "DELAYED_CONTEXT_DECISION": {
+      "systems": {
+        "MIN_E": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.536,
+                "std": 0.0498,
+                "ci95": [
+                  0.4742,
+                  0.5978
+                ],
+                "n": 5,
+                "values": [
+                  0.5,
+                  0.5,
+                  0.6,
+                  0.58,
+                  0.5
+                ]
+              },
+              "training_flops_mean": 190400,
+              "training_wall_clock_sec_mean": 0.01657
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.528,
+                "std": 0.0576,
+                "ci95": [
+                  0.4565,
+                  0.5995
+                ],
+                "n": 5,
+                "values": [
+                  0.48,
+                  0.5,
+                  0.6,
+                  0.58,
+                  0.48
+                ]
+              },
+              "training_flops_mean": 380800,
+              "training_wall_clock_sec_mean": 0.03154
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.512,
+                "std": 0.0576,
+                "ci95": [
+                  0.4405,
+                  0.5835
+                ],
+                "n": 5,
+                "values": [
+                  0.5,
+                  0.52,
+                  0.56,
+                  0.56,
+                  0.42
+                ]
+              },
+              "training_flops_mean": 952000,
+              "training_wall_clock_sec_mean": 0.07792
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.472,
+                "std": 0.0576,
+                "ci95": [
+                  0.4005,
+                  0.5435
+                ],
+                "n": 5,
+                "values": [
+                  0.46,
+                  0.48,
+                  0.52,
+                  0.52,
+                  0.38
+                ]
+              },
+              "training_flops_mean": 1904000,
+              "training_wall_clock_sec_mean": 0.15875
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.504,
+                "std": 0.1252,
+                "ci95": [
+                  0.3485,
+                  0.6595
+                ],
+                "n": 5,
+                "values": [
+                  0.58,
+                  0.58,
+                  0.62,
+                  0.4,
+                  0.34
+                ]
+              },
+              "training_flops_mean": 3808000,
+              "training_wall_clock_sec_mean": 0.3103
+            },
+            "250": {
+              "accuracy": {
+                "mean": 0.492,
+                "std": 0.0701,
+                "ci95": [
+                  0.4049,
+                  0.5791
+                ],
+                "n": 5,
+                "values": [
+                  0.48,
+                  0.54,
+                  0.38,
+                  0.5,
+                  0.56
+                ]
+              },
+              "training_flops_mean": 9520000,
+              "training_wall_clock_sec_mean": 0.78094
+            },
+            "500": {
+              "accuracy": {
+                "mean": 0.484,
+                "std": 0.0623,
+                "ci95": [
+                  0.4067,
+                  0.5613
+                ],
+                "n": 5,
+                "values": [
+                  0.44,
+                  0.42,
+                  0.58,
+                  0.5,
+                  0.48
+                ]
+              },
+              "training_flops_mean": 19040000,
+              "training_wall_clock_sec_mean": 1.54408
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": null,
+            "threshold_80pct": null,
+            "threshold_90pct": null
+          },
+          "accounting": {
+            "system": "MIN_E",
+            "total_parameters": 2324,
+            "trainable_parameters": 80,
+            "fixed_parameters": 2244,
+            "dynamic_state_floats": 124,
+            "external_memory_bytes": 0,
+            "flops_per_step": 4760,
+            "flops_per_trial": 28560
+          }
+        },
+        "MIN_E_PLUS_EPISODIC": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.536,
+                "std": 0.0498,
+                "ci95": [
+                  0.4742,
+                  0.5978
+                ],
+                "n": 5,
+                "values": [
+                  0.5,
+                  0.5,
+                  0.6,
+                  0.58,
+                  0.5
+                ]
+              },
+              "training_flops_mean": 354240,
+              "training_wall_clock_sec_mean": 0.01653
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.528,
+                "std": 0.0576,
+                "ci95": [
+                  0.4565,
+                  0.5995
+                ],
+                "n": 5,
+                "values": [
+                  0.48,
+                  0.5,
+                  0.6,
+                  0.58,
+                  0.48
+                ]
+              },
+              "training_flops_mean": 708480,
+              "training_wall_clock_sec_mean": 0.03217
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.512,
+                "std": 0.0576,
+                "ci95": [
+                  0.4405,
+                  0.5835
+                ],
+                "n": 5,
+                "values": [
+                  0.5,
+                  0.52,
+                  0.56,
+                  0.56,
+                  0.42
+                ]
+              },
+              "training_flops_mean": 1771200,
+              "training_wall_clock_sec_mean": 0.07941
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.472,
+                "std": 0.0576,
+                "ci95": [
+                  0.4005,
+                  0.5435
+                ],
+                "n": 5,
+                "values": [
+                  0.46,
+                  0.48,
+                  0.52,
+                  0.52,
+                  0.38
+                ]
+              },
+              "training_flops_mean": 3542400,
+              "training_wall_clock_sec_mean": 0.15815
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.504,
+                "std": 0.1252,
+                "ci95": [
+                  0.3485,
+                  0.6595
+                ],
+                "n": 5,
+                "values": [
+                  0.58,
+                  0.58,
+                  0.62,
+                  0.4,
+                  0.34
+                ]
+              },
+              "training_flops_mean": 7084800,
+              "training_wall_clock_sec_mean": 0.31117
+            },
+            "250": {
+              "accuracy": {
+                "mean": 0.492,
+                "std": 0.0701,
+                "ci95": [
+                  0.4049,
+                  0.5791
+                ],
+                "n": 5,
+                "values": [
+                  0.48,
+                  0.54,
+                  0.38,
+                  0.5,
+                  0.56
+                ]
+              },
+              "training_flops_mean": 17712000,
+              "training_wall_clock_sec_mean": 0.78316
+            },
+            "500": {
+              "accuracy": {
+                "mean": 0.484,
+                "std": 0.0623,
+                "ci95": [
+                  0.4067,
+                  0.5613
+                ],
+                "n": 5,
+                "values": [
+                  0.44,
+                  0.42,
+                  0.58,
+                  0.5,
+                  0.48
+                ]
+              },
+              "training_flops_mean": 35424000,
+              "training_wall_clock_sec_mean": 1.55229
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": null,
+            "threshold_80pct": null,
+            "threshold_90pct": null
+          },
+          "accounting": {
+            "system": "MIN_E_PLUS_EPISODIC",
+            "total_parameters": 2324,
+            "trainable_parameters": 80,
+            "fixed_parameters": 2244,
+            "dynamic_state_floats": 252,
+            "external_memory_bytes": 29184,
+            "flops_per_step": 8856,
+            "flops_per_trial": 53136
+          }
+        },
+        "SIMPLE_RECURRENT": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.66,
+                "std": 0.2074,
+                "ci95": [
+                  0.4026,
+                  0.9174
+                ],
+                "n": 5,
+                "values": [
+                  0.7,
+                  0.5,
+                  0.6,
+                  1.0,
+                  0.5
+                ]
+              },
+              "training_flops_mean": 185600,
+              "training_wall_clock_sec_mean": 0.00027
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.816,
+                "std": 0.2555,
+                "ci95": [
+                  0.4988,
+                  1.1332
+                ],
+                "n": 5,
+                "values": [
+                  1.0,
+                  1.0,
+                  0.6,
+                  1.0,
+                  0.48
+                ]
+              },
+              "training_flops_mean": 371200,
+              "training_wall_clock_sec_mean": 0.00045
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.884,
+                "std": 0.2594,
+                "ci95": [
+                  0.562,
+                  1.206
+                ],
+                "n": 5,
+                "values": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  0.42
+                ]
+              },
+              "training_flops_mean": 928000,
+              "training_wall_clock_sec_mean": 0.00113
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.932,
+                "std": 0.1521,
+                "ci95": [
+                  0.7432,
+                  1.1208
+                ],
+                "n": 5,
+                "values": [
+                  1.0,
+                  1.0,
+                  0.66,
+                  1.0,
+                  1.0
+                ]
+              },
+              "training_flops_mean": 1856000,
+              "training_wall_clock_sec_mean": 0.00213
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.932,
+                "std": 0.1521,
+                "ci95": [
+                  0.7432,
+                  1.1208
+                ],
+                "n": 5,
+                "values": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  0.66
+                ]
+              },
+              "training_flops_mean": 3712000,
+              "training_wall_clock_sec_mean": 0.00429
+            },
+            "250": {
+              "accuracy": {
+                "mean": 0.904,
+                "std": 0.2147,
+                "ci95": [
+                  0.6375,
+                  1.1705
+                ],
+                "n": 5,
+                "values": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  0.52
+                ]
+              },
+              "training_flops_mean": 9280000,
+              "training_wall_clock_sec_mean": 0.01036
+            },
+            "500": {
+              "accuracy": {
+                "mean": 1.0,
+                "std": 0.0,
+                "ci95": [
+                  1.0,
+                  1.0
+                ],
+                "n": 5,
+                "values": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "training_flops_mean": 18560000,
+              "training_wall_clock_sec_mean": 0.02125
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": 10,
+            "threshold_80pct": 10,
+            "threshold_90pct": 50
+          },
+          "accounting": {
+            "system": "SIMPLE_RECURRENT",
+            "total_parameters": 2320,
+            "trainable_parameters": 80,
+            "fixed_parameters": 2240,
+            "dynamic_state_floats": 42,
+            "external_memory_bytes": 0,
+            "flops_per_step": 4640,
+            "flops_per_trial": 27840
+          }
+        },
+        "GRU": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.5,
+                "std": 0.0566,
+                "ci95": [
+                  0.4298,
+                  0.5702
+                ],
+                "n": 5,
+                "values": [
+                  0.5,
+                  0.5,
+                  0.42,
+                  0.58,
+                  0.5
+                ]
+              },
+              "training_flops_mean": 561760,
+              "training_wall_clock_sec_mean": 0.00043
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.536,
+                "std": 0.0518,
+                "ci95": [
+                  0.4717,
+                  0.6003
+                ],
+                "n": 5,
+                "values": [
+                  0.52,
+                  0.5,
+                  0.6,
+                  0.58,
+                  0.48
+                ]
+              },
+              "training_flops_mean": 1123520,
+              "training_wall_clock_sec_mean": 0.00082
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.48,
+                "std": 0.0548,
+                "ci95": [
+                  0.412,
+                  0.548
+                ],
+                "n": 5,
+                "values": [
+                  0.5,
+                  0.48,
+                  0.44,
+                  0.56,
+                  0.42
+                ]
+              },
+              "training_flops_mean": 2808800,
+              "training_wall_clock_sec_mean": 0.00196
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.488,
+                "std": 0.0642,
+                "ci95": [
+                  0.4083,
+                  0.5677
+                ],
+                "n": 5,
+                "values": [
+                  0.54,
+                  0.48,
+                  0.52,
+                  0.52,
+                  0.38
+                ]
+              },
+              "training_flops_mean": 5617600,
+              "training_wall_clock_sec_mean": 0.00389
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.512,
+                "std": 0.1092,
+                "ci95": [
+                  0.3765,
+                  0.6475
+                ],
+                "n": 5,
+                "values": [
+                  0.42,
+                  0.58,
+                  0.5,
+                  0.4,
+                  0.66
+                ]
+              },
+              "training_flops_mean": 11235200,
+              "training_wall_clock_sec_mean": 0.00767
+            },
+            "250": {
+              "accuracy": {
+                "mean": 0.536,
+                "std": 0.0498,
+                "ci95": [
+                  0.4742,
+                  0.5978
+                ],
+                "n": 5,
+                "values": [
+                  0.52,
+                  0.54,
+                  0.62,
+                  0.5,
+                  0.5
+                ]
+              },
+              "training_flops_mean": 28088000,
+              "training_wall_clock_sec_mean": 0.0192
+            },
+            "500": {
+              "accuracy": {
+                "mean": 0.452,
+                "std": 0.0363,
+                "ci95": [
+                  0.4069,
+                  0.4971
+                ],
+                "n": 5,
+                "values": [
+                  0.44,
+                  0.42,
+                  0.42,
+                  0.5,
+                  0.48
+                ]
+              },
+              "training_flops_mean": 56176000,
+              "training_wall_clock_sec_mean": 0.03847
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": null,
+            "threshold_80pct": null,
+            "threshold_90pct": null
+          },
+          "accounting": {
+            "system": "GRU",
+            "total_parameters": 6922,
+            "trainable_parameters": 6922,
+            "fixed_parameters": 0,
+            "dynamic_state_floats": 162,
+            "external_memory_bytes": 0,
+            "flops_per_step": 14044,
+            "flops_per_trial": 84264
+          }
+        },
+        "CAUSAL_TRANSFORMER": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.496,
+                "std": 0.0639,
+                "ci95": [
+                  0.4167,
+                  0.5753
+                ],
+                "n": 5,
+                "values": [
+                  0.5,
+                  0.5,
+                  0.4,
+                  0.58,
+                  0.5
+                ]
+              },
+              "training_flops_mean": 176640,
+              "training_wall_clock_sec_mean": 0.00063
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.496,
+                "std": 0.0654,
+                "ci95": [
+                  0.4148,
+                  0.5772
+                ],
+                "n": 5,
+                "values": [
+                  0.48,
+                  0.5,
+                  0.4,
+                  0.58,
+                  0.52
+                ]
+              },
+              "training_flops_mean": 353280,
+              "training_wall_clock_sec_mean": 0.00109
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.504,
+                "std": 0.0713,
+                "ci95": [
+                  0.4155,
+                  0.5925
+                ],
+                "n": 5,
+                "values": [
+                  0.42,
+                  0.52,
+                  0.44,
+                  0.56,
+                  0.58
+                ]
+              },
+              "training_flops_mean": 883200,
+              "training_wall_clock_sec_mean": 0.00268
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.512,
+                "std": 0.0642,
+                "ci95": [
+                  0.4323,
+                  0.5917
+                ],
+                "n": 5,
+                "values": [
+                  0.46,
+                  0.48,
+                  0.48,
+                  0.52,
+                  0.62
+                ]
+              },
+              "training_flops_mean": 1766400,
+              "training_wall_clock_sec_mean": 0.00525
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.52,
+                "std": 0.1233,
+                "ci95": [
+                  0.3669,
+                  0.6731
+                ],
+                "n": 5,
+                "values": [
+                  0.58,
+                  0.58,
+                  0.38,
+                  0.4,
+                  0.66
+                ]
+              },
+              "training_flops_mean": 3532800,
+              "training_wall_clock_sec_mean": 0.01058
+            },
+            "250": {
+              "accuracy": {
+                "mean": 0.516,
+                "std": 0.0684,
+                "ci95": [
+                  0.4311,
+                  0.6009
+                ],
+                "n": 5,
+                "values": [
+                  0.48,
+                  0.54,
+                  0.62,
+                  0.5,
+                  0.44
+                ]
+              },
+              "training_flops_mean": 8832000,
+              "training_wall_clock_sec_mean": 0.0263
+            },
+            "500": {
+              "accuracy": {
+                "mean": 0.46,
+                "std": 0.0469,
+                "ci95": [
+                  0.4018,
+                  0.5182
+                ],
+                "n": 5,
+                "values": [
+                  0.44,
+                  0.42,
+                  0.42,
+                  0.5,
+                  0.52
+                ]
+              },
+              "training_flops_mean": 17664000,
+              "training_wall_clock_sec_mean": 0.05216
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": null,
+            "threshold_80pct": null,
+            "threshold_90pct": null
+          },
+          "accounting": {
+            "system": "CAUSAL_TRANSFORMER",
+            "total_parameters": 2080,
+            "trainable_parameters": 2080,
+            "fixed_parameters": 0,
+            "dynamic_state_floats": 192,
+            "external_memory_bytes": 0,
+            "flops_per_step": 4352,
+            "flops_per_trial": 26112
+          }
+        },
+        "TYPED_PROBABILISTIC_DECISION": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.504,
+                "std": 0.0639,
+                "ci95": [
+                  0.4247,
+                  0.5833
+                ],
+                "n": 5,
+                "values": [
+                  0.5,
+                  0.5,
+                  0.6,
+                  0.42,
+                  0.5
+                ]
+              },
+              "training_flops_mean": 3320,
+              "training_wall_clock_sec_mean": 0.00012
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.504,
+                "std": 0.0654,
+                "ci95": [
+                  0.4228,
+                  0.5852
+                ],
+                "n": 5,
+                "values": [
+                  0.52,
+                  0.5,
+                  0.6,
+                  0.42,
+                  0.48
+                ]
+              },
+              "training_flops_mean": 6640,
+              "training_wall_clock_sec_mean": 0.00017
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.504,
+                "std": 0.059,
+                "ci95": [
+                  0.4308,
+                  0.5772
+                ],
+                "n": 5,
+                "values": [
+                  0.5,
+                  0.48,
+                  0.56,
+                  0.56,
+                  0.42
+                ]
+              },
+              "training_flops_mean": 16600,
+              "training_wall_clock_sec_mean": 0.00039
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.512,
+                "std": 0.0642,
+                "ci95": [
+                  0.4323,
+                  0.5917
+                ],
+                "n": 5,
+                "values": [
+                  0.46,
+                  0.48,
+                  0.48,
+                  0.52,
+                  0.62
+                ]
+              },
+              "training_flops_mean": 33200,
+              "training_wall_clock_sec_mean": 0.00079
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.456,
+                "std": 0.1152,
+                "ci95": [
+                  0.3129,
+                  0.5991
+                ],
+                "n": 5,
+                "values": [
+                  0.42,
+                  0.42,
+                  0.38,
+                  0.4,
+                  0.66
+                ]
+              },
+              "training_flops_mean": 66400,
+              "training_wall_clock_sec_mean": 0.00158
+            },
+            "250": {
+              "accuracy": {
+                "mean": 0.476,
+                "std": 0.0654,
+                "ci95": [
+                  0.3948,
+                  0.5572
+                ],
+                "n": 5,
+                "values": [
+                  0.52,
+                  0.54,
+                  0.38,
+                  0.5,
+                  0.44
+                ]
+              },
+              "training_flops_mean": 166000,
+              "training_wall_clock_sec_mean": 0.00383
+            },
+            "500": {
+              "accuracy": {
+                "mean": 0.46,
+                "std": 0.0469,
+                "ci95": [
+                  0.4018,
+                  0.5182
+                ],
+                "n": 5,
+                "values": [
+                  0.44,
+                  0.42,
+                  0.42,
+                  0.5,
+                  0.52
+                ]
+              },
+              "training_flops_mean": 332000,
+              "training_wall_clock_sec_mean": 0.00768
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": null,
+            "threshold_80pct": null,
+            "threshold_90pct": null
+          },
+          "accounting": {
+            "system": "TYPED_PROBABILISTIC_DECISION",
+            "total_parameters": 34,
+            "trainable_parameters": 34,
+            "fixed_parameters": 0,
+            "dynamic_state_floats": 24,
+            "external_memory_bytes": 0,
+            "flops_per_step": 83,
+            "flops_per_trial": 498
+          }
+        }
+      },
+      "sample_efficiency_curves": {
+        "MIN_E": {
+          "5": 0.536,
+          "10": 0.528,
+          "25": 0.512,
+          "50": 0.472,
+          "100": 0.504,
+          "250": 0.492,
+          "500": 0.484
+        },
+        "MIN_E_PLUS_EPISODIC": {
+          "5": 0.536,
+          "10": 0.528,
+          "25": 0.512,
+          "50": 0.472,
+          "100": 0.504,
+          "250": 0.492,
+          "500": 0.484
+        },
+        "SIMPLE_RECURRENT": {
+          "5": 0.66,
+          "10": 0.816,
+          "25": 0.884,
+          "50": 0.932,
+          "100": 0.932,
+          "250": 0.904,
+          "500": 1.0
+        },
+        "GRU": {
+          "5": 0.5,
+          "10": 0.536,
+          "25": 0.48,
+          "50": 0.488,
+          "100": 0.512,
+          "250": 0.536,
+          "500": 0.452
+        },
+        "CAUSAL_TRANSFORMER": {
+          "5": 0.496,
+          "10": 0.496,
+          "25": 0.504,
+          "50": 0.512,
+          "100": 0.52,
+          "250": 0.516,
+          "500": 0.46
+        },
+        "TYPED_PROBABILISTIC_DECISION": {
+          "5": 0.504,
+          "10": 0.504,
+          "25": 0.504,
+          "50": 0.512,
+          "100": 0.456,
+          "250": 0.476,
+          "500": 0.46
+        }
+      },
+      "threshold_analysis": {
+        "MIN_E": {
+          "threshold_70pct": null,
+          "threshold_80pct": null,
+          "threshold_90pct": null
+        },
+        "MIN_E_PLUS_EPISODIC": {
+          "threshold_70pct": null,
+          "threshold_80pct": null,
+          "threshold_90pct": null
+        },
+        "SIMPLE_RECURRENT": {
+          "threshold_70pct": 10,
+          "threshold_80pct": 10,
+          "threshold_90pct": 50
+        },
+        "GRU": {
+          "threshold_70pct": null,
+          "threshold_80pct": null,
+          "threshold_90pct": null
+        },
+        "CAUSAL_TRANSFORMER": {
+          "threshold_70pct": null,
+          "threshold_80pct": null,
+          "threshold_90pct": null
+        },
+        "TYPED_PROBABILISTIC_DECISION": {
+          "threshold_70pct": null,
+          "threshold_80pct": null,
+          "threshold_90pct": null
+        }
+      },
+      "effect_sizes_vs_mine": {
+        "MIN_E_PLUS_EPISODIC": {
+          "cohens_d_budget_50": 0.0,
+          "cohens_d_budget_100": 0.0
+        },
+        "SIMPLE_RECURRENT": {
+          "cohens_d_budget_50": -2.473,
+          "cohens_d_budget_100": -4.096
+        },
+        "GRU": {
+          "cohens_d_budget_50": -0.447,
+          "cohens_d_budget_100": -0.042
+        },
+        "CAUSAL_TRANSFORMER": {
+          "cohens_d_budget_50": -0.354,
+          "cohens_d_budget_100": -0.08
+        },
+        "TYPED_PROBABILISTIC_DECISION": {
+          "cohens_d_budget_50": -0.354,
+          "cohens_d_budget_100": 0.215
+        }
+      }
+    },
+    "SIMPLE_COMPOSITIONAL_DECISION": {
+      "systems": {
+        "MIN_E": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.48,
+                "std": 0.1241,
+                "ci95": [
+                  0.3259,
+                  0.6341
+                ],
+                "n": 5,
+                "values": [
+                  0.64,
+                  0.52,
+                  0.3,
+                  0.5,
+                  0.44
+                ]
+              },
+              "training_flops_mean": 47600,
+              "training_wall_clock_sec_mean": 0.0047
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.448,
+                "std": 0.1171,
+                "ci95": [
+                  0.3026,
+                  0.5934
+                ],
+                "n": 5,
+                "values": [
+                  0.62,
+                  0.48,
+                  0.3,
+                  0.44,
+                  0.4
+                ]
+              },
+              "training_flops_mean": 95200,
+              "training_wall_clock_sec_mean": 0.00837
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.492,
+                "std": 0.1026,
+                "ci95": [
+                  0.3647,
+                  0.6193
+                ],
+                "n": 5,
+                "values": [
+                  0.66,
+                  0.5,
+                  0.4,
+                  0.48,
+                  0.42
+                ]
+              },
+              "training_flops_mean": 238000,
+              "training_wall_clock_sec_mean": 0.01973
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.492,
+                "std": 0.039,
+                "ci95": [
+                  0.4436,
+                  0.5404
+                ],
+                "n": 5,
+                "values": [
+                  0.52,
+                  0.44,
+                  0.52,
+                  0.52,
+                  0.46
+                ]
+              },
+              "training_flops_mean": 476000,
+              "training_wall_clock_sec_mean": 0.03881
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.448,
+                "std": 0.0576,
+                "ci95": [
+                  0.3765,
+                  0.5195
+                ],
+                "n": 5,
+                "values": [
+                  0.46,
+                  0.4,
+                  0.54,
+                  0.44,
+                  0.4
+                ]
+              },
+              "training_flops_mean": 952000,
+              "training_wall_clock_sec_mean": 0.07704
+            },
+            "250": {
+              "accuracy": {
+                "mean": 0.452,
+                "std": 0.0756,
+                "ci95": [
+                  0.3581,
+                  0.5459
+                ],
+                "n": 5,
+                "values": [
+                  0.58,
+                  0.44,
+                  0.44,
+                  0.42,
+                  0.38
+                ]
+              },
+              "training_flops_mean": 2380000,
+              "training_wall_clock_sec_mean": 0.19041
+            },
+            "500": {
+              "accuracy": {
+                "mean": 0.484,
+                "std": 0.0607,
+                "ci95": [
+                  0.4087,
+                  0.5593
+                ],
+                "n": 5,
+                "values": [
+                  0.4,
+                  0.48,
+                  0.52,
+                  0.46,
+                  0.56
+                ]
+              },
+              "training_flops_mean": 4760000,
+              "training_wall_clock_sec_mean": 0.38166
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": null,
+            "threshold_80pct": null,
+            "threshold_90pct": null
+          },
+          "accounting": {
+            "system": "MIN_E",
+            "total_parameters": 2324,
+            "trainable_parameters": 80,
+            "fixed_parameters": 2244,
+            "dynamic_state_floats": 124,
+            "external_memory_bytes": 0,
+            "flops_per_step": 4760,
+            "flops_per_trial": 28560
+          }
+        },
+        "MIN_E_PLUS_EPISODIC": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.9,
+                "std": 0.2236,
+                "ci95": [
+                  0.6224,
+                  1.1776
+                ],
+                "n": 5,
+                "values": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  0.5,
+                  1.0
+                ]
+              },
+              "training_flops_mean": 88560,
+              "training_wall_clock_sec_mean": 0.00481
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.94,
+                "std": 0.1342,
+                "ci95": [
+                  0.7734,
+                  1.1066
+                ],
+                "n": 5,
+                "values": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  0.7,
+                  1.0
+                ]
+              },
+              "training_flops_mean": 177120,
+              "training_wall_clock_sec_mean": 0.00864
+            },
+            "25": {
+              "accuracy": {
+                "mean": 1.0,
+                "std": 0.0,
+                "ci95": [
+                  1.0,
+                  1.0
+                ],
+                "n": 5,
+                "values": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "training_flops_mean": 442800,
+              "training_wall_clock_sec_mean": 0.02017
+            },
+            "50": {
+              "accuracy": {
+                "mean": 1.0,
+                "std": 0.0,
+                "ci95": [
+                  1.0,
+                  1.0
+                ],
+                "n": 5,
+                "values": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "training_flops_mean": 885600,
+              "training_wall_clock_sec_mean": 0.03961
+            },
+            "100": {
+              "accuracy": {
+                "mean": 1.0,
+                "std": 0.0,
+                "ci95": [
+                  1.0,
+                  1.0
+                ],
+                "n": 5,
+                "values": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "training_flops_mean": 1771200,
+              "training_wall_clock_sec_mean": 0.07852
+            },
+            "250": {
+              "accuracy": {
+                "mean": 1.0,
+                "std": 0.0,
+                "ci95": [
+                  1.0,
+                  1.0
+                ],
+                "n": 5,
+                "values": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "training_flops_mean": 4428000,
+              "training_wall_clock_sec_mean": 0.19842
+            },
+            "500": {
+              "accuracy": {
+                "mean": 1.0,
+                "std": 0.0,
+                "ci95": [
+                  1.0,
+                  1.0
+                ],
+                "n": 5,
+                "values": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "training_flops_mean": 8856000,
+              "training_wall_clock_sec_mean": 0.38702
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": 5,
+            "threshold_80pct": 5,
+            "threshold_90pct": 5
+          },
+          "accounting": {
+            "system": "MIN_E_PLUS_EPISODIC",
+            "total_parameters": 2324,
+            "trainable_parameters": 80,
+            "fixed_parameters": 2244,
+            "dynamic_state_floats": 252,
+            "external_memory_bytes": 29184,
+            "flops_per_step": 8856,
+            "flops_per_trial": 53136
+          }
+        },
+        "SIMPLE_RECURRENT": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.536,
+                "std": 0.0841,
+                "ci95": [
+                  0.4315,
+                  0.6405
+                ],
+                "n": 5,
+                "values": [
+                  0.5,
+                  0.46,
+                  0.52,
+                  0.52,
+                  0.68
+                ]
+              },
+              "training_flops_mean": 46400,
+              "training_wall_clock_sec_mean": 9e-05
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.476,
+                "std": 0.0555,
+                "ci95": [
+                  0.4071,
+                  0.5449
+                ],
+                "n": 5,
+                "values": [
+                  0.48,
+                  0.38,
+                  0.5,
+                  0.5,
+                  0.52
+                ]
+              },
+              "training_flops_mean": 92800,
+              "training_wall_clock_sec_mean": 0.00016
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.456,
+                "std": 0.0767,
+                "ci95": [
+                  0.3608,
+                  0.5512
+                ],
+                "n": 5,
+                "values": [
+                  0.4,
+                  0.42,
+                  0.4,
+                  0.48,
+                  0.58
+                ]
+              },
+              "training_flops_mean": 232000,
+              "training_wall_clock_sec_mean": 0.00033
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.436,
+                "std": 0.0994,
+                "ci95": [
+                  0.3126,
+                  0.5594
+                ],
+                "n": 5,
+                "values": [
+                  0.38,
+                  0.56,
+                  0.3,
+                  0.46,
+                  0.48
+                ]
+              },
+              "training_flops_mean": 464000,
+              "training_wall_clock_sec_mean": 0.00067
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.456,
+                "std": 0.0888,
+                "ci95": [
+                  0.3458,
+                  0.5662
+                ],
+                "n": 5,
+                "values": [
+                  0.46,
+                  0.34,
+                  0.4,
+                  0.52,
+                  0.56
+                ]
+              },
+              "training_flops_mean": 928000,
+              "training_wall_clock_sec_mean": 0.0013
+            },
+            "250": {
+              "accuracy": {
+                "mean": 0.528,
+                "std": 0.0415,
+                "ci95": [
+                  0.4765,
+                  0.5795
+                ],
+                "n": 5,
+                "values": [
+                  0.58,
+                  0.56,
+                  0.48,
+                  0.5,
+                  0.52
+                ]
+              },
+              "training_flops_mean": 2320000,
+              "training_wall_clock_sec_mean": 0.00312
+            },
+            "500": {
+              "accuracy": {
+                "mean": 0.54,
+                "std": 0.101,
+                "ci95": [
+                  0.4146,
+                  0.6654
+                ],
+                "n": 5,
+                "values": [
+                  0.64,
+                  0.48,
+                  0.46,
+                  0.66,
+                  0.46
+                ]
+              },
+              "training_flops_mean": 4640000,
+              "training_wall_clock_sec_mean": 0.00609
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": null,
+            "threshold_80pct": null,
+            "threshold_90pct": null
+          },
+          "accounting": {
+            "system": "SIMPLE_RECURRENT",
+            "total_parameters": 2320,
+            "trainable_parameters": 80,
+            "fixed_parameters": 2240,
+            "dynamic_state_floats": 42,
+            "external_memory_bytes": 0,
+            "flops_per_step": 4640,
+            "flops_per_trial": 27840
+          }
+        },
+        "GRU": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.564,
+                "std": 0.1438,
+                "ci95": [
+                  0.3855,
+                  0.7425
+                ],
+                "n": 5,
+                "values": [
+                  0.5,
+                  0.5,
+                  0.4,
+                  0.66,
+                  0.76
+                ]
+              },
+              "training_flops_mean": 140440,
+              "training_wall_clock_sec_mean": 0.00016
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.456,
+                "std": 0.1203,
+                "ci95": [
+                  0.3066,
+                  0.6054
+                ],
+                "n": 5,
+                "values": [
+                  0.54,
+                  0.38,
+                  0.3,
+                  0.6,
+                  0.46
+                ]
+              },
+              "training_flops_mean": 280880,
+              "training_wall_clock_sec_mean": 0.00026
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.552,
+                "std": 0.0879,
+                "ci95": [
+                  0.4429,
+                  0.6611
+                ],
+                "n": 5,
+                "values": [
+                  0.56,
+                  0.62,
+                  0.6,
+                  0.4,
+                  0.58
+                ]
+              },
+              "training_flops_mean": 702200,
+              "training_wall_clock_sec_mean": 0.0006
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.576,
+                "std": 0.0792,
+                "ci95": [
+                  0.4776,
+                  0.6744
+                ],
+                "n": 5,
+                "values": [
+                  0.52,
+                  0.56,
+                  0.7,
+                  0.6,
+                  0.5
+                ]
+              },
+              "training_flops_mean": 1404400,
+              "training_wall_clock_sec_mean": 0.00115
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.488,
+                "std": 0.1316,
+                "ci95": [
+                  0.3246,
+                  0.6514
+                ],
+                "n": 5,
+                "values": [
+                  0.48,
+                  0.34,
+                  0.4,
+                  0.54,
+                  0.68
+                ]
+              },
+              "training_flops_mean": 2808800,
+              "training_wall_clock_sec_mean": 0.00227
+            },
+            "250": {
+              "accuracy": {
+                "mean": 0.672,
+                "std": 0.1397,
+                "ci95": [
+                  0.4985,
+                  0.8455
+                ],
+                "n": 5,
+                "values": [
+                  0.46,
+                  0.74,
+                  0.66,
+                  0.66,
+                  0.84
+                ]
+              },
+              "training_flops_mean": 7022000,
+              "training_wall_clock_sec_mean": 0.00578
+            },
+            "500": {
+              "accuracy": {
+                "mean": 0.676,
+                "std": 0.1322,
+                "ci95": [
+                  0.5119,
+                  0.8401
+                ],
+                "n": 5,
+                "values": [
+                  0.78,
+                  0.74,
+                  0.78,
+                  0.6,
+                  0.48
+                ]
+              },
+              "training_flops_mean": 14044000,
+              "training_wall_clock_sec_mean": 0.01135
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": null,
+            "threshold_80pct": null,
+            "threshold_90pct": null
+          },
+          "accounting": {
+            "system": "GRU",
+            "total_parameters": 6922,
+            "trainable_parameters": 6922,
+            "fixed_parameters": 0,
+            "dynamic_state_floats": 162,
+            "external_memory_bytes": 0,
+            "flops_per_step": 14044,
+            "flops_per_trial": 84264
+          }
+        },
+        "CAUSAL_TRANSFORMER": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.356,
+                "std": 0.1711,
+                "ci95": [
+                  0.1436,
+                  0.5684
+                ],
+                "n": 5,
+                "values": [
+                  0.32,
+                  0.3,
+                  0.56,
+                  0.48,
+                  0.12
+                ]
+              },
+              "training_flops_mean": 42240,
+              "training_wall_clock_sec_mean": 0.00052
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.312,
+                "std": 0.2067,
+                "ci95": [
+                  0.0554,
+                  0.5686
+                ],
+                "n": 5,
+                "values": [
+                  0.5,
+                  0.3,
+                  0.26,
+                  0.5,
+                  0.0
+                ]
+              },
+              "training_flops_mean": 84480,
+              "training_wall_clock_sec_mean": 0.00095
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.42,
+                "std": 0.1217,
+                "ci95": [
+                  0.269,
+                  0.571
+                ],
+                "n": 5,
+                "values": [
+                  0.52,
+                  0.32,
+                  0.48,
+                  0.52,
+                  0.26
+                ]
+              },
+              "training_flops_mean": 211200,
+              "training_wall_clock_sec_mean": 0.00232
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.372,
+                "std": 0.1316,
+                "ci95": [
+                  0.2086,
+                  0.5354
+                ],
+                "n": 5,
+                "values": [
+                  0.3,
+                  0.26,
+                  0.46,
+                  0.56,
+                  0.28
+                ]
+              },
+              "training_flops_mean": 422400,
+              "training_wall_clock_sec_mean": 0.00452
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.284,
+                "std": 0.109,
+                "ci95": [
+                  0.1487,
+                  0.4193
+                ],
+                "n": 5,
+                "values": [
+                  0.46,
+                  0.16,
+                  0.28,
+                  0.26,
+                  0.26
+                ]
+              },
+              "training_flops_mean": 844800,
+              "training_wall_clock_sec_mean": 0.00897
+            },
+            "250": {
+              "accuracy": {
+                "mean": 0.228,
+                "std": 0.0642,
+                "ci95": [
+                  0.1483,
+                  0.3077
+                ],
+                "n": 5,
+                "values": [
+                  0.26,
+                  0.26,
+                  0.28,
+                  0.22,
+                  0.12
+                ]
+              },
+              "training_flops_mean": 2112000,
+              "training_wall_clock_sec_mean": 0.02254
+            },
+            "500": {
+              "accuracy": {
+                "mean": 0.24,
+                "std": 0.0707,
+                "ci95": [
+                  0.1522,
+                  0.3278
+                ],
+                "n": 5,
+                "values": [
+                  0.16,
+                  0.28,
+                  0.2,
+                  0.34,
+                  0.22
+                ]
+              },
+              "training_flops_mean": 4224000,
+              "training_wall_clock_sec_mean": 0.04521
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": null,
+            "threshold_80pct": null,
+            "threshold_90pct": null
+          },
+          "accounting": {
+            "system": "CAUSAL_TRANSFORMER",
+            "total_parameters": 2080,
+            "trainable_parameters": 2080,
+            "fixed_parameters": 0,
+            "dynamic_state_floats": 192,
+            "external_memory_bytes": 0,
+            "flops_per_step": 4352,
+            "flops_per_trial": 26112
+          }
+        },
+        "TYPED_PROBABILISTIC_DECISION": {
+          "curve": {
+            "5": {
+              "accuracy": {
+                "mean": 0.444,
+                "std": 0.1367,
+                "ci95": [
+                  0.2743,
+                  0.6137
+                ],
+                "n": 5,
+                "values": [
+                  0.22,
+                  0.46,
+                  0.52,
+                  0.44,
+                  0.58
+                ]
+              },
+              "training_flops_mean": 830,
+              "training_wall_clock_sec_mean": 0.0001
+            },
+            "10": {
+              "accuracy": {
+                "mean": 0.54,
+                "std": 0.0883,
+                "ci95": [
+                  0.4304,
+                  0.6496
+                ],
+                "n": 5,
+                "values": [
+                  0.44,
+                  0.66,
+                  0.5,
+                  0.5,
+                  0.6
+                ]
+              },
+              "training_flops_mean": 1660,
+              "training_wall_clock_sec_mean": 0.00018
+            },
+            "25": {
+              "accuracy": {
+                "mean": 0.632,
+                "std": 0.0832,
+                "ci95": [
+                  0.5287,
+                  0.7353
+                ],
+                "n": 5,
+                "values": [
+                  0.54,
+                  0.64,
+                  0.64,
+                  0.76,
+                  0.58
+                ]
+              },
+              "training_flops_mean": 4150,
+              "training_wall_clock_sec_mean": 0.00043
+            },
+            "50": {
+              "accuracy": {
+                "mean": 0.608,
+                "std": 0.1246,
+                "ci95": [
+                  0.4533,
+                  0.7627
+                ],
+                "n": 5,
+                "values": [
+                  0.52,
+                  0.56,
+                  0.48,
+                  0.72,
+                  0.76
+                ]
+              },
+              "training_flops_mean": 8300,
+              "training_wall_clock_sec_mean": 0.00079
+            },
+            "100": {
+              "accuracy": {
+                "mean": 0.616,
+                "std": 0.1126,
+                "ci95": [
+                  0.4762,
+                  0.7558
+                ],
+                "n": 5,
+                "values": [
+                  0.7,
+                  0.76,
+                  0.5,
+                  0.52,
+                  0.6
+                ]
+              },
+              "training_flops_mean": 16600,
+              "training_wall_clock_sec_mean": 0.00157
+            },
+            "250": {
+              "accuracy": {
+                "mean": 0.66,
+                "std": 0.114,
+                "ci95": [
+                  0.5185,
+                  0.8015
+                ],
+                "n": 5,
+                "values": [
+                  0.48,
+                  0.74,
+                  0.62,
+                  0.7,
+                  0.76
+                ]
+              },
+              "training_flops_mean": 41500,
+              "training_wall_clock_sec_mean": 0.00385
+            },
+            "500": {
+              "accuracy": {
+                "mean": 0.552,
+                "std": 0.0856,
+                "ci95": [
+                  0.4458,
+                  0.6582
+                ],
+                "n": 5,
+                "values": [
+                  0.64,
+                  0.48,
+                  0.54,
+                  0.64,
+                  0.46
+                ]
+              },
+              "training_flops_mean": 83000,
+              "training_wall_clock_sec_mean": 0.00764
+            }
+          },
+          "thresholds": {
+            "threshold_70pct": null,
+            "threshold_80pct": null,
+            "threshold_90pct": null
+          },
+          "accounting": {
+            "system": "TYPED_PROBABILISTIC_DECISION",
+            "total_parameters": 34,
+            "trainable_parameters": 34,
+            "fixed_parameters": 0,
+            "dynamic_state_floats": 24,
+            "external_memory_bytes": 0,
+            "flops_per_step": 83,
+            "flops_per_trial": 498
+          }
+        }
+      },
+      "sample_efficiency_curves": {
+        "MIN_E": {
+          "5": 0.48,
+          "10": 0.448,
+          "25": 0.492,
+          "50": 0.492,
+          "100": 0.448,
+          "250": 0.452,
+          "500": 0.484
+        },
+        "MIN_E_PLUS_EPISODIC": {
+          "5": 0.9,
+          "10": 0.94,
+          "25": 1.0,
+          "50": 1.0,
+          "100": 1.0,
+          "250": 1.0,
+          "500": 1.0
+        },
+        "SIMPLE_RECURRENT": {
+          "5": 0.536,
+          "10": 0.476,
+          "25": 0.456,
+          "50": 0.436,
+          "100": 0.456,
+          "250": 0.528,
+          "500": 0.54
+        },
+        "GRU": {
+          "5": 0.564,
+          "10": 0.456,
+          "25": 0.552,
+          "50": 0.576,
+          "100": 0.488,
+          "250": 0.672,
+          "500": 0.676
+        },
+        "CAUSAL_TRANSFORMER": {
+          "5": 0.356,
+          "10": 0.312,
+          "25": 0.42,
+          "50": 0.372,
+          "100": 0.284,
+          "250": 0.228,
+          "500": 0.24
+        },
+        "TYPED_PROBABILISTIC_DECISION": {
+          "5": 0.444,
+          "10": 0.54,
+          "25": 0.632,
+          "50": 0.608,
+          "100": 0.616,
+          "250": 0.66,
+          "500": 0.552
+        }
+      },
+      "threshold_analysis": {
+        "MIN_E": {
+          "threshold_70pct": null,
+          "threshold_80pct": null,
+          "threshold_90pct": null
+        },
+        "MIN_E_PLUS_EPISODIC": {
+          "threshold_70pct": 5,
+          "threshold_80pct": 5,
+          "threshold_90pct": 5
+        },
+        "SIMPLE_RECURRENT": {
+          "threshold_70pct": null,
+          "threshold_80pct": null,
+          "threshold_90pct": null
+        },
+        "GRU": {
+          "threshold_70pct": null,
+          "threshold_80pct": null,
+          "threshold_90pct": null
+        },
+        "CAUSAL_TRANSFORMER": {
+          "threshold_70pct": null,
+          "threshold_80pct": null,
+          "threshold_90pct": null
+        },
+        "TYPED_PROBABILISTIC_DECISION": {
+          "threshold_70pct": null,
+          "threshold_80pct": null,
+          "threshold_90pct": null
+        }
+      },
+      "effect_sizes_vs_mine": {
+        "MIN_E_PLUS_EPISODIC": {
+          "cohens_d_budget_50": -13.03,
+          "cohens_d_budget_100": -9.58
+        },
+        "SIMPLE_RECURRENT": {
+          "cohens_d_budget_50": 0.421,
+          "cohens_d_budget_100": -0.068
+        },
+        "GRU": {
+          "cohens_d_budget_50": -1.202,
+          "cohens_d_budget_100": -0.248
+        },
+        "CAUSAL_TRANSFORMER": {
+          "cohens_d_budget_50": 1.114,
+          "cohens_d_budget_100": 1.587
+        },
+        "TYPED_PROBABILISTIC_DECISION": {
+          "cohens_d_budget_50": -0.827,
+          "cohens_d_budget_100": -1.095
+        }
+      }
+    }
+  },
+  "catastrophic_forgetting": {
+    "MIN_E": {
+      "mean": 0.5,
+      "std": 0.0624,
+      "ci95": [
+        0.4226,
+        0.5774
+      ],
+      "n": 5,
+      "values": [
+        0.5667,
+        0.4667,
+        0.4333,
+        0.5667,
+        0.4667
+      ]
+    },
+    "MIN_E_PLUS_EPISODIC": {
+      "mean": 0.62,
+      "std": 0.0901,
+      "ci95": [
+        0.5082,
+        0.7318
+      ],
+      "n": 5,
+      "values": [
+        0.7333,
+        0.5333,
+        0.5667,
+        0.5667,
+        0.7
+      ]
+    },
+    "SIMPLE_RECURRENT": {
+      "mean": 0.7867,
+      "std": 0.0767,
+      "ci95": [
+        0.6914,
+        0.8819
+      ],
+      "n": 5,
+      "values": [
+        0.7,
+        0.8,
+        0.9,
+        0.7333,
+        0.8
+      ]
+    },
+    "GRU": {
+      "mean": 0.7467,
+      "std": 0.0691,
+      "ci95": [
+        0.6609,
+        0.8325
+      ],
+      "n": 5,
+      "values": [
+        0.7667,
+        0.8,
+        0.8,
+        0.7333,
+        0.6333
+      ]
+    },
+    "CAUSAL_TRANSFORMER": {
+      "mean": 0.46,
+      "std": 0.0641,
+      "ci95": [
+        0.3804,
+        0.5396
+      ],
+      "n": 5,
+      "values": [
+        0.5,
+        0.4333,
+        0.5333,
+        0.3667,
+        0.4667
+      ]
+    },
+    "TYPED_PROBABILISTIC_DECISION": {
+      "mean": 0.8867,
+      "std": 0.1043,
+      "ci95": [
+        0.7571,
+        1.0162
+      ],
+      "n": 5,
+      "values": [
+        0.8667,
+        1.0,
+        0.9667,
+        0.8667,
+        0.7333
+      ]
+    }
+  },
+  "compositional_generalization": {
+    "MIN_E": {
+      "mean": 0.45,
+      "std": 0.0637,
+      "ci95": [
+        0.3709,
+        0.5291
+      ],
+      "n": 5,
+      "values": [
+        0.375,
+        0.425,
+        0.55,
+        0.45,
+        0.45
+      ]
+    },
+    "MIN_E_PLUS_EPISODIC": {
+      "mean": 1.0,
+      "std": 0.0,
+      "ci95": [
+        1.0,
+        1.0
+      ],
+      "n": 5,
+      "values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "SIMPLE_RECURRENT": {
+      "mean": 0.46,
+      "std": 0.0945,
+      "ci95": [
+        0.3426,
+        0.5774
+      ],
+      "n": 5,
+      "values": [
+        0.5,
+        0.325,
+        0.4,
+        0.55,
+        0.525
+      ]
+    },
+    "GRU": {
+      "mean": 0.49,
+      "std": 0.1353,
+      "ci95": [
+        0.322,
+        0.658
+      ],
+      "n": 5,
+      "values": [
+        0.5,
+        0.325,
+        0.4,
+        0.55,
+        0.675
+      ]
+    },
+    "CAUSAL_TRANSFORMER": {
+      "mean": 0.275,
+      "std": 0.081,
+      "ci95": [
+        0.1744,
+        0.3756
+      ],
+      "n": 5,
+      "values": [
+        0.4,
+        0.175,
+        0.275,
+        0.275,
+        0.25
+      ]
+    },
+    "TYPED_PROBABILISTIC_DECISION": {
+      "mean": 0.605,
+      "std": 0.0942,
+      "ci95": [
+        0.488,
+        0.722
+      ],
+      "n": 5,
+      "values": [
+        0.65,
+        0.75,
+        0.525,
+        0.55,
+        0.55
+      ]
+    }
+  }
+}

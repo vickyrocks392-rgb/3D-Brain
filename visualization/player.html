@@ -330,16 +330,53 @@
       margin-bottom: 6px;
     }
     .flow-stage-block {
-      background: rgba(15, 23, 42, 0.6);
+      background: rgba(15, 23, 42, 0.45);
       border: 1px solid var(--border-subtle);
       border-radius: 6px;
       padding: 6px 10px;
-      transition: all 0.2s;
+      transition: all 0.25s ease;
+      opacity: 0.72;
     }
     .flow-stage-block.active {
-      border-color: rgba(56, 189, 248, 0.4);
-      background: rgba(15, 23, 42, 0.9);
-      box-shadow: 0 0 12px rgba(56, 189, 248, 0.15);
+      opacity: 1;
+      background: rgba(15, 23, 42, 0.95);
+      transform: translateX(-2px);
+    }
+    #cflow-input.active {
+      border-color: rgba(56, 189, 248, 0.7);
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.22);
+    }
+    #cflow-input.active .cflow-num {
+      background: #38bdf8;
+      color: #022c22;
+      font-weight: 800;
+    }
+    #cflow-memory.active {
+      border-color: rgba(192, 132, 252, 0.7);
+      box-shadow: 0 0 14px rgba(192, 132, 252, 0.22);
+    }
+    #cflow-memory.active .cflow-num {
+      background: #c084fc;
+      color: #2e1065;
+      font-weight: 800;
+    }
+    #cflow-learning.active {
+      border-color: rgba(251, 191, 36, 0.7);
+      box-shadow: 0 0 14px rgba(251, 191, 36, 0.22);
+    }
+    #cflow-learning.active .cflow-num {
+      background: #fbbf24;
+      color: #451a03;
+      font-weight: 800;
+    }
+    #cflow-decision.active {
+      border-color: rgba(52, 211, 153, 0.7);
+      box-shadow: 0 0 14px rgba(52, 211, 153, 0.22);
+    }
+    #cflow-decision.active .cflow-num {
+      background: #34d399;
+      color: #022c22;
+      font-weight: 800;
     }
     .cflow-header {
       display: flex;
@@ -363,11 +400,6 @@
       align-items: center;
       justify-content: center;
       font-size: 8px;
-    }
-    .flow-stage-block.active .cflow-num {
-      background: #38bdf8;
-      color: #022c22;
-      font-weight: 800;
     }
     .cflow-body {
       font-family: var(--font-mono);
@@ -562,17 +594,19 @@
       padding: 1px 6px;
     }
     .event-headline-text {
-      font-family: var(--font-mono);
-      font-size: 13px;
+      font-family: var(--font-sans);
+      font-size: 14px;
       font-weight: 700;
-      color: #f1f5f9;
+      color: #f8fafc;
+      letter-spacing: -0.01em;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      margin: 2px 0 1px 0;
     }
     .event-detail-text {
       font-family: var(--font-mono);
-      font-size: 10px;
+      font-size: 10.5px;
       color: #94a3b8;
       white-space: nowrap;
       overflow: hidden;
@@ -765,21 +799,25 @@
     }
 
     /* RESEARCH & DEVELOPER DRAWER */
+    /* RESEARCH & DEVELOPER DRAWER */
     .research-drawer {
-      position: fixed;
-      top: 0;
+      position: absolute;
+      top: 42px;
       right: 0;
+      bottom: calc(56px + 155px + 38px);
       width: 440px;
-      height: 100vh;
+      max-width: 85vw;
       background: rgba(10, 15, 26, 0.98);
       backdrop-filter: blur(20px);
-      border-left: 1px solid var(--border-subtle);
-      z-index: 100;
+      border-left: 1px solid rgba(56, 189, 248, 0.25);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.25);
+      border-bottom-left-radius: 8px;
+      z-index: 45;
       display: flex;
       flex-direction: column;
       transform: translateX(100%);
       transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: -16px 0 48px rgba(0,0,0,0.85);
+      box-shadow: -14px 14px 40px rgba(0,0,0,0.85);
       overflow-y: auto;
     }
     .research-drawer.open {
@@ -793,7 +831,10 @@
       justify-content: space-between;
       padding: 0 16px;
       border-bottom: 1px solid var(--border-subtle);
-      background: rgba(15, 23, 42, 0.6);
+      background: rgba(15, 23, 42, 0.75);
+      position: sticky;
+      top: 0;
+      z-index: 2;
     }
     .drawer-title {
       font-family: var(--font-mono);
@@ -808,16 +849,17 @@
       color: var(--text-muted);
       cursor: pointer;
       font-size: 14px;
+      padding: 4px 8px;
     }
     .drawer-close-btn:hover { color: #fff; }
     .drawer-content {
-      padding: 14px 16px;
+      padding: 12px 14px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
     }
     .drawer-category {
-      background: rgba(15, 23, 42, 0.4);
+      background: rgba(15, 23, 42, 0.45);
       border: 1px solid var(--border-subtle);
       border-radius: 6px;
       padding: 10px;
@@ -836,26 +878,94 @@
       grid-template-columns: 1fr 1fr;
       gap: 6px;
     }
-    .btn-toggle {
-      background: rgba(255, 255, 255, 0.04);
+    .drawer-card-btn, .btn-toggle {
+      background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--border-subtle);
-      border-radius: 4px;
-      color: #cbd5e1;
+      border-radius: 5px;
+      padding: 6px 8px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      text-align: left;
+      transition: all 0.15s ease;
+    }
+    .drawer-card-btn:hover, .btn-toggle:hover {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(56, 189, 248, 0.3);
+    }
+    .drawer-card-btn.active, .btn-toggle.active {
+      background: rgba(56, 189, 248, 0.12);
+      border-color: rgba(56, 189, 248, 0.5);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.15);
+    }
+    .card-btn-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+    .card-btn-name {
       font-family: var(--font-mono);
       font-size: 10px;
-      padding: 5px 8px;
-      cursor: pointer;
-      text-align: left;
-      transition: all 0.15s;
+      font-weight: 700;
+      color: #f1f5f9;
+      letter-spacing: 0.02em;
     }
-    .btn-toggle:hover {
+    .card-btn-status {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      font-weight: 800;
+      padding: 1px 4px;
+      border-radius: 3px;
       background: rgba(255, 255, 255, 0.08);
-      color: #fff;
+      color: #94a3b8;
     }
-    .btn-toggle.active {
-      background: rgba(56, 189, 248, 0.15);
-      border-color: rgba(56, 189, 248, 0.4);
+    .drawer-card-btn.active .card-btn-status, .btn-toggle.active .card-btn-status {
+      background: rgba(56, 189, 248, 0.25);
       color: #38bdf8;
+    }
+    .card-btn-sub {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      color: #64748b;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    @media (max-width: 1400px), (max-height: 800px) {
+      .observatory-bottom-dock {
+        height: 140px;
+        min-height: 130px;
+        gap: 8px;
+        padding: 6px 12px;
+      }
+      .primary-input-surface {
+        padding: 5px 12px;
+      }
+      .primary-ask-input {
+        height: 28px;
+        font-size: 11px;
+      }
+      .primary-run-btn {
+        height: 28px;
+        font-size: 10px;
+      }
+      .observatory-timeline-bar {
+        height: 34px;
+        min-height: 34px;
+      }
+      .research-drawer {
+        bottom: calc(48px + 140px + 34px);
+        width: 390px;
+      }
+      .result-action-callout {
+        font-size: 22px;
+      }
+      .result-conf-callout {
+        font-size: 15px;
+      }
     }
 
     #tooltip { display: none !important; }
@@ -877,19 +987,19 @@
         <span id="primary-mode-text">LIVE</span>
       </div>
       <select id="model-select" class="hdr-select-trace" title="Select .brainlog Trace">
-        <option value="/experiments/results/brainlogs/EXP023B_compositional.brainlog" selected>EXP023B · Zero-Shot Composition & Memory Causality (Phase 23B)</option>
-        <option value="/experiments/results/brainlogs/EXP023A_sample_efficiency.brainlog">EXP023A · Sample Efficiency & NL Observatory (Phase 23A)</option>
-        <option value="/experiments/results/brainlogs/EXP022_causal_memory.brainlog">EXP022 · Causal Episodic Memory & Composition (Phase 22)</option>
-        <option value="/experiments/results/brainlogs/EXP021_episodic_transfer.brainlog">EXP021 · Episodic Memory, Replay & Transfer (Phase 21)</option>
-        <option value="/experiments/results/brainlogs/EXP020_routing_replay.brainlog">EXP020 · Context-Gated Routing & Sparse Replay (Phase 20)</option>
-        <option value="/experiments/results/brainlogs/EXP019_credit_consolidation.brainlog">EXP019 · Biological Credit Horizon & Synaptic Consolidation (Phase 19)</option>
-        <option value="/experiments/results/brainlogs/EXP018_audit.brainlog">EXP018 · Scientific Audit & Benchmark Integrity (Phase 18)</option>
-        <option value="/experiments/results/brainlogs/EXP017_generalization.brainlog">EXP017 · Minimal Brain Generalization & Transfer (Phase 17)</option>
-        <option value="/experiments/results/brainlogs/EXP016_minimal_brain.brainlog">EXP016 · Minimal Sufficient Brain (Phase 16)</option>
-        <option value="/experiments/results/brainlogs/EXP015_action_readout.brainlog">EXP015 · Action Readout & Assemblies (Phase 15)</option>
-        <option value="/experiments/results/phase14_latest.brainlog">EXP014 · Temporal Coding & Resonance (Phase 14)</option>
-        <option value="/experiments/results/brainlogs/EXP013_biophysical_spike_encoding.brainlog">EXP013 · Biophysical Spike Encoding (Phase 13)</option>
-        <option value="/experiments/results/brainlogs/EXP012_action_interface.brainlog">EXP012 · Learnable Action Interface (Phase 12)</option>
+        <option value="/experiments/results/brainlogs/EXP023B_compositional.brainlog" selected>EXP023B · Zero-Shot Composition & Memory Causality</option>
+        <option value="/experiments/results/brainlogs/EXP023A_sample_efficiency.brainlog">EXP023A · Sample Efficiency & Distractor Retention</option>
+        <option value="/experiments/results/brainlogs/EXP022_causal_memory.brainlog">EXP022 · Causal Episodic Memory & Composition</option>
+        <option value="/experiments/results/brainlogs/EXP021_episodic_transfer.brainlog">EXP021 · Episodic Memory & Task Transfer</option>
+        <option value="/experiments/results/brainlogs/EXP020_routing_replay.brainlog">EXP020 · Context-Gated Routing & Sparse Replay</option>
+        <option value="/experiments/results/brainlogs/EXP019_credit_consolidation.brainlog">EXP019 · Biological Credit Horizon & Consolidation</option>
+        <option value="/experiments/results/brainlogs/EXP018_audit.brainlog">EXP018 · Scientific Audit & Benchmark Integrity</option>
+        <option value="/experiments/results/brainlogs/EXP017_generalization.brainlog">EXP017 · Minimal Brain Generalization & Transfer</option>
+        <option value="/experiments/results/brainlogs/EXP016_minimal_brain.brainlog">EXP016 · Minimal Sufficient Brain Architecture</option>
+        <option value="/experiments/results/brainlogs/EXP015_action_readout.brainlog">EXP015 · Action Readout & Attractor Assemblies</option>
+        <option value="/experiments/results/phase14_latest.brainlog">EXP014 · Temporal Coding & Population Resonance</option>
+        <option value="/experiments/results/brainlogs/EXP013_biophysical_spike_encoding.brainlog">EXP013 · Biophysical Spike Encoding Dynamics</option>
+        <option value="/experiments/results/brainlogs/EXP012_action_interface.brainlog">EXP012 · Learnable Action Interface Readout</option>
         <option value="/experiments/results/brainlogs/EXP011_predictive_gating_attractor.brainlog">EXP011 · Predictive Gating & Recurrent Attractor</option>
         <option value="/experiments/results/brainlogs/EXP010_two_compartment_targeted_credit.brainlog">EXP010 · Two-Compartment & Targeted Credit</option>
         <option value="/experiments/results/brainlogs/EXP009_three_factor_rpe_modular.brainlog">EXP009 · Three-Factor RPE (Modular 3D)</option>
@@ -1002,7 +1112,7 @@
         </div>
         <div class="cflow-arrow">↓</div>
         <div class="flow-stage-block" id="cflow-learning">
-          <div class="cflow-header"><span class="cflow-num">3</span> LEARNING</div>
+          <div class="cflow-header" id="cflow-learning-hdr"><span class="cflow-num">3</span> <span id="cflow-learning-title">PROCESSING</span></div>
           <div class="cflow-body" id="cflow-learning-val">—</div>
           <div class="cflow-sub" id="cflow-learning-sub">evaluation state</div>
         </div>
@@ -1019,7 +1129,7 @@
     <div class="primary-input-surface" id="primary-input-surface">
       <div class="input-surface-header">
         <span class="input-surface-title">ASK THE BRAIN</span>
-        <span class="input-execution-badge" id="input-execution-badge">Trace Replay: Phase 23B Verified Run</span>
+        <span class="input-execution-badge" id="input-execution-badge">READY</span>
       </div>
       <div class="input-row">
         <input type="text" id="primary-nl-input" class="primary-ask-input"
@@ -1031,14 +1141,17 @@
           <span>▶</span> RUN
         </button>
       </div>
+      <div class="active-task-spec-line">
+        <span class="presets-label">Interpreted task:</span>
+        <span id="active-task-spec">Learn primitives → retrieve episode → frozen evaluation</span>
+      </div>
       <div class="presets-row">
         <span class="presets-label">Presets:</span>
-        <button type="button" class="preset-pill active" data-trace="/experiments/results/brainlogs/EXP023B_compositional.brainlog" data-prompt="Learn red and blue separately, then test the unseen red-plus-blue combination without further learning.">Zero-Shot Composition (EXP023B)</button>
+        <button type="button" class="preset-pill active" data-trace="/experiments/results/brainlogs/EXP023B_compositional.brainlog" data-prompt="Learn red and blue separately, then test the unseen red-plus-blue combination without further learning.">Compositional (EXP023B)</button>
         <button type="button" class="preset-pill" data-trace="/experiments/results/brainlogs/EXP023A_sample_efficiency.brainlog" data-prompt="Learn that red means left, then test the rule after 20 distracting events.">Red → LEFT (EXP023A)</button>
-        <button type="button" class="preset-pill" data-trace="/experiments/results/brainlogs/EXP022_causal_memory.brainlog" data-prompt="Learn green and yellow contextually, test with inverted cues.">Contextual Inversion (EXP022)</button>
-        <button type="button" class="preset-pill" data-trace="/experiments/results/brainlogs/EXP021_episodic_transfer.brainlog" data-prompt="Episodic transfer across variants.">Episodic Transfer (EXP021)</button>
+        <button type="button" class="preset-pill" data-trace="/experiments/results/brainlogs/EXP022_causal_memory.brainlog" data-prompt="Learn green and yellow contextually, test with inverted cues.">Context Inversion (EXP022)</button>
+        <button type="button" class="preset-pill" data-trace="/experiments/results/brainlogs/EXP021_episodic_transfer.brainlog" data-prompt="Episodic transfer across variants.">Transfer (EXP021)</button>
       </div>
-      <div class="active-task-spec-line" id="active-task-spec">Task: Learn primitives [red, blue] → Zero-shot test on unseen [red+blue] (Frozen ΔW=0)</div>
     </div>
 
     <!-- SECTION 3: LOWER 3-CARD OBSERVATORY DOCK -->
@@ -1047,15 +1160,13 @@
       <div class="surface-card surface-event" id="primary-event-surface">
         <div class="surface-card-header">
           <span class="surface-tag">CURRENT EVENT</span>
-          <span class="surface-subtag" id="current-event-step">Step 0 · 0.0 ms</span>
-        </div>
-        <div class="event-type-badge-row">
           <span class="event-type-badge" id="current-event-type">INPUT</span>
-          <span class="event-seq-tag">COMPUTATIONAL EVENT STREAM</span>
+          <span class="surface-subtag" id="current-event-step" style="display:none;">Step 0 · 0.0 ms</span>
+          <span class="event-seq-tag" style="display:none;">COMPUTATIONAL EVENT STREAM</span>
           <span id="current-event-dot" style="display:none;">●</span>
         </div>
         <div class="event-headline-text" id="current-event-title">Sensory Stimulus Presented</div>
-        <div class="event-detail-text" id="current-event-detail">norm: 1.000</div>
+        <div class="event-detail-text" id="current-event-detail">Step 0 · 0.0 ms · norm: 1.000</div>
         <div class="computation-sequence-stepper">
           <span class="flow-stage active" id="stage-input">INPUT</span>
           <span class="flow-arrow">→</span>
@@ -1166,16 +1277,76 @@
       <div class="drawer-category">
         <div class="drawer-cat-title">1. Research Overlays</div>
         <div class="drawer-btn-grid">
-          <button class="btn-toggle" id="btn-phase23b">Phase 23B: On</button>
-          <button class="btn-toggle" id="btn-phase23a">Phase 23A: Off</button>
-          <button class="btn-toggle" id="btn-phase22">Phase 22: Off</button>
-          <button class="btn-toggle" id="btn-phase21">Phase 21: Off</button>
-          <button class="btn-toggle" id="btn-causal-interv">Causal: Off</button>
-          <button class="btn-toggle" id="btn-mech-necessity">Necessity: Off</button>
-          <button class="btn-toggle" id="btn-minimality">Minimal: Off</button>
-          <button class="btn-toggle" id="btn-transfer-matrix">Transfer: Off</button>
-          <button class="btn-toggle" id="btn-temp-extrap">Extrap: Off</button>
-          <button class="btn-toggle" id="btn-ablation">Ablation: Off</button>
+          <button class="drawer-card-btn active" id="btn-phase23b" title="Shows held-out combination / zero-shot behavior (Phase 23B)">
+            <div class="card-btn-top">
+              <span class="card-btn-name">Compositionality</span>
+              <span class="card-btn-status">ON</span>
+            </div>
+            <span class="card-btn-sub">Zero-shot held-out combinations</span>
+          </button>
+          <button class="drawer-card-btn" id="btn-phase23a" title="Sample efficiency & distractor retention (Phase 23A)">
+            <div class="card-btn-top">
+              <span class="card-btn-name">Sample Efficiency</span>
+              <span class="card-btn-status">OFF</span>
+            </div>
+            <span class="card-btn-sub">Distractor retention benchmark</span>
+          </button>
+          <button class="drawer-card-btn" id="btn-phase22" title="Highlights causal memory interventions across delays (Phase 22)">
+            <div class="card-btn-top">
+              <span class="card-btn-name">Causal Memory</span>
+              <span class="card-btn-status">OFF</span>
+            </div>
+            <span class="card-btn-sub">Context inversion across delays</span>
+          </button>
+          <button class="drawer-card-btn" id="btn-phase21" title="Shows episodic retrieval and memory usage (Phase 21)">
+            <div class="card-btn-top">
+              <span class="card-btn-name">Episode Memory</span>
+              <span class="card-btn-status">OFF</span>
+            </div>
+            <span class="card-btn-sub">Episodic retrieval & transfer</span>
+          </button>
+          <button class="drawer-card-btn" id="btn-causal-interv" title="Counterfactual and perturbation interventions">
+            <div class="card-btn-top">
+              <span class="card-btn-name">Causal Intervention</span>
+              <span class="card-btn-status">OFF</span>
+            </div>
+            <span class="card-btn-sub">Counterfactual interventions</span>
+          </button>
+          <button class="drawer-card-btn" id="btn-mech-necessity" title="Component necessity and lesion test results">
+            <div class="card-btn-top">
+              <span class="card-btn-name">Necessity Audit</span>
+              <span class="card-btn-status">OFF</span>
+            </div>
+            <span class="card-btn-sub">Component necessity & lesion</span>
+          </button>
+          <button class="drawer-card-btn" id="btn-minimality" title="Highlights retained minimal components">
+            <div class="card-btn-top">
+              <span class="card-btn-name">Minimal Architecture</span>
+              <span class="card-btn-status">OFF</span>
+            </div>
+            <span class="card-btn-sub">Retained sufficient substrate</span>
+          </button>
+          <button class="drawer-card-btn" id="btn-transfer-matrix" title="Shows cross-task transfer behavior">
+            <div class="card-btn-top">
+              <span class="card-btn-name">Transfer Matrix</span>
+              <span class="card-btn-status">OFF</span>
+            </div>
+            <span class="card-btn-sub">Cross-task generalization</span>
+          </button>
+          <button class="drawer-card-btn" id="btn-temp-extrap" title="Shows temporal extrapolation behavior">
+            <div class="card-btn-top">
+              <span class="card-btn-name">Extrapolation</span>
+              <span class="card-btn-status">OFF</span>
+            </div>
+            <span class="card-btn-sub">Temporal horizon extrapolation</span>
+          </button>
+          <button class="drawer-card-btn" id="btn-ablation" title="Shows causal ablation state">
+            <div class="card-btn-top">
+              <span class="card-btn-name">Ablation State</span>
+              <span class="card-btn-status">OFF</span>
+            </div>
+            <span class="card-btn-sub">Causal ablation lesion mask</span>
+          </button>
         </div>
       </div>
 
@@ -1183,14 +1354,62 @@
       <div class="drawer-category">
         <div class="drawer-cat-title">2. Biophysical Dynamics</div>
         <div class="drawer-btn-grid">
-          <button class="btn-toggle" id="btn-view-toggle">Mode: Structural</button>
-          <button class="btn-toggle" id="btn-spike-encoding">Spike Enc: Off</button>
-          <button class="btn-toggle" id="btn-temporal-coding">Temporal: Off</button>
-          <button class="btn-toggle" id="btn-resonance">Resonance: Off</button>
-          <button class="btn-toggle" id="btn-info-flow">Info Flow: Off</button>
-          <button class="btn-toggle" id="btn-action-credit">Credit: Off</button>
-          <button class="btn-toggle" id="btn-action-assembly">Assembly: Off</button>
-          <button class="btn-toggle" id="btn-temporal-horizon">Horizon: Off</button>
+          <button class="drawer-card-btn" id="btn-view-toggle" title="Switch structural vs functional view">
+            <div class="card-btn-top">
+              <span class="card-btn-name">View Projection</span>
+              <span class="card-btn-status">STRUCTURAL</span>
+            </div>
+            <span class="card-btn-sub">Connectivity geometry</span>
+          </button>
+          <button class="drawer-card-btn" id="btn-spike-encoding" title="Adaptive biophysical threshold dynamics">
+            <div class="card-btn-top">
+              <span class="card-btn-name">Spike Encoding</span>
+              <span class="card-btn-status">OFF</span>
+            </div>
+            <span class="card-btn-sub">Biophysical adaptive thresholds</span>
+          </button>
+          <button class="drawer-card-btn" id="btn-temporal-coding" title="Phase latency and oscillation locking">
+            <div class="card-btn-top">
+              <span class="card-btn-name">Temporal Coding</span>
+              <span class="card-btn-status">OFF</span>
+            </div>
+            <span class="card-btn-sub">Phase-latency synchrony</span>
+          </button>
+          <button class="drawer-card-btn" id="btn-resonance" title="Frequency and spectral coherence analysis">
+            <div class="card-btn-top">
+              <span class="card-btn-name">Resonance</span>
+              <span class="card-btn-status">OFF</span>
+            </div>
+            <span class="card-btn-sub">Spectral population resonance</span>
+          </button>
+          <button class="drawer-card-btn" id="btn-info-flow" title="Causal directional transfer entropy">
+            <div class="card-btn-top">
+              <span class="card-btn-name">Information Flow</span>
+              <span class="card-btn-status">OFF</span>
+            </div>
+            <span class="card-btn-sub">Directional transfer entropy</span>
+          </button>
+          <button class="drawer-card-btn" id="btn-action-credit" title="Targeted feedback and eligibility traces">
+            <div class="card-btn-top">
+              <span class="card-btn-name">Credit Assignment</span>
+              <span class="card-btn-status">OFF</span>
+            </div>
+            <span class="card-btn-sub">Three-factor eligibility traces</span>
+          </button>
+          <button class="drawer-card-btn" id="btn-action-assembly" title="Population attractor readout assembly">
+            <div class="card-btn-top">
+              <span class="card-btn-name">Action Assembly</span>
+              <span class="card-btn-status">OFF</span>
+            </div>
+            <span class="card-btn-sub">Population readout attractors</span>
+          </button>
+          <button class="drawer-card-btn" id="btn-temporal-horizon" title="Multi-step synaptic credit horizon">
+            <div class="card-btn-top">
+              <span class="card-btn-name">Credit Horizon</span>
+              <span class="card-btn-status">OFF</span>
+            </div>
+            <span class="card-btn-sub">Synaptic consolidation horizon</span>
+          </button>
         </div>
       </div>
 
@@ -1198,12 +1417,48 @@
       <div class="drawer-category">
         <div class="drawer-cat-title">3. Debug & Instrumentation</div>
         <div class="drawer-btn-grid">
-          <button class="btn-toggle" id="btn-audit-mode">Audit: Off</button>
-          <button class="btn-toggle" id="btn-baselines">Baselines: Off</button>
-          <button class="btn-toggle" id="raster-toggle-btn">Raster: Off</button>
-          <button class="btn-toggle" id="btn-orbit-toggle">Orbit: Off</button>
-          <button class="btn-toggle" id="btn-info-toggle">Info: Off</button>
-          <button class="btn-toggle" id="btn-open-file">Open File</button>
+          <button class="drawer-card-btn" id="btn-audit-mode" title="Benchmark integrity audit">
+            <div class="card-btn-top">
+              <span class="card-btn-name">Audit Mode</span>
+              <span class="card-btn-status">OFF</span>
+            </div>
+            <span class="card-btn-sub">Scientific audit verification</span>
+          </button>
+          <button class="drawer-card-btn" id="btn-baselines" title="Contrast against non-spiking baselines">
+            <div class="card-btn-top">
+              <span class="card-btn-name">Baselines</span>
+              <span class="card-btn-status">OFF</span>
+            </div>
+            <span class="card-btn-sub">Non-spiking baseline models</span>
+          </button>
+          <button class="drawer-card-btn" id="raster-toggle-btn" title="Toggle spike raster drawer">
+            <div class="card-btn-top">
+              <span class="card-btn-name">Spike Raster</span>
+              <span class="card-btn-status">OFF</span>
+            </div>
+            <span class="card-btn-sub">Population event raster</span>
+          </button>
+          <button class="drawer-card-btn" id="btn-orbit-toggle" title="Toggle continuous camera orbit">
+            <div class="card-btn-top">
+              <span class="card-btn-name">Auto Orbit</span>
+              <span class="card-btn-status">OFF</span>
+            </div>
+            <span class="card-btn-sub">Continuous 3D camera rotation</span>
+          </button>
+          <button class="drawer-card-btn" id="btn-info-toggle" title="Show experiment details modal">
+            <div class="card-btn-top">
+              <span class="card-btn-name">Metadata</span>
+              <span class="card-btn-status">DETAILS</span>
+            </div>
+            <span class="card-btn-sub">Trace experiment metadata</span>
+          </button>
+          <button class="drawer-card-btn" id="btn-open-file" title="Load custom .brainlog file">
+            <div class="card-btn-top">
+              <span class="card-btn-name">Load File</span>
+              <span class="card-btn-status">UPLOAD</span>
+            </div>
+            <span class="card-btn-sub">Open custom .brainlog</span>
+          </button>
         </div>
       </div>
 
@@ -1211,10 +1466,34 @@
       <div class="drawer-category">
         <div class="drawer-cat-title">4. Experiment Control</div>
         <div class="drawer-btn-grid">
-          <button class="btn-toggle" id="btn-action-interface">Interface: Off</button>
-          <button class="btn-toggle" id="btn-replay-mode">Replay: Off</button>
-          <button class="btn-toggle" id="btn-generation-mode">Gen: Off</button>
-          <button class="btn-toggle" id="btn-copy-frame">Copy Frame</button>
+          <button class="drawer-card-btn" id="btn-action-interface" title="Learnable action interface">
+            <div class="card-btn-top">
+              <span class="card-btn-name">Action Interface</span>
+              <span class="card-btn-status">OFF</span>
+            </div>
+            <span class="card-btn-sub">Readout population mapping</span>
+          </button>
+          <button class="drawer-card-btn" id="btn-replay-mode" title="Toggle replay mode">
+            <div class="card-btn-top">
+              <span class="card-btn-name">Replay Mode</span>
+              <span class="card-btn-status">REPLAY</span>
+            </div>
+            <span class="card-btn-sub">Trace playback mode</span>
+          </button>
+          <button class="drawer-card-btn" id="btn-generation-mode" title="Toggle state generation mode">
+            <div class="card-btn-top">
+              <span class="card-btn-name">Generation</span>
+              <span class="card-btn-status">OFF</span>
+            </div>
+            <span class="card-btn-sub">Dynamic stimulus generator</span>
+          </button>
+          <button class="drawer-card-btn" id="btn-copy-frame" title="Copy frame JSON to clipboard">
+            <div class="card-btn-top">
+              <span class="card-btn-name">Copy Frame</span>
+              <span class="card-btn-status">CLIPBOARD</span>
+            </div>
+            <span class="card-btn-sub">Export active frame JSON</span>
+          </button>
         </div>
       </div>
 
@@ -2025,6 +2304,9 @@ MIN_E_PLUS_EPISODIC</pre>
       camera.position.z = camTarget.z + camRadius * Math.sin(camPhi) * Math.cos(camTheta);
       camera.lookAt(camTarget);
     }
+    window.camera = camera;
+    window.camTarget = camTarget;
+    window.getCamRadius = () => camRadius;
     updateCameraPosition();
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
@@ -2231,7 +2513,9 @@ MIN_E_PLUS_EPISODIC</pre>
       const maxDim = Math.max(size.x, size.y, size.z, 8.0);
 
       camTarget.set(center.x, center.y, center.z);
-      camRadius = Math.max(16.5, maxDim * 1.8);
+      const halfFov = (camera.fov / 2) * (Math.PI / 180);
+      const fitRadius = (maxDim * 0.5) / Math.sin(halfFov);
+      camRadius = Math.max(11.0, fitRadius * 1.18);
       camTheta = 0.20;
       camPhi = Math.PI / 2.35;
       updateCameraPosition();
@@ -3541,22 +3825,25 @@ MIN_E_PLUS_EPISODIC</pre>
       if (curEv) {
         const typeStr = curEv.type || '';
         let badgeType = 'COMPUTATION ACTIVE';
-        let titleStr = curEv.description || 'Neural processing';
-        let detailStr = `Step ${curEv.step} · t=${Number(curEv.time_ms).toFixed(1)} ms`;
+        let titleStr = curEv.description || 'Neural Processing';
+        let detailStr = `Step ${curEv.step} · ${Number(curEv.time_ms).toFixed(1)} ms`;
 
         if (typeStr.includes('INPUT')) {
           badgeType = 'INPUT';
           titleStr = 'Sensory Stimulus Presented';
-          detailStr = curEv.payload && curEv.payload.input_norm ? `norm: ${curEv.payload.input_norm}` : 'stimulus active';
+          const normStr = curEv.payload && curEv.payload.input_norm !== undefined ? ` · Norm ${curEv.payload.input_norm}` : '';
+          detailStr = `Step ${curEv.step} · ${Number(curEv.time_ms).toFixed(1)} ms${normStr}`;
           if (stageInput) stageInput.className = 'flow-stage active';
           if (stageMemory) stageMemory.className = 'flow-stage pending';
           if (stageDecision) stageDecision.className = 'flow-stage pending';
         } else if (typeStr.includes('RETRIEV') || typeStr.includes('EPISODE_RETRIEVED') || typeStr.includes('MEMORY')) {
           badgeType = 'MEMORY RETRIEVAL';
-          titleStr = dyn.combination_key ? `${dyn.combination_key} (retrieved)` : (dyn.retrieved_episode_id !== undefined ? `Episode #${dyn.retrieved_episode_id}` : 'Episodic Retrieval');
+          titleStr = dyn.combination_key ? `Memory Retrieved: ${dyn.combination_key}` : (dyn.retrieved_episode_id !== undefined ? `Memory Retrieved: Episode #${dyn.retrieved_episode_id}` : 'Episodic Memory Retrieved');
           const sim = curEv.payload && curEv.payload.similarity !== undefined ? curEv.payload.similarity : (dyn.retrieval_similarity !== undefined ? dyn.retrieval_similarity : null);
           const epId = curEv.payload && curEv.payload.retrieved_id !== undefined ? curEv.payload.retrieved_id : (dyn.retrieved_episode_id !== undefined ? dyn.retrieved_episode_id : null);
-          detailStr = `similarity: ${sim !== null ? Number(sim).toFixed(3) : '—'} · retrieved episode #${epId !== null ? epId : '—'}`;
+          const epStr = epId !== null ? ` · Episode #${epId}` : '';
+          const simStr = sim !== null ? ` · Sim ${Number(sim).toFixed(3)}` : '';
+          detailStr = `Step ${curEv.step} · ${Number(curEv.time_ms).toFixed(1)} ms${epStr}${simStr}`;
           if (stageInput) stageInput.className = 'flow-stage done';
           if (stageMemory) stageMemory.className = 'flow-stage active';
           if (stageDecision) stageDecision.className = 'flow-stage pending';
@@ -3564,29 +3851,33 @@ MIN_E_PLUS_EPISODIC</pre>
           badgeType = 'DECISION';
           const a = curEv.payload && curEv.payload.action !== undefined ? curEv.payload.action : (dyn.selected_action !== undefined ? dyn.selected_action : null);
           const act = a === 0 ? 'LEFT' : (a === 1 ? 'RIGHT' : (a !== null ? `ACTION ${a}` : '—'));
-          const conf = (curEv.payload && curEv.payload.confidence !== undefined) ? `${(curEv.payload.confidence * 100).toFixed(1)}%` : (dyn.confidence !== undefined ? `${(dyn.confidence * 100).toFixed(1)}%` : '—');
-          titleStr = `${act} · ${conf}`;
-          detailStr = dyn.winner_margin !== undefined ? `winner margin: ${(dyn.winner_margin >= 0 ? '+' : '') + dyn.winner_margin.toFixed(3)}` : 'Decision assembly executed';
+          const conf = (curEv.payload && curEv.payload.confidence !== undefined) ? `${(curEv.payload.confidence * 100).toFixed(1)}%` : (dyn.confidence !== undefined ? `${(dyn.confidence * 100).toFixed(1)}%` : '');
+          titleStr = conf ? `Decision Generated: ${act} (${conf})` : `Decision Generated: ${act}`;
+          const marginStr = dyn.winner_margin !== undefined ? ` · Margin ${(dyn.winner_margin >= 0 ? '+' : '') + dyn.winner_margin.toFixed(3)}` : '';
+          detailStr = `Step ${curEv.step} · ${Number(curEv.time_ms).toFixed(1)} ms${marginStr}`;
           if (stageInput) stageInput.className = 'flow-stage done';
           if (stageMemory) stageMemory.className = 'flow-stage done';
           if (stageDecision) stageDecision.className = 'flow-stage active';
         } else if (typeStr.includes('ZERO_SHOT')) {
           badgeType = 'ZERO-SHOT TEST';
           titleStr = 'Held-Out Combination Evaluation';
-          detailStr = 'Weights frozen (ΔW = 0 verified)';
+          detailStr = `Step ${curEv.step} · ${Number(curEv.time_ms).toFixed(1)} ms · Frozen ΔW = 0`;
         } else if (typeStr.includes('PLASTIC') || typeStr.includes('LEARN')) {
           badgeType = 'LEARNING';
           titleStr = 'Synaptic Weights Updated';
-          detailStr = `ΔW = ${curEv.magnitude !== undefined ? curEv.magnitude.toFixed(5) : '0.00000'}`;
+          detailStr = `Step ${curEv.step} · ${Number(curEv.time_ms).toFixed(1)} ms · ΔW = ${curEv.magnitude !== undefined ? curEv.magnitude.toFixed(5) : '0.00000'}`;
         }
 
         if (evTypeEl) evTypeEl.innerText = badgeType;
         if (evTitleEl) evTitleEl.innerText = titleStr;
         if (evDetailEl) evDetailEl.innerText = detailStr;
       } else {
-        if (evTypeEl) evTypeEl.innerText = 'IDLE STATE';
-        if (evTitleEl) evTitleEl.innerText = 'Awaiting Input';
-        if (evDetailEl) evDetailEl.innerText = 'Ready for task instruction';
+        if (evTypeEl) evTypeEl.innerText = 'WAITING';
+        if (evTitleEl) evTitleEl.innerText = 'Waiting For Execution';
+        if (evDetailEl) evDetailEl.innerText = 'Step 0 · 0.0 ms · Ready';
+        if (stageInput) stageInput.className = 'flow-stage pending';
+        if (stageMemory) stageMemory.className = 'flow-stage pending';
+        if (stageDecision) stageDecision.className = 'flow-stage pending';
       }
 
       // Sync slider & transport in bottom bar
@@ -3604,6 +3895,11 @@ MIN_E_PLUS_EPISODIC</pre>
     function updateComputationFlowPanel(frame, dyn, stepIndex) {
       const dynSafe = dyn || {};
       const frameEvents = (frame && frame.events) ? frame.events : [];
+      const evTypes = frameEvents.map(e => e.type || '');
+      const isInputEvent = evTypes.some(t => t.includes('INPUT'));
+      const isMemEvent = evTypes.some(t => t.includes('RETRIEV') || t.includes('EPISODE_RETRIEVED') || t.includes('MEMORY'));
+      const isLrnEvent = evTypes.some(t => t.includes('PLASTIC') || t.includes('LEARN') || t.includes('WEIGHT'));
+      const isDecEvent = evTypes.some(t => t.includes('ACTION') || t.includes('DECISION'));
 
       // 1. INPUT
       const inVal = document.getElementById('cflow-input-val');
@@ -3623,7 +3919,6 @@ MIN_E_PLUS_EPISODIC</pre>
           inSub.innerText = `no input presented`;
         }
       }
-      if (inBlock) inBlock.classList.toggle('active', hasInput);
 
       // 2. MEMORY
       const memVal = document.getElementById('cflow-memory-val');
@@ -3642,26 +3937,29 @@ MIN_E_PLUS_EPISODIC</pre>
           memSub.innerText = `not recorded`;
         }
       }
-      if (memBlock) memBlock.classList.toggle('active', hasRetr);
 
-      // 3. LEARNING
+      // 3. PROCESSING / LEARNING
       const lrnVal = document.getElementById('cflow-learning-val');
       const lrnSub = document.getElementById('cflow-learning-sub');
       const lrnBlock = document.getElementById('cflow-learning');
+      const lrnTitle = document.getElementById('cflow-learning-title');
+      const isPlasticLearning = (dynSafe.weight_change_norm > 0) || isLrnEvent;
+      if (lrnTitle) {
+        lrnTitle.innerText = isPlasticLearning ? 'LEARNING' : 'PROCESSING';
+      }
       const isFrozen = dynSafe.evaluation_status === 'FROZEN' || dynSafe.is_zero_shot_test || dynSafe.delta_w_zero;
       if (lrnVal && lrnSub) {
-        if (isFrozen) {
+        if (isPlasticLearning) {
+          lrnVal.innerText = `PLASTIC UPDATE`;
+          lrnSub.innerText = `ΔW = ${Number(dynSafe.weight_change_norm).toFixed(5)}`;
+        } else if (isFrozen) {
           lrnVal.innerText = `FROZEN (ΔW = 0)`;
           lrnSub.innerText = `zero evaluation plasticity`;
-        } else if (dynSafe.weight_change_norm > 0) {
-          lrnVal.innerText = `PLASTIC ACTIVE`;
-          lrnSub.innerText = `ΔW = ${Number(dynSafe.weight_change_norm).toFixed(5)}`;
         } else {
-          lrnVal.innerText = `IDLE`;
+          lrnVal.innerText = `FEEDFORWARD / RECURRENT`;
           lrnSub.innerText = `0 synaptic updates`;
         }
       }
-      if (lrnBlock) lrnBlock.classList.toggle('active', isFrozen || dynSafe.weight_change_norm > 0);
 
       // 4. DECISION
       const decVal = document.getElementById('cflow-decision-val');
@@ -3680,7 +3978,31 @@ MIN_E_PLUS_EPISODIC</pre>
           decSub.innerText = `waiting for execution`;
         }
       }
-      if (decBlock) decBlock.classList.toggle('active', hasDec);
+
+      // Distinguish CURRENT EVENT from general state: highlight only the active stage
+      if (inBlock) inBlock.classList.remove('active');
+      if (memBlock) memBlock.classList.remove('active');
+      if (lrnBlock) lrnBlock.classList.remove('active');
+      if (decBlock) decBlock.classList.remove('active');
+
+      if (isDecEvent) {
+        if (decBlock) decBlock.classList.add('active');
+      } else if (isMemEvent) {
+        if (memBlock) memBlock.classList.add('active');
+      } else if (isLrnEvent) {
+        if (lrnBlock) lrnBlock.classList.add('active');
+      } else if (isInputEvent) {
+        if (inBlock) inBlock.classList.add('active');
+      } else {
+        // When no event on exact frame, reflect the active stage in temporal order
+        if (hasDec && stepIndex > 0) {
+          if (decBlock) decBlock.classList.add('active');
+        } else if (hasRetr && stepIndex > 0) {
+          if (memBlock) memBlock.classList.add('active');
+        } else if (hasInput) {
+          if (inBlock) inBlock.classList.add('active');
+        }
+      }
     }
 
     function updatePrimaryResultSurface(frame, dyn, stepIndex) {
@@ -3833,6 +4155,7 @@ MIN_E_PLUS_EPISODIC</pre>
     function clearSelection() {
       selectionType = null;
       selectedNodeId = null;
+      window.selectedNodeId = null;
       selectedEdge = null;
       selectedCommunityId = null;
       selectionHalo.visible = false;
@@ -3858,6 +4181,7 @@ MIN_E_PLUS_EPISODIC</pre>
     function selectNeuron(nodeId) {
       selectionType = 'NEURON';
       selectedNodeId = nodeId;
+      window.selectedNodeId = nodeId;
       selectedEdge = null;
       selectedCommunityId = null;
 
@@ -4333,21 +4657,35 @@ MIN_E_PLUS_EPISODIC</pre>
       ctx.stroke();
     }
 
-    /**
-     * =========================================================================
-     * REPLAY TRANSPORT CONTROLS
-     * =========================================================================
-     */
+    let lastPlayTrigger = 'play'; // 'run' | 'replay' | 'play'
+
     function play() {
       if (!replay || isPlaying) return;
       isPlaying = true;
-      document.getElementById('btn-play').innerText = '⏸ Pause';
-      document.getElementById('btn-play').classList.add('active');
+      const btnPlay = document.getElementById('btn-play');
+      if (btnPlay) {
+        btnPlay.innerText = '⏸ Pause';
+        btnPlay.classList.add('active');
+      }
+      const bPlayPause = document.getElementById('btn-play-pause');
+      if (bPlayPause) {
+        bPlayPause.innerText = '⏸ PAUSE';
+        bPlayPause.classList.add('playing');
+      }
+
+      const runBadgeEl = document.getElementById('input-execution-badge');
+      if (runBadgeEl && runBadgeEl.innerText !== 'UNSUPPORTED COMMAND') {
+        runBadgeEl.innerText = (lastPlayTrigger === 'run') ? 'RUNNING' : 'REPLAYING';
+      }
 
       const intervalMs = Math.max(20, 100 / playSpeed);
       playInterval = setInterval(() => {
         if (replay.currentStep >= replay.totalSteps - 1) {
           pause();
+          const badgeDone = document.getElementById('input-execution-badge');
+          if (badgeDone && badgeDone.innerText !== 'UNSUPPORTED COMMAND') {
+            badgeDone.innerText = 'COMPLETE';
+          }
         } else {
           replay.stepForward();
           renderFrame(replay.currentStep);
@@ -4363,6 +4701,22 @@ MIN_E_PLUS_EPISODIC</pre>
       if (btn) {
         btn.innerText = '▶ Play';
         btn.classList.remove('active');
+      }
+      const bPlayPause = document.getElementById('btn-play-pause');
+      if (bPlayPause) {
+        bPlayPause.innerText = '▶ PLAY';
+        bPlayPause.classList.remove('playing');
+      }
+
+      const runBadgeEl = document.getElementById('input-execution-badge');
+      if (runBadgeEl && runBadgeEl.innerText !== 'UNSUPPORTED COMMAND') {
+        if (replay && replay.currentStep >= replay.totalSteps - 1) {
+          runBadgeEl.innerText = 'COMPLETE';
+        } else if (replay && replay.currentStep > 0) {
+          runBadgeEl.innerText = 'PAUSED';
+        } else {
+          runBadgeEl.innerText = 'READY';
+        }
       }
     }
 
@@ -5076,6 +5430,17 @@ MIN_E_PLUS_EPISODIC</pre>
       };
     }
 
+    function updateDrawerBtn(btnId, isActive) {
+      const b = document.getElementById(btnId);
+      if (!b) return;
+      b.classList.toggle('active', !!isActive);
+      const st = b.querySelector('.card-btn-status');
+      if (st) {
+        st.innerText = isActive ? 'ON' : 'OFF';
+      }
+    }
+    window.updateDrawerBtn = updateDrawerBtn;
+
     // Phase 21 Episodic / Replay / Consolidation / Transfer Overlays [E][R][C][T]
     let p21Active = false;
     const p21Btn = document.getElementById('p21-btn');
@@ -5086,9 +5451,10 @@ MIN_E_PLUS_EPISODIC</pre>
     function setP21Active(on) {
       p21Active = on;
       if (p21Btn) {
-        p21Btn.innerText = `🧠 Phase 21: ${on ? 'On' : 'Off'}`;
+        p21Btn.innerText = `🧠 Transfer: ${on ? 'On' : 'Off'}`;
         p21Btn.classList.toggle('active', on);
       }
+      updateDrawerBtn('btn-phase21', on);
       p21OverlayIds.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.style.display = (on && !p21Closed.has(id)) ? 'flex' : 'none';
@@ -5127,9 +5493,10 @@ MIN_E_PLUS_EPISODIC</pre>
     function setP22Active(on) {
       p22Active = on;
       if (p22Btn) {
-        p22Btn.innerText = `🧠 Phase 22: ${on ? 'On' : 'Off'}`;
+        p22Btn.innerText = `🧠 Causal Memory: ${on ? 'On' : 'Off'}`;
         p22Btn.classList.toggle('active', on);
       }
+      updateDrawerBtn('btn-phase22', on);
       p22OverlayIds.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.style.display = (on && !p22Closed.has(id)) ? 'flex' : 'none';
@@ -5167,9 +5534,10 @@ MIN_E_PLUS_EPISODIC</pre>
     function setP23AActive(on) {
       p23aActive = on;
       if (p23aBtn) {
-        p23aBtn.innerText = `🔬 Phase 23A: ${on ? 'On' : 'Off'}`;
+        p23aBtn.innerText = `🔬 Sample Efficiency: ${on ? 'On' : 'Off'}`;
         p23aBtn.classList.toggle('active', on);
       }
+      updateDrawerBtn('btn-phase23a', on);
       if (p23aNlPanel) p23aNlPanel.style.display = on ? 'flex' : 'none';
       if (p23aObsOverlay) p23aObsOverlay.style.display = on ? 'flex' : 'none';
       if (replay) renderFrame(replay.currentStep);
@@ -5330,9 +5698,10 @@ MIN_E_PLUS_EPISODIC</pre>
     function setP23BActive(on) {
       p23bActive = on;
       if (p23bBtn) {
-        p23bBtn.innerText = `🔬 Phase 23B: ${on ? 'On' : 'Off'}`;
+        p23bBtn.innerText = `🔬 Compositionality: ${on ? 'On' : 'Off'}`;
         p23bBtn.classList.toggle('active', on);
       }
+      updateDrawerBtn('btn-phase23b', on);
       if (p23bNlPanel) p23bNlPanel.style.display = on ? 'flex' : 'none';
       if (p23bObsOverlay) p23bObsOverlay.style.display = on ? 'flex' : 'none';
       if (replay) renderFrame(replay.currentStep);
@@ -5368,6 +5737,7 @@ MIN_E_PLUS_EPISODIC</pre>
 
     // Wire Bottom Timeline Controls
     bindClick('btn-play-pause', () => {
+      lastPlayTrigger = 'play';
       togglePlay();
       const pBtn = document.getElementById('btn-play-pause');
       if (pBtn) {
@@ -5385,6 +5755,10 @@ MIN_E_PLUS_EPISODIC</pre>
       if (pBtn) {
         pBtn.innerText = '▶ PLAY';
         pBtn.classList.remove('playing');
+      }
+      const badgeEl = document.getElementById('input-execution-badge');
+      if (badgeEl && badgeEl.innerText !== 'UNSUPPORTED COMMAND') {
+        badgeEl.innerText = 'READY';
       }
     });
     bindClick('btn-first', () => {
@@ -5416,6 +5790,7 @@ MIN_E_PLUS_EPISODIC</pre>
       if (replay) {
         replay.seek(0);
         renderFrame(0);
+        lastPlayTrigger = 'replay';
         play();
       }
     });
@@ -5458,140 +5833,122 @@ MIN_E_PLUS_EPISODIC</pre>
     bindClick('btn-phase21', () => setP21Active(!p21Active));
     bindClick('btn-causal-interv', () => {
       causalIntervActive = !causalIntervActive;
-      const b = document.getElementById('btn-causal-interv');
-      if (b) { b.innerText = `Causal: ${causalIntervActive ? 'On' : 'Off'}`; b.classList.toggle('active', causalIntervActive); }
+      updateDrawerBtn('btn-causal-interv', causalIntervActive);
       const ov = document.getElementById('causal-interv-overlay');
       if (ov) ov.style.display = causalIntervActive ? 'flex' : 'none';
       if (replay) renderFrame(replay.currentStep);
     });
     bindClick('btn-mech-necessity', () => {
       mechNecessityActive = !mechNecessityActive;
-      const b = document.getElementById('btn-mech-necessity');
-      if (b) { b.innerText = `Necessity: ${mechNecessityActive ? 'On' : 'Off'}`; b.classList.toggle('active', mechNecessityActive); }
+      updateDrawerBtn('btn-mech-necessity', mechNecessityActive);
       const ov = document.getElementById('mech-necessity-overlay');
       if (ov) ov.style.display = mechNecessityActive ? 'flex' : 'none';
       if (replay) renderFrame(replay.currentStep);
     });
     bindClick('btn-minimality', () => {
       minimalityActive = !minimalityActive;
-      const b = document.getElementById('btn-minimality');
-      if (b) { b.innerText = `Minimal: ${minimalityActive ? 'On' : 'Off'}`; b.classList.toggle('active', minimalityActive); }
+      updateDrawerBtn('btn-minimality', minimalityActive);
       const ov = document.getElementById('minimality-overlay');
       if (ov) ov.style.display = minimalityActive ? 'flex' : 'none';
       if (replay) renderFrame(replay.currentStep);
     });
     bindClick('btn-transfer-matrix', () => {
       transferMatrixActive = !transferMatrixActive;
-      const b = document.getElementById('btn-transfer-matrix');
-      if (b) { b.innerText = `Transfer: ${transferMatrixActive ? 'On' : 'Off'}`; b.classList.toggle('active', transferMatrixActive); }
+      updateDrawerBtn('btn-transfer-matrix', transferMatrixActive);
       const ov = document.getElementById('transfer-matrix-overlay');
       if (ov) ov.style.display = transferMatrixActive ? 'flex' : 'none';
       if (replay) renderFrame(replay.currentStep);
     });
     bindClick('btn-temp-extrap', () => {
       temporalExtrapActive = !temporalExtrapActive;
-      const b = document.getElementById('btn-temp-extrap');
-      if (b) { b.innerText = `Extrap: ${temporalExtrapActive ? 'On' : 'Off'}`; b.classList.toggle('active', temporalExtrapActive); }
+      updateDrawerBtn('btn-temp-extrap', temporalExtrapActive);
       if (replay) renderFrame(replay.currentStep);
     });
     bindClick('btn-ablation', () => {
       ablationActive = !ablationActive;
-      const b = document.getElementById('btn-ablation');
-      if (b) { b.innerText = `Ablation: ${ablationActive ? 'On' : 'Off'}`; b.classList.toggle('active', ablationActive); }
+      updateDrawerBtn('btn-ablation', ablationActive);
       const ov = document.getElementById('ablation-overlay');
       if (ov) ov.style.display = ablationActive ? 'flex' : 'none';
       if (replay) renderFrame(replay.currentStep);
     });
     bindClick('btn-view-toggle', () => {
       viewMode = (viewMode === 'STRUCTURAL') ? 'FUNCTIONAL' : 'STRUCTURAL';
-      const b = document.getElementById('btn-view-toggle');
-      if (b) { b.innerText = (viewMode === 'STRUCTURAL') ? 'Mode: Structural' : 'Mode: Functional'; b.classList.toggle('active', viewMode === 'FUNCTIONAL'); }
+      updateDrawerBtn('btn-view-toggle', viewMode === 'FUNCTIONAL');
       const cmb = document.getElementById('conn-mode-btn');
       if (cmb) { cmb.innerText = (viewMode === 'STRUCTURAL') ? '🌐 Mode: Structural' : '⚡ Mode: Functional'; cmb.classList.toggle('active', viewMode === 'FUNCTIONAL'); }
       if (replay) renderFrame(replay.currentStep);
     });
     bindClick('btn-spike-encoding', () => {
       spikeEncodingActive = !spikeEncodingActive;
-      const b = document.getElementById('btn-spike-encoding');
-      if (b) { b.innerText = `Spike Enc: ${spikeEncodingActive ? 'On' : 'Off'}`; b.classList.toggle('active', spikeEncodingActive); }
+      updateDrawerBtn('btn-spike-encoding', spikeEncodingActive);
       const ov = document.getElementById('spike-encoding-overlay');
       if (ov) ov.style.display = spikeEncodingActive ? 'flex' : 'none';
     });
     bindClick('btn-temporal-coding', () => {
       temporalCodingActive = !temporalCodingActive;
-      const b = document.getElementById('btn-temporal-coding');
-      if (b) { b.innerText = `Temporal: ${temporalCodingActive ? 'On' : 'Off'}`; b.classList.toggle('active', temporalCodingActive); }
+      updateDrawerBtn('btn-temporal-coding', temporalCodingActive);
       const ov = document.getElementById('temporal-coding-overlay');
       if (ov) ov.style.display = temporalCodingActive ? 'flex' : 'none';
       if (replay) renderFrame(replay.currentStep);
     });
     bindClick('btn-resonance', () => {
       resonanceActive = !resonanceActive;
-      const b = document.getElementById('btn-resonance');
-      if (b) { b.innerText = `Resonance: ${resonanceActive ? 'On' : 'Off'}`; b.classList.toggle('active', resonanceActive); }
+      updateDrawerBtn('btn-resonance', resonanceActive);
       const ov = document.getElementById('resonance-overlay');
       if (ov) ov.style.display = resonanceActive ? 'flex' : 'none';
       if (replay) renderFrame(replay.currentStep);
     });
     bindClick('btn-info-flow', () => {
       infoFlowActive = !infoFlowActive;
-      const b = document.getElementById('btn-info-flow');
-      if (b) { b.innerText = `Info Flow: ${infoFlowActive ? 'On' : 'Off'}`; b.classList.toggle('active', infoFlowActive); }
+      updateDrawerBtn('btn-info-flow', infoFlowActive);
       const ov = document.getElementById('info-flow-overlay');
       if (ov) ov.style.display = infoFlowActive ? 'flex' : 'none';
       if (replay) renderFrame(replay.currentStep);
     });
     bindClick('btn-action-credit', () => {
       actionCreditActive = !actionCreditActive;
-      const b = document.getElementById('btn-action-credit');
-      if (b) { b.innerText = `Credit: ${actionCreditActive ? 'On' : 'Off'}`; b.classList.toggle('active', actionCreditActive); }
+      updateDrawerBtn('btn-action-credit', actionCreditActive);
       const ov = document.getElementById('action-credit-overlay');
       if (ov) ov.style.display = actionCreditActive ? 'flex' : 'none';
       if (replay) renderFrame(replay.currentStep);
     });
     bindClick('btn-action-assembly', () => {
       actionAssemblyActive = !actionAssemblyActive;
-      const b = document.getElementById('btn-action-assembly');
-      if (b) { b.innerText = `Assembly: ${actionAssemblyActive ? 'On' : 'Off'}`; b.classList.toggle('active', actionAssemblyActive); }
+      updateDrawerBtn('btn-action-assembly', actionAssemblyActive);
       const ov = document.getElementById('action-assembly-overlay');
       if (ov) ov.style.display = actionAssemblyActive ? 'flex' : 'none';
       if (replay) renderFrame(replay.currentStep);
     });
     bindClick('btn-temporal-horizon', () => {
       creditHorizonActive = !creditHorizonActive;
-      const b = document.getElementById('btn-temporal-horizon');
-      if (b) { b.innerText = `Horizon: ${creditHorizonActive ? 'On' : 'Off'}`; b.classList.toggle('active', creditHorizonActive); }
+      updateDrawerBtn('btn-temporal-horizon', creditHorizonActive);
       const ov = document.getElementById('credit-horizon-overlay');
       if (ov) ov.style.display = creditHorizonActive ? 'flex' : 'none';
       if (replay) renderFrame(replay.currentStep);
     });
     bindClick('btn-audit-mode', () => {
       auditActive = !auditActive;
-      const b = document.getElementById('btn-audit-mode');
-      if (b) { b.innerText = `Audit: ${auditActive ? 'On' : 'Off'}`; b.classList.toggle('active', auditActive); }
+      updateDrawerBtn('btn-audit-mode', auditActive);
       const ov = document.getElementById('audit-overlay');
       if (ov) ov.style.display = auditActive ? 'flex' : 'none';
       if (replay) renderFrame(replay.currentStep);
     });
     bindClick('btn-baselines', () => {
       baselineCompActive = !baselineCompActive;
-      const b = document.getElementById('btn-baselines');
-      if (b) { b.innerText = `Baselines: ${baselineCompActive ? 'On' : 'Off'}`; b.classList.toggle('active', baselineCompActive); }
+      updateDrawerBtn('btn-baselines', baselineCompActive);
       const ov = document.getElementById('baseline-comp-overlay');
       if (ov) ov.style.display = baselineCompActive ? 'flex' : 'none';
       if (replay) renderFrame(replay.currentStep);
     });
     bindClick('btn-orbit-toggle', () => {
       autoOrbit = !autoOrbit;
-      const b = document.getElementById('btn-orbit-toggle');
-      if (b) { b.innerText = `Orbit: ${autoOrbit ? 'On' : 'Off'}`; b.classList.toggle('active', autoOrbit); }
+      updateDrawerBtn('btn-orbit-toggle', autoOrbit);
       const ob = document.getElementById('auto-orbit-btn');
       if (ob) { ob.innerText = `🔄 Orbit: ${autoOrbit ? 'On' : 'Off'}`; ob.classList.toggle('active', autoOrbit); }
     });
     bindClick('btn-action-interface', () => {
       actionInterfaceActive = !actionInterfaceActive;
-      const b = document.getElementById('btn-action-interface');
-      if (b) { b.innerText = `Interface: ${actionInterfaceActive ? 'On' : 'Off'}`; b.classList.toggle('active', actionInterfaceActive); }
+      updateDrawerBtn('btn-action-interface', actionInterfaceActive);
       const ov = document.getElementById('action-interface-overlay');
       if (ov) ov.style.display = actionInterfaceActive ? 'flex' : 'none';
       if (replay) renderFrame(replay.currentStep);
@@ -5800,26 +6157,26 @@ MIN_E_PLUS_EPISODIC</pre>
 
       if (is23b) {
         targetPath = '/experiments/results/brainlogs/EXP023B_compositional.brainlog';
-        taskDesc = 'Task: Learn primitives [red, blue] → Zero-shot test on unseen [red+blue] (Frozen ΔW=0)';
-        modeBadgeText = 'Trace Replay: Phase 23B Verified Run';
+        taskDesc = 'Learn primitives [red, blue] → retrieve episode → frozen evaluation (ΔW=0)';
+        modeBadgeText = 'RUNNING';
       } else if (is23a) {
         targetPath = '/experiments/results/brainlogs/EXP023A_sample_efficiency.brainlog';
-        taskDesc = 'Task: Learn red means LEFT → Test after 20 distracting events (Frozen ΔW=0)';
-        modeBadgeText = 'Trace Replay: Phase 23A Verified Run';
+        taskDesc = 'Learn red means LEFT → distractors → frozen evaluation (ΔW=0)';
+        modeBadgeText = 'RUNNING';
       } else if (is22) {
         targetPath = '/experiments/results/brainlogs/EXP022_causal_memory.brainlog';
-        taskDesc = 'Task: Contextual memory with inverted cues across intervening delays';
-        modeBadgeText = 'Trace Replay: Phase 22 Verified Run';
+        taskDesc = 'Contextual memory with inverted cues across intervening delays';
+        modeBadgeText = 'RUNNING';
       } else if (is21) {
         targetPath = '/experiments/results/brainlogs/EXP021_episodic_transfer.brainlog';
-        taskDesc = 'Task: One-shot episodic record transfer across task variants';
-        modeBadgeText = 'Trace Replay: Phase 21 Verified Run';
+        taskDesc = 'One-shot episodic record transfer across task variants';
+        modeBadgeText = 'RUNNING';
       } else {
         // Unsupported command
         const badgeEl = document.getElementById('input-execution-badge');
         if (badgeEl) badgeEl.innerText = 'UNSUPPORTED COMMAND';
         const taskSpecEl = document.getElementById('active-task-spec');
-        if (taskSpecEl) taskSpecEl.innerText = 'UNSUPPORTED COMMAND: Command does not match any verified benchmark protocol. Supported tasks: Phase 23B (compositional zero-shot), Phase 23A (distractor retention), Phase 22 (context inversion), Phase 21 (episodic transfer).';
+        if (taskSpecEl) taskSpecEl.innerText = 'UNSUPPORTED COMMAND: Command does not match any verified benchmark protocol. Supported tasks: compositional zero-shot, distractor retention, context inversion, episodic transfer.';
         const statusPill = document.getElementById('result-status-pill');
         if (statusPill) { statusPill.innerText = 'UNSUPPORTED COMMAND'; statusPill.className = 'result-badge-pill waiting'; }
         const actHero = document.getElementById('result-action-hero');
@@ -5829,6 +6186,7 @@ MIN_E_PLUS_EPISODIC</pre>
         return;
       }
 
+      lastPlayTrigger = 'run';
       const badgeEl = document.getElementById('input-execution-badge');
       if (badgeEl) badgeEl.innerText = modeBadgeText;
       const taskSpecEl = document.getElementById('active-task-spec');
@@ -5856,6 +6214,7 @@ MIN_E_PLUS_EPISODIC</pre>
         if (replay) {
           replay.seek(0);
           renderFrame(0);
+          lastPlayTrigger = 'run';
           play();
         }
       });

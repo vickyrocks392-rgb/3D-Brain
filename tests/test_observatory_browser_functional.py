@@ -47,6 +47,50 @@ def test_player_html_integrity():
         assert f'id="{card_id}"' in html, f"Missing surface element: {card_id}"
 
 
+def test_research_controls_no_primary_phase_labels():
+    """Verify research controls do not expose Phase XX as primary button labels."""
+    html = PLAYER_PATH.read_text(encoding="utf-8")
+    import re
+    # Extract all .card-btn-name contents
+    card_names = re.findall(r'<span class="card-btn-name">([^<]+)</span>', html)
+    assert len(card_names) >= 20, f"Expected at least 20 capability card buttons, found {len(card_names)}"
+    
+    for name in card_names:
+        assert not re.match(r"^Phase\s+\d+", name, re.IGNORECASE), f"Found primary Phase label: {name}"
+
+    # Verify key capabilities exist
+    assert "Compositionality" in card_names
+    assert "Sample Efficiency" in card_names
+    assert "Causal Memory" in card_names
+    assert "Episode Memory" in card_names
+    assert "Transfer Matrix" in card_names
+    assert "Necessity Audit" in card_names
+    assert "Minimal Architecture" in card_names
+    assert "Extrapolation" in card_names
+
+
+def test_computation_flow_processing_and_hierarchy():
+    """Verify Current Computation stages: INPUT -> MEMORY -> PROCESSING -> DECISION."""
+    html = PLAYER_PATH.read_text(encoding="utf-8")
+    assert 'id="cflow-input"' in html
+    assert 'id="cflow-memory"' in html
+    assert 'id="cflow-learning"' in html
+    assert 'id="cflow-decision"' in html
+    assert 'id="cflow-learning-title"' in html
+    assert "PROCESSING" in html
+
+
+def test_research_drawer_does_not_obscure_bottom_dock():
+    """Verify research drawer is bounded above bottom dock and does not cover ASK THE BRAIN."""
+    html = PLAYER_PATH.read_text(encoding="utf-8")
+    assert ".research-drawer {" in html
+    assert "bottom: calc(" in html or "max-height:" in html
+    assert 'id="primary-input-surface"' in html
+    assert 'id="observatory-bottom-dock"' in html
+    assert 'id="observatory-timeline-bar"' in html
+
+
+
 def test_node_cdp_browser_functional_suite():
     """Execute end-to-end browser functional suite via Node.js CDP if Node is available."""
     node_bin = shutil.which("node")

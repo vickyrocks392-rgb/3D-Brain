@@ -1,0 +1,878 @@
+{
+  "phase": 22,
+  "date": "2026-10-05",
+  "preregistration": "PREREG-PHASE22-001",
+  "specification": "EXPSPEC-PHASE22-001",
+  "seeds": [
+    42,
+    101,
+    2024,
+    777,
+    999
+  ],
+  "chance_accuracy": 0.5,
+  "total_runtime_sec": 3.84,
+  "peak_rss_mb": 94.34,
+  "track_a_b_d_causal_ablations": {
+    "accuracies": {
+      "B0_FULL_MEMORY": {
+        "mean": 0.968,
+        "std": 0.030332,
+        "ci95": [
+          0.930345,
+          1.005655
+        ],
+        "n": 5,
+        "values": [
+          1.0,
+          0.98,
+          0.96,
+          0.92,
+          0.98
+        ]
+      },
+      "B1_MEMORY_REMOVED": {
+        "mean": 0.52,
+        "std": 0.056569,
+        "ci95": [
+          0.449772,
+          0.590228
+        ],
+        "n": 5,
+        "values": [
+          0.46,
+          0.5,
+          0.58,
+          0.58,
+          0.48
+        ]
+      },
+      "B2_RETRIEVAL_DISABLED": {
+        "mean": 0.524,
+        "std": 0.071274,
+        "ci95": [
+          0.435516,
+          0.612484
+        ],
+        "n": 5,
+        "values": [
+          0.6,
+          0.44,
+          0.58,
+          0.46,
+          0.54
+        ]
+      },
+      "B3_SHUFFLED_MEMORY": {
+        "mean": 0.552,
+        "std": 0.064187,
+        "ci95": [
+          0.472314,
+          0.631686
+        ],
+        "n": 5,
+        "values": [
+          0.48,
+          0.64,
+          0.58,
+          0.5,
+          0.56
+        ]
+      },
+      "B4_WRONG_MEMORY": {
+        "mean": 0.516,
+        "std": 0.077974,
+        "ci95": [
+          0.419198,
+          0.612802
+        ],
+        "n": 5,
+        "values": [
+          0.44,
+          0.6,
+          0.6,
+          0.48,
+          0.46
+        ]
+      },
+      "B5_CORRUPTED_MEMORY": {
+        "mean": 0.676,
+        "std": 0.063875,
+        "ci95": [
+          0.596702,
+          0.755298
+        ],
+        "n": 5,
+        "values": [
+          0.64,
+          0.6,
+          0.76,
+          0.66,
+          0.72
+        ]
+      },
+      "B6_PARTIAL_MEMORY": {
+        "mean": 0.628,
+        "std": 0.022804,
+        "ci95": [
+          0.59969,
+          0.65631
+        ],
+        "n": 5,
+        "values": [
+          0.64,
+          0.62,
+          0.66,
+          0.6,
+          0.62
+        ]
+      },
+      "B7_CORRUPT_CUE": {
+        "mean": 0.604,
+        "std": 0.077974,
+        "ci95": [
+          0.507198,
+          0.700802
+        ],
+        "n": 5,
+        "values": [
+          0.66,
+          0.66,
+          0.54,
+          0.5,
+          0.66
+        ]
+      }
+    },
+    "retrieval_success": {
+      "B0_FULL_MEMORY": {
+        "mean": 0.996,
+        "std": 0.008944,
+        "ci95": [
+          0.984896,
+          1.007104
+        ],
+        "n": 5,
+        "values": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.98
+        ]
+      },
+      "B1_MEMORY_REMOVED": {
+        "mean": 0.0,
+        "std": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 5,
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "B2_RETRIEVAL_DISABLED": {
+        "mean": 0.0,
+        "std": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 5,
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "B3_SHUFFLED_MEMORY": {
+        "mean": 0.012,
+        "std": 0.010954,
+        "ci95": [
+          -0.0016,
+          0.0256
+        ],
+        "n": 5,
+        "values": [
+          0.02,
+          0.02,
+          0.0,
+          0.0,
+          0.02
+        ]
+      },
+      "B4_WRONG_MEMORY": {
+        "mean": 0.0,
+        "std": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "n": 5,
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "B5_CORRUPTED_MEMORY": {
+        "mean": 0.992,
+        "std": 0.010954,
+        "ci95": [
+          0.9784,
+          1.0056
+        ],
+        "n": 5,
+        "values": [
+          1.0,
+          1.0,
+          1.0,
+          0.98,
+          0.98
+        ]
+      },
+      "B6_PARTIAL_MEMORY": {
+        "mean": 0.996,
+        "std": 0.008944,
+        "ci95": [
+          0.984896,
+          1.007104
+        ],
+        "n": 5,
+        "values": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.98
+        ]
+      },
+      "B7_CORRUPT_CUE": {
+        "mean": 0.028,
+        "std": 0.010954,
+        "ci95": [
+          0.0144,
+          0.0416
+        ],
+        "n": 5,
+        "values": [
+          0.04,
+          0.04,
+          0.02,
+          0.02,
+          0.02
+        ]
+      }
+    },
+    "contrasts": {
+      "B0_vs_B1_full_vs_no_memory": {
+        "cohens_d": 5.3093,
+        "p_value": 0.00028826455211711184,
+        "difference_mean": 0.448
+      },
+      "B0_vs_B3_full_vs_shuffled": {
+        "cohens_d": 6.2152,
+        "p_value": 0.00015543552359874102,
+        "difference_mean": 0.416
+      },
+      "B0_vs_B5_full_vs_corrupted": {
+        "cohens_d": 3.8609,
+        "p_value": 0.0009898981655405092,
+        "difference_mean": 0.292
+      },
+      "B0_vs_B6_full_vs_partial": {
+        "cohens_d": 12.0208,
+        "p_value": 1.1388822100128485e-05,
+        "difference_mean": 0.34
+      }
+    },
+    "memory_specificity": {
+      "mean_full_memory": 0.968,
+      "mean_partial_or_corrupted": 0.652,
+      "mean_unrelated_or_none": 0.5293,
+      "ordering_satisfied": true
+    }
+  },
+  "track_c_compositional_transfer": {
+    "held_out_ad_accuracies": {
+      "with_memory": {
+        "mean": 0.96,
+        "std": 0.014142,
+        "ci95": [
+          0.942443,
+          0.977557
+        ],
+        "n": 5,
+        "values": [
+          0.96,
+          0.96,
+          0.98,
+          0.94,
+          0.96
+        ]
+      },
+      "memory_removed": {
+        "mean": 0.468,
+        "std": 0.057619,
+        "ci95": [
+          0.396467,
+          0.539533
+        ],
+        "n": 5,
+        "values": [
+          0.38,
+          0.46,
+          0.52,
+          0.52,
+          0.46
+        ]
+      },
+      "retrieval_disabled": {
+        "mean": 0.468,
+        "std": 0.057619,
+        "ci95": [
+          0.396467,
+          0.539533
+        ],
+        "n": 5,
+        "values": [
+          0.38,
+          0.46,
+          0.52,
+          0.52,
+          0.46
+        ]
+      },
+      "memory_shuffled": {
+        "mean": 0.552,
+        "std": 0.041473,
+        "ci95": [
+          0.500513,
+          0.603487
+        ],
+        "n": 5,
+        "values": [
+          0.48,
+          0.56,
+          0.56,
+          0.58,
+          0.58
+        ]
+      },
+      "wrong_memory": {
+        "mean": 0.58,
+        "std": 0.067823,
+        "ci95": [
+          0.4958,
+          0.6642
+        ],
+        "n": 5,
+        "values": [
+          0.5,
+          0.52,
+          0.6,
+          0.62,
+          0.66
+        ]
+      },
+      "memory_corrupted": {
+        "mean": 0.908,
+        "std": 0.038987,
+        "ci95": [
+          0.859599,
+          0.956401
+        ],
+        "n": 5,
+        "values": [
+          0.92,
+          0.92,
+          0.96,
+          0.88,
+          0.86
+        ]
+      },
+      "memory_partial": {
+        "mean": 0.856,
+        "std": 0.038471,
+        "ci95": [
+          0.80824,
+          0.90376
+        ],
+        "n": 5,
+        "values": [
+          0.8,
+          0.86,
+          0.88,
+          0.84,
+          0.9
+        ]
+      },
+      "cue_corrupted": {
+        "mean": 0.536,
+        "std": 0.063875,
+        "ci95": [
+          0.456702,
+          0.615298
+        ],
+        "n": 5,
+        "values": [
+          0.44,
+          0.54,
+          0.54,
+          0.54,
+          0.62
+        ]
+      }
+    },
+    "all_zero_shot_valid": true,
+    "contrast_with_vs_without_memory": {
+      "cohens_d": 8.2927,
+      "p_value": 4.978084766981629e-05,
+      "mean_difference": 0.492
+    }
+  },
+  "track_e_retrieval_timing": {
+    "timing_curve": {
+      "0s": {
+        "full_memory": {
+          "mean": 0.986667,
+          "std": 0.029814,
+          "ci95": [
+            0.949653,
+            1.02368
+          ],
+          "n": 5,
+          "values": [
+            0.933333,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "no_memory": {
+          "mean": 0.48,
+          "std": 0.083666,
+          "ci95": [
+            0.376132,
+            0.583868
+          ],
+          "n": 5,
+          "values": [
+            0.466667,
+            0.6,
+            0.5,
+            0.466667,
+            0.366667
+          ]
+        }
+      },
+      "1s": {
+        "full_memory": {
+          "mean": 0.953333,
+          "std": 0.038006,
+          "ci95": [
+            0.90615,
+            1.000516
+          ],
+          "n": 5,
+          "values": [
+            1.0,
+            0.933333,
+            0.966667,
+            0.966667,
+            0.9
+          ]
+        },
+        "no_memory": {
+          "mean": 0.526667,
+          "std": 0.076012,
+          "ci95": [
+            0.432301,
+            0.621033
+          ],
+          "n": 5,
+          "values": [
+            0.5,
+            0.5,
+            0.566667,
+            0.433333,
+            0.633333
+          ]
+        }
+      },
+      "5s": {
+        "full_memory": {
+          "mean": 0.96,
+          "std": 0.027889,
+          "ci95": [
+            0.925377,
+            0.994623
+          ],
+          "n": 5,
+          "values": [
+            0.933333,
+            0.966667,
+            0.966667,
+            1.0,
+            0.933333
+          ]
+        },
+        "no_memory": {
+          "mean": 0.573333,
+          "std": 0.101105,
+          "ci95": [
+            0.447815,
+            0.698852
+          ],
+          "n": 5,
+          "values": [
+            0.533333,
+            0.433333,
+            0.7,
+            0.566667,
+            0.633333
+          ]
+        }
+      },
+      "10s": {
+        "full_memory": {
+          "mean": 0.973333,
+          "std": 0.014907,
+          "ci95": [
+            0.954827,
+            0.99184
+          ],
+          "n": 5,
+          "values": [
+            0.966667,
+            0.966667,
+            0.966667,
+            1.0,
+            0.966667
+          ]
+        },
+        "no_memory": {
+          "mean": 0.486667,
+          "std": 0.07303,
+          "ci95": [
+            0.396003,
+            0.57733
+          ],
+          "n": 5,
+          "values": [
+            0.566667,
+            0.433333,
+            0.433333,
+            0.433333,
+            0.566667
+          ]
+        }
+      },
+      "30s": {
+        "full_memory": {
+          "mean": 0.98,
+          "std": 0.018257,
+          "ci95": [
+            0.957334,
+            1.002666
+          ],
+          "n": 5,
+          "values": [
+            0.966667,
+            0.966667,
+            1.0,
+            0.966667,
+            1.0
+          ]
+        },
+        "no_memory": {
+          "mean": 0.466667,
+          "std": 0.08165,
+          "ci95": [
+            0.365301,
+            0.568032
+          ],
+          "n": 5,
+          "values": [
+            0.566667,
+            0.4,
+            0.5,
+            0.5,
+            0.366667
+          ]
+        }
+      },
+      "60s": {
+        "full_memory": {
+          "mean": 0.48,
+          "std": 0.086923,
+          "ci95": [
+            0.372089,
+            0.587911
+          ],
+          "n": 5,
+          "values": [
+            0.6,
+            0.366667,
+            0.5,
+            0.5,
+            0.433333
+          ]
+        },
+        "no_memory": {
+          "mean": 0.493333,
+          "std": 0.163978,
+          "ci95": [
+            0.28976,
+            0.696907
+          ],
+          "n": 5,
+          "values": [
+            0.633333,
+            0.566667,
+            0.633333,
+            0.3,
+            0.333333
+          ]
+        }
+      },
+      "120s": {
+        "full_memory": {
+          "mean": 0.506667,
+          "std": 0.127802,
+          "ci95": [
+            0.348005,
+            0.665328
+          ],
+          "n": 5,
+          "values": [
+            0.6,
+            0.4,
+            0.366667,
+            0.5,
+            0.666667
+          ]
+        },
+        "no_memory": {
+          "mean": 0.473333,
+          "std": 0.092496,
+          "ci95": [
+            0.358502,
+            0.588164
+          ],
+          "n": 5,
+          "values": [
+            0.4,
+            0.566667,
+            0.366667,
+            0.566667,
+            0.466667
+          ]
+        }
+      }
+    },
+    "effective_horizon_sec": {
+      "mean": 30.0,
+      "std": 0.0,
+      "ci95": [
+        30.0,
+        30.0
+      ],
+      "n": 5,
+      "values": [
+        30.0,
+        30.0,
+        30.0,
+        30.0,
+        30.0
+      ]
+    },
+    "delays_tested": [
+      0.0,
+      1.0,
+      5.0,
+      10.0,
+      30.0,
+      60.0,
+      120.0
+    ]
+  },
+  "track_f_leakage_audit": {
+    "checks": {
+      "zero_shot_frozen_evaluation": {
+        "status": "PASS",
+        "detail": "Verified zero weight changes, zero plasticity, zero replay during evaluation."
+      },
+      "no_memory_at_chance": {
+        "status": "PASS",
+        "detail": "B1 mean accuracy=0.520, 95% CI=[0.449772, 0.590228] (chance=0.5)"
+      },
+      "causal_memory_dependence": {
+        "status": "PASS",
+        "detail": "Full memory exceeds no memory by delta=0.448 (Cohen's d=5.31)"
+      },
+      "memory_specificity_ordered": {
+        "status": "PASS",
+        "detail": "Full (0.968) > Partial/Corrupted (0.652) > Unrelated/None (0.529)"
+      },
+      "compositional_transfer_memory_dependent": {
+        "status": "PASS",
+        "detail": "Held-out A+D transfer memory advantage delta=0.492"
+      },
+      "external_memory_reported_separately": {
+        "status": "PASS",
+        "detail": "External episodic memory bytes strictly separated from neural parameters."
+      },
+      "generator_relations_sampled_independently": {
+        "status": "PASS",
+        "detail": "Relations X in {0, 1} sampled with Bernoulli(0.5) per trial; unconditional prior is chance."
+      },
+      "zero_target_exposure_protocol": {
+        "status": "PASS",
+        "detail": "open_episode() signature strictly excludes target_action and reward; closed post-outcome only."
+      }
+    },
+    "all_passed": true
+  },
+  "track_g_baselines": {
+    "baselines": [
+      {
+        "system": "MIN_E_PLUS_EPISODIC",
+        "description": "3D-Brain MIN_E substrate with sparse content-addressable episodic memory",
+        "trainable_parameters": 683,
+        "fixed_parameters": 2000,
+        "state_variables": 282,
+        "external_memory_bytes": 71640,
+        "external_memory_included_in_parameters": false,
+        "inference_time_learning": false,
+        "can_solve_intervening_delay": true,
+        "task_accuracy": 0.98,
+        "chance_accuracy": 0.5,
+        "sequence_length": 25,
+        "total_neural_parameters": 2683,
+        "flops_per_step": 968,
+        "flops_per_trial": 24200,
+        "peak_rss_mb": 94.34
+      },
+      {
+        "system": "MIN_E_NO_MEMORY",
+        "description": "3D-Brain MIN_E substrate with episodic memory ablated",
+        "trainable_parameters": 683,
+        "fixed_parameters": 2000,
+        "state_variables": 282,
+        "external_memory_bytes": 0,
+        "external_memory_included_in_parameters": false,
+        "inference_time_learning": false,
+        "can_solve_intervening_delay": false,
+        "task_accuracy": 0.55,
+        "chance_accuracy": 0.5,
+        "sequence_length": 25,
+        "total_neural_parameters": 2683,
+        "flops_per_step": 200,
+        "flops_per_trial": 5000,
+        "peak_rss_mb": 94.34
+      },
+      {
+        "system": "SIMPLE_RECURRENT",
+        "description": "Discrete leaky recurrent neural network without external memory",
+        "trainable_parameters": 80,
+        "fixed_parameters": 1920,
+        "state_variables": 120,
+        "external_memory_bytes": 0,
+        "external_memory_included_in_parameters": false,
+        "inference_time_learning": false,
+        "can_solve_intervening_delay": false,
+        "task_accuracy": 0.5,
+        "chance_accuracy": 0.5,
+        "sequence_length": 25,
+        "total_neural_parameters": 2000,
+        "flops_per_step": 6560,
+        "flops_per_trial": 164000,
+        "peak_rss_mb": 94.34
+      },
+      {
+        "system": "BPTT_RECURRENT",
+        "description": "Standard recurrent network trained end-to-end with BPTT",
+        "trainable_parameters": 2041,
+        "fixed_parameters": 0,
+        "state_variables": 40,
+        "external_memory_bytes": 0,
+        "external_memory_included_in_parameters": false,
+        "inference_time_learning": false,
+        "can_solve_intervening_delay": false,
+        "task_accuracy": 0.5,
+        "chance_accuracy": 0.5,
+        "sequence_length": 25,
+        "total_neural_parameters": 2041,
+        "flops_per_step": 6560,
+        "flops_per_trial": 164000,
+        "peak_rss_mb": 94.34
+      },
+      {
+        "system": "CAUSAL_TRANSFORMER",
+        "description": "Small 2-layer causal Transformer attending over entire trial history",
+        "trainable_parameters": 2322,
+        "fixed_parameters": 0,
+        "state_variables": 4096,
+        "external_memory_bytes": 0,
+        "external_memory_included_in_parameters": false,
+        "inference_time_learning": false,
+        "can_solve_intervening_delay": true,
+        "task_accuracy": 0.96,
+        "chance_accuracy": 0.5,
+        "sequence_length": 25,
+        "total_neural_parameters": 2322,
+        "flops_per_step": 1905,
+        "flops_per_trial": 47625,
+        "peak_rss_mb": 94.34
+      }
+    ],
+    "audit_note": "External episodic memory is reported separately and is strictly NOT included in neural parameter counts. In-context recurrent networks fail across distractor delays due to state overwriting; Transformer requires scaling context attention over all intervening tokens, whereas MIN_E achieves sparse retrieval via its content-addressable store.",
+    "external_memory_reported_separately": true,
+    "zero_inference_learning_verified": true
+  },
+  "primary_hypotheses": {
+    "p_values": {
+      "P1_retrieval_causal_necessity": 0.00028826455211711184,
+      "P2_shuffled_memory_impairment": 0.00015543552359874102,
+      "P3_corrupted_memory_degradation": 0.0009898981655405092,
+      "P4_partial_memory_degradation": 1.1388822100128485e-05,
+      "P5_compositional_memory_necessity": 4.978084766981629e-05
+    },
+    "holm_bonferroni": {
+      "raw": {
+        "P1_retrieval_causal_necessity": 0.00028826455211711184,
+        "P2_shuffled_memory_impairment": 0.00015543552359874102,
+        "P3_corrupted_memory_degradation": 0.0009898981655405092,
+        "P4_partial_memory_degradation": 1.1388822100128485e-05,
+        "P5_compositional_memory_necessity": 4.978084766981629e-05
+      },
+      "corrected": {
+        "P4_partial_memory_degradation": 5.7e-05,
+        "P5_compositional_memory_necessity": 0.000199,
+        "P2_shuffled_memory_impairment": 0.000466,
+        "P1_retrieval_causal_necessity": 0.000577,
+        "P3_corrupted_memory_degradation": 0.00099
+      },
+      "significant": {
+        "P4_partial_memory_degradation": true,
+        "P5_compositional_memory_necessity": true,
+        "P2_shuffled_memory_impairment": true,
+        "P1_retrieval_causal_necessity": true,
+        "P3_corrupted_memory_degradation": true
+      },
+      "alpha": 0.05
+    }
+  }
+}

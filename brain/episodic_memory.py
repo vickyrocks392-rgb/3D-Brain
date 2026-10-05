@@ -48,12 +48,18 @@ class EpisodicCondition(str, Enum):
 class MemoryAblation(str, Enum):
     """Causal interventions on episodic retrieval (preregistered)."""
 
-    NONE = "NONE"
-    REMOVE_MEMORY = "REMOVE_MEMORY"
-    RANDOMIZE_RETRIEVAL = "RANDOMIZE_RETRIEVAL"
-    SHUFFLE_IDENTITY = "SHUFFLE_IDENTITY"
-    WRONG_EPISODE = "WRONG_EPISODE"
-    REDUCE_CAPACITY = "REDUCE_CAPACITY"
+    NONE = "NONE"                          # B0: Full system + intact episodic memory
+    REMOVE_MEMORY = "REMOVE_MEMORY"        # B1: Memory removed entirely
+    DISABLE_RETRIEVAL = "DISABLE_RETRIEVAL"# B2: Memory present but retrieval disabled
+    SHUFFLE_MEMORY = "SHUFFLE_MEMORY"      # B3: Memory present but retrieval randomized/shuffled
+    RANDOMIZE_RETRIEVAL = "RANDOMIZE_RETRIEVAL" # alias for B3
+    SHUFFLE_IDENTITY = "SHUFFLE_IDENTITY"  # Permute identity tags
+    WRONG_MEMORY = "WRONG_MEMORY"          # B4: Wrong/non-matching episode retrieved
+    WRONG_EPISODE = "WRONG_EPISODE"        # alias for B4
+    CORRUPT_MEMORY = "CORRUPT_MEMORY"      # B5: Stored representation corrupted with noise
+    PARTIAL_MEMORY = "PARTIAL_MEMORY"      # B6: Partial memory (latent features partially masked)
+    CORRUPT_CUE = "CORRUPT_CUE"            # B7: Retrieval cue corrupted with noise
+    REDUCE_CAPACITY = "REDUCE_CAPACITY"    # Capacity reduced
 
 
 @dataclass
@@ -78,21 +84,24 @@ class EpisodeRecord:
     reward_val: float = 0.0                   # r_i, written at outcome only
     is_closed: bool = False
     retrieval_count: int = 0
+    latent_state: Optional[np.ndarray] = None
 
     def memory_bytes(self, key_dim: int, hidden_dim: int, activity_dim: int) -> int:
         """Exact byte footprint of this record (specification 2.7)."""
         n_events = int(self.event_sequence.shape[0])
+        extra_bytes = int(self.latent_state.size * 4) if self.latent_state is not None else 0
         return int(
             key_dim * 4                      # sparse content address
             + self.context_vector.size * 4   # context representation
             + n_events * hidden_dim * 4      # latent event sequence
             + activity_dim // 8              # sparse activity bitmap
-            + 64                              # scalar/timestamp/handle metadata
+            + 64                             # scalar/timestamp/handle metadata
+            + extra_bytes                    # optional latent binding/state
         )
 
     def to_dict(self) -> Dict[str, Any]:
         """Serializable summary for BrainLog telemetry (no raw arrays)."""
-        return {
+        d = {
             "episode_id": int(self.episode_id),
             "task": self.task_name,
             "chosen_action": int(self.chosen_action),
@@ -103,6 +112,9 @@ class EpisodeRecord:
             "retrieval_count": int(self.retrieval_count),
             "is_closed": bool(self.is_closed),
         }
+        if self.latent_state is not None:
+            d["latent_dim"] = int(self.latent_state.size)
+        return d
 
 
 class RetrievalResult:
@@ -115,17 +127,24 @@ class RetrievalResult:
         competitors: List[int],
         sparsity: float,
         latency_us: float,
+        records: Optional[List[EpisodeRecord]] = None,
     ):
         self.retrieved_ids = retrieved_ids
         self.scores = scores
         self.competitors = competitors
         self.sparsity = sparsity
         self.latency_us = latency_us
+        self.records = records if records is not None else []
 
     @property
     def top_id(self) -> Optional[int]:
         """Highest-ranked retrieved episode ID (None if memory returned nothing)."""
         return self.retrieved_ids[0] if self.retrieved_ids else None
+
+    @property
+    def top_record(self) -> Optional[EpisodeRecord]:
+        """Highest-ranked retrieved EpisodeRecord (None if memory returned nothing)."""
+        return self.records[0] if self.records else None
 
     def to_dict(self) -> Dict[str, Any]:
         """Serializable retrieval summary for BrainLog telemetry."""
@@ -189,6 +208,7 @@ class SparseEpisodicMemory:
         chosen_action: int,
         timestamp_ms: float,
         task_name: str = "UNSET",
+        latent_state: Optional[np.ndarray] = None,
     ) -> EpisodeRecord:
         """Store pre-outcome episode content.
 
@@ -211,6 +231,7 @@ class SparseEpisodicMemory:
             sparse_activity=self._sparse_activity(ctx),
             duration_steps=int(events.shape[0]),
             task_name=str(task_name),
+            latent_state=np.asarray(latent_state, dtype=np.float32).copy() if latent_state is not None else None,
         )
         self._pending = rec
         return rec
@@ -243,6 +264,13 @@ class SparseEpisodicMemory:
         """Discard a pending episode (trial ended without an outcome)."""
         self._pending = None
 
+    def get_record(self, episode_id: int) -> Optional[EpisodeRecord]:
+        """Lookup stored episode by ID."""
+        for r in self.records:
+            if r.episode_id == episode_id:
+                return r
+        return None
+
     # -- key computation --------------------------------------------------------
     def _compute_key(self, ctx: np.ndarray, events: np.ndarray) -> np.ndarray:
         """Sparse content address from context + an order-sensitive summary.
@@ -255,11 +283,6 @@ class SparseEpisodicMemory:
         """
         n = events.shape[0]
         if n > 2:
-            # Order-sensitive summary. A reversal maps
-            # (first, last, last-first) -> (last, first, first-last), which is
-            # symmetric, so the **first two** events are used instead: their
-            # ordered pair distinguishes a sequence from its reversal whenever
-            # the first two events differ.
             first, second = events[0], events[1]
             summary = np.concatenate([first, second, second - first])
         elif n == 2:
@@ -310,22 +333,31 @@ class SparseEpisodicMemory:
         t0 = time.perf_counter()
         total_stored = len(self.records)
 
-        # A0: no memory at all
-        if condition == EpisodicCondition.A0_NO_MEMORY or self.ablation == MemoryAblation.REMOVE_MEMORY:
+        # A0 / B1 / B2: no memory or disabled retrieval
+        if (
+            condition == EpisodicCondition.A0_NO_MEMORY
+            or self.ablation in (MemoryAblation.REMOVE_MEMORY, MemoryAblation.DISABLE_RETRIEVAL)
+        ):
             self.total_retrievals += 1
-            res = RetrievalResult([], [], [], 0.0, (time.perf_counter() - t0) * 1e6)
+            res = RetrievalResult([], [], [], 0.0, (time.perf_counter() - t0) * 1e6, records=[])
             self.last_retrieval = res
             return res
 
         if total_stored == 0:
             self.total_retrievals += 1
-            res = RetrievalResult([], [], [], 0.0, (time.perf_counter() - t0) * 1e6)
+            res = RetrievalResult([], [], [], 0.0, (time.perf_counter() - t0) * 1e6, records=[])
             self.last_retrieval = res
             return res
 
         # FLOPs: one dot product per stored key (spec 7)
         self.total_retrieval_flops += 2 * self.key_dim * total_stored
-        qk = self._query_key(query_vector)
+
+        # B7: corrupted cue
+        if self.ablation == MemoryAblation.CORRUPT_CUE:
+            cue_noise = self.rng.normal(0.0, 1.5, size=query_vector.shape).astype(np.float32)
+            qk = self._query_key(query_vector + cue_noise)
+        else:
+            qk = self._query_key(query_vector)
 
         keys = np.stack([r.key for r in self.records]).astype(np.float32)
         sims = keys @ qk  # cosine similarity in [-1, 1]
@@ -337,7 +369,6 @@ class SparseEpisodicMemory:
             sel = self.rng.choice(total_stored, size=k, replace=False)
             order = np.concatenate([sel, np.setdiff1d(order, sel)])[:k]
         elif condition == EpisodicCondition.A2_INDEXED:
-            # Bucket by a coarse scalar signature of the context vector.
             buckets: Dict[int, List[int]] = {}
             for idx, r in enumerate(self.records):
                 b = int(np.argmax(np.abs(r.context_vector)))
@@ -347,28 +378,90 @@ class SparseEpisodicMemory:
                 cand = np.array(buckets[qb])
                 order = cand[np.argsort(-sims[cand], kind="stable")]
                 order = order[:k]
-            # fall back to similarity ranking when the bucket is empty
 
         top_idx = order[:k]
-        retrieved_ids = [int(self.records[i].episode_id) for i in top_idx]
-        top_scores = [float(sims[i]) for i in top_idx]
-        competitors = [int(self.records[i].episode_id) for i in order[k : k + 3]]
 
         # -- causal ablations -------------------------------------------------
-        if self.ablation == MemoryAblation.RANDOMIZE_RETRIEVAL:
+        if self.ablation in (MemoryAblation.RANDOMIZE_RETRIEVAL, MemoryAblation.SHUFFLE_MEMORY):
             perm = self.rng.permutation(total_stored)[:k]
+            top_idx = perm
             retrieved_ids = [int(self.records[i].episode_id) for i in perm]
             top_scores = [float(sims[i]) for i in perm]
 
         elif self.ablation == MemoryAblation.SHUFFLE_IDENTITY:
-            # Permute reported identity independent of stored content.
             perm = self.rng.permutation(total_stored)
             retrieved_ids = [int(self.records[perm[i]].episode_id) for i in top_idx]
+            top_scores = [float(sims[i]) for i in top_idx]
 
-        elif self.ablation == MemoryAblation.WRONG_EPISODE:
-            # Rotate the ranking by one rank: return the next-best episodes.
-            rot = np.roll(np.arange(total_stored), 1)[order[:k]]
+        elif self.ablation in (MemoryAblation.WRONG_EPISODE, MemoryAblation.WRONG_MEMORY):
+            # Rotated offset: returns non-matching competitor episodes
+            offset = max(1, total_stored // 2)
+            rot = np.roll(np.arange(total_stored), offset)[order[:k]]
+            top_idx = rot
             retrieved_ids = [int(self.records[i].episode_id) for i in rot]
+            top_scores = [float(sims[i]) for i in rot]
+
+        else:
+            retrieved_ids = [int(self.records[i].episode_id) for i in top_idx]
+            top_scores = [float(sims[i]) for i in top_idx]
+
+        competitors = [int(self.records[i].episode_id) for i in order[k : k + 3]]
+
+        # Gather retrieved records with any content intervention applied
+        retrieved_records: List[EpisodeRecord] = []
+        for i in top_idx:
+            rec = self.records[i]
+            if self.ablation == MemoryAblation.CORRUPT_MEMORY:
+                corrupted_latent = None
+                if rec.latent_state is not None:
+                    noise = self.rng.normal(0.0, 1.2, size=rec.latent_state.shape).astype(np.float32)
+                    corrupted_latent = rec.latent_state + noise
+                noise_ctx = self.rng.normal(0.0, 1.2, size=rec.context_vector.shape).astype(np.float32)
+                cloned = EpisodeRecord(
+                    episode_id=rec.episode_id,
+                    context_vector=rec.context_vector + noise_ctx,
+                    event_sequence=rec.event_sequence,
+                    chosen_action=rec.chosen_action,
+                    key=rec.key,
+                    timestamp_ms=rec.timestamp_ms,
+                    sparse_activity=rec.sparse_activity,
+                    duration_steps=rec.duration_steps,
+                    task_name=rec.task_name,
+                    prediction_error=rec.prediction_error,
+                    reward_val=rec.reward_val,
+                    is_closed=rec.is_closed,
+                    retrieval_count=rec.retrieval_count,
+                    latent_state=corrupted_latent,
+                )
+                retrieved_records.append(cloned)
+            elif self.ablation == MemoryAblation.PARTIAL_MEMORY:
+                partial_latent = None
+                if rec.latent_state is not None:
+                    partial_latent = rec.latent_state.copy()
+                    mask = self.rng.uniform(size=partial_latent.shape) < 0.80
+                    partial_latent[mask] = 0.0
+                mask_ctx = self.rng.uniform(size=rec.context_vector.shape) < 0.80
+                partial_ctx = rec.context_vector.copy()
+                partial_ctx[mask_ctx] = 0.0
+                cloned = EpisodeRecord(
+                    episode_id=rec.episode_id,
+                    context_vector=partial_ctx,
+                    event_sequence=rec.event_sequence,
+                    chosen_action=rec.chosen_action,
+                    key=rec.key,
+                    timestamp_ms=rec.timestamp_ms,
+                    sparse_activity=rec.sparse_activity,
+                    duration_steps=rec.duration_steps,
+                    task_name=rec.task_name,
+                    prediction_error=rec.prediction_error,
+                    reward_val=rec.reward_val,
+                    is_closed=rec.is_closed,
+                    retrieval_count=rec.retrieval_count,
+                    latent_state=partial_latent,
+                )
+                retrieved_records.append(cloned)
+            else:
+                retrieved_records.append(rec)
 
         # Account retrieval frequency on the true stored records.
         if retrieved_ids:
@@ -385,6 +478,7 @@ class SparseEpisodicMemory:
             competitors=competitors,
             sparsity=sparsity,
             latency_us=(time.perf_counter() - t0) * 1e6,
+            records=retrieved_records,
         )
         self.last_retrieval = res
         return res

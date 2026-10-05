@@ -1,7 +1,7 @@
 """Passive state capture and telemetry frame construction for 3D-Brain."""
 
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 import numpy as np
 
 from brain.base import BrainModel

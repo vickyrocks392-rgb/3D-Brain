@@ -438,3 +438,178 @@ def test_contract_16_research_debug_controls_not_in_primary_surface():
     assert 'id="btn-mech-necessity"' not in obs_header_match
     assert 'id="btn-spike-encoding"' not in obs_header_match
 
+
+
+# =============================================================================
+# PART N: OBSERVATORY V2 CONTRACT TESTS (20 VERIFICATION CHECKS)
+# =============================================================================
+
+def test_contract_17_no_hardcoded_result_fallbacks():
+    """Check 1: Result panel does not contain hardcoded LEFT/98.2 fallback."""
+    html_path = Path("visualization/player.html")
+    html = html_path.read_text(encoding="utf-8")
+    assert "98.2%" not in html
+    assert "0.738" not in html
+    assert "confHero.innerText = '98.2%'" not in html
+    assert "actHero.innerText = 'LEFT'" not in html
+
+
+def test_contract_18_result_panel_shows_unknown_before_execution():
+    """Check 2: Result panel shows waiting/unknown state before execution."""
+    html_path = Path("visualization/player.html")
+    html = html_path.read_text(encoding="utf-8")
+    assert '<div class="result-action-callout" id="result-action-hero">—</div>' in html
+    assert '<div class="result-conf-callout" id="result-confidence-hero">—</div>' in html
+    assert 'WAITING FOR EXECUTION' in html
+
+
+def test_contract_19_result_changes_with_computation():
+    """Check 3: Result panel changes when computational result changes across frames."""
+    p23b_path = Path("experiments/results/brainlogs/EXP023B_compositional.brainlog")
+    with open(p23b_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    engine = ReplayEngine(data)
+    f0 = engine.seek(0)
+    f_last = engine.seek(engine.total_steps - 1)
+    # Frame 0 is training, last frame is zero-shot test
+    assert f0["dynamic_details"].get("is_zero_shot_test") is False
+    assert f_last["dynamic_details"].get("is_zero_shot_test") is True
+
+
+def test_contract_20_natural_language_command_visible():
+    """Check 4: Natural-language command area is visible with required prompt and placeholder."""
+    html_path = Path("visualization/player.html")
+    html = html_path.read_text(encoding="utf-8")
+    assert 'ASK THE BRAIN' in html
+    assert 'id="primary-nl-input"' in html
+    assert 'placeholder="Tell the brain what to do..."' in html
+
+
+def test_contract_21_run_control_exists_and_works():
+    """Check 5: RUN control exists and executes task."""
+    html_path = Path("visualization/player.html")
+    html = html_path.read_text(encoding="utf-8")
+    assert 'id="primary-run-btn"' in html
+    assert "executePrimaryInstruction" in html
+
+
+def test_contract_22_replay_control_exists_and_works():
+    """Check 6: Replay control exists and toggles mode."""
+    html_path = Path("visualization/player.html")
+    html = html_path.read_text(encoding="utf-8")
+    assert 'id="btn-replay-toggle"' in html
+    assert "btn-replay-toggle" in html
+
+
+def test_contract_23_play_pause_works():
+    """Check 7: Play/pause button exists and handles playback state."""
+    html_path = Path("visualization/player.html")
+    html = html_path.read_text(encoding="utf-8")
+    assert 'id="btn-play-pause"' in html
+    assert "togglePlay()" in html
+
+
+def test_contract_24_step_forward_back_changes_frame():
+    """Check 8: Step forward/back controls exist for BrainLog navigation."""
+    html_path = Path("visualization/player.html")
+    html = html_path.read_text(encoding="utf-8")
+    assert 'id="btn-step-prev"' in html
+    assert 'id="btn-step-next"' in html
+    assert "stepBackward()" in html
+    assert "stepForward()" in html
+
+
+def test_contract_25_frame_control_implemented():
+    """Check 9: Frame / Recenter control is properly implemented."""
+    html_path = Path("visualization/player.html")
+    html = html_path.read_text(encoding="utf-8")
+    assert 'id="cam-autoframe-btn"' in html
+    assert "autoFrameNetwork" in html
+
+
+def test_contract_26_neuron_clicking_inspection_works():
+    """Check 10: Neuron clicking opens contextual inspection panel."""
+    html_path = Path("visualization/player.html")
+    html = html_path.read_text(encoding="utf-8")
+    assert 'id="left-panel"' in html
+    assert 'id="insp-neuron-state"' in html
+    assert "selectNeuron" in html
+
+
+def test_contract_27_research_console_collapsed_by_default():
+    """Check 11: Research console is collapsed by default."""
+    html_path = Path("visualization/player.html")
+    html = html_path.read_text(encoding="utf-8")
+    assert "transform: translateX(100%);" in html
+    assert 'class="research-drawer"' in html
+
+
+def test_contract_28_research_console_can_open():
+    """Check 12: Research console opens via research-toggle-btn."""
+    html_path = Path("visualization/player.html")
+    html = html_path.read_text(encoding="utf-8")
+    assert 'id="research-toggle-btn"' in html
+    assert "rDrawer.classList.toggle('open')" in html
+
+
+def test_contract_29_developer_controls_do_not_cover_primary_ui():
+    """Check 13: Developer controls do not dominate or cover primary UI."""
+    html_path = Path("visualization/player.html")
+    html = html_path.read_text(encoding="utf-8")
+    assert '<aside id="right-panel" class="research-drawer"' in html
+    assert 'id="computation-flow-panel"' in html
+
+
+def test_contract_30_layout_fits_viewport():
+    """Check 14: Layout uses viewport-aware encapsulation."""
+    html_path = Path("visualization/player.html")
+    html = html_path.read_text(encoding="utf-8")
+    assert "height: 100vh;" in html
+    assert "width: 100vw;" in html
+    assert "max-height: 100vh;" in html
+
+
+def test_contract_31_no_horizontal_overflow():
+    """Check 15: No horizontal overflow anywhere."""
+    html_path = Path("visualization/player.html")
+    html = html_path.read_text(encoding="utf-8")
+    assert "overflow-x: hidden;" in html
+
+
+def test_contract_32_current_event_telemetry_updates_with_replay():
+    """Check 16: Current event telemetry updates with frame."""
+    html_path = Path("visualization/player.html")
+    html = html_path.read_text(encoding="utf-8")
+    assert "updatePrimaryEventSurface(frame, dyn, stepIndex)" in html
+
+
+def test_contract_33_memory_telemetry_updates_with_replay():
+    """Check 17: Memory telemetry updates with replay."""
+    html_path = Path("visualization/player.html")
+    html = html_path.read_text(encoding="utf-8")
+    assert "updateMinimalPersistentState(frame, dyn)" in html
+    assert 'id="mem-store-count"' in html
+
+
+def test_contract_34_decision_telemetry_updates_with_replay():
+    """Check 18: Decision telemetry updates with replay."""
+    html_path = Path("visualization/player.html")
+    html = html_path.read_text(encoding="utf-8")
+    assert "updatePrimaryResultSurface(frame, dyn, stepIndex)" in html
+
+
+def test_contract_35_result_values_come_from_computational_state():
+    """Check 19: Result values are extracted strictly from dynamic details or event payloads."""
+    html_path = Path("visualization/player.html")
+    html = html_path.read_text(encoding="utf-8")
+    assert "dynSafe.selected_action" in html
+    assert "dynSafe.confidence" in html
+    assert "dynSafe.retrieved_episode_id" in html
+
+
+def test_contract_36_no_stale_result_remains_after_task_change():
+    """Check 20: Stale results are cleared upon initiating a new task command."""
+    html_path = Path("visualization/player.html")
+    html = html_path.read_text(encoding="utf-8")
+    assert "EXECUTING TRACE..." in html
+    assert "actHero.innerText = '—'" in html

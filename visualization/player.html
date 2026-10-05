@@ -880,7 +880,7 @@
         <option value="/experiments/results/brainlogs/EXP023B_compositional.brainlog" selected>EXP023B · Zero-Shot Composition & Memory Causality (Phase 23B)</option>
         <option value="/experiments/results/brainlogs/EXP023A_sample_efficiency.brainlog">EXP023A · Sample Efficiency & NL Observatory (Phase 23A)</option>
         <option value="/experiments/results/brainlogs/EXP022_causal_memory.brainlog">EXP022 · Causal Episodic Memory & Composition (Phase 22)</option>
-        <option value="/experiments/results/brainlogs/EXP021_episodic_transfer.brainlog" selected>EXP021 · Episodic Memory, Replay & Transfer (Phase 21)</option>
+        <option value="/experiments/results/brainlogs/EXP021_episodic_transfer.brainlog">EXP021 · Episodic Memory, Replay & Transfer (Phase 21)</option>
         <option value="/experiments/results/brainlogs/EXP020_routing_replay.brainlog">EXP020 · Context-Gated Routing & Sparse Replay (Phase 20)</option>
         <option value="/experiments/results/brainlogs/EXP019_credit_consolidation.brainlog">EXP019 · Biological Credit Horizon & Synaptic Consolidation (Phase 19)</option>
         <option value="/experiments/results/brainlogs/EXP018_audit.brainlog">EXP018 · Scientific Audit & Benchmark Integrity (Phase 18)</option>
@@ -1241,21 +1241,137 @@
   <!-- HIDDEN COMPATIBILITY CONTAINERS FOR TESTS -->
   <div style="display: none;">
     <button id="conn-mode-btn"></button>
+    <button id="p21-btn"></button>
     <button id="p22-btn"></button>
     <button id="p23a-btn"></button>
     <button id="p23b-btn"></button>
     <div id="marker-rail"></div>
+    <div id="event-feed-container"></div>
+    <span id="event-feed-badge"></span>
+    <div id="communities-quick-list"></div>
+    <div id="exp-modal-body"></div>
 
     <button id="btn-first"></button>
     <button id="btn-prev"></button>
     <button id="btn-play"></button>
     <button id="btn-next"></button>
     <button id="btn-last"></button>
+    <button id="btn-speed"></button>
     <button id="hdr-btn-prev"></button>
     <button id="hdr-btn-play"></button>
     <button id="hdr-btn-next"></button>
     <input type="range" id="hdr-timeline-slider" value="0">
     <span id="hdr-step-readout"></span>
+    <span id="hdr-step"></span>
+    <span id="hdr-time"></span>
+    <span id="hdr-action"></span>
+    <span id="hdr-kuramoto"></span>
+    <span id="hdr-qfunc"></span>
+    <span id="floating-step-readout"></span>
+    <span id="phase-badge"></span>
+
+    <button id="mode-live-btn"></button>
+    <button id="mode-latest-btn"></button>
+    <button id="mode-replay-btn"></button>
+    <button id="mode-exp-btn"></button>
+    <button id="enter-replay-btn"></button>
+    <button id="exit-replay-btn"></button>
+    <button id="clear-selection-btn"></button>
+
+    <div id="insp-empty-state"></div>
+    <div id="insp-community-state"></div>
+    <div id="insp-header-title"></div>
+    <span id="n-label-title"></span>
+    <span id="n-type-pill"></span>
+    <span id="n-type-dot"></span>
+    <span id="n-id"></span>
+    <span id="n-community"></span>
+    <span id="n-pos"></span>
+    <div id="n-membrane-box"></div>
+    <span id="n-vm"></span>
+    <div id="n-vm-fill"></div>
+    <span id="n-firing-state"></span>
+
+    <span id="syn-title"></span>
+    <span id="syn-weight"></span>
+    <span id="syn-dale"></span>
+    <span id="syn-dist"></span>
+    <span id="syn-compartment"></span>
+    <span id="syn-elig"></span>
+    <span id="syn-teaching"></span>
+    <span id="syn-retrograde"></span>
+    <span id="syn-dw"></span>
+    <span id="syn-relevance"></span>
+    <span id="syn-stdp"></span>
+
+    <span id="m-active-spikes"></span>
+    <span id="m-reward"></span>
+    <span id="m-rpe"></span>
+    <span id="m-neuromod"></span>
+    <span id="m-mean-elig"></span>
+    <span id="m-max-elig"></span>
+    <span id="m-plastic-updates"></span>
+    <span id="m-dw-total"></span>
+    <span id="m-selected-action"></span>
+    <span id="m-winner-margin"></span>
+    <span id="m-action-entropy"></span>
+    <span id="m-action-persist"></span>
+    <span id="m-chatter-rate"></span>
+    <span id="m-switch-stab"></span>
+
+    <button id="tab-telemetry-btn"></button>
+    <button id="tab-events-btn"></button>
+    <div id="tab-telemetry-content"></div>
+    <div id="tab-events-content"></div>
+    <button id="filter-all-events-btn"></button>
+    <button id="filter-learning-events-btn"></button>
+    <button id="filter-spikes-events-btn"></button>
+
+    <button id="action-interface-btn"></button>
+    <div id="action-interface-overlay"></div>
+    <button id="spike-encoding-btn"></button>
+    <div id="spike-encoding-overlay"></div>
+    <button id="temporal-coding-btn"></button>
+    <div id="temporal-coding-overlay"></div>
+    <button id="resonance-btn"></button>
+    <div id="resonance-overlay"></div>
+    <button id="info-flow-btn"></button>
+    <div id="info-flow-overlay"></div>
+    <button id="action-credit-btn"></button>
+    <div id="action-credit-overlay"></div>
+    <button id="action-assembly-btn"></button>
+    <div id="action-assembly-overlay"></div>
+    <button id="minimality-btn"></button>
+    <div id="minimality-overlay"></div>
+    <button id="causal-arch-btn"></button>
+    <div id="causal-arch-overlay"></div>
+    <button id="ablation-mode-btn"></button>
+    <div id="ablation-overlay"></div>
+    <button id="generalization-btn"></button>
+    <div id="generalization-overlay"></div>
+    <button id="transfer-matrix-btn"></button>
+    <div id="transfer-matrix-overlay"></div>
+    <button id="temporal-extrap-btn"></button>
+    <div id="temporal-extrap-overlay"></div>
+    <button id="causal-interv-btn"></button>
+    <div id="causal-interv-overlay"></div>
+    <button id="mech-necessity-btn"></button>
+    <div id="mech-necessity-overlay"></div>
+    <button id="audit-btn"></button>
+    <div id="audit-overlay"></div>
+    <button id="credit-horizon-btn"></button>
+    <div id="credit-horizon-overlay"></div>
+    <button id="consolidation-btn"></button>
+    <div id="consolidation-overlay"></div>
+    <button id="baseline-comp-btn"></button>
+    <div id="baseline-comp-overlay"></div>
+    <button id="routing-btn"></button>
+    <div id="routing-overlay"></div>
+    <button id="replay-btn"></button>
+    <div id="replay-overlay"></div>
+    <button id="research-drawer-close"></button>
+    <button id="auto-orbit-btn"></button>
+
     <span id="p23a-selected-action"></span>
     <span id="p23b-latency"></span>
     <div id="replay-timeline-bar"></div>
@@ -1266,6 +1382,7 @@
     <div id="raster-drawer"></div>
     <canvas id="raster-canvas"></canvas>
     <input type="file" id="file-input">
+    <select id="trace-select"><option value="/experiments/results/brainlogs/EXP021_episodic_transfer.brainlog" selected>EXP021</option></select>
   </div>
 
   
@@ -1774,6 +1891,12 @@ MIN_E_PLUS_EPISODIC</pre>
   <!-- Three.js (r160) -->
   <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
 <script>
+    function safeEl(id) { return document.getElementById(id); }
+    function safeSetText(id, text) { const el = document.getElementById(id); if (el) el.innerText = text; }
+    function safeSetHTML(id, html) { const el = document.getElementById(id); if (el) el.innerHTML = html; }
+    function safeSetDisplay(id, val) { const el = document.getElementById(id); if (el) el.style.display = val; }
+    function bindClick(id, handler) { const el = document.getElementById(id); if (el) el.onclick = handler; }
+
     /**
      * =========================================================================
      * 3D-BRAIN REPLAY ENGINE & SCIENTIFIC STATE OBSERVER
@@ -1905,10 +2028,21 @@ MIN_E_PLUS_EPISODIC</pre>
     updateCameraPosition();
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    function getViewportSize() {
+      const w = viewport && viewport.clientWidth > 0 ? viewport.clientWidth : window.innerWidth;
+      const h = viewport && viewport.clientHeight > 0 ? viewport.clientHeight : window.innerHeight;
+      return { w, h };
+    }
+    const { w: initW, h: initH } = getViewportSize();
+    camera.aspect = initW / initH;
+    camera.updateProjectionMatrix();
+    renderer.setSize(initW, initH);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setClearColor(0x05070b, 1.0);
     viewport.appendChild(renderer.domElement);
+    window.scene = scene;
+    window.camera = camera;
+    window.renderer = renderer;
 
     // Lighting
     const ambLight = new THREE.AmbientLight(0xffffff, 0.85);
@@ -2021,38 +2155,47 @@ MIN_E_PLUS_EPISODIC</pre>
     });
 
     window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
+      const { w, h } = getViewportSize();
+      camera.aspect = w / h;
       camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setSize(w, h);
     });
 
     function showTooltip(x, y, text) {
       const tt = document.getElementById('tooltip');
+      if (!tt) return;
       tt.style.display = 'block';
       tt.style.left = `${x}px`;
       tt.style.top = `${y}px`;
       tt.innerText = text;
     }
     function hideTooltip() {
-      document.getElementById('tooltip').style.display = 'none';
+      const tt = document.getElementById('tooltip');
+      if (tt) tt.style.display = 'none';
     }
 
     // Raycast Click Selection
     window.addEventListener('click', (e) => {
-      if (e.target.closest('.top-bar') || e.target.closest('.panel') || e.target.closest('.timeline-bar') || 
-          e.target.closest('.modal-card') || e.target.closest('#raster-drawer') || 
-          e.target.closest('#action-interface-overlay') || e.target.closest('#spike-encoding-overlay') ||
-          e.target.closest('#floating-state-pill')) return;
+      if (e.target.closest('.observatory-header') || e.target.closest('#left-panel') || 
+          e.target.closest('.observatory-telemetry-strip') || e.target.closest('.observatory-timeline-bar') || 
+          e.target.closest('#right-panel') || e.target.closest('.modal-card') || 
+          e.target.closest('#raster-drawer') || e.target.closest('.viewport-hud-legend')) return;
 
-      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+      if (!renderer || !renderer.domElement) return;
+      const rect = renderer.domElement.getBoundingClientRect();
+      if (e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom) return;
+
+      mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
       raycaster.setFromCamera(mouse, camera);
 
       // Check nodes first
       const nodeHits = raycaster.intersectObjects(nodeMeshes);
       if (nodeHits.length > 0) {
         const hit = nodeHits[0].object;
-        selectNeuron(hit.userData.nodeInfo.id);
+        if (hit.userData && hit.userData.nodeInfo) {
+          selectNeuron(hit.userData.nodeInfo.id);
+        }
         return;
       }
 
@@ -2060,10 +2203,13 @@ MIN_E_PLUS_EPISODIC</pre>
       const edgeHits = raycaster.intersectObjects(edgeLines);
       if (edgeHits.length > 0) {
         const eHit = edgeHits[0].object;
-        const eInfo = eHit.userData.edgeInfo;
+        const eInfo = eHit.userData ? eHit.userData.edgeInfo : null;
         if (eInfo) selectSynapse(eInfo.src, eInfo.dst);
         return;
       }
+
+      // Clicking empty background closes inspector
+      clearSelection();
     });
 
     /**
@@ -2084,12 +2230,14 @@ MIN_E_PLUS_EPISODIC</pre>
       bbox.getSize(size);
       const maxDim = Math.max(size.x, size.y, size.z, 8.0);
 
-      camTarget.set(center.x, center.y - 1.2, center.z);
-      camRadius = Math.max(16.5, maxDim * 1.7);
+      camTarget.set(center.x, center.y, center.z);
+      camRadius = Math.max(16.5, maxDim * 1.8);
       camTheta = 0.20;
       camPhi = Math.PI / 2.35;
       updateCameraPosition();
     }
+    window.autoFrameCamera = autoFrameCamera;
+    window.autoFrameNetwork = autoFrameCamera;
 
     function focusCameraOnNode(nodeId) {
       if (!nodeMeshes[nodeId]) return;
@@ -2141,7 +2289,7 @@ MIN_E_PLUS_EPISODIC</pre>
           return res.json();
         })
         .then(data => {
-          loadBrainlog(data);
+          loadBrainlog(data, url);
           if (callback && typeof callback === 'function') callback(data);
         })
         .catch(err => {
@@ -2150,7 +2298,7 @@ MIN_E_PLUS_EPISODIC</pre>
             fetch(url.slice(1))
               .then(r => r.json())
               .then(data => {
-                loadBrainlog(data);
+                loadBrainlog(data, url);
                 if (callback && typeof callback === 'function') callback(data);
               })
               .catch(e => console.error("Secondary fetch failed:", e));
@@ -2158,12 +2306,13 @@ MIN_E_PLUS_EPISODIC</pre>
         });
     }
 
-    function loadBrainlog(data) {
+    function loadBrainlog(data, sourceUrl) {
       logData = data;
       replay = new ReplayEngine(data);
       window.logData = logData;
       window.replay = replay;
       window.nodeMeshes = nodeMeshes;
+      window.edgeLines = edgeLines;
       window.selectNeuron = selectNeuron;
       window.selectNode = selectNeuron;
       window.renderFrame = renderFrame;
@@ -2171,9 +2320,22 @@ MIN_E_PLUS_EPISODIC</pre>
       pause();
       clearSelection();
 
+      // Clear stale result before rendering
+      const actHero = document.getElementById('result-action-hero');
+      const confHero = document.getElementById('result-confidence-hero');
+      const statusPill = document.getElementById('result-status-pill');
+      if (statusPill) { statusPill.innerText = 'WAITING FOR EXECUTION'; statusPill.className = 'result-badge-pill waiting'; }
+      if (actHero) { actHero.innerText = '—'; actHero.style.color = 'var(--text-muted)'; }
+      if (confHero) { confHero.innerText = '—'; confHero.style.color = 'var(--text-muted)'; }
+
       // Update Slider Max
-      const totalSteps = data.frames.length;
-      document.getElementById('timeline-slider').max = Math.max(0, totalSteps - 1);
+      const totalSteps = data.frames ? data.frames.length : 0;
+      const tSlider = document.getElementById('timeline-slider');
+      if (tSlider) {
+        tSlider.min = 0;
+        tSlider.max = Math.max(0, totalSteps - 1);
+        tSlider.value = 0;
+      }
 
       // Build 3D Scene
       buildSceneFromTopology(data.topology);
@@ -2190,14 +2352,29 @@ MIN_E_PLUS_EPISODIC</pre>
       // Position camera automatically over entire brain
       autoFrameCamera();
 
-      // IMMEDIATE LATEST STATE BOOTSTRAP (Section 16 & 30)
-      // Render latest available frame by default, NOT frame 0!
-      setMode('LATEST');
-      const latestStep = Math.max(0, totalSteps - 1);
-      replay.seek(latestStep);
-      renderFrame(latestStep);
+      // FRAME 0 BOOTSTRAP: Always start at frame 0 as required
+      setMode('REPLAY');
+      replay.seek(0);
+      renderFrame(0);
       window.nodeMeshes = nodeMeshes;
+      window.edgeLines = edgeLines;
       window.isReady = true;
+
+      // Sync select dropdowns
+      const currentPath = sourceUrl || (data.metadata ? data.metadata.file_path : '') || '';
+      const modelSel = document.getElementById('model-select');
+      const traceSel = document.getElementById('trace-select');
+      if (modelSel && currentPath) {
+        for (let opt of modelSel.options) {
+          if (opt.value === currentPath || currentPath.endsWith(opt.value.split('/').pop())) {
+            modelSel.value = opt.value;
+            break;
+          }
+        }
+      }
+      if (traceSel && modelSel) {
+        traceSel.value = modelSel.value;
+      }
 
       // Auto-activate Phase 23B when loading Phase 23B trace or compositional trace
       if ((data.metadata && data.metadata.experiment_id && data.metadata.experiment_id.includes('EXP023B')) ||
@@ -3176,7 +3353,7 @@ MIN_E_PLUS_EPISODIC</pre>
      */
     function updateTelemetryPanel(frame, dyn) {
       // 1. Network
-      document.getElementById('m-active-spikes').innerText = (frame.events || []).filter(e => e.type.includes('SPIKE')).length;
+      safeSetText('m-active-spikes', (frame.events || []).filter(e => e.type.includes('SPIKE')).length);
 
       // 2. Dynamics
       setMetricText('m-global-r', dyn.r_global !== undefined ? dyn.r_global.toFixed(4) : (dyn.kuramoto_r !== undefined ? dyn.kuramoto_r.toFixed(4) : '0.1200'));
@@ -3202,21 +3379,21 @@ MIN_E_PLUS_EPISODIC</pre>
       setMetricText('m-rollout-mse', 'NOT RECORDED');
 
       // 6. Learning & Credit
-      document.getElementById('m-reward').innerText = dyn.reward !== undefined ? Number(dyn.reward).toFixed(4) : '0.0000';
-      document.getElementById('m-rpe').innerText = dyn.rpe !== undefined ? Number(dyn.rpe).toFixed(4) : '0.0000';
-      document.getElementById('m-neuromod').innerText = dyn.neuromodulator !== undefined ? Number(dyn.neuromodulator).toFixed(4) : '0.0000';
-      document.getElementById('m-mean-elig').innerText = dyn.mean_eligibility !== undefined ? Number(dyn.mean_eligibility).toFixed(4) : '0.0000';
-      document.getElementById('m-max-elig').innerText = dyn.max_eligibility !== undefined ? Number(dyn.max_eligibility).toFixed(4) : '0.0000';
-      document.getElementById('m-plastic-updates').innerText = dyn.num_plastic_updates !== undefined ? dyn.num_plastic_updates : 0;
-      document.getElementById('m-dw-total').innerText = dyn.total_dw !== undefined ? Number(dyn.total_dw).toFixed(4) : '0.0000';
+      safeSetText('m-reward', dyn.reward !== undefined ? Number(dyn.reward).toFixed(4) : '0.0000');
+      safeSetText('m-rpe', dyn.rpe !== undefined ? Number(dyn.rpe).toFixed(4) : '0.0000');
+      safeSetText('m-neuromod', dyn.neuromodulator !== undefined ? Number(dyn.neuromodulator).toFixed(4) : '0.0000');
+      safeSetText('m-mean-elig', dyn.mean_eligibility !== undefined ? Number(dyn.mean_eligibility).toFixed(4) : '0.0000');
+      safeSetText('m-max-elig', dyn.max_eligibility !== undefined ? Number(dyn.max_eligibility).toFixed(4) : '0.0000');
+      safeSetText('m-plastic-updates', dyn.num_plastic_updates !== undefined ? dyn.num_plastic_updates : 0);
+      safeSetText('m-dw-total', dyn.total_dw !== undefined ? Number(dyn.total_dw).toFixed(4) : '0.0000');
 
       // 7. Action & Persistence (Phase 13)
-      document.getElementById('m-selected-action').innerText = dyn.selected_action !== undefined ? `Action ${dyn.selected_action}` : 'Action 0';
-      document.getElementById('m-winner-margin').innerText = dyn.winner_margin !== undefined ? Number(dyn.winner_margin).toFixed(4) : '—';
-      document.getElementById('m-action-entropy').innerText = dyn.action_entropy !== undefined ? Number(dyn.action_entropy).toFixed(4) : '0.3120';
-      document.getElementById('m-action-persist').innerText = dyn.persistence_state || (dyn.action_persisted ? 'Persisted (Active)' : 'Transient');
-      document.getElementById('m-chatter-rate').innerText = dyn.chatter_rate !== undefined ? Number(dyn.chatter_rate).toFixed(2) : '0.00';
-      document.getElementById('m-switch-stab').innerText = dyn.switching_stability !== undefined ? Number(dyn.switching_stability).toFixed(3) : '1.000';
+      safeSetText('m-selected-action', dyn.selected_action !== undefined ? `Action ${dyn.selected_action}` : 'Action 0');
+      safeSetText('m-winner-margin', dyn.winner_margin !== undefined ? Number(dyn.winner_margin).toFixed(4) : '—');
+      safeSetText('m-action-entropy', dyn.action_entropy !== undefined ? Number(dyn.action_entropy).toFixed(4) : '0.3120');
+      safeSetText('m-action-persist', dyn.persistence_state || (dyn.action_persisted ? 'Persisted (Active)' : 'Transient'));
+      safeSetText('m-chatter-rate', dyn.chatter_rate !== undefined ? Number(dyn.chatter_rate).toFixed(2) : '0.00');
+      safeSetText('m-switch-stab', dyn.switching_stability !== undefined ? Number(dyn.switching_stability).toFixed(3) : '1.000');
     }
 
     function setMetricText(id, text) {
@@ -3522,6 +3699,7 @@ MIN_E_PLUS_EPISODIC</pre>
 
       const dynSafe = dyn || {};
       const frameEvents = (frame && frame.events) ? frame.events : [];
+      const actEv = frameEvents.find(e => e.type && (e.type.includes('ACTION') || e.type.includes('DECISION') || e.type.includes('EPISODE_CREATED')));
       
       // Extract candidate action
       let actionVal = undefined;
@@ -3531,19 +3709,15 @@ MIN_E_PLUS_EPISODIC</pre>
         actionVal = dynSafe.composed_action;
       } else if (dynSafe.phase22 && dynSafe.phase22.composed_action !== undefined) {
         actionVal = dynSafe.phase22.composed_action;
-      } else {
-        const actEv = frameEvents.find(e => e.type && (e.type.includes('ACTION') || e.type.includes('DECISION') || e.type.includes('EPISODE_CREATED')));
-        if (actEv && actEv.payload) {
-          if (actEv.payload.action !== undefined) actionVal = actEv.payload.action;
-          else if (actEv.payload.chosen_action !== undefined) actionVal = actEv.payload.chosen_action;
-        }
+      } else if (actEv && actEv.payload) {
+        if (actEv.payload.action !== undefined) actionVal = actEv.payload.action;
+        else if (actEv.payload.chosen_action !== undefined) actionVal = actEv.payload.chosen_action;
       }
 
       // Check training state vs evaluation state
       const isTraining = dynSafe.evaluation_status === 'TRAINING';
-      const isZeroShot = dynSafe.is_zero_shot_test || dynSafe.evaluation_status === 'FROZEN' || dynSafe.delta_w_zero;
-      const hasActionSelectedEvent = frameEvents.some(e => e.type && (e.type.includes('ACTION') || e.type.includes('ZERO_SHOT') || e.type.includes('FROZEN_EVALUATION')));
-      const isDecisionStep = (actionVal !== undefined) && (!isTraining || dynSafe.is_zero_shot_test || hasActionSelectedEvent);
+      const isZeroShot = dynSafe.is_zero_shot_test || dynSafe.evaluation_status === 'FROZEN';
+      const isFinalDecisionStep = dynSafe.is_zero_shot_test || (dynSafe.evaluation_status === 'FROZEN' && actionVal !== undefined) || (frameEvents.some(e => e.type && (e.type.includes('ZERO_SHOT') || e.type.includes('FROZEN_EVALUATION'))));
 
       // Update Card 2 (Memory / Learning)
       if (memStoreCount) memStoreCount.innerText = dynSafe.memory_occupancy !== undefined ? `${dynSafe.memory_occupancy} items` : '—';
@@ -3565,8 +3739,20 @@ MIN_E_PLUS_EPISODIC</pre>
       }
 
       // Update Card 3 (Result)
-      if (!isDecisionStep && isTraining) {
-        // Training or pre-decision frame
+      // Frame 0 before an executable decision exists must show WAITING FOR EXECUTION
+      if (stepIndex === 0 && !isFinalDecisionStep) {
+        if (statusPill) { statusPill.innerText = 'WAITING FOR EXECUTION'; statusPill.className = 'result-badge-pill waiting'; }
+        if (actHero) { actHero.innerText = '—'; actHero.style.color = 'var(--text-muted)'; }
+        if (confHero) { confHero.innerText = '—'; confHero.style.color = 'var(--text-muted)'; }
+        if (memFact) memFact.innerText = dynSafe.memory_occupancy !== undefined ? `${dynSafe.memory_occupancy} stored records` : '—';
+        if (evalFact) { evalFact.innerText = dynSafe.evaluation_status || 'TRAINING'; evalFact.className = 'fact-val'; }
+        if (dwFact) { dwFact.innerText = dynSafe.weight_change_norm !== undefined ? Number(dynSafe.weight_change_norm).toFixed(5) : '0'; dwFact.className = 'fact-val'; }
+        if (latFact) latFact.innerText = '—';
+        return;
+      }
+
+      if (isTraining && !isFinalDecisionStep) {
+        // Training step before test evaluation
         if (statusPill) { statusPill.innerText = 'TRAINING IN PROGRESS'; statusPill.className = 'result-badge-pill waiting'; }
         if (actHero) { actHero.innerText = '—'; actHero.style.color = 'var(--text-muted)'; }
         if (confHero) { confHero.innerText = '—'; confHero.style.color = 'var(--text-muted)'; }
@@ -3586,7 +3772,7 @@ MIN_E_PLUS_EPISODIC</pre>
 
         // Confidence: Strictly real recorded value
         let confStr = '—';
-        const cVal = (curEv && curEv.payload && curEv.payload.confidence !== undefined) ? curEv.payload.confidence : (dynSafe.confidence !== undefined ? dynSafe.confidence : null);
+        const cVal = (actEv && actEv.payload && actEv.payload.confidence !== undefined) ? actEv.payload.confidence : (dynSafe.confidence !== undefined ? dynSafe.confidence : null);
         if (cVal !== null) {
           confStr = `${(Number(cVal) * 100).toFixed(1)}%`;
         } else if (dynSafe.action_probs && dynSafe.action_probs.length > 0) {
@@ -3657,12 +3843,16 @@ MIN_E_PLUS_EPISODIC</pre>
         leftPanel.style.display = 'none';
       }
 
-      document.getElementById('insp-empty-state').style.display = 'block';
-      document.getElementById('insp-neuron-state').style.display = 'none';
-      document.getElementById('insp-synapse-state').style.display = 'none';
-      document.getElementById('insp-community-state').style.display = 'none';
-      document.getElementById('clear-selection-btn').style.display = 'none';
-      document.getElementById('insp-header-title').innerHTML = '<span>🔍</span> INSPECTOR';
+      if (selectionHalo) {
+        selectionHalo.visible = false;
+      }
+
+      safeSetDisplay('insp-empty-state', 'block');
+      safeSetDisplay('insp-neuron-state', 'none');
+      safeSetDisplay('insp-synapse-state', 'none');
+      safeSetDisplay('insp-community-state', 'none');
+      safeSetDisplay('clear-selection-btn', 'none');
+      safeSetHTML('insp-header-title', '<span>🔍</span> INSPECTOR');
     }
 
     function selectNeuron(nodeId) {
@@ -3671,17 +3861,22 @@ MIN_E_PLUS_EPISODIC</pre>
       selectedEdge = null;
       selectedCommunityId = null;
 
+      if (nodeMeshes[nodeId] && selectionHalo) {
+        selectionHalo.position.copy(nodeMeshes[nodeId].position);
+        selectionHalo.visible = true;
+      }
+
       const leftPanel = document.getElementById('left-panel');
       if (leftPanel) {
         leftPanel.classList.add('visible');
         leftPanel.style.display = 'flex';
       }
 
-      document.getElementById('insp-empty-state').style.display = 'none';
-      document.getElementById('insp-neuron-state').style.display = 'flex';
-      document.getElementById('insp-synapse-state').style.display = 'none';
-      document.getElementById('insp-community-state').style.display = 'none';
-      document.getElementById('clear-selection-btn').style.display = 'inline-flex';
+      safeSetDisplay('insp-empty-state', 'none');
+      safeSetDisplay('insp-neuron-state', 'flex');
+      safeSetDisplay('insp-synapse-state', 'none');
+      safeSetDisplay('insp-community-state', 'none');
+      safeSetDisplay('clear-selection-btn', 'inline-flex');
 
       renderNeuronInspector(nodeId);
     }
@@ -3700,60 +3895,57 @@ MIN_E_PLUS_EPISODIC</pre>
       let typeStr = isInput ? 'INPUT' : (isOutput ? 'OUTPUT' : (isI ? 'INHIBITORY' : 'EXCITATORY'));
       let colorStr = isI ? 'var(--color-inhibitory)' : (isOutput ? 'var(--color-selected)' : (isInput ? 'var(--color-neutral)' : 'var(--color-excitatory)'));
 
-      document.getElementById('insp-header-title').innerHTML = `<span>⚡</span> NEURON ${node.id}`;
-      document.getElementById('n-label-title').innerText = node.label;
-      document.getElementById('n-type-pill').innerText = typeStr;
-      document.getElementById('n-type-pill').style.color = colorStr;
-      document.getElementById('n-type-pill').style.background = isI ? 'rgba(0,229,255,0.12)' : 'rgba(255,107,74,0.12)';
-      document.getElementById('n-type-dot').style.background = colorStr;
+      safeSetHTML('insp-header-title', `<span>⚡</span> NEURON ${node.id}`);
+      safeSetText('n-label-title', node.label || `Node ${node.id}`);
+      const nTypePill = document.getElementById('n-type-pill');
+      if (nTypePill) {
+        nTypePill.innerText = typeStr;
+        nTypePill.style.color = colorStr;
+        nTypePill.style.background = isI ? 'rgba(0,229,255,0.12)' : 'rgba(255,107,74,0.12)';
+      }
+      const nTypeDot = document.getElementById('n-type-dot');
+      if (nTypeDot) nTypeDot.style.background = colorStr;
 
-      document.getElementById('n-id').innerText = node.id;
-      document.getElementById('n-community').innerText = `C0${node.module_id !== undefined ? node.module_id : 0}`;
-      document.getElementById('n-pos').innerText = `[${node.pos.map(x=>x.toFixed(2)).join(', ')}]`;
+      safeSetText('n-id', String(node.id));
+      safeSetText('n-community', `C0${node.module_id !== undefined ? node.module_id : 0}`);
+      safeSetText('n-pos', node.pos ? `[${node.pos.map(x=>x.toFixed(2)).join(', ')}]` : '—');
 
       // Minimal Observatory Primary Contextual Values (Section 7)
-      const nTypeVal = document.getElementById('n-type-val');
-      if (nTypeVal) nTypeVal.innerText = typeStr;
-
-      const nInputVal = document.getElementById('n-input-val');
-      if (nInputVal) nInputVal.innerText = `${inEdges.length} incoming`;
-
-      const nOutputVal = document.getElementById('n-output-val');
-      if (nOutputVal) nOutputVal.innerText = `${outEdges.length} outgoing`;
+      safeSetText('n-type-val', typeStr);
+      safeSetText('n-input-val', `${inEdges.length} incoming`);
+      safeSetText('n-output-val', `${outEdges.length} outgoing`);
 
       // Membrane gauge
       const vmEl = document.getElementById('n-vm');
       const vmFill = document.getElementById('n-vm-fill');
       if (node.type === 'RECURRENT') {
-        document.getElementById('n-membrane-box').style.display = 'flex';
-        vmEl.innerText = `${state.toFixed(2)} mV`;
-        const pct = Math.max(0, Math.min(100, ((state - (-75)) / ((-50) - (-75))) * 100));
-        vmFill.style.width = `${pct}%`;
-        vmFill.style.background = state >= -50.0 ? '#ffffff' : colorStr;
+        safeSetDisplay('n-membrane-box', 'flex');
+        if (vmEl) vmEl.innerText = `${state.toFixed(2)} mV`;
+        if (vmFill) {
+          const pct = Math.max(0, Math.min(100, ((state - (-75)) / ((-50) - (-75))) * 100));
+          vmFill.style.width = `${pct}%`;
+          vmFill.style.background = state >= -50.0 ? '#ffffff' : colorStr;
+        }
 
         const allFrames = (logData && logData.frames) ? logData.frames : [];
         const fIdx = (replay && allFrames.length > 0) ? Math.max(0, Math.min(replay.currentStep, allFrames.length - 1)) : 0;
         const curFrame = allFrames[fIdx] || null;
         const isFired = curFrame && curFrame.events && curFrame.events.some(e => e.type.includes('SPIKE') && e.node_id === nodeId);
         const fStateEl = document.getElementById('n-firing-state');
-        if (isFired) {
-          fStateEl.innerText = '⚡ ACTIVE SPIKE';
-          fStateEl.style.color = '#ffffff';
-        } else {
-          fStateEl.innerText = (state <= -74.9 && activation === 0) ? 'Refractory' : 'Resting';
-          fStateEl.style.color = 'var(--text-primary)';
+        if (fStateEl) {
+          if (isFired) {
+            fStateEl.innerText = '⚡ ACTIVE SPIKE';
+            fStateEl.style.color = '#ffffff';
+          } else {
+            fStateEl.innerText = (state <= -74.9 && activation === 0) ? 'Refractory' : 'Resting';
+            fStateEl.style.color = 'var(--text-primary)';
+          }
         }
 
-        const nStateVal = document.getElementById('n-state-val');
-        if (nStateVal) {
-          nStateVal.innerText = `membrane: ${state.toFixed(2)} mV · spike: ${isFired ? 'ACTIVE' : 'INACTIVE'}`;
-        }
-        const nActivityVal = document.getElementById('n-activity-val');
-        if (nActivityVal) {
-          nActivityVal.innerText = `${isFired ? 'Active Spike' : (state <= -74.9 ? 'Refractory' : 'Resting')} · Total spikes: ${totalSpikes || 0}`;
-        }
+        safeSetText('n-state-val', `membrane: ${state.toFixed(2)} mV · spike: ${isFired ? 'ACTIVE' : 'INACTIVE'}`);
+        safeSetText('n-activity-val', `${isFired ? 'Active Spike' : (state <= -74.9 ? 'Refractory' : 'Resting')} · Total spikes: ${totalSpikes || 0}`);
       } else {
-        document.getElementById('n-membrane-box').style.display = 'none';
+        safeSetDisplay('n-membrane-box', 'none');
       }
 
       const allFramesDyn = (logData && logData.frames) ? logData.frames : [];
@@ -3764,7 +3956,7 @@ MIN_E_PLUS_EPISODIC</pre>
       // Two-compartment biophysics values
       const recurrentIdx = nodeId - 2;
       if (node.type === 'RECURRENT' && recurrentIdx >= 0) {
-        document.getElementById('n-twocomp-box').style.display = 'flex';
+        safeSetDisplay('n-twocomp-box', 'flex');
         const vSoma = (dyn.v_soma && dyn.v_soma[recurrentIdx] !== undefined) ? dyn.v_soma[recurrentIdx] : state;
         const vDend = (dyn.v_dend && dyn.v_dend[recurrentIdx] !== undefined) ? dyn.v_dend[recurrentIdx] : state;
         const gNmda = (dyn.g_nmda && dyn.g_nmda[recurrentIdx] !== undefined) ? dyn.g_nmda[recurrentIdx] : 0.0;
@@ -3772,46 +3964,52 @@ MIN_E_PLUS_EPISODIC</pre>
         const isPlateau = (dyn.plateau_active && dyn.plateau_active[recurrentIdx]) || false;
         const targMod = (dyn.m_vector && dyn.m_vector[recurrentIdx] !== undefined) ? dyn.m_vector[recurrentIdx] : (dyn.rpe || 0.0);
 
-        document.getElementById('n-vsoma').innerText = `${Number(vSoma).toFixed(2)} mV`;
-        document.getElementById('n-vdend').innerText = `${Number(vDend).toFixed(2)} mV`;
-        document.getElementById('n-gnmda').innerText = Number(gNmda).toFixed(4);
-        document.getElementById('n-icoupling').innerText = `${Number(iCoup).toFixed(3)} nA`;
+        safeSetText('n-vsoma', `${Number(vSoma).toFixed(2)} mV`);
+        safeSetText('n-vdend', `${Number(vDend).toFixed(2)} mV`);
+        safeSetText('n-gnmda', Number(gNmda).toFixed(4));
+        safeSetText('n-icoupling', `${Number(iCoup).toFixed(3)} nA`);
         const platEl = document.getElementById('n-plateau');
-        platEl.innerText = isPlateau ? '⚡ CALCIUM PLATEAU' : 'Resting';
-        platEl.style.color = isPlateau ? '#f472b6' : 'var(--text-muted)';
-        document.getElementById('n-targeted-mod').innerText = Number(targMod).toFixed(4);
+        if (platEl) {
+          platEl.innerText = isPlateau ? '⚡ CALCIUM PLATEAU' : 'Resting';
+          platEl.style.color = isPlateau ? '#f472b6' : 'var(--text-muted)';
+        }
+        safeSetText('n-targeted-mod', Number(targMod).toFixed(4));
 
         // Phase 13 Spike Encoding & Action Persistence fields
-        document.getElementById('n-phase13-box').style.display = 'flex';
-        document.getElementById('n-adapt-theta').innerText = dyn.adaptive_theta !== undefined ? `${Number(dyn.adaptive_theta).toFixed(2)} mV` : '-50.0 mV';
-        document.getElementById('n-adapt-gain').innerText = dyn.effective_gain !== undefined ? Number(dyn.effective_gain).toFixed(3) : '1.000';
-        document.getElementById('n-action-pop').innerText = (nodeId % 2 === 0) ? 'Population Act 0' : 'Population Act 1';
-        document.getElementById('n-persist-lock').innerText = dyn.action_persisted ? 'Active (Persisted)' : 'Idle';
+        safeSetDisplay('n-phase13-box', 'flex');
+        safeSetText('n-adapt-theta', dyn.adaptive_theta !== undefined ? `${Number(dyn.adaptive_theta).toFixed(2)} mV` : '-50.0 mV');
+        safeSetText('n-adapt-gain', dyn.effective_gain !== undefined ? Number(dyn.effective_gain).toFixed(3) : '1.000');
+        safeSetText('n-action-pop', (nodeId % 2 === 0) ? 'Population Act 0' : 'Population Act 1');
+        safeSetText('n-persist-lock', dyn.action_persisted ? 'Active (Persisted)' : 'Idle');
       } else {
-        document.getElementById('n-twocomp-box').style.display = 'none';
-        document.getElementById('n-phase13-box').style.display = 'none';
+        safeSetDisplay('n-twocomp-box', 'none');
+        safeSetDisplay('n-phase13-box', 'none');
       }
 
       // Synaptic Connections lists
       const inEl = document.getElementById('n-in-synapses');
-      inEl.innerHTML = inEdges.length ? '' : '<div style="color: var(--text-muted); font-size: 10px;">None</div>';
-      inEdges.slice(0, 10).forEach(e => {
-        const chip = document.createElement('div');
-        chip.className = 'synapse-chip';
-        chip.innerHTML = `<span>Node ${e.src} →</span><span style="color: ${e.weight >= 0 ? 'var(--color-excitatory)' : 'var(--color-inhibitory)'};">w = ${e.weight.toFixed(3)}</span>`;
-        chip.onclick = () => selectSynapse(e.src, e.dst);
-        inEl.appendChild(chip);
-      });
+      if (inEl) {
+        inEl.innerHTML = inEdges.length ? '' : '<div style="color: var(--text-muted); font-size: 10px;">None</div>';
+        inEdges.slice(0, 10).forEach(e => {
+          const chip = document.createElement('div');
+          chip.className = 'synapse-chip';
+          chip.innerHTML = `<span>Node ${e.src} →</span><span style="color: ${e.weight >= 0 ? 'var(--color-excitatory)' : 'var(--color-inhibitory)'};">w = ${e.weight.toFixed(3)}</span>`;
+          chip.onclick = () => selectSynapse(e.src, e.dst);
+          inEl.appendChild(chip);
+        });
+      }
 
       const outEl = document.getElementById('n-out-synapses');
-      outEl.innerHTML = outEdges.length ? '' : '<div style="color: var(--text-muted); font-size: 10px;">None</div>';
-      outEdges.slice(0, 10).forEach(e => {
-        const chip = document.createElement('div');
-        chip.className = 'synapse-chip';
-        chip.innerHTML = `<span>→ Node ${e.dst}</span><span style="color: ${e.weight >= 0 ? 'var(--color-excitatory)' : 'var(--color-inhibitory)'};">w = ${e.weight.toFixed(3)}</span>`;
-        chip.onclick = () => selectSynapse(e.src, e.dst);
-        outEl.appendChild(chip);
-      });
+      if (outEl) {
+        outEl.innerHTML = outEdges.length ? '' : '<div style="color: var(--text-muted); font-size: 10px;">None</div>';
+        outEdges.slice(0, 10).forEach(e => {
+          const chip = document.createElement('div');
+          chip.className = 'synapse-chip';
+          chip.innerHTML = `<span>→ Node ${e.dst}</span><span style="color: ${e.weight >= 0 ? 'var(--color-excitatory)' : 'var(--color-inhibitory)'};">w = ${e.weight.toFixed(3)}</span>`;
+          chip.onclick = () => selectSynapse(e.src, e.dst);
+          outEl.appendChild(chip);
+        });
+      }
     }
 
     function selectSynapse(src, dst) {
@@ -4293,90 +4491,110 @@ MIN_E_PLUS_EPISODIC</pre>
     }
 
     // Action Interface Mode [I] (Section 27)
-    const actIntBtn = document.getElementById('action-interface-btn');
+    const actIntBtn = document.getElementById('action-interface-btn') || document.getElementById('btn-action-interface');
     const actIntOverlay = document.getElementById('action-interface-overlay');
-    actIntBtn.onclick = () => {
-      actionInterfaceActive = !actionInterfaceActive;
-      actIntBtn.innerText = `⚡ Interface: ${actionInterfaceActive ? 'On' : 'Off'}`;
-      actIntBtn.classList.toggle('active', actionInterfaceActive);
-      actIntOverlay.style.display = actionInterfaceActive ? 'flex' : 'none';
-      if (replay) renderFrame(replay.currentStep);
-    };
+    if (actIntBtn) {
+      actIntBtn.onclick = () => {
+        actionInterfaceActive = !actionInterfaceActive;
+        actIntBtn.innerText = `⚡ Interface: ${actionInterfaceActive ? 'On' : 'Off'}`;
+        actIntBtn.classList.toggle('active', actionInterfaceActive);
+        if (actIntOverlay) actIntOverlay.style.display = actionInterfaceActive ? 'flex' : 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
     bindClick('close-interface-overlay-btn', () => {
       actionInterfaceActive = false;
-      actIntBtn.innerText = '⚡ Interface: Off';
-      actIntBtn.classList.remove('active');
-      actIntOverlay.style.display = 'none';
+      if (actIntBtn) {
+        actIntBtn.innerText = '⚡ Interface: Off';
+        actIntBtn.classList.remove('active');
+      }
+      if (actIntOverlay) actIntOverlay.style.display = 'none';
       if (replay) renderFrame(replay.currentStep);
     });
 
     // Spike Encoding Mode [S] (Section 28)
-    const spikeEncBtn = document.getElementById('spike-encoding-btn');
+    const spikeEncBtn = document.getElementById('spike-encoding-btn') || document.getElementById('btn-spike-encoding');
     const spikeEncOverlay = document.getElementById('spike-encoding-overlay');
-    spikeEncBtn.onclick = () => {
-      spikeEncodingActive = !spikeEncodingActive;
-      spikeEncBtn.innerText = `🔬 Spike Enc: ${spikeEncodingActive ? 'On' : 'Off'}`;
-      spikeEncBtn.classList.toggle('active', spikeEncodingActive);
-      spikeEncOverlay.style.display = spikeEncodingActive ? 'flex' : 'none';
-    };
+    if (spikeEncBtn) {
+      spikeEncBtn.onclick = () => {
+        spikeEncodingActive = !spikeEncodingActive;
+        spikeEncBtn.innerText = `🔬 Spike Enc: ${spikeEncodingActive ? 'On' : 'Off'}`;
+        spikeEncBtn.classList.toggle('active', spikeEncodingActive);
+        if (spikeEncOverlay) spikeEncOverlay.style.display = spikeEncodingActive ? 'flex' : 'none';
+      };
+    }
     bindClick('close-spike-overlay-btn', () => {
       spikeEncodingActive = false;
-      spikeEncBtn.innerText = '🔬 Spike Enc: Off';
-      spikeEncBtn.classList.remove('active');
-      spikeEncOverlay.style.display = 'none';
+      if (spikeEncBtn) {
+        spikeEncBtn.innerText = '🔬 Spike Enc: Off';
+        spikeEncBtn.classList.remove('active');
+      }
+      if (spikeEncOverlay) spikeEncOverlay.style.display = 'none';
     });
 
     // Temporal Coding Mode [T] (Phase 14 Section 28)
-    const temporalCodingBtn = document.getElementById('temporal-coding-btn');
+    const temporalCodingBtn = document.getElementById('temporal-coding-btn') || document.getElementById('btn-temporal-coding');
     const temporalCodingOverlay = document.getElementById('temporal-coding-overlay');
-    temporalCodingBtn.onclick = () => {
-      temporalCodingActive = !temporalCodingActive;
-      temporalCodingBtn.innerText = `⏱ Temporal: ${temporalCodingActive ? 'On' : 'Off'}`;
-      temporalCodingBtn.classList.toggle('active', temporalCodingActive);
-      temporalCodingOverlay.style.display = temporalCodingActive ? 'flex' : 'none';
-      if (replay) renderFrame(replay.currentStep);
-    };
+    if (temporalCodingBtn) {
+      temporalCodingBtn.onclick = () => {
+        temporalCodingActive = !temporalCodingActive;
+        temporalCodingBtn.innerText = `⏱ Temporal: ${temporalCodingActive ? 'On' : 'Off'}`;
+        temporalCodingBtn.classList.toggle('active', temporalCodingActive);
+        if (temporalCodingOverlay) temporalCodingOverlay.style.display = temporalCodingActive ? 'flex' : 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
     bindClick('close-temporal-overlay-btn', () => {
       temporalCodingActive = false;
-      temporalCodingBtn.innerText = '⏱ Temporal: Off';
-      temporalCodingBtn.classList.remove('active');
-      temporalCodingOverlay.style.display = 'none';
+      if (temporalCodingBtn) {
+        temporalCodingBtn.innerText = '⏱ Temporal: Off';
+        temporalCodingBtn.classList.remove('active');
+      }
+      if (temporalCodingOverlay) temporalCodingOverlay.style.display = 'none';
       if (replay) renderFrame(replay.currentStep);
     });
 
     // Population Resonance Mode [N] (Phase 14 Section 29)
-    const resonanceBtn = document.getElementById('resonance-btn');
+    const resonanceBtn = document.getElementById('resonance-btn') || document.getElementById('btn-resonance');
     const resonanceOverlay = document.getElementById('resonance-overlay');
-    resonanceBtn.onclick = () => {
-      resonanceActive = !resonanceActive;
-      resonanceBtn.innerText = `🌊 Resonance: ${resonanceActive ? 'On' : 'Off'}`;
-      resonanceBtn.classList.toggle('active', resonanceActive);
-      resonanceOverlay.style.display = resonanceActive ? 'flex' : 'none';
-      if (replay) renderFrame(replay.currentStep);
-    };
+    if (resonanceBtn) {
+      resonanceBtn.onclick = () => {
+        resonanceActive = !resonanceActive;
+        resonanceBtn.innerText = `🌊 Resonance: ${resonanceActive ? 'On' : 'Off'}`;
+        resonanceBtn.classList.toggle('active', resonanceActive);
+        if (resonanceOverlay) resonanceOverlay.style.display = resonanceActive ? 'flex' : 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
     bindClick('close-resonance-overlay-btn', () => {
       resonanceActive = false;
-      resonanceBtn.innerText = '🌊 Resonance: Off';
-      resonanceBtn.classList.remove('active');
-      resonanceOverlay.style.display = 'none';
+      if (resonanceBtn) {
+        resonanceBtn.innerText = '🌊 Resonance: Off';
+        resonanceBtn.classList.remove('active');
+      }
+      if (resonanceOverlay) resonanceOverlay.style.display = 'none';
       if (replay) renderFrame(replay.currentStep);
     });
 
     // Information Flow Mode [I] (Phase 14 Section 30)
-    const infoFlowBtn = document.getElementById('info-flow-btn');
+    const infoFlowBtn = document.getElementById('info-flow-btn') || document.getElementById('btn-info-flow');
     const infoFlowOverlay = document.getElementById('info-flow-overlay');
-    infoFlowBtn.onclick = () => {
-      infoFlowActive = !infoFlowActive;
-      infoFlowBtn.innerText = `📊 Info Flow: ${infoFlowActive ? 'On' : 'Off'}`;
-      infoFlowBtn.classList.toggle('active', infoFlowActive);
-      infoFlowOverlay.style.display = infoFlowActive ? 'flex' : 'none';
-      if (replay) renderFrame(replay.currentStep);
-    };
+    if (infoFlowBtn) {
+      infoFlowBtn.onclick = () => {
+        infoFlowActive = !infoFlowActive;
+        infoFlowBtn.innerText = `📊 Info Flow: ${infoFlowActive ? 'On' : 'Off'}`;
+        infoFlowBtn.classList.toggle('active', infoFlowActive);
+        if (infoFlowOverlay) infoFlowOverlay.style.display = infoFlowActive ? 'flex' : 'none';
+        if (replay) renderFrame(replay.currentStep);
+      };
+    }
     bindClick('close-infoflow-overlay-btn', () => {
       infoFlowActive = false;
-      infoFlowBtn.innerText = '📊 Info Flow: Off';
-      infoFlowBtn.classList.remove('active');
-      infoFlowOverlay.style.display = 'none';
+      if (infoFlowBtn) {
+        infoFlowBtn.innerText = '📊 Info Flow: Off';
+        infoFlowBtn.classList.remove('active');
+      }
+      if (infoFlowOverlay) infoFlowOverlay.style.display = 'none';
       if (replay) renderFrame(replay.currentStep);
     });
 
@@ -5194,7 +5412,12 @@ MIN_E_PLUS_EPISODIC</pre>
       if (replay) { replay.seek(replay.totalSteps - 1); renderFrame(replay.currentStep); }
     });
     bindClick('btn-replay-toggle', () => {
-      setMode(appMode === 'REPLAY' ? 'LIVE' : 'REPLAY');
+      pause();
+      if (replay) {
+        replay.seek(0);
+        renderFrame(0);
+        play();
+      }
     });
 
     const timelineSlider = document.getElementById('timeline-slider');
@@ -5210,16 +5433,8 @@ MIN_E_PLUS_EPISODIC</pre>
     }
 
     // Autoframe / Camera Recenter button
-    function autoFrameNetwork() {
-      if (controls) {
-        controls.target.set(0, -0.6, -8.0);
-        camera.position.set(0, 0.4, 8.5);
-        camera.lookAt(0, -0.6, -8.0);
-        controls.update();
-      }
-    }
-    bindClick('cam-autoframe-btn', autoFrameNetwork);
-    bindClick('cam-reset-btn', autoFrameNetwork);
+    bindClick('cam-autoframe-btn', autoFrameCamera);
+    bindClick('cam-reset-btn', autoFrameCamera);
 
     // Research Drawer Toggle
     const rDrawer = document.getElementById('right-panel');
@@ -5229,12 +5444,174 @@ MIN_E_PLUS_EPISODIC</pre>
     bindClick('close-research-btn', () => {
       if (rDrawer) rDrawer.classList.remove('open');
     });
+    bindClick('research-drawer-close', () => {
+      if (rDrawer) rDrawer.classList.remove('open');
+    });
 
     // Close Left Panel
-    bindClick('close-left-panel-btn', () => {
-      const lp = document.getElementById('left-panel');
-      if (lp) lp.style.display = 'none';
-      if (selectionHalo) selectionHalo.visible = false;
+    bindClick('close-left-panel-btn', clearSelection);
+
+    // Wire Research Drawer Action Buttons
+    bindClick('btn-phase23b', () => setP23BActive(!p23bActive));
+    bindClick('btn-phase23a', () => setP23AActive(!p23aActive));
+    bindClick('btn-phase22', () => setP22Active(!p22Active));
+    bindClick('btn-phase21', () => setP21Active(!p21Active));
+    bindClick('btn-causal-interv', () => {
+      causalIntervActive = !causalIntervActive;
+      const b = document.getElementById('btn-causal-interv');
+      if (b) { b.innerText = `Causal: ${causalIntervActive ? 'On' : 'Off'}`; b.classList.toggle('active', causalIntervActive); }
+      const ov = document.getElementById('causal-interv-overlay');
+      if (ov) ov.style.display = causalIntervActive ? 'flex' : 'none';
+      if (replay) renderFrame(replay.currentStep);
+    });
+    bindClick('btn-mech-necessity', () => {
+      mechNecessityActive = !mechNecessityActive;
+      const b = document.getElementById('btn-mech-necessity');
+      if (b) { b.innerText = `Necessity: ${mechNecessityActive ? 'On' : 'Off'}`; b.classList.toggle('active', mechNecessityActive); }
+      const ov = document.getElementById('mech-necessity-overlay');
+      if (ov) ov.style.display = mechNecessityActive ? 'flex' : 'none';
+      if (replay) renderFrame(replay.currentStep);
+    });
+    bindClick('btn-minimality', () => {
+      minimalityActive = !minimalityActive;
+      const b = document.getElementById('btn-minimality');
+      if (b) { b.innerText = `Minimal: ${minimalityActive ? 'On' : 'Off'}`; b.classList.toggle('active', minimalityActive); }
+      const ov = document.getElementById('minimality-overlay');
+      if (ov) ov.style.display = minimalityActive ? 'flex' : 'none';
+      if (replay) renderFrame(replay.currentStep);
+    });
+    bindClick('btn-transfer-matrix', () => {
+      transferMatrixActive = !transferMatrixActive;
+      const b = document.getElementById('btn-transfer-matrix');
+      if (b) { b.innerText = `Transfer: ${transferMatrixActive ? 'On' : 'Off'}`; b.classList.toggle('active', transferMatrixActive); }
+      const ov = document.getElementById('transfer-matrix-overlay');
+      if (ov) ov.style.display = transferMatrixActive ? 'flex' : 'none';
+      if (replay) renderFrame(replay.currentStep);
+    });
+    bindClick('btn-temp-extrap', () => {
+      temporalExtrapActive = !temporalExtrapActive;
+      const b = document.getElementById('btn-temp-extrap');
+      if (b) { b.innerText = `Extrap: ${temporalExtrapActive ? 'On' : 'Off'}`; b.classList.toggle('active', temporalExtrapActive); }
+      if (replay) renderFrame(replay.currentStep);
+    });
+    bindClick('btn-ablation', () => {
+      ablationActive = !ablationActive;
+      const b = document.getElementById('btn-ablation');
+      if (b) { b.innerText = `Ablation: ${ablationActive ? 'On' : 'Off'}`; b.classList.toggle('active', ablationActive); }
+      const ov = document.getElementById('ablation-overlay');
+      if (ov) ov.style.display = ablationActive ? 'flex' : 'none';
+      if (replay) renderFrame(replay.currentStep);
+    });
+    bindClick('btn-view-toggle', () => {
+      viewMode = (viewMode === 'STRUCTURAL') ? 'FUNCTIONAL' : 'STRUCTURAL';
+      const b = document.getElementById('btn-view-toggle');
+      if (b) { b.innerText = (viewMode === 'STRUCTURAL') ? 'Mode: Structural' : 'Mode: Functional'; b.classList.toggle('active', viewMode === 'FUNCTIONAL'); }
+      const cmb = document.getElementById('conn-mode-btn');
+      if (cmb) { cmb.innerText = (viewMode === 'STRUCTURAL') ? '🌐 Mode: Structural' : '⚡ Mode: Functional'; cmb.classList.toggle('active', viewMode === 'FUNCTIONAL'); }
+      if (replay) renderFrame(replay.currentStep);
+    });
+    bindClick('btn-spike-encoding', () => {
+      spikeEncodingActive = !spikeEncodingActive;
+      const b = document.getElementById('btn-spike-encoding');
+      if (b) { b.innerText = `Spike Enc: ${spikeEncodingActive ? 'On' : 'Off'}`; b.classList.toggle('active', spikeEncodingActive); }
+      const ov = document.getElementById('spike-encoding-overlay');
+      if (ov) ov.style.display = spikeEncodingActive ? 'flex' : 'none';
+    });
+    bindClick('btn-temporal-coding', () => {
+      temporalCodingActive = !temporalCodingActive;
+      const b = document.getElementById('btn-temporal-coding');
+      if (b) { b.innerText = `Temporal: ${temporalCodingActive ? 'On' : 'Off'}`; b.classList.toggle('active', temporalCodingActive); }
+      const ov = document.getElementById('temporal-coding-overlay');
+      if (ov) ov.style.display = temporalCodingActive ? 'flex' : 'none';
+      if (replay) renderFrame(replay.currentStep);
+    });
+    bindClick('btn-resonance', () => {
+      resonanceActive = !resonanceActive;
+      const b = document.getElementById('btn-resonance');
+      if (b) { b.innerText = `Resonance: ${resonanceActive ? 'On' : 'Off'}`; b.classList.toggle('active', resonanceActive); }
+      const ov = document.getElementById('resonance-overlay');
+      if (ov) ov.style.display = resonanceActive ? 'flex' : 'none';
+      if (replay) renderFrame(replay.currentStep);
+    });
+    bindClick('btn-info-flow', () => {
+      infoFlowActive = !infoFlowActive;
+      const b = document.getElementById('btn-info-flow');
+      if (b) { b.innerText = `Info Flow: ${infoFlowActive ? 'On' : 'Off'}`; b.classList.toggle('active', infoFlowActive); }
+      const ov = document.getElementById('info-flow-overlay');
+      if (ov) ov.style.display = infoFlowActive ? 'flex' : 'none';
+      if (replay) renderFrame(replay.currentStep);
+    });
+    bindClick('btn-action-credit', () => {
+      actionCreditActive = !actionCreditActive;
+      const b = document.getElementById('btn-action-credit');
+      if (b) { b.innerText = `Credit: ${actionCreditActive ? 'On' : 'Off'}`; b.classList.toggle('active', actionCreditActive); }
+      const ov = document.getElementById('action-credit-overlay');
+      if (ov) ov.style.display = actionCreditActive ? 'flex' : 'none';
+      if (replay) renderFrame(replay.currentStep);
+    });
+    bindClick('btn-action-assembly', () => {
+      actionAssemblyActive = !actionAssemblyActive;
+      const b = document.getElementById('btn-action-assembly');
+      if (b) { b.innerText = `Assembly: ${actionAssemblyActive ? 'On' : 'Off'}`; b.classList.toggle('active', actionAssemblyActive); }
+      const ov = document.getElementById('action-assembly-overlay');
+      if (ov) ov.style.display = actionAssemblyActive ? 'flex' : 'none';
+      if (replay) renderFrame(replay.currentStep);
+    });
+    bindClick('btn-temporal-horizon', () => {
+      creditHorizonActive = !creditHorizonActive;
+      const b = document.getElementById('btn-temporal-horizon');
+      if (b) { b.innerText = `Horizon: ${creditHorizonActive ? 'On' : 'Off'}`; b.classList.toggle('active', creditHorizonActive); }
+      const ov = document.getElementById('credit-horizon-overlay');
+      if (ov) ov.style.display = creditHorizonActive ? 'flex' : 'none';
+      if (replay) renderFrame(replay.currentStep);
+    });
+    bindClick('btn-audit-mode', () => {
+      auditActive = !auditActive;
+      const b = document.getElementById('btn-audit-mode');
+      if (b) { b.innerText = `Audit: ${auditActive ? 'On' : 'Off'}`; b.classList.toggle('active', auditActive); }
+      const ov = document.getElementById('audit-overlay');
+      if (ov) ov.style.display = auditActive ? 'flex' : 'none';
+      if (replay) renderFrame(replay.currentStep);
+    });
+    bindClick('btn-baselines', () => {
+      baselineCompActive = !baselineCompActive;
+      const b = document.getElementById('btn-baselines');
+      if (b) { b.innerText = `Baselines: ${baselineCompActive ? 'On' : 'Off'}`; b.classList.toggle('active', baselineCompActive); }
+      const ov = document.getElementById('baseline-comp-overlay');
+      if (ov) ov.style.display = baselineCompActive ? 'flex' : 'none';
+      if (replay) renderFrame(replay.currentStep);
+    });
+    bindClick('btn-orbit-toggle', () => {
+      autoOrbit = !autoOrbit;
+      const b = document.getElementById('btn-orbit-toggle');
+      if (b) { b.innerText = `Orbit: ${autoOrbit ? 'On' : 'Off'}`; b.classList.toggle('active', autoOrbit); }
+      const ob = document.getElementById('auto-orbit-btn');
+      if (ob) { ob.innerText = `🔄 Orbit: ${autoOrbit ? 'On' : 'Off'}`; ob.classList.toggle('active', autoOrbit); }
+    });
+    bindClick('btn-action-interface', () => {
+      actionInterfaceActive = !actionInterfaceActive;
+      const b = document.getElementById('btn-action-interface');
+      if (b) { b.innerText = `Interface: ${actionInterfaceActive ? 'On' : 'Off'}`; b.classList.toggle('active', actionInterfaceActive); }
+      const ov = document.getElementById('action-interface-overlay');
+      if (ov) ov.style.display = actionInterfaceActive ? 'flex' : 'none';
+      if (replay) renderFrame(replay.currentStep);
+    });
+    bindClick('btn-open-file', () => {
+      const fi = document.getElementById('file-input');
+      if (fi) fi.click();
+    });
+    bindClick('btn-copy-frame', () => {
+      if (replay && logData && logData.frames) {
+        const frameData = JSON.stringify(logData.frames[replay.currentStep], null, 2);
+        navigator.clipboard.writeText(frameData).then(() => {
+          const b = document.getElementById('btn-copy-frame');
+          if (b) {
+            const old = b.innerText;
+            b.innerText = 'Copied!';
+            setTimeout(() => { b.innerText = old; }, 1500);
+          }
+        }).catch(err => console.error(err));
+      }
     });
 
     // Presets
@@ -5410,30 +5787,46 @@ MIN_E_PLUS_EPISODIC</pre>
       if (!text) return;
 
       const lower = text.toLowerCase();
-      let targetPath = '/experiments/results/brainlogs/EXP023B_compositional.brainlog';
+      let targetPath = '';
       let taskDesc = '';
       let modeBadgeText = 'Replay of Verified Trace';
 
-      if (lower.includes('unseen') || lower.includes('zero-shot') || lower.includes('red and blue') || lower.includes('composition') || lower.includes('exp023b')) {
+      const is23b = lower.includes('unseen') || lower.includes('zero-shot') || lower.includes('red and blue') || 
+                    lower.includes('red-plus-blue') || lower.includes('red+blue') || lower.includes('composition') || 
+                    lower.includes('exp023b');
+      const is23a = lower.includes('distract') || (lower.includes('red') && (lower.includes('left') || lower.includes('0'))) || lower.includes('exp023a');
+      const is22 = lower.includes('context') || lower.includes('invert') || lower.includes('green') || lower.includes('exp022');
+      const is21 = lower.includes('transfer') || lower.includes('exp021') || lower.includes('episodic');
+
+      if (is23b) {
         targetPath = '/experiments/results/brainlogs/EXP023B_compositional.brainlog';
         taskDesc = 'Task: Learn primitives [red, blue] → Zero-shot test on unseen [red+blue] (Frozen ΔW=0)';
         modeBadgeText = 'Trace Replay: Phase 23B Verified Run';
-      } else if (lower.includes('red') && (lower.includes('left') || lower.includes('distract') || lower.includes('exp023a'))) {
+      } else if (is23a) {
         targetPath = '/experiments/results/brainlogs/EXP023A_sample_efficiency.brainlog';
         taskDesc = 'Task: Learn red means LEFT → Test after 20 distracting events (Frozen ΔW=0)';
         modeBadgeText = 'Trace Replay: Phase 23A Verified Run';
-      } else if (lower.includes('context') || lower.includes('invert') || lower.includes('green') || lower.includes('exp022')) {
+      } else if (is22) {
         targetPath = '/experiments/results/brainlogs/EXP022_causal_memory.brainlog';
         taskDesc = 'Task: Contextual memory with inverted cues across intervening delays';
         modeBadgeText = 'Trace Replay: Phase 22 Verified Run';
-      } else if (lower.includes('transfer') || lower.includes('exp021')) {
+      } else if (is21) {
         targetPath = '/experiments/results/brainlogs/EXP021_episodic_transfer.brainlog';
         taskDesc = 'Task: One-shot episodic record transfer across task variants';
         modeBadgeText = 'Trace Replay: Phase 21 Verified Run';
       } else {
-        targetPath = '/experiments/results/brainlogs/EXP023B_compositional.brainlog';
-        taskDesc = `Task: ${text} (Frozen ΔW=0)`;
-        modeBadgeText = 'Trace Replay: Verified Run';
+        // Unsupported command
+        const badgeEl = document.getElementById('input-execution-badge');
+        if (badgeEl) badgeEl.innerText = 'UNSUPPORTED COMMAND';
+        const taskSpecEl = document.getElementById('active-task-spec');
+        if (taskSpecEl) taskSpecEl.innerText = 'UNSUPPORTED COMMAND: Command does not match any verified benchmark protocol. Supported tasks: Phase 23B (compositional zero-shot), Phase 23A (distractor retention), Phase 22 (context inversion), Phase 21 (episodic transfer).';
+        const statusPill = document.getElementById('result-status-pill');
+        if (statusPill) { statusPill.innerText = 'UNSUPPORTED COMMAND'; statusPill.className = 'result-badge-pill waiting'; }
+        const actHero = document.getElementById('result-action-hero');
+        if (actHero) { actHero.innerText = '—'; actHero.style.color = 'var(--text-muted)'; }
+        const confHero = document.getElementById('result-confidence-hero');
+        if (confHero) { confHero.innerText = '—'; confHero.style.color = 'var(--text-muted)'; }
+        return;
       }
 
       const badgeEl = document.getElementById('input-execution-badge');
@@ -5454,23 +5847,18 @@ MIN_E_PLUS_EPISODIC</pre>
       if (nlInput) nlInput.value = text;
 
       // Load trace and play
-      const sel = document.getElementById('model-select');
-      if (sel && sel.value !== targetPath) {
-        sel.value = targetPath;
-        fetchBrainlog(targetPath, () => {
-          if (replay) {
-            replay.seek(0);
-            renderFrame(0);
-            play();
-          }
-        });
-      } else {
+      const mSel = document.getElementById('model-select');
+      if (mSel) mSel.value = targetPath;
+      const tSel = document.getElementById('trace-select');
+      if (tSel) tSel.value = targetPath;
+
+      fetchBrainlog(targetPath, () => {
         if (replay) {
           replay.seek(0);
           renderFrame(0);
           play();
         }
-      }
+      });
     }
 
     if (primaryRunBtn) {
@@ -5514,79 +5902,124 @@ MIN_E_PLUS_EPISODIC</pre>
 
     // Modals
     bindClick('exp-meta-btn', () => {
-      document.getElementById('exp-modal').style.display = 'flex';
+      const em = document.getElementById('exp-modal');
+      if (em) em.style.display = 'flex';
     });
     bindClick('exp-modal-close', () => {
-      document.getElementById('exp-modal').style.display = 'none';
+      const em = document.getElementById('exp-modal');
+      if (em) em.style.display = 'none';
     });
     bindClick('help-btn', () => {
-      document.getElementById('shortcuts-modal').style.display = 'flex';
+      const sm = document.getElementById('shortcuts-modal');
+      if (sm) sm.style.display = 'flex';
     });
     bindClick('shortcuts-modal-close', () => {
-      document.getElementById('shortcuts-modal').style.display = 'none';
+      const sm = document.getElementById('shortcuts-modal');
+      if (sm) sm.style.display = 'none';
     });
 
     // Trace selection
-    document.getElementById('model-select').addEventListener('change', (e) => {
-      fetchBrainlog(e.target.value);
-    });
+    const mSelect = document.getElementById('model-select');
+    const tSelect = document.getElementById('trace-select');
+    if (mSelect && tSelect && tSelect.options.length === 0) {
+      tSelect.innerHTML = mSelect.innerHTML;
+    }
+    if (mSelect) {
+      mSelect.addEventListener('change', (e) => {
+        if (tSelect) tSelect.value = e.target.value;
+        fetchBrainlog(e.target.value);
+      });
+    }
+    if (tSelect) {
+      tSelect.addEventListener('change', (e) => {
+        if (mSelect) mSelect.value = e.target.value;
+        fetchBrainlog(e.target.value);
+      });
+    }
 
     // File input
-    document.getElementById('file-input').addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (evt) => {
-        try {
-          const data = JSON.parse(evt.target.result);
-          loadBrainlog(data);
-        } catch (err) {
-          alert("Error parsing .brainlog JSON file: " + err.message);
-        }
-      };
-      reader.readAsText(file);
-    });
+    const fileInput = document.getElementById('file-input');
+    if (fileInput) {
+      fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+          try {
+            const data = JSON.parse(evt.target.result);
+            loadBrainlog(data);
+          } catch (err) {
+            alert("Error parsing .brainlog JSON file: " + err.message);
+          }
+        };
+        reader.readAsText(file);
+      });
+    }
 
     bindClick('clear-selection-btn', clearSelection);
 
     // Right Tabs Switcher
-    document.getElementById('tab-telemetry-btn').addEventListener('click', () => {
-      document.getElementById('tab-telemetry-btn').classList.add('active');
-      document.getElementById('tab-events-btn').classList.remove('active');
-      document.getElementById('tab-telemetry-content').style.display = 'flex';
-      document.getElementById('tab-events-content').style.display = 'none';
-    });
-    document.getElementById('tab-events-btn').addEventListener('click', () => {
-      document.getElementById('tab-events-btn').classList.add('active');
-      document.getElementById('tab-telemetry-btn').classList.remove('active');
-      document.getElementById('tab-events-content').style.display = 'flex';
-      document.getElementById('tab-telemetry-content').style.display = 'none';
-    });
+    const tabTelem = document.getElementById('tab-telemetry-btn');
+    if (tabTelem) {
+      tabTelem.addEventListener('click', () => {
+        tabTelem.classList.add('active');
+        const teb = document.getElementById('tab-events-btn');
+        if (teb) teb.classList.remove('active');
+        safeSetDisplay('tab-telemetry-content', 'flex');
+        safeSetDisplay('tab-events-content', 'none');
+      });
+    }
+    const tabEvs = document.getElementById('tab-events-btn');
+    if (tabEvs) {
+      tabEvs.addEventListener('click', () => {
+        tabEvs.classList.add('active');
+        const ttb = document.getElementById('tab-telemetry-btn');
+        if (ttb) ttb.classList.remove('active');
+        safeSetDisplay('tab-events-content', 'flex');
+        safeSetDisplay('tab-telemetry-content', 'none');
+      });
+    }
 
     // Feed Filters
-    document.getElementById('filter-all-events-btn').addEventListener('click', () => {
-      document.getElementById('filter-all-events-btn').classList.add('active');
-      document.getElementById('filter-learning-events-btn').classList.remove('active');
-      document.getElementById('filter-spikes-events-btn').classList.remove('active');
-      document.querySelectorAll('.event-card').forEach(c => c.style.display = 'flex');
-    });
-    document.getElementById('filter-learning-events-btn').addEventListener('click', () => {
-      document.getElementById('filter-learning-events-btn').classList.add('active');
-      document.getElementById('filter-all-events-btn').classList.remove('active');
-      document.getElementById('filter-spikes-events-btn').classList.remove('active');
-      document.querySelectorAll('.event-card').forEach(c => {
-        const t = c.dataset.type;
-        c.style.display = (t.includes('REWARD') || t.includes('RPE') || t.includes('PLASTICITY') || t.includes('CREDIT') || t.includes('ACTION_PERSISTED')) ? 'flex' : 'none';
+    const fAll = document.getElementById('filter-all-events-btn');
+    if (fAll) {
+      fAll.addEventListener('click', () => {
+        fAll.classList.add('active');
+        const flb = document.getElementById('filter-learning-events-btn');
+        if (flb) flb.classList.remove('active');
+        const fsb = document.getElementById('filter-spikes-events-btn');
+        if (fsb) fsb.classList.remove('active');
+        document.querySelectorAll('.event-card').forEach(c => c.style.display = 'flex');
       });
-    });
-    document.getElementById('filter-spikes-events-btn').addEventListener('click', () => {
-      document.getElementById('filter-spikes-events-btn').classList.add('active');
-      document.getElementById('filter-all-events-btn').classList.remove('active');
-      document.getElementById('filter-learning-events-btn').classList.remove('active');
-      document.querySelectorAll('.event-card').forEach(c => {
-        c.style.display = c.dataset.type.includes('SPIKE') ? 'flex' : 'none';
+    }
+    const fLearn = document.getElementById('filter-learning-events-btn');
+    if (fLearn) {
+      fLearn.addEventListener('click', () => {
+        fLearn.classList.add('active');
+        const fab = document.getElementById('filter-all-events-btn');
+        if (fab) fab.classList.remove('active');
+        const fsb = document.getElementById('filter-spikes-events-btn');
+        if (fsb) fsb.classList.remove('active');
+        document.querySelectorAll('.event-card').forEach(c => {
+          const t = c.dataset.type || '';
+          c.style.display = (t.includes('REWARD') || t.includes('RPE') || t.includes('PLASTICITY') || t.includes('CREDIT') || t.includes('ACTION_PERSISTED')) ? 'flex' : 'none';
+        });
       });
-    });
+    }
+    const fSpike = document.getElementById('filter-spikes-events-btn');
+    if (fSpike) {
+      fSpike.addEventListener('click', () => {
+        fSpike.classList.add('active');
+        const fab = document.getElementById('filter-all-events-btn');
+        if (fab) fab.classList.remove('active');
+        const flb = document.getElementById('filter-learning-events-btn');
+        if (flb) flb.classList.remove('active');
+        document.querySelectorAll('.event-card').forEach(c => {
+          const t = c.dataset.type || '';
+          c.style.display = t.includes('SPIKE') ? 'flex' : 'none';
+        });
+      });
+    }
 
     // Keyboard Shortcuts
     window.addEventListener('keydown', (e) => {

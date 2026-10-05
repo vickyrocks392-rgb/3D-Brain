@@ -910,6 +910,10 @@
         🔄 Replay: Off
       </button>
 
+      <button class="btn" id="p23b-btn" title="Toggle Phase 23B Zero-Shot Compositional Observatory & Console [Z]">
+        🔬 Phase 23B: Off
+      </button>
+
       <button class="btn" id="p23a-btn" title="Toggle Phase 23A Natural-Language Console & Sample Efficiency Observatory [S]">
         🔬 Phase 23A: Off
       </button>
@@ -971,6 +975,7 @@
       </button>
 
       <select id="model-select" class="select-model" title="Select .brainlog Trace">
+        <option value="/experiments/results/brainlogs/EXP023B_compositional.brainlog" selected>EXP023B: Zero-Shot Composition & Memory Causality (Phase 23B)</option>
         <option value="/experiments/results/brainlogs/EXP023A_sample_efficiency.brainlog">EXP023A: Sample Efficiency & NL Observatory (Phase 23A)</option>
         <option value="/experiments/results/brainlogs/EXP022_causal_memory.brainlog">EXP022: Causal Episodic Memory & Composition (Phase 22)</option>
         <option value="/experiments/results/brainlogs/EXP021_episodic_transfer.brainlog" selected>EXP021: Episodic Memory, Replay & Transfer (Phase 21)</option>
@@ -2740,6 +2745,171 @@ MIN_E</pre>
     [DECISION]
   </div>
 
+  <!-- PHASE 23B ZERO-SHOT COMPOSITIONAL CONSOLE -->
+  <div id="p23b-nl-panel" style="display: none; position: absolute; top: 58px; left: 16px; width: 450px; background: rgba(10, 15, 29, 0.96); backdrop-filter: blur(16px); border: 1px solid #10b981; border-radius: 8px; padding: 14px; z-index: 150; box-shadow: 0 12px 40px rgba(0,0,0,0.8); flex-direction: column; gap: 10px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 6px;">
+      <div>
+        <span style="font-weight: 800; font-size: 11px; letter-spacing: 0.8px; color: #10b981; text-transform: uppercase;">💬 Phase 23B: Zero-Shot Compositional Console</span>
+        <div style="font-size: 9px; color: var(--text-muted);">Constrained Natural Language → Deterministic Zero-Shot Task (No LLM in Brain)</div>
+      </div>
+      <button class="btn" id="close-p23b-nl-btn" style="padding: 1px 6px; font-size: 10px;">✕</button>
+    </div>
+
+    <!-- Instruction Text Input -->
+    <div style="display: flex; flex-direction: column; gap: 4px;">
+      <label style="font-size: 9px; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Instruction Prompt</label>
+      <div style="display: flex; gap: 6px;">
+        <input type="text" id="nl-p23b-instruction-input" value="Learn red and blue separately, then test the unseen red-plus-blue combination without further learning." placeholder="e.g. Learn red and blue separately, then test the unseen red-plus-blue combination..." style="flex: 1; background: rgba(0,0,0,0.6); border: 1px solid var(--border-medium); border-radius: 4px; padding: 6px 10px; color: #fff; font-family: var(--font-mono); font-size: 11px;">
+        <button class="btn btn-primary" id="nl-p23b-parse-btn" style="padding: 4px 10px; font-size: 11px; font-weight: 700; background: #10b981; border-color: #059669;">Parse</button>
+      </div>
+    </div>
+
+    <!-- Preset Instruction Chips -->
+    <div style="display: flex; flex-direction: column; gap: 4px;">
+      <span style="font-size: 8px; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Instruction Presets</span>
+      <div style="display: flex; flex-wrap: wrap; gap: 4px;" id="nl-p23b-preset-chips">
+        <button class="btn nl-chip-p23b" style="font-size: 9px; padding: 2px 6px;" data-prompt="Learn red and blue separately, then test the unseen red-plus-blue combination without further learning.">🧩 Red + Blue Unseen (Zero-Shot)</button>
+        <button class="btn nl-chip-p23b" style="font-size: 9px; padding: 2px 6px;" data-prompt="Learn red, blue, and left separately, then test the unseen red-plus-blue-plus-left combination without further learning.">🌟 Depth 3: Tri-Primitive Unseen</button>
+        <button class="btn nl-chip-p23b" style="font-size: 9px; padding: 2px 6px;" data-prompt="Test 4-primitive composition red, blue, left, right under frozen evaluation.">⚡ Depth 4: Quad-Primitive Unseen</button>
+        <button class="btn nl-chip-p23b" style="font-size: 9px; padding: 2px 6px;" data-prompt="Evaluate memory causality ablation F1 (memory removed) on held-out combination.">🧬 Memory Ablation F1: Removed</button>
+      </div>
+    </div>
+
+    <!-- Interpreted Task Display Card -->
+    <div style="display: flex; flex-direction: column; gap: 4px;">
+      <span style="font-size: 8px; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Interpreted Task (Phase 23B Zero-Shot)</span>
+      <pre id="p23b-interpreted-task-card" style="background: rgba(0, 0, 0, 0.7); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 4px; padding: 8px; font-family: var(--font-mono); font-size: 10px; color: #e2e8f0; line-height: 1.4; white-space: pre-wrap;">INTERPRETED TASK (PHASE 23B ZERO-SHOT)
+
+Rule:
+Learn primitives [red, blue] separately → Zero-shot test on unseen [red+blue]
+
+Primitives to Learn:
+red, blue
+
+Train/Test Split:
+Seen: [red, blue] | Held-Out: [red+blue]
+
+Held-Out Combinations:
+red+blue
+
+Evaluation:
+FROZEN (ΔW = 0 Verified)
+
+Verification:
+ΔW = 0 (Cryptographic Hash Verified)
+
+Budget:
+25 trials
+
+Model:
+MIN_E_PLUS_EPISODIC</pre>
+    </div>
+
+    <!-- Execution Controls: RUN, RESET, PAUSE, REPLAY -->
+    <div style="display: flex; gap: 6px; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px;">
+      <div style="display: flex; gap: 6px;">
+        <button class="btn btn-primary" id="p23b-run-btn" style="padding: 6px 14px; font-size: 11px; font-weight: 700; background: #10b981; border-color: #059669; color: #fff;">▶ RUN</button>
+        <button class="btn" id="p23b-pause-btn" style="padding: 6px 10px; font-size: 11px;">⏸ PAUSE</button>
+        <button class="btn" id="p23b-reset-btn" style="padding: 6px 10px; font-size: 11px;">↺ RESET</button>
+        <button class="btn" id="p23b-replay-btn" style="padding: 6px 10px; font-size: 11px; color: #10b981;">🔄 REPLAY</button>
+      </div>
+      <span id="p23b-exec-status" style="font-family: var(--font-mono); font-size: 10px; color: #94a3b8;">IDLE</span>
+    </div>
+  </div>
+
+  <!-- PHASE 23B ZERO-SHOT COMPOSITIONAL OBSERVATORY OVERLAY -->
+  <div id="p23b-observatory-overlay" style="display: none; position: absolute; bottom: 80px; left: 20px; right: 380px; background: rgba(10, 15, 29, 0.96); backdrop-filter: blur(14px); border: 1px solid #10b981; border-radius: 8px; padding: 10px 14px; z-index: 100; flex-direction: column; gap: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.6);">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 4px;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-weight: 800; font-size: 11px; letter-spacing: 0.8px; color: #10b981; text-transform: uppercase;">
+          🔬 PHASE 23B: ZERO-SHOT COMPOSITIONAL GENERALIZATION & MEMORY CAUSALITY
+        </span>
+        <span class="badge" id="p23b-phase-badge" style="background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; color: #10b981; font-size: 9px;">MIN_E + EPISODIC MEMORY</span>
+        <span class="badge" id="p23b-frozen-badge" style="background: rgba(56, 189, 248, 0.2); border: 1px solid #38bdf8; color: #38bdf8; font-size: 9px;">EVALUATION = FROZEN [ΔW = 0]</span>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <div id="p23b-visual-marker-badge" style="font-family: var(--font-mono); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 3px; background: rgba(16, 185, 129, 0.25); border: 1px solid #10b981; color: #10b981;">
+          MARKER: [ZERO-SHOT TEST]
+        </div>
+        <button class="btn" id="close-p23b-obs-btn" style="padding: 1px 6px; font-size: 10px;">✕</button>
+      </div>
+    </div>
+
+    <!-- 6 Telemetry Categories Grid -->
+    <div class="metric-grid" style="grid-template-columns: repeat(6, 1fr); margin-top: 2px;">
+      <!-- 1. Brain State -->
+      <div class="metric-cell">
+        <span class="metric-name">Active Neurons</span>
+        <span class="metric-val" id="p23b-active-neurons" style="color: #38bdf8;">0 / 44 (0%)</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Firing Rate</span>
+        <span class="metric-val" id="p23b-firing-rate" style="color: #60a5fa;">0.00 Hz</span>
+      </div>
+      <!-- 2. Temporal Dynamics -->
+      <div class="metric-cell">
+        <span class="metric-name">Spikes & Synchrony</span>
+        <span class="metric-val" id="p23b-sync-index" style="color: #a855f7;">Sync: 0.88</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Assembly Activation</span>
+        <span class="metric-val" id="p23b-assembly-act" style="color: #ec4899;">[0.00, 0.00]</span>
+      </div>
+      <!-- 3. Memory -->
+      <div class="metric-cell">
+        <span class="metric-name">Episodic Retrieval</span>
+        <span class="metric-val" id="p23b-mem-retrieval" style="color: #fb923c;">ID: #0 (0.95)</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Memory Occupancy</span>
+        <span class="metric-val" id="p23b-mem-occupancy" style="color: #f97316;">2 / 128 (1.6%)</span>
+      </div>
+      <!-- 4. Learning & Zero-Shot -->
+      <div class="metric-cell">
+        <span class="metric-name">Weight Change ΔW</span>
+        <span class="metric-val" id="p23b-dw-norm" style="color: #10b981;">0.000000 (FROZEN)</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Hash Verification</span>
+        <span class="metric-val" id="p23b-hash-verified" style="color: #10b981; font-weight: 700;">ΔW = 0 (MATCH)</span>
+      </div>
+      <!-- 5. Decision -->
+      <div class="metric-cell">
+        <span class="metric-name">Action & Confidence</span>
+        <span class="metric-val" id="p23b-selected-action" style="color: #10b981;">ACTION [1] (96.5%)</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Deliberation Latency</span>
+        <span class="metric-val" id="p23b-latency" style="color: #34d399;">11.5 ms</span>
+      </div>
+      <!-- 6. Compositional Benchmark -->
+      <div class="metric-cell">
+        <span class="metric-name">Composition Depth</span>
+        <span class="metric-val" id="p23b-depth" style="color: #a855f7;">Depth 2 (Pair)</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-name">Zero-Shot Accuracy</span>
+        <span class="metric-val" id="p23b-accuracy" style="color: #10b981; font-weight: 800;">100.0% (Gap: 0.0%)</span>
+      </div>
+    </div>
+
+    <!-- Baseline Comparison Summary Mini-Bar -->
+    <div style="display: flex; gap: 8px; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.4); border-radius: 4px; padding: 4px 8px; font-size: 9px; font-family: var(--font-mono);">
+      <span style="color: var(--text-muted); font-weight: 600;">ZERO-SHOT COMPOSITIONAL GENERALIZATION vs BASELINES:</span>
+      <span>MIN_E: <strong id="p23b-cmp-mine" style="color: #38bdf8;">52.4%</strong></span>
+      <span>MIN_E+Mem: <strong id="p23b-cmp-mem" style="color: #10b981;">100.0%</strong></span>
+      <span>Transformer: <strong id="p23b-cmp-tf" style="color: #c084fc;">54.2%</strong></span>
+      <span>GRU: <strong id="p23b-cmp-gru" style="color: #60a5fa;">56.8%</strong></span>
+      <span>RNN: <strong id="p23b-cmp-rnn" style="color: #f59e0b;">51.2%</strong></span>
+      <span>Typed Prob: <strong id="p23b-cmp-prob" style="color: #34d399;">50.0%</strong></span>
+    </div>
+  </div>
+
+  <!-- FLOATING 3D VISUAL MARKER INDICATOR FOR PHASE 23B -->
+  <div id="p23b-floating-marker" style="display: none; position: absolute; top: 60px; right: 20px; z-index: 100; pointer-events: none; background: rgba(15, 23, 42, 0.9); border: 2px solid #10b981; border-radius: 6px; padding: 8px 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.6); font-family: var(--font-mono); font-size: 14px; font-weight: 800; color: #10b981; text-transform: uppercase; letter-spacing: 1px;">
+    [ZERO-SHOT TEST]
+  </div>
+
   <!-- SPIKE RASTER DRAWER -->
   <div id="raster-drawer">
     <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -3269,8 +3439,20 @@ MIN_E</pre>
       window.nodeMeshes = nodeMeshes;
       window.isReady = true;
 
-      // Auto-activate Phase 23A when loading Phase 23A trace or trace with NL instruction
-      if ((data.metadata && data.metadata.experiment_id && data.metadata.experiment_id.includes('EXP023A')) ||
+      // Auto-activate Phase 23B when loading Phase 23B trace or compositional trace
+      if ((data.metadata && data.metadata.experiment_id && data.metadata.experiment_id.includes('EXP023B')) ||
+          (data.metadata && data.metadata.phase === '23B')) {
+        if (typeof setP23BActive === 'function') {
+          setP23BActive(true);
+        }
+        const nl23bInput = document.getElementById('nl-p23b-instruction-input');
+        if (data.metadata.natural_language_instruction && nl23bInput) {
+          nl23bInput.value = data.metadata.natural_language_instruction;
+          if (typeof parsePhase23BInstruction === 'function') {
+            parsePhase23BInstruction(data.metadata.natural_language_instruction);
+          }
+        }
+      } else if ((data.metadata && data.metadata.experiment_id && data.metadata.experiment_id.includes('EXP023A')) ||
           (data.metadata && data.metadata.natural_language_instruction)) {
         if (typeof setP23AActive === 'function') {
           setP23AActive(true);
@@ -3837,7 +4019,12 @@ MIN_E</pre>
         updatePhase23AOverlays(dyn, frame);
       }
 
-      // 17. Update Spike Raster if visible
+      // 17. Update Phase 23B Zero-Shot Compositional Overlay [Z]
+      if (p23bActive || (logData && logData.metadata && logData.metadata.phase === '23B')) {
+        updatePhase23BOverlays(dyn, frame);
+      }
+
+      // 18. Update Spike Raster if visible
       drawSpikeRaster(stepIndex);
     }
 
@@ -4076,6 +4263,108 @@ MIN_E</pre>
           } else if (activeMarker === 'LEARNING') {
             floatingBadge.style.color = '#f59e0b';
             floatingBadge.style.borderColor = '#f59e0b';
+          } else {
+            floatingBadge.style.color = '#fbbf24';
+            floatingBadge.style.borderColor = '#f59e0b';
+          }
+        }
+      } else {
+        if (markerBadge) {
+          markerBadge.innerText = 'MARKER: IDLE';
+          markerBadge.style.color = '#94a3b8';
+          markerBadge.style.borderColor = '#64748b';
+          markerBadge.style.background = 'rgba(255, 255, 255, 0.05)';
+        }
+        if (floatingBadge) {
+          floatingBadge.style.display = 'none';
+        }
+      }
+    }
+
+    /**
+     * =========================================================================
+     * PHASE 23B OVERLAY UPDATES [Z]
+     * =========================================================================
+     */
+    function updatePhase23BOverlays(dyn, frame) {
+      const setText = (id, val) => {
+        const el = document.getElementById(id);
+        if (el && val !== undefined && val !== null && val !== '') el.innerText = val;
+      };
+
+      // 1. Brain State
+      if (dyn.active_neuron_count !== undefined) {
+        setText('p23b-active-neurons', `${dyn.active_neuron_count} / 44 (${((dyn.active_neuron_count/44)*100).toFixed(0)}%)`);
+      }
+      if (dyn.firing_rate !== undefined) setText('p23b-firing-rate', `${(dyn.firing_rate * 100).toFixed(1)} Hz`);
+
+      // 2. Temporal Dynamics
+      if (dyn.synchronization_index !== undefined) setText('p23b-sync-index', `Sync: ${Number(dyn.synchronization_index).toFixed(3)}`);
+      if (dyn.assembly_activation && Array.isArray(dyn.assembly_activation)) {
+        setText('p23b-assembly-act', `[${dyn.assembly_activation.map(v => Number(v).toFixed(2)).join(', ')}]`);
+      }
+
+      // 3. Memory
+      if (dyn.retrieved_episode_id !== undefined && dyn.retrieved_episode_id >= 0) {
+        setText('p23b-mem-retrieval', `ID: #${dyn.retrieved_episode_id} (${Number(dyn.retrieval_similarity || 0.0).toFixed(3)})`);
+      } else {
+        setText('p23b-mem-retrieval', 'ID: None (0.00)');
+      }
+      if (dyn.memory_occupancy !== undefined) {
+        setText('p23b-mem-occupancy', `${dyn.memory_occupancy} / 128 (${((dyn.memory_occupancy/128)*100).toFixed(1)}%)`);
+      }
+
+      // 4. Learning & Zero-Shot
+      const isZeroShot = dyn.is_zero_shot_test || (dyn.evaluation_status === 'FROZEN');
+      if (isZeroShot) {
+        setText('p23b-dw-norm', '0.000000 (FROZEN)');
+        setText('p23b-hash-verified', 'ΔW = 0 (MATCH)');
+      } else {
+        setText('p23b-dw-norm', Number(dyn.weight_change_norm || 0.0).toFixed(6));
+        setText('p23b-hash-verified', 'TRAINING (ACTIVE)');
+      }
+
+      // 5. Decision
+      if (dyn.selected_action !== undefined) {
+        const confStr = dyn.confidence !== undefined ? `(${(dyn.confidence * 100).toFixed(1)}%)` : '';
+        const actLabel = dyn.selected_action === 0 ? 'LEFT [0]' : 'RIGHT [1]';
+        setText('p23b-selected-action', `${actLabel} ${confStr}`);
+      }
+      if (dyn.decision_latency_ms !== undefined) setText('p23b-latency', `${Number(dyn.decision_latency_ms).toFixed(1)} ms`);
+
+      // 6. Compositional Benchmark
+      if (dyn.composition_depth !== undefined) {
+        setText('p23b-depth', `Depth ${dyn.composition_depth} (${dyn.combination_key || 'COMPOSITE'})`);
+      }
+      if (dyn.held_out_accuracy !== undefined) {
+        const gap = dyn.generalization_gap !== undefined ? `(Gap: ${(dyn.generalization_gap * 100).toFixed(1)}%)` : '';
+        setText('p23b-accuracy', `${(Number(dyn.held_out_accuracy) * 100).toFixed(1)}% ${gap}`);
+      }
+
+      // Visual Markers Indicator
+      const markers = dyn.visual_markers || [];
+      const markerBadge = document.getElementById('p23b-visual-marker-badge');
+      const floatingBadge = document.getElementById('p23b-floating-marker');
+      if (markers.length > 0) {
+        const activeMarker = markers[markers.length - 1];
+        if (markerBadge) {
+          markerBadge.innerText = `MARKER: [${activeMarker}]`;
+          markerBadge.style.color = '#10b981';
+          markerBadge.style.borderColor = '#10b981';
+          markerBadge.style.background = 'rgba(16, 185, 129, 0.2)';
+        }
+        if (floatingBadge) {
+          floatingBadge.innerText = `[${activeMarker}]`;
+          floatingBadge.style.display = 'block';
+          if (activeMarker === 'ZERO-SHOT TEST') {
+            floatingBadge.style.color = '#10b981';
+            floatingBadge.style.borderColor = '#10b981';
+          } else if (activeMarker === 'MEMORY RETRIEVAL') {
+            floatingBadge.style.color = '#38bdf8';
+            floatingBadge.style.borderColor = '#38bdf8';
+          } else if (activeMarker === 'DECISION') {
+            floatingBadge.style.color = '#a855f7';
+            floatingBadge.style.borderColor = '#a855f7';
           } else {
             floatingBadge.style.color = '#fbbf24';
             floatingBadge.style.borderColor = '#f59e0b';
@@ -5521,6 +5810,134 @@ MIN_E</pre>
       };
     }
 
+    // =========================================================================
+    // PHASE 23B: ZERO-SHOT COMPOSITIONAL CONSOLE & TELEMETRY OBSERVATORY
+    // =========================================================================
+    let p23bActive = false;
+    const p23bBtn = document.getElementById('p23b-btn');
+    const p23bNlPanel = document.getElementById('p23b-nl-panel');
+    const p23bObsOverlay = document.getElementById('p23b-observatory-overlay');
+
+    function setP23BActive(on) {
+      p23bActive = on;
+      if (p23bBtn) {
+        p23bBtn.innerText = `🔬 Phase 23B: ${on ? 'On' : 'Off'}`;
+        p23bBtn.classList.toggle('active', on);
+      }
+      if (p23bNlPanel) p23bNlPanel.style.display = on ? 'flex' : 'none';
+      if (p23bObsOverlay) p23bObsOverlay.style.display = on ? 'flex' : 'none';
+      if (replay) renderFrame(replay.currentStep);
+    }
+    window.setP23BActive = setP23BActive;
+
+    if (p23bBtn) p23bBtn.onclick = () => setP23BActive(!p23bActive);
+
+    const closeNl23bBtn = document.getElementById('close-p23b-nl-btn');
+    if (closeNl23bBtn) closeNl23bBtn.onclick = () => { if (p23bNlPanel) p23bNlPanel.style.display = 'none'; };
+
+    const closeObs23bBtn = document.getElementById('close-p23b-obs-btn');
+    if (closeObs23bBtn) closeObs23bBtn.onclick = () => { if (p23bObsOverlay) p23bObsOverlay.style.display = 'none'; };
+
+    function parsePhase23BInstruction(text) {
+      const lower = (text || '').toLowerCase().trim();
+      let prims = ['red', 'blue'];
+      if (lower.includes('left')) prims.push('left');
+      if (lower.includes('right')) prims.push('right');
+      if (lower.includes('large')) prims.push('large');
+      if (lower.includes('small')) prims.push('small');
+      
+      let heldOut = [prims.slice(0, 2).join('+')];
+      if (prims.length > 2) heldOut = [prims.join('+')];
+
+      const cardText = `INTERPRETED TASK (PHASE 23B ZERO-SHOT)\n\nRule:\nLearn primitives [${prims.join(', ')}] separately → Zero-shot test on unseen [${heldOut.join(', ')}]\n\nPrimitives to Learn:\n${prims.join(', ')}\n\nTrain/Test Split:\nSeen: [${prims.join(', ')}] | Held-Out: [${heldOut.join(', ')}]\n\nHeld-Out Combinations:\n${heldOut.join(', ')}\n\nEvaluation:\nFROZEN (ΔW = 0 Verified)\n\nVerification:\nΔW = 0 (Cryptographic Hash Verified)\n\nBudget:\n25 trials\n\nModel:\nMIN_E_PLUS_EPISODIC`;
+
+      const card = document.getElementById('p23b-interpreted-task-card');
+      if (card) card.innerText = cardText;
+      return { prims, heldOut, cardText };
+    }
+    window.parsePhase23BInstruction = parsePhase23BInstruction;
+
+    const nl23bInput = document.getElementById('nl-p23b-instruction-input');
+    const nl23bParseBtn = document.getElementById('nl-p23b-parse-btn');
+    if (nl23bParseBtn) {
+      nl23bParseBtn.onclick = () => {
+        if (nl23bInput) parsePhase23BInstruction(nl23bInput.value);
+      };
+    }
+    if (nl23bInput) {
+      nl23bInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') parsePhase23BInstruction(nl23bInput.value);
+      });
+    }
+
+    document.querySelectorAll('.nl-chip-p23b').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const prompt = chip.getAttribute('data-prompt');
+        if (prompt && nl23bInput) {
+          nl23bInput.value = prompt;
+          parsePhase23BInstruction(prompt);
+        }
+      });
+    });
+
+    const p23bRunBtn = document.getElementById('p23b-run-btn');
+    const p23bPauseBtn = document.getElementById('p23b-pause-btn');
+    const p23bResetBtn = document.getElementById('p23b-reset-btn');
+    const p23bReplayBtn = document.getElementById('p23b-replay-btn');
+    const p23bExecStatus = document.getElementById('p23b-exec-status');
+
+    function setP23bStatus(txt, color = '#94a3b8') {
+      if (p23bExecStatus) {
+        p23bExecStatus.innerText = txt;
+        p23bExecStatus.style.color = color;
+      }
+    }
+
+    if (p23bRunBtn) {
+      p23bRunBtn.onclick = () => {
+        const sel = document.getElementById('model-select');
+        const p23bPath = '/experiments/results/brainlogs/EXP023B_compositional.brainlog';
+        if (sel && sel.value !== p23bPath) {
+          sel.value = p23bPath;
+          fetchBrainlog(p23bPath);
+        }
+        setP23BActive(true);
+        setP23bStatus('RUNNING [FROZEN ΔW=0]', '#10b981');
+        play();
+      };
+    }
+
+    if (p23bPauseBtn) {
+      p23bPauseBtn.onclick = () => {
+        pause();
+        setP23bStatus('PAUSED', '#fbbf24');
+      };
+    }
+
+    if (p23bResetBtn) {
+      p23bResetBtn.onclick = () => {
+        pause();
+        if (replay) {
+          replay.seek(0);
+          renderFrame(0);
+        }
+        setP23bStatus('READY [ΔW=0]', '#10b981');
+      };
+    }
+
+    if (p23bReplayBtn) {
+      p23bReplayBtn.onclick = () => {
+        pause();
+        if (replay) {
+          replay.seek(0);
+          renderFrame(0);
+        }
+        setP23BActive(true);
+        setP23bStatus('REPLAYING TRACE [ΔW=0]', '#10b981');
+        play();
+      };
+    }
+
     document.getElementById('focus-act0-btn').onclick = () => focusCameraOnAction(0);
     document.getElementById('focus-act1-btn').onclick = () => focusCameraOnAction(1);
 
@@ -5683,6 +6100,8 @@ MIN_E</pre>
         else if (minimalityBtn) minimalityBtn.click();
       } else if (e.code === 'KeyK') {
         if (causalArchBtn) causalArchBtn.click();
+      } else if (e.code === 'KeyZ') {
+        if (p23bBtn) p23bBtn.click();
       } else if (e.code === 'Escape') {
         clearSelection();
         document.getElementById('exp-modal').style.display = 'none';

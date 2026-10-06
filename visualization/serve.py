@@ -16,9 +16,14 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         super().__init__(*args, directory=str(root_dir), **kwargs)
 
 
+class ThreadedServer(socketserver.ThreadingTCPServer):
+    allow_reuse_address = True
+    daemon_threads = True
+
+
 def main():
     port = int(sys.argv[1]) if len(sys.argv) > 1 else PORT
-    with socketserver.TCPServer(("", port), Handler) as httpd:
+    with ThreadedServer(("", port), Handler) as httpd:
         url = f"http://localhost:{port}/visualization/player.html"
         print(f"=======================================================")
         print(f"  3D-Brain Interactive Observability Console Running   ")

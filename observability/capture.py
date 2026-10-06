@@ -1876,8 +1876,12 @@ class StateCapture:
         else:
             h_acts = [float(a) for a in raw_acts]
 
-        act_vals = obs.get("action_evidence", [0.0, 0.0])
-        out_act = [float(np.max(act_vals))] if len(act_vals) > 0 else [0.0]
+        act_vals = obs.get("action_evidence", None)
+        if act_vals is None and "act_slow" in obs:
+            act_vals = obs["act_slow"]
+        if act_vals is None and "action_values" in obs:
+            act_vals = obs["action_values"]
+        out_act = [float(np.max(act_vals))] if act_vals is not None and len(act_vals) > 0 else [0.0]
         all_acts = in_acts + h_acts + out_act
 
         raw_states = obs.get("state", [np.zeros(len(h_acts))])
@@ -1969,18 +1973,56 @@ class StateCapture:
                     payload={"target": float(target_val), "error": round(err, 4)},
                 ))
 
-        # 6. Decision
-        probs = obs.get("action_probs", [0.5, 0.5])
-        sel_action = int(np.argmax(act_vals)) if len(act_vals) > 1 else int(obs.get("selected_action", 0))
-        conf = float(np.max(probs)) if probs else 0.5
-        latency_ms = float(obs.get("decision_latency_ms", 12.0))
-        if step % 2 == 0 or target_val is not None:
+        # 6. Decision Telemetry Extraction & Provenance Classification
+        if "action_probs" in obs and obs["action_probs"] is not None and len(obs["action_probs"]) > 0:
+            probs = [round(float(p), 4) for p in obs["action_probs"]]
+            conf = round(float(np.max(probs)), 4)
+            probs_prov = "GENUINE"
+            conf_prov = "DETERMINISTICALLY_DERIVED"
+        else:
+            probs = None
+            conf = None
+            probs_prov = "UNAVAILABLE"
+            conf_prov = "UNAVAILABLE"
+
+        if "selected_action" in obs and obs["selected_action"] is not None:
+            sel_action = int(obs["selected_action"])
+            sel_action_prov = "GENUINE"
+        elif act_vals is not None and len(act_vals) > 1 and any(v != act_vals[0] for v in act_vals):
+            sel_action = int(np.argmax(act_vals))
+            sel_action_prov = "DETERMINISTICALLY_DERIVED"
+        elif probs is not None and len(probs) > 1 and any(p != probs[0] for p in probs):
+            sel_action = int(np.argmax(probs))
+            sel_action_prov = "DETERMINISTICALLY_DERIVED"
+        else:
+            sel_action = None
+            sel_action_prov = "UNAVAILABLE"
+
+        if "decision_latency_ms" in obs and obs["decision_latency_ms"] is not None:
+            latency_ms = round(float(obs["decision_latency_ms"]), 3)
+            latency_prov = "GENUINE_MEASURED"
+        else:
+            latency_ms = None
+            latency_prov = "UNAVAILABLE"
+
+        telemetry_provenance = {
+            "selected_action": sel_action_prov,
+            "action_probs": probs_prov,
+            "confidence": conf_prov,
+            "decision_latency_ms": latency_prov,
+        }
+
+        if (step % 2 == 0 or target_val is not None) and sel_action is not None:
             visual_markers.append("DECISION")
             step_events.append(ComputationalEvent(
                 event_type=EventType.ACTION_SELECTED,
                 step=step,
                 time_ms=time_ms,
-                payload={"action": sel_action, "confidence": round(conf, 4)},
+                payload={
+                    "action": sel_action,
+                    "confidence": conf,
+                    "telemetry_provenance": telemetry_provenance,
+                },
             ))
 
         # 7. Benchmark Context
@@ -1999,7 +2041,7 @@ class StateCapture:
             "spike_count": len(signals),
             "synchronization_index": round(float(obs.get("synchronization", 0.85)), 4),
             "temporal_assemblies": 3,
-            "assembly_activation": [round(float(v), 3) for v in act_vals],
+            "assembly_activation": [round(float(v), 3) for v in act_vals] if act_vals is not None else [],
             # Memory
             "memory_writes": mem_writes,
             "memory_retrievals": mem_retrievals,
@@ -2016,10 +2058,11 @@ class StateCapture:
             "consolidation_events_count": 0,
             # Decision
             "selected_action": sel_action,
-            "action_probs": [round(float(p), 4) for p in probs] if probs else [],
-            "confidence": round(conf, 4),
-            "competing_action_scores": [round(float(v), 3) for v in act_vals],
-            "decision_latency_ms": round(latency_ms, 2),
+            "action_probs": [round(float(p), 4) for p in probs] if probs is not None else [],
+            "confidence": conf,
+            "competing_action_scores": [round(float(v), 3) for v in act_vals] if act_vals is not None else [],
+            "decision_latency_ms": latency_ms,
+            "telemetry_provenance": telemetry_provenance,
             # Benchmark
             "current_task": bm.get("current_task", "STATIC_CLASSIFICATION"),
             "current_trial": bm.get("current_trial", 0),
@@ -2079,8 +2122,12 @@ class StateCapture:
         else:
             h_acts = [float(a) for a in raw_acts]
 
-        act_vals = obs.get("action_evidence", [0.0, 0.0])
-        out_act = [float(np.max(act_vals))] if len(act_vals) > 0 else [0.0]
+        act_vals = obs.get("action_evidence", None)
+        if act_vals is None and "act_slow" in obs:
+            act_vals = obs["act_slow"]
+        if act_vals is None and "action_values" in obs:
+            act_vals = obs["action_values"]
+        out_act = [float(np.max(act_vals))] if act_vals is not None and len(act_vals) > 0 else [0.0]
         all_acts = in_acts + h_acts + out_act
 
         raw_states = obs.get("state", [np.zeros(len(h_acts))])
@@ -2173,18 +2220,56 @@ class StateCapture:
                     payload={"target": float(target_val), "error": round(err, 4)},
                 ))
 
-        # 6. Decision
-        probs = obs.get("action_probs", [0.5, 0.5])
-        sel_action = int(np.argmax(act_vals)) if len(act_vals) > 1 else int(obs.get("selected_action", 0))
-        conf = float(np.max(probs)) if probs else 0.5
-        latency_ms = float(obs.get("decision_latency_ms", 11.5))
-        if step % 2 == 0 or target_val is not None or is_zero_shot_test:
+        # 6. Decision Telemetry Extraction & Provenance Classification
+        if "action_probs" in obs and obs["action_probs"] is not None and len(obs["action_probs"]) > 0:
+            probs = [round(float(p), 4) for p in obs["action_probs"]]
+            conf = round(float(np.max(probs)), 4)
+            probs_prov = "GENUINE"
+            conf_prov = "DETERMINISTICALLY_DERIVED"
+        else:
+            probs = None
+            conf = None
+            probs_prov = "UNAVAILABLE"
+            conf_prov = "UNAVAILABLE"
+
+        if "selected_action" in obs and obs["selected_action"] is not None:
+            sel_action = int(obs["selected_action"])
+            sel_action_prov = "GENUINE"
+        elif act_vals is not None and len(act_vals) > 1 and any(v != act_vals[0] for v in act_vals):
+            sel_action = int(np.argmax(act_vals))
+            sel_action_prov = "DETERMINISTICALLY_DERIVED"
+        elif probs is not None and len(probs) > 1 and any(p != probs[0] for p in probs):
+            sel_action = int(np.argmax(probs))
+            sel_action_prov = "DETERMINISTICALLY_DERIVED"
+        else:
+            sel_action = None
+            sel_action_prov = "UNAVAILABLE"
+
+        if "decision_latency_ms" in obs and obs["decision_latency_ms"] is not None:
+            latency_ms = round(float(obs["decision_latency_ms"]), 3)
+            latency_prov = "GENUINE_MEASURED"
+        else:
+            latency_ms = None
+            latency_prov = "UNAVAILABLE"
+
+        telemetry_provenance = {
+            "selected_action": sel_action_prov,
+            "action_probs": probs_prov,
+            "confidence": conf_prov,
+            "decision_latency_ms": latency_prov,
+        }
+
+        if (step % 2 == 0 or target_val is not None or is_zero_shot_test) and sel_action is not None:
             visual_markers.append("DECISION")
             step_events.append(ComputationalEvent(
                 event_type=EventType.ACTION_SELECTED,
                 step=step,
                 time_ms=time_ms,
-                payload={"action": sel_action, "confidence": round(conf, 4)},
+                payload={
+                    "action": sel_action,
+                    "confidence": conf,
+                    "telemetry_provenance": telemetry_provenance,
+                },
             ))
 
         # 7. Dynamic Details for Phase 23B
@@ -2203,7 +2288,7 @@ class StateCapture:
             "spike_count": len(signals),
             "synchronization_index": round(float(obs.get("synchronization", 0.88)), 4),
             "temporal_assemblies": composition_depth,
-            "assembly_activation": [round(float(v), 3) for v in act_vals],
+            "assembly_activation": [round(float(v), 3) for v in act_vals] if act_vals is not None else [],
             # Memory
             "memory_writes": mem_writes,
             "memory_retrievals": mem_retrievals,
@@ -2218,10 +2303,11 @@ class StateCapture:
             "is_zero_shot_test": is_zero_shot_test,
             # Decision
             "selected_action": sel_action,
-            "action_probs": [round(float(p), 4) for p in probs] if probs else [],
-            "confidence": round(conf, 4),
-            "competing_action_scores": [round(float(v), 3) for v in act_vals],
-            "decision_latency_ms": round(latency_ms, 2),
+            "action_probs": [round(float(p), 4) for p in probs] if probs is not None else [],
+            "confidence": conf,
+            "competing_action_scores": [round(float(v), 3) for v in act_vals] if act_vals is not None else [],
+            "decision_latency_ms": latency_ms,
+            "telemetry_provenance": telemetry_provenance,
             # Compositional Metadata
             "composition_depth": composition_depth,
             "combination_key": combination_key,

@@ -37,6 +37,7 @@ Supports:
 from collections import defaultdict
 from enum import Enum
 import math
+import time
 from typing import Any, Dict, List, Optional, Set, Tuple, Union
 import numpy as np
 
@@ -132,6 +133,9 @@ class Phase16Network(Phase15Network):
         # Phase 20 Replay Buffer Subsystem
         self.replay_buffer: Optional[Any] = None
         self.replay_condition: Optional[Any] = None
+
+        # Genuine Measured Inference Latency (ms)
+        self.last_step_latency_ms: Optional[float] = None
 
         # Apply preset configuration
         self.apply_preset(preset)
@@ -484,6 +488,7 @@ class Phase16Network(Phase15Network):
         is_reward_step: bool = False,
     ) -> Tuple[np.ndarray, int]:
         """Execute one complete biophysical step with Phase 16 pruning and 7-stage representation tracking."""
+        t0 = time.perf_counter()
         effective_target = target_action
         if self.action_causal_interventions.get("C5_LABEL_PERMUTATION", False) and target_action is not None:
             effective_target = (target_action + 1) % self.output_dim
@@ -659,5 +664,68 @@ class Phase16Network(Phase15Network):
 
         self.last_action_probs = final_probs.copy()
         self.last_selected_action = final_selected
+        self.last_step_latency_ms = (time.perf_counter() - t0) * 1000.0
 
         return final_probs, final_selected
+
+    def apply_episodic_prior(
+        self,
+        retrieved_action: int,
+        weight: float = 0.45,
+    ) -> Tuple[np.ndarray, int]:
+        """Genuinely bind retrieved episodic prior into computational assemblies.
+        
+        Modulates the slow/integrating action assembly drive with the retrieved prior,
+        recomputing multi-timescale competitive dynamics and the final decision.
+        """
+        if 0 <= retrieved_action < self.output_dim:
+            if not self.direct_readout:
+                self.multi_timescale_assembly.act_slow[retrieved_action] += float(weight)
+                comb = (
+                    0.20 * self.multi_timescale_assembly.act_fast +
+                    0.30 * self.multi_timescale_assembly.act_med +
+                    0.50 * self.multi_timescale_assembly.act_slow
+                )
+                shifted = comb - np.max(comb)
+                exp_c = np.exp(np.clip(shifted, -20.0, 20.0))
+                final_probs = exp_c / (np.sum(exp_c) + 1e-12)
+                final_selected = int(np.argmax(final_probs))
+                confidence = float(np.max(final_probs))
+                margin = float(np.sort(final_probs)[-1] - np.sort(final_probs)[-2]) if len(final_probs) > 1 else 1.0
+
+                self.last_action_probs = final_probs.copy()
+                self.last_selected_action = final_selected
+                if hasattr(self, "last_phase15_telemetry") and self.last_phase15_telemetry:
+                    self.last_phase15_telemetry["selected_action"] = final_selected
+                    self.last_phase15_telemetry["action_probs"] = final_probs.copy()
+                    self.last_phase15_telemetry["decision_confidence"] = confidence
+                    self.last_phase15_telemetry["action_margin"] = margin
+                    self.last_phase15_telemetry["act_slow"] = self.multi_timescale_assembly.act_slow.copy()
+                return final_probs, final_selected
+            else:
+                return self.last_action_probs, self.last_selected_action
+        return self.last_action_probs, self.last_selected_action
+
+    def observable_state(self) -> Dict[str, Any]:
+        """Return full observable telemetry including Phase 16 multi-timescale assemblies and decision dynamics."""
+        base_obs = super().observable_state()
+        if hasattr(self, "last_phase15_telemetry") and self.last_phase15_telemetry:
+            telem = self.last_phase15_telemetry
+            base_obs["selected_action"] = int(telem["selected_action"])
+            base_obs["action_probs"] = [round(float(p), 4) for p in telem["action_probs"]]
+            base_obs["decision_confidence"] = round(float(telem["decision_confidence"]), 4)
+            base_obs["action_margin"] = round(float(telem["action_margin"]), 4)
+            base_obs["act_fast"] = [round(float(x), 4) for x in telem["act_fast"]]
+            base_obs["act_med"] = [round(float(x), 4) for x in telem["act_med"]]
+            base_obs["act_slow"] = [round(float(x), 4) for x in telem["act_slow"]]
+            base_obs["action_evidence"] = [round(float(x), 4) for x in telem["act_slow"]]
+        elif hasattr(self, "last_action_probs") and self.last_action_probs is not None:
+            base_obs["selected_action"] = int(self.last_selected_action)
+            base_obs["action_probs"] = [round(float(p), 4) for p in self.last_action_probs]
+            base_obs["decision_confidence"] = round(float(np.max(self.last_action_probs)), 4)
+            base_obs["action_evidence"] = [round(float(x), 4) for x in self.last_action_probs]
+
+        if hasattr(self, "last_step_latency_ms") and self.last_step_latency_ms is not None:
+            base_obs["decision_latency_ms"] = round(float(self.last_step_latency_ms), 3)
+
+        return base_obs

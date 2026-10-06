@@ -18,6 +18,7 @@ Validates strictly against BrainLogValidator under version '4.0'.
 
 from pathlib import Path
 import sys
+import time
 from typing import Any, Dict, List
 import numpy as np
 
@@ -145,12 +146,11 @@ def generate_phase23b_brainlog(
             mem.close_episode(prediction_error=0.0, reward_val=1.0)
             episodes_count += 1
 
-            # Sequence presentation (3 steps)
             for t in range(3):
                 x_t = stim.copy()
                 is_eval_step = (t == 2)
                 tgt = target_action if is_eval_step else None
-                net.step(x_t, target_action=tgt)
+                net.step(x_t, target_action=tgt, is_choice_step=is_eval_step, is_reward_step=is_eval_step)
 
                 bm_info = {
                     "current_task": "PRIMITIVE_CONCEPT_LEARNING",
@@ -202,13 +202,18 @@ def generate_phase23b_brainlog(
             x_t = test_stim.copy()
             is_eval = (t == 2)
 
+            t0 = time.perf_counter()
             # ZERO-SHOT: Target strictly None (No learning, no updates)
-            net.step(x_t, target_action=None)
+            net.step(x_t, target_action=None, is_choice_step=is_eval)
+            step_lat_ms = (time.perf_counter() - t0) * 1000.0
 
             if is_eval and retrieved_action is not None:
-                # Biomimetic relational binding from episodic prior
-                obs = net.observable_state()
-                obs.get("action_evidence", [0.0, 0.0])[retrieved_action] += 0.45
+                # Biomimetic relational binding from episodic prior genuinely bound into computational assemblies
+                prior_weight = 0.45 * float(res.scores[0]) if len(res.scores) > 0 else 0.45
+                net.apply_episodic_prior(retrieved_action, weight=prior_weight)
+
+            retr_latency_ms = (res.latency_us / 1000.0) if hasattr(res, "latency_us") else 0.0
+            net.last_step_latency_ms = round(step_lat_ms + retr_latency_ms, 3)
 
             bm_info = {
                 "current_task": "ZERO_SHOT_COMPOSITIONAL_TEST",

@@ -2593,6 +2593,8 @@ MIN_E_PLUS_EPISODIC</pre>
     function loadBrainlog(data, sourceUrl) {
       logData = data;
       replay = new ReplayEngine(data);
+      window.loadBrainlog = loadBrainlog;
+      window.fetchBrainlog = fetchBrainlog;
       window.logData = logData;
       window.replay = replay;
       window.nodeMeshes = nodeMeshes;
@@ -3471,12 +3473,19 @@ MIN_E_PLUS_EPISODIC</pre>
       if (dyn.prediction_error !== undefined) setText('p23a-teaching-err', `Err: ${Number(dyn.prediction_error).toFixed(3)}`);
 
       // 5. Decision
-      if (dyn.selected_action !== undefined) {
-        const confStr = dyn.confidence !== undefined ? `(${(dyn.confidence * 100).toFixed(1)}%)` : '';
+      const p23aProv = dyn.telemetry_provenance || {};
+      if (dyn.selected_action !== undefined && dyn.selected_action !== null && p23aProv.selected_action !== 'UNAVAILABLE') {
+        const confStr = (dyn.confidence !== undefined && dyn.confidence !== null && p23aProv.confidence !== 'UNAVAILABLE') ? `(${(dyn.confidence * 100).toFixed(1)}%)` : '';
         const actLabel = dyn.selected_action === 0 ? 'LEFT [0]' : 'RIGHT [1]';
         setText('p23a-selected-action', `${actLabel} ${confStr}`);
+      } else {
+        setText('p23a-selected-action', '—');
       }
-      if (dyn.decision_latency_ms !== undefined) setText('p23a-latency', `${Number(dyn.decision_latency_ms).toFixed(1)} ms`);
+      if (dyn.decision_latency_ms !== undefined && dyn.decision_latency_ms !== null && p23aProv.decision_latency_ms !== 'UNAVAILABLE') {
+        setText('p23a-latency', `${Number(dyn.decision_latency_ms).toFixed(1)} ms`);
+      } else {
+        setText('p23a-latency', '—');
+      }
 
       // 6. Benchmark
       if (dyn.training_examples_consumed !== undefined) {
@@ -4003,12 +4012,20 @@ MIN_E_PLUS_EPISODIC</pre>
       const frameHasDecision = !isPreExecution && (isDecEvent || ((dynSafe.visual_markers || []).includes('DECISION')));
       const hasDec = frameHasDecision && (dynSafe.selected_action !== undefined || dynSafe.composed_action !== undefined || (dynSafe.phase22 && dynSafe.phase22.composed_action !== undefined));
       if (decVal && decSub) {
+        const prov = dynSafe.telemetry_provenance || {};
+        const isActionGenuine = prov.selected_action === 'GENUINE' || prov.selected_action === 'DETERMINISTICALLY_DERIVED' || (prov.selected_action === undefined && hasDec);
         if (hasDec) {
           const act = dynSafe.selected_action !== undefined ? dynSafe.selected_action : (dynSafe.composed_action !== undefined ? dynSafe.composed_action : dynSafe.phase22.composed_action);
-          const actName = act === 0 ? 'LEFT [0]' : (act === 1 ? 'RIGHT [1]' : `ACTION ${act}`);
-          const confStr = dynSafe.confidence !== undefined ? `${(dynSafe.confidence * 100).toFixed(1)}%` : '—';
-          decVal.innerText = `${actName}`;
-          decSub.innerText = `conf: ${confStr} · lat: ${dynSafe.decision_latency_ms !== undefined ? dynSafe.decision_latency_ms : '—'} ms`;
+          if (act !== null && act !== undefined && isActionGenuine && prov.selected_action !== 'UNAVAILABLE') {
+            const actName = act === 0 ? 'LEFT [0]' : (act === 1 ? 'RIGHT [1]' : `ACTION ${act}`);
+            const confStr = (dynSafe.confidence !== undefined && dynSafe.confidence !== null && prov.confidence !== 'UNAVAILABLE') ? `${(dynSafe.confidence * 100).toFixed(1)}%` : '—';
+            const latStr = (dynSafe.decision_latency_ms !== undefined && dynSafe.decision_latency_ms !== null && prov.decision_latency_ms !== 'UNAVAILABLE') ? `${dynSafe.decision_latency_ms} ms` : '—';
+            decVal.innerText = `${actName}`;
+            decSub.innerText = `conf: ${confStr} · lat: ${latStr}`;
+          } else {
+            decVal.innerText = `—`;
+            decSub.innerText = `waiting for execution`;
+          }
         } else {
           decVal.innerText = `—`;
           decSub.innerText = `waiting for execution`;
@@ -4124,7 +4141,14 @@ MIN_E_PLUS_EPISODIC</pre>
         return;
       }
 
-      if (actionVal !== undefined) {
+      const prov = dynSafe.telemetry_provenance || {};
+      const isActionGenuine = prov.selected_action === 'GENUINE' || prov.selected_action === 'DETERMINISTICALLY_DERIVED' || (prov.selected_action === undefined && actionVal !== undefined && actionVal !== null);
+      const isActionUnavailable = prov.selected_action === 'UNAVAILABLE' || actionVal === null || actionVal === undefined;
+      const isProbGenuine = prov.action_probs === 'GENUINE' || prov.confidence === 'GENUINE' || prov.confidence === 'DETERMINISTICALLY_DERIVED' || (prov.confidence === undefined && dynSafe.confidence !== undefined && dynSafe.confidence !== null);
+      const isProbUnavailable = prov.action_probs === 'UNAVAILABLE' || prov.confidence === 'UNAVAILABLE' || dynSafe.confidence === null;
+      const hasFallback = prov.selected_action === 'FALLBACK' || prov.action_probs === 'FALLBACK' || prov.confidence === 'FALLBACK' || prov.decision_latency_ms === 'FALLBACK';
+
+      if (actionVal !== undefined && actionVal !== null && !isActionUnavailable && isActionGenuine) {
         const actName = actionVal === 0 ? 'LEFT' : (actionVal === 1 ? 'RIGHT' : `ACTION ${actionVal}`);
         if (actHero) {
           actHero.innerText = actName;
@@ -4134,9 +4158,9 @@ MIN_E_PLUS_EPISODIC</pre>
         // Confidence: Strictly real recorded value
         let confStr = '—';
         const cVal = (actEv && actEv.payload && actEv.payload.confidence !== undefined) ? actEv.payload.confidence : (dynSafe.confidence !== undefined ? dynSafe.confidence : null);
-        if (cVal !== null) {
+        if (cVal !== null && !isProbUnavailable && isProbGenuine) {
           confStr = `${(Number(cVal) * 100).toFixed(1)}%`;
-        } else if (dynSafe.action_probs && dynSafe.action_probs.length > 0) {
+        } else if (dynSafe.action_probs && dynSafe.action_probs.length > 0 && !isProbUnavailable) {
           confStr = `${(Math.max(...dynSafe.action_probs) * 100).toFixed(1)}%`;
         }
         if (confHero) {
@@ -4163,21 +4187,34 @@ MIN_E_PLUS_EPISODIC</pre>
         }
 
         // ΔW
+        const isDwZero = isZeroShot || dynSafe.delta_w_zero || (dynSafe.weight_change_norm === 0);
         if (dwFact) {
-          const isDwZero = isZeroShot || dynSafe.delta_w_zero || (dynSafe.weight_change_norm === 0);
           dwFact.innerText = isDwZero ? '0 (verified)' : `${Number(dynSafe.weight_change_norm || dynSafe.total_dw || 0).toFixed(5)}`;
           dwFact.className = isDwZero ? 'fact-val status-dw' : 'fact-val';
         }
 
         // Latency
         if (latFact) {
-          latFact.innerText = dynSafe.decision_latency_ms !== undefined ? `${dynSafe.decision_latency_ms} ms` : '—';
+          latFact.innerText = (dynSafe.decision_latency_ms !== undefined && dynSafe.decision_latency_ms !== null && prov.decision_latency_ms !== 'UNAVAILABLE') ? `${dynSafe.decision_latency_ms} ms` : '—';
         }
 
         // Status pill
         if (statusPill) {
-          statusPill.innerText = isZeroShot ? 'ZERO-SHOT VERIFIED' : 'COMPUTED';
-          statusPill.className = 'result-badge-pill verified';
+          if (isZeroShot) {
+            if (isActionGenuine && isProbGenuine && !hasFallback && isDwZero) {
+              statusPill.innerText = 'ZERO-SHOT VERIFIED';
+              statusPill.className = 'result-badge-pill verified';
+            } else if (hasFallback) {
+              statusPill.innerText = 'UNVERIFIED (FALLBACK TELEMETRY)';
+              statusPill.className = 'result-badge-pill waiting';
+            } else {
+              statusPill.innerText = 'UNVERIFIED (INCOMPLETE TELEMETRY)';
+              statusPill.className = 'result-badge-pill waiting';
+            }
+          } else {
+            statusPill.innerText = 'COMPUTED';
+            statusPill.className = 'result-badge-pill verified';
+          }
         }
       } else {
         // Unknown / waiting state

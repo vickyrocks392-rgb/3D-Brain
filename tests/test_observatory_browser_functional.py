@@ -163,6 +163,10 @@ def test_node_cdp_browser_functional_suite():
           return r.result.value;
         }
 
+        // Reload page to pick up newly regenerated EXP023B trace
+        await eval(`window.location.reload();`);
+        await new Promise(r => setTimeout(r, 2500));
+
         // Check scene population
         const sceneData = await eval(`({
           nodes: window.nodeMeshes ? window.nodeMeshes.length : 0,
@@ -189,7 +193,7 @@ def test_node_cdp_browser_functional_suite():
           conf: document.getElementById("result-confidence-hero")?.innerText
         })`);
         if (fEndState.status !== "ZERO-SHOT VERIFIED") throw new Error("End frame status mismatch: " + fEndState.status);
-        if (fEndState.hero !== "LEFT") throw new Error("End frame hero mismatch: " + fEndState.hero);
+        if (fEndState.hero !== "RIGHT") throw new Error("End frame hero mismatch: " + fEndState.hero);
 
         // Reset
         await eval(`document.getElementById("btn-reset").click();`);
@@ -230,17 +234,25 @@ def test_forensic_exp023b_brainlog_ground_truth():
     dyn119 = f119["dynamic_details"]
     events119 = [e["type"] for e in f119.get("events", [])]
 
-    # Provenance A: Directly recorded values
-    assert dyn119["selected_action"] == 0, "selected_action must be 0 (LEFT)"
-    assert dyn119["confidence"] == 0.5, "confidence must be 0.5 (50.0%)"
-    assert dyn119["action_probs"] == [0.5, 0.5], "action_probs must be [0.5, 0.5]"
-    assert dyn119["decision_latency_ms"] == 11.5, "decision_latency_ms must be 11.5 ms"
+    # Provenance A: Directly recorded values from genuine computational substrate
+    assert dyn119["selected_action"] == 1, "selected_action must be 1 (RIGHT)"
+    assert dyn119["confidence"] > 0.50, f"confidence must be > 0.5, got {dyn119['confidence']}"
+    assert dyn119["confidence"] != 0.5, "confidence must not be fallback 0.5"
+    assert dyn119["action_probs"] != [0.5, 0.5], "action_probs must not be fallback [0.5, 0.5]"
+    assert dyn119["decision_latency_ms"] != 11.5, "decision_latency_ms must not be fallback constant 11.5"
+    assert dyn119["decision_latency_ms"] < 5.0, f"decision_latency_ms must be measured (<5ms), got {dyn119['decision_latency_ms']}"
     assert dyn119["retrieved_episode_id"] == 15, "retrieved_episode_id must be 15"
     assert dyn119["retrieval_similarity"] == 0.738, "retrieval_similarity must be 0.738"
     assert dyn119["evaluation_status"] == "FROZEN", "evaluation_status must be FROZEN"
     assert dyn119["delta_w_zero"] is True, "delta_w_zero must be True"
     assert dyn119["weight_change_norm"] == 0.0, "weight_change_norm must be 0.0"
     assert dyn119["is_zero_shot_test"] is True, "is_zero_shot_test must be True"
+
+    prov119 = dyn119.get("telemetry_provenance", {})
+    assert prov119.get("selected_action") == "GENUINE"
+    assert prov119.get("action_probs") == "GENUINE"
+    assert prov119.get("confidence") == "DETERMINISTICALLY_DERIVED"
+    assert prov119.get("decision_latency_ms") == "GENUINE_MEASURED"
 
     # Frame 119 event sequence
     assert "INPUT_PRESENTED" in events119, "Frame 119 missing INPUT_PRESENTED"
@@ -319,15 +331,9 @@ def test_forensic_browser_cdp_contracts_a_to_h():
           return r.result.value;
         }
 
-        // Ensure EXP023B loaded
-        await eval(`
-          const sel = document.getElementById('model-select');
-          if (sel.value !== 'EXP023B') {
-            sel.value = 'EXP023B';
-            sel.dispatchEvent(new Event('change'));
-          }
-        `);
-        await new Promise(r => setTimeout(r, 600));
+        // Reload page to ensure newly regenerated EXP023B is freshly fetched and initialized
+        await eval(`window.location.reload();`);
+        await new Promise(r => setTimeout(r, 2500));
 
         // Requirement A: Frame 0 must show WAITING FOR EXECUTION / —
         await eval(`window.replay.seek(0); window.renderFrame(0);`);
@@ -377,12 +383,12 @@ def test_forensic_browser_cdp_contracts_a_to_h():
           stageDecision: document.getElementById('stage-decision')?.className
         })`);
         if (f119.badge !== "DECISION") throw new Error("Req E Failed: Frame 119 badge should be DECISION, was " + f119.badge);
-        if (!f119.title.includes("LEFT")) throw new Error("Req E Failed: Frame 119 title missing LEFT: " + f119.title);
+        if (!f119.title.includes("RIGHT")) throw new Error("Req E Failed: Frame 119 title missing RIGHT: " + f119.title);
         if (f119.status !== "ZERO-SHOT VERIFIED") throw new Error("Req E Failed: Frame 119 status was " + f119.status);
-        if (f119.hero !== "LEFT") throw new Error("Req E Failed: Frame 119 hero was " + f119.hero);
-        if (f119.conf !== "50.0%") throw new Error("Req G Failed: Frame 119 conf was " + f119.conf);
-        if (f119.lat !== "11.5 ms") throw new Error("Req G Failed: Frame 119 lat was " + f119.lat);
-        if (!f119.obsDec.includes("LEFT")) throw new Error("Req E Failed: obsDec was " + f119.obsDec);
+        if (f119.hero !== "RIGHT") throw new Error("Req E Failed: Frame 119 hero was " + f119.hero);
+        if (!f119.conf.includes("%") || f119.conf === "50.0%") throw new Error("Req G Failed: Frame 119 conf was " + f119.conf);
+        if (!f119.lat.includes("ms") || f119.lat === "11.5 ms") throw new Error("Req G Failed: Frame 119 lat was " + f119.lat);
+        if (!f119.obsDec.includes("RIGHT")) throw new Error("Req E Failed: obsDec was " + f119.obsDec);
         if (!f119.stageInput.includes("done")) throw new Error("Stage input should be done");
         if (!f119.stageMemory.includes("done")) throw new Error("Stage memory should be done");
         if (!f119.stageDecision.includes("active")) throw new Error("Stage decision should be active");

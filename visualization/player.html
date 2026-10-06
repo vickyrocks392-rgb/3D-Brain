@@ -3713,9 +3713,10 @@ MIN_E_PLUS_EPISODIC</pre>
      * MINIMAL PERSISTENT STATE & PRIMARY OBSERVATORY UPDATES (SECTION 4 & 6)
      * =========================================================================
      */
-    function updateMinimalPersistentState(frame, dyn) {
+    function updateMinimalPersistentState(frame, dyn, stepIdx) {
       if (!frame) return;
       const dynSafe = dyn || {};
+      const stepIndex = stepIdx !== undefined ? stepIdx : (frame.step !== undefined ? frame.step : (window.replay ? window.replay.currentStep : 0));
       
       // 1. STATE
       const stateValEl = document.getElementById('obs-state-val');
@@ -3783,8 +3784,13 @@ MIN_E_PLUS_EPISODIC</pre>
       const decValEl = document.getElementById('obs-decision-val');
       const decDetEl = document.getElementById('obs-decision-detail');
       if (decValEl && decDetEl) {
+        const isPreExecution = stepIndex === 0 && !dynSafe.is_zero_shot_test;
+        const frameHasDecision = !isPreExecution && ((frame.events || []).some(e => e.type && (e.type.includes('ACTION') || e.type.includes('DECISION')))
+          || ((dynSafe.visual_markers || []).includes('DECISION'))
+          || (dynSafe.composed_action !== undefined && (frame.events || []).some(e => e.type && e.type.includes('COMPOSITION'))));
+
         let actVal = dynSafe.selected_action !== undefined ? dynSafe.selected_action : (dynSafe.composed_action !== undefined ? dynSafe.composed_action : (dynSafe.phase22 ? dynSafe.phase22.composed_action : undefined));
-        if (actVal !== undefined) {
+        if (frameHasDecision && actVal !== undefined) {
           const actName = actVal === 0 ? 'LEFT' : (actVal === 1 ? 'RIGHT' : `ACTION ${actVal}`);
           const confPct = dynSafe.confidence !== undefined ? `${(dynSafe.confidence * 100).toFixed(1)}%` : '—';
           decValEl.innerText = `${actName} · ${confPct}`;
@@ -3803,8 +3809,29 @@ MIN_E_PLUS_EPISODIC</pre>
       if (!frame) return;
       const allEvents = (logData && logData.events) ? logData.events : [];
       const frameEvents = frame.events || [];
+      const dynSafe = dyn || {};
       
-      let curEv = frameEvents.length > 0 ? frameEvents[0] : null;
+      // Determine the primary computational event for this frame.
+      // If a frame contains an end-to-end trial sequence culminating in an action or decision,
+      // the terminal outcome of that computation is the primary event.
+      let curEv = null;
+      if (frameEvents.length > 0) {
+        if (stepIndex === 0 && !dynSafe.is_zero_shot_test) {
+          // At frame 0 before execution, sensory input is presented
+          const inEv = frameEvents.find(e => e.type && e.type.includes('INPUT'));
+          if (inEv) curEv = inEv;
+        }
+        if (!curEv) {
+          const actionEv = frameEvents.find(e => e.type && (e.type.includes('ACTION') || e.type.includes('DECISION')));
+          const memEv = frameEvents.find(e => e.type && (e.type.includes('RETRIEV') || e.type.includes('EPISODE_RETRIEVED') || e.type.includes('MEMORY')));
+          const lrnEv = frameEvents.find(e => e.type && (e.type.includes('PLASTIC') || e.type.includes('LEARN') || e.type.includes('WEIGHT')));
+          const zeroShotEv = frameEvents.find(e => e.type && e.type.includes('ZERO_SHOT'));
+          const inEv = frameEvents.find(e => e.type && e.type.includes('INPUT'));
+          
+          // Prioritize terminal computational stages: Action/Decision > Memory Retrieval > Plastic Learning > Zero Shot > Input
+          curEv = actionEv || memEv || lrnEv || zeroShotEv || inEv || frameEvents[frameEvents.length - 1];
+        }
+      }
       if (!curEv) {
         const past = allEvents.filter(e => e.step <= stepIndex);
         if (past.length > 0) curEv = past[past.length - 1];
@@ -3828,7 +3855,30 @@ MIN_E_PLUS_EPISODIC</pre>
         let titleStr = curEv.description || 'Neural Processing';
         let detailStr = `Step ${curEv.step} · ${Number(curEv.time_ms).toFixed(1)} ms`;
 
-        if (typeStr.includes('INPUT')) {
+        if (typeStr.includes('ACTION') || typeStr.includes('DECISION')) {
+          badgeType = 'DECISION';
+          const a = curEv.payload && curEv.payload.action !== undefined ? curEv.payload.action : (dynSafe.selected_action !== undefined ? dynSafe.selected_action : null);
+          const act = a === 0 ? 'LEFT' : (a === 1 ? 'RIGHT' : (a !== null ? `ACTION ${a}` : '—'));
+          const conf = (curEv.payload && curEv.payload.confidence !== undefined) ? `${(curEv.payload.confidence * 100).toFixed(1)}%` : (dynSafe.confidence !== undefined ? `${(dynSafe.confidence * 100).toFixed(1)}%` : '');
+          titleStr = conf ? `Decision Generated: ${act} (${conf})` : `Decision Generated: ${act}`;
+          const marginStr = dynSafe.winner_margin !== undefined ? ` · Margin ${(dynSafe.winner_margin >= 0 ? '+' : '') + dynSafe.winner_margin.toFixed(3)}` : '';
+          const epRetrStr = (dynSafe.retrieved_episode_id !== undefined && dynSafe.retrieved_episode_id >= 0) ? ` · Ep #${dynSafe.retrieved_episode_id}` : '';
+          detailStr = `Step ${curEv.step} · ${Number(curEv.time_ms).toFixed(1)} ms${epRetrStr}${marginStr}`;
+          if (stageInput) stageInput.className = 'flow-stage done';
+          if (stageMemory) stageMemory.className = 'flow-stage done';
+          if (stageDecision) stageDecision.className = 'flow-stage active';
+        } else if (typeStr.includes('RETRIEV') || typeStr.includes('EPISODE_RETRIEVED') || typeStr.includes('MEMORY')) {
+          badgeType = 'MEMORY RETRIEVAL';
+          titleStr = dynSafe.combination_key ? `Memory Retrieved: ${dynSafe.combination_key}` : (dynSafe.retrieved_episode_id !== undefined ? `Memory Retrieved: Episode #${dynSafe.retrieved_episode_id}` : 'Episodic Memory Retrieved');
+          const sim = curEv.payload && curEv.payload.similarity !== undefined ? curEv.payload.similarity : (dynSafe.retrieval_similarity !== undefined ? dynSafe.retrieval_similarity : null);
+          const epId = curEv.payload && curEv.payload.retrieved_id !== undefined ? curEv.payload.retrieved_id : (dynSafe.retrieved_episode_id !== undefined ? dynSafe.retrieved_episode_id : null);
+          const epStr = epId !== null ? ` · Episode #${epId}` : '';
+          const simStr = sim !== null ? ` · Sim ${Number(sim).toFixed(3)}` : '';
+          detailStr = `Step ${curEv.step} · ${Number(curEv.time_ms).toFixed(1)} ms${epStr}${simStr}`;
+          if (stageInput) stageInput.className = 'flow-stage done';
+          if (stageMemory) stageMemory.className = 'flow-stage active';
+          if (stageDecision) stageDecision.className = 'flow-stage pending';
+        } else if (typeStr.includes('INPUT')) {
           badgeType = 'INPUT';
           titleStr = 'Sensory Stimulus Presented';
           const normStr = curEv.payload && curEv.payload.input_norm !== undefined ? ` · Norm ${curEv.payload.input_norm}` : '';
@@ -3836,36 +3886,20 @@ MIN_E_PLUS_EPISODIC</pre>
           if (stageInput) stageInput.className = 'flow-stage active';
           if (stageMemory) stageMemory.className = 'flow-stage pending';
           if (stageDecision) stageDecision.className = 'flow-stage pending';
-        } else if (typeStr.includes('RETRIEV') || typeStr.includes('EPISODE_RETRIEVED') || typeStr.includes('MEMORY')) {
-          badgeType = 'MEMORY RETRIEVAL';
-          titleStr = dyn.combination_key ? `Memory Retrieved: ${dyn.combination_key}` : (dyn.retrieved_episode_id !== undefined ? `Memory Retrieved: Episode #${dyn.retrieved_episode_id}` : 'Episodic Memory Retrieved');
-          const sim = curEv.payload && curEv.payload.similarity !== undefined ? curEv.payload.similarity : (dyn.retrieval_similarity !== undefined ? dyn.retrieval_similarity : null);
-          const epId = curEv.payload && curEv.payload.retrieved_id !== undefined ? curEv.payload.retrieved_id : (dyn.retrieved_episode_id !== undefined ? dyn.retrieved_episode_id : null);
-          const epStr = epId !== null ? ` · Episode #${epId}` : '';
-          const simStr = sim !== null ? ` · Sim ${Number(sim).toFixed(3)}` : '';
-          detailStr = `Step ${curEv.step} · ${Number(curEv.time_ms).toFixed(1)} ms${epStr}${simStr}`;
-          if (stageInput) stageInput.className = 'flow-stage done';
-          if (stageMemory) stageMemory.className = 'flow-stage active';
-          if (stageDecision) stageDecision.className = 'flow-stage pending';
-        } else if (typeStr.includes('ACTION') || typeStr.includes('DECISION')) {
-          badgeType = 'DECISION';
-          const a = curEv.payload && curEv.payload.action !== undefined ? curEv.payload.action : (dyn.selected_action !== undefined ? dyn.selected_action : null);
-          const act = a === 0 ? 'LEFT' : (a === 1 ? 'RIGHT' : (a !== null ? `ACTION ${a}` : '—'));
-          const conf = (curEv.payload && curEv.payload.confidence !== undefined) ? `${(curEv.payload.confidence * 100).toFixed(1)}%` : (dyn.confidence !== undefined ? `${(dyn.confidence * 100).toFixed(1)}%` : '');
-          titleStr = conf ? `Decision Generated: ${act} (${conf})` : `Decision Generated: ${act}`;
-          const marginStr = dyn.winner_margin !== undefined ? ` · Margin ${(dyn.winner_margin >= 0 ? '+' : '') + dyn.winner_margin.toFixed(3)}` : '';
-          detailStr = `Step ${curEv.step} · ${Number(curEv.time_ms).toFixed(1)} ms${marginStr}`;
-          if (stageInput) stageInput.className = 'flow-stage done';
-          if (stageMemory) stageMemory.className = 'flow-stage done';
-          if (stageDecision) stageDecision.className = 'flow-stage active';
         } else if (typeStr.includes('ZERO_SHOT')) {
           badgeType = 'ZERO-SHOT TEST';
           titleStr = 'Held-Out Combination Evaluation';
           detailStr = `Step ${curEv.step} · ${Number(curEv.time_ms).toFixed(1)} ms · Frozen ΔW = 0`;
+          if (stageInput) stageInput.className = 'flow-stage done';
+          if (stageMemory) stageMemory.className = 'flow-stage active';
+          if (stageDecision) stageDecision.className = 'flow-stage pending';
         } else if (typeStr.includes('PLASTIC') || typeStr.includes('LEARN')) {
           badgeType = 'LEARNING';
           titleStr = 'Synaptic Weights Updated';
           detailStr = `Step ${curEv.step} · ${Number(curEv.time_ms).toFixed(1)} ms · ΔW = ${curEv.magnitude !== undefined ? curEv.magnitude.toFixed(5) : '0.00000'}`;
+          if (stageInput) stageInput.className = 'flow-stage done';
+          if (stageMemory) stageMemory.className = 'flow-stage done';
+          if (stageDecision) stageDecision.className = 'flow-stage pending';
         }
 
         if (evTypeEl) evTypeEl.innerText = badgeType;
@@ -3965,7 +3999,9 @@ MIN_E_PLUS_EPISODIC</pre>
       const decVal = document.getElementById('cflow-decision-val');
       const decSub = document.getElementById('cflow-decision-sub');
       const decBlock = document.getElementById('cflow-decision');
-      const hasDec = dynSafe.selected_action !== undefined || dynSafe.composed_action !== undefined || (dynSafe.phase22 && dynSafe.phase22.composed_action !== undefined);
+      const isPreExecution = stepIndex === 0 && !dynSafe.is_zero_shot_test;
+      const frameHasDecision = !isPreExecution && (isDecEvent || ((dynSafe.visual_markers || []).includes('DECISION')));
+      const hasDec = frameHasDecision && (dynSafe.selected_action !== undefined || dynSafe.composed_action !== undefined || (dynSafe.phase22 && dynSafe.phase22.composed_action !== undefined));
       if (decVal && decSub) {
         if (hasDec) {
           const act = dynSafe.selected_action !== undefined ? dynSafe.selected_action : (dynSafe.composed_action !== undefined ? dynSafe.composed_action : dynSafe.phase22.composed_action);
@@ -4022,24 +4058,27 @@ MIN_E_PLUS_EPISODIC</pre>
       const dynSafe = dyn || {};
       const frameEvents = (frame && frame.events) ? frame.events : [];
       const actEv = frameEvents.find(e => e.type && (e.type.includes('ACTION') || e.type.includes('DECISION') || e.type.includes('EPISODE_CREATED')));
+      const frameHasDecision = actEv !== undefined || ((dynSafe.visual_markers || []).includes('DECISION'));
       
       // Extract candidate action
       let actionVal = undefined;
-      if (dynSafe.selected_action !== undefined) {
-        actionVal = dynSafe.selected_action;
-      } else if (dynSafe.composed_action !== undefined) {
-        actionVal = dynSafe.composed_action;
-      } else if (dynSafe.phase22 && dynSafe.phase22.composed_action !== undefined) {
-        actionVal = dynSafe.phase22.composed_action;
-      } else if (actEv && actEv.payload) {
-        if (actEv.payload.action !== undefined) actionVal = actEv.payload.action;
-        else if (actEv.payload.chosen_action !== undefined) actionVal = actEv.payload.chosen_action;
+      if (frameHasDecision) {
+        if (dynSafe.selected_action !== undefined) {
+          actionVal = dynSafe.selected_action;
+        } else if (dynSafe.composed_action !== undefined) {
+          actionVal = dynSafe.composed_action;
+        } else if (dynSafe.phase22 && dynSafe.phase22.composed_action !== undefined) {
+          actionVal = dynSafe.phase22.composed_action;
+        } else if (actEv && actEv.payload) {
+          if (actEv.payload.action !== undefined) actionVal = actEv.payload.action;
+          else if (actEv.payload.chosen_action !== undefined) actionVal = actEv.payload.chosen_action;
+        }
       }
 
       // Check training state vs evaluation state
       const isTraining = dynSafe.evaluation_status === 'TRAINING';
       const isZeroShot = dynSafe.is_zero_shot_test || dynSafe.evaluation_status === 'FROZEN';
-      const isFinalDecisionStep = dynSafe.is_zero_shot_test || (dynSafe.evaluation_status === 'FROZEN' && actionVal !== undefined) || (frameEvents.some(e => e.type && (e.type.includes('ZERO_SHOT') || e.type.includes('FROZEN_EVALUATION'))));
+      const isFinalDecisionStep = frameHasDecision && (dynSafe.is_zero_shot_test || (dynSafe.evaluation_status === 'FROZEN' && actionVal !== undefined) || (frameEvents.some(e => e.type && (e.type.includes('ZERO_SHOT') || e.type.includes('FROZEN_EVALUATION')))));
 
       // Update Card 2 (Memory / Learning)
       if (memStoreCount) memStoreCount.innerText = dynSafe.memory_occupancy !== undefined ? `${dynSafe.memory_occupancy} items` : '—';

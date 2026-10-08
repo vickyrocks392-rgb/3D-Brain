@@ -310,7 +310,8 @@ def evaluate_retrieval_timing_horizon(
                 hidden_dim=mem.hidden_dim,
                 seed=seed,
             )
-            timing_rng = np.random.default_rng(seed * 10007 + int(delay * 31) + hash(tag) % 1000)
+            tag_offset = 100 if tag == "full_memory" else 200
+            timing_rng = np.random.default_rng(seed * 10007 + int(delay * 31) + tag_offset)
             trial_outs = [
                 run_episode_dependent_trial(tr, mem, cond, seed=seed, rng=timing_rng)
                 for tr in session

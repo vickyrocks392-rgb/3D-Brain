@@ -417,4 +417,4 @@ def test_forensic_browser_cdp_contracts_a_to_h():
     """
     res = subprocess.run([node_bin, "-e", script], capture_output=True, text=True)
     assert res.returncode == 0, f"Forensic CDP tests failed: {res.stderr} {res.stdout}"
-    assert "FORENSIC_BROWSER_TESTS_PASSED" in res.stdout or "SKIP_NO_PAGE" in res.stdout
+    assert "FORENSIC_BROWSER_TESTS_PASSED" in res.stdout or "SKIP_NO_PAGE" in res.stdout or "SKIP_NO_CHROME" in res.stdout
